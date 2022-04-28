@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/2022/04/28/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<span id="more"></span>
+
+
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="1，近世代数-基本概念"><a href="#1，近世代数-基本概念" class="headerlink" title="1，近世代数-基本概念"></a>1，近世代数-基本概念</h1><h2 id="1-1集合"><a href="#1-1集合" class="headerlink" title="1.1集合"></a>1.1集合</h2><p><strong>笛卡尔积：</strong></p>
+<p>$A_1 \times A_2 \times \cdots \times A_n &#x3D; { (a_1,a_2,\cdots,a_n ) | a_i \in A_i}$为$n$个集合$A_1,A_2,\cdots,A_n$​的积（或笛卡尔积）。一般的，如果$|A|&#x3D;m,|B|&#x3D;n,那么 |A \times B|&#x3D;mn$.其中$|A|读作A的阶，表示集合A当中元素的个数$</p>
+<h2 id="1-2映射"><a href="#1-2映射" class="headerlink" title="1.2映射"></a>1.2映射</h2><p>$$<br>\textcolor{blue}{<br>\begin{align}<br>&amp;假设\phi是从笛卡尔积A_1 \times A_2 \times \cdots \times A_n到集合D的一个法则,如果A_1 \times A_2\<br>&amp;\times \cdots \times A_n中的每一个元素(a_1,a_2,\cdots,a_n )都有D中唯一的元素d与之对应，\<br>&amp;那么则称\phi是从A_1 \times A_2 \times \cdots \times A_n到D的一个映射。<br>\end{align}}<br>$$</p>
+<h2 id="1-3代数运算"><a href="#1-3代数运算" class="headerlink" title="1.3代数运算"></a>1.3代数运算</h2><p><strong>定义1：</strong>一个从$A \times B$到D的映射叫做$A\times B$​到D的代数运算。</p>
+<p><strong>定义2：</strong>我们称$A\times A$到$A$的代数运算$\omicron$为$A$上的代数运算，或$A$上的二元运算，有时候也说集合$A$对于代数运算$\omicron$来说是封闭的，或$\omicron$​具有封闭性。</p>
+<h2 id="1-4运算律"><a href="#1-4运算律" class="headerlink" title="1.4运算律"></a>1.4运算律</h2><p><strong>（1）结合律：</strong>如果对于$\forall a,b,c \in A$​,都有<br>$$<br>\textcolor{blue}{(a,\omicron, b),\omicron,c &#x3D; a,\omicron,(b,\omicron,c)}<br>$$<br>则称$\omicron$​适合结合律。</p>
+<p><strong>（2）交换律：</strong>如果对于$\forall a,b\in A$都有<br>$$<br>\textcolor{blue}{a,\omicron,b&#x3D;b,\omicron,a}<br>$$<br>则称$\omicron$​​适合交换律。</p>
+<p><strong>（3）消去律：</strong></p>
+<p>​		&amp;#x2460;，若<br>$$<br>\textcolor{blue}{a,\omicron, b&#x3D;a,\omicron,c \quad\Rightarrow \quad b&#x3D;c}<br>$$<br>​	则称$\omicron$​适合左消去律;</p>
+<p>​		&amp;#x2461;，若<br>$$<br>\textcolor{blue}{b,\omicron, a&#x3D;c,\omicron,a \quad\Rightarrow \quad b&#x3D;c}<br>$$<br>则称$\omicron$​适合右消去律;</p>
+<p>​		&amp;#x2462;，若$\omicron$既适合左消去律又适合右消去律，则称$\omicron$​适合消去律。</p>
+<p><strong>（4）分配律：</strong></p>
+<p>设$\otimes,\oplus$​是集合A上的两个代数运算，$\forall a_1,a_2,b \in A$.</p>
+<p>&amp;#x2460;若		$b\otimes(a_1\oplus a_2)&#x3D;(b\otimes a_1)\oplus (b\otimes a_2)$​则称$\otimes$​对于$\oplus$​适合左分配律，或第一分配律。</p>
+<p>&amp;#x2461;若		$(a_1\oplus a_2)\otimes b&#x3D;(a_1\otimes b)\oplus (a_2\otimes b)$则称$\otimes$对于$\oplus$适合又分配律，或第二分配律。</p>
+<p>&amp;#x2462;若$\otimes对于\oplus$既适合左分配律又适合右分配律，则称$\otimes 对于\oplus$​适合分配律。</p>
+<h2 id="1-5映射与变换"><a href="#1-5映射与变换" class="headerlink" title="1.5映射与变换"></a>1.5映射与变换</h2><p><strong>定义一：</strong><br>$$<br>\color{blue}{<br>\begin{align}<br>&amp;设\phi :A\to \overline{A}是一个 映射，对于任意的a,b\in A,如果a \neq b \Rightarrow \phi(a) \neq \phi(b)\&amp;则称\phi是A到\overline{A}的单射。<br>\end{align}<br>}<br>$$<br><strong>定理一：</strong><br>$$<br>\color{blue}{<br>\begin{align}<br>\phi :A\to \overline{A}是单射当且仅当对于任意的a,b\in A \phi(a)&#x3D;\phi(b)\Rightarrow a&#x3D;b<br>\end{align}<br>}<br>$$</p>
+<p><strong>定义二：</strong><br>$$<br>\color{blue}{<br>\begin{align}<br>&amp;设\phi :A\to \overline{A}是一个 映射，对于任意的b\in \overline{A},都存在a\in A,有b&#x3D;\phi(a),则\&amp;称\phi是从A到\overline{A}的满射。\color{red}{既是单设又是满射的映射称为一一映射（双射）。}<br>\end{align}</p>
+<p>}<br>$$<br><strong>定义三：</strong><br>$$<br>\color{blue}{<br>\begin{align}<br>&amp;设f:A\to B和g:B\to C是两个映射，规定g ,\omicron,f:A\to C为对于任意的\&amp;x\in A,g ,\omicron,f(x)&#x3D;g(f(x)),则称g ,\omicron,f为f与g的复合映射。<br>\end{align}<br>}<br>$$<br><strong>定义四：</strong><br>$$<br>\textcolor</p>
+]]></content>
+      <tags>
+        <tag>test</tag>
+      </tags>
+  </entry>
+</search>

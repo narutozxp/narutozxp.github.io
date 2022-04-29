@@ -14,6 +14,8 @@
 
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Meddon:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
@@ -28,7 +30,7 @@
 <meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-28T06:36:02.204Z">
-<meta property="article:modified_time" content="2022-04-28T13:11:20.358Z">
+<meta property="article:modified_time" content="2022-04-29T02:38:06.017Z">
 <meta property="article:author" content="narutozxp">
 <meta property="article:tag" content="test">
 <meta name="twitter:card" content="summary">
@@ -186,6 +188,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
 
   <a href="https://github.com/narutozxp" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
 
@@ -224,10 +227,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-04-28 14:36:02 / 修改时间：21:11:20" itemprop="dateCreated datePublished" datetime="2022-04-28T14:36:02+08:00">2022-04-28</time>
+              <time title="创建时间：2022-04-28 14:36:02" itemprop="dateCreated datePublished" datetime="2022-04-28T14:36:02+08:00">2022-04-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-29 10:38:06" itemprop="dateModified" datetime="2022-04-29T10:38:06+08:00">2022-04-29</time>
+              </span>
 
           
             <span id="/2022/04/28/hello-world/" class="post-meta-item leancloud_visitors" data-flag-title="Hello World" title="阅读次数">
@@ -256,14 +265,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
+              <span>10k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>11 分钟</span>
             </span>
 
         </div>
@@ -284,12 +293,12 @@
 
 
 
-<h1 id="1，近世代数-基本概念"><a href="#1，近世代数-基本概念" class="headerlink" title="1，近世代数-基本概念"></a>1，近世代数-基本概念</h1><h2 id="1-1集合"><a href="#1-1集合" class="headerlink" title="1.1集合"></a>1.1集合</h2><p><strong>笛卡尔积：</strong></p>
+<h1 id="近世代数-基本概念"><a href="#近世代数-基本概念" class="headerlink" title="近世代数-基本概念"></a>近世代数-基本概念</h1><h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p><strong>笛卡尔积：</strong></p>
 <p>$A_1 \times A_2 \times \cdots \times A_n &#x3D; { (a_1,a_2,\cdots,a_n ) | a_i \in A_i}$为$n$个集合$A_1,A_2,\cdots,A_n$​的积（或笛卡尔积）。一般的，如果$|A|&#x3D;m,|B|&#x3D;n,那么 |A \times B|&#x3D;mn$.其中$|A|读作A的阶，表示集合A当中元素的个数$</p>
-<h2 id="1-2映射"><a href="#1-2映射" class="headerlink" title="1.2映射"></a>1.2映射</h2><p>$$<br>\textcolor{blue}{<br>\begin{align}<br>&amp;假设\phi是从笛卡尔积A_1 \times A_2 \times \cdots \times A_n到集合D的一个法则,如果A_1 \times A_2\<br>&amp;\times \cdots \times A_n中的每一个元素(a_1,a_2,\cdots,a_n )都有D中唯一的元素d与之对应，\<br>&amp;那么则称\phi是从A_1 \times A_2 \times \cdots \times A_n到D的一个映射。<br>\end{align}}<br>$$</p>
-<h2 id="1-3代数运算"><a href="#1-3代数运算" class="headerlink" title="1.3代数运算"></a>1.3代数运算</h2><p><strong>定义1：</strong>一个从$A \times B$到D的映射叫做$A\times B$​到D的代数运算。</p>
+<h2 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h2><p>$$<br>\textcolor{blue}{<br>\begin{align}<br>&amp;假设\phi是从笛卡尔积A_1 \times A_2 \times \cdots \times A_n到集合D的一个法则,如果A_1 \times A_2\<br>&amp;\times \cdots \times A_n中的每一个元素(a_1,a_2,\cdots,a_n )都有D中唯一的元素d与之对应，\<br>&amp;那么则称\phi是从A_1 \times A_2 \times \cdots \times A_n到D的一个映射。<br>\end{align}}<br>$$</p>
+<h2 id="代数运算"><a href="#代数运算" class="headerlink" title="代数运算"></a>代数运算</h2><p><strong>定义1：</strong>一个从$A \times B$到D的映射叫做$A\times B$​到D的代数运算。</p>
 <p><strong>定义2：</strong>我们称$A\times A$到$A$的代数运算$\omicron$为$A$上的代数运算，或$A$上的二元运算，有时候也说集合$A$对于代数运算$\omicron$来说是封闭的，或$\omicron$​具有封闭性。</p>
-<h2 id="1-4运算律"><a href="#1-4运算律" class="headerlink" title="1.4运算律"></a>1.4运算律</h2><p><strong>（1）结合律：</strong>如果对于$\forall a,b,c \in A$​,都有<br>$$<br>\textcolor{blue}{(a,\omicron, b),\omicron,c &#x3D; a,\omicron,(b,\omicron,c)}<br>$$<br>则称$\omicron$​适合结合律。</p>
+<h2 id="运算律"><a href="#运算律" class="headerlink" title="运算律"></a>运算律</h2><p><strong>（1）结合律：</strong>如果对于$\forall a,b,c \in A$​,都有<br>$$<br>\textcolor{blue}{(a,\omicron, b),\omicron,c &#x3D; a,\omicron,(b,\omicron,c)}<br>$$<br>则称$\omicron$​适合结合律。</p>
 <p><strong>（2）交换律：</strong>如果对于$\forall a,b\in A$都有<br>$$<br>\textcolor{blue}{a,\omicron,b&#x3D;b,\omicron,a}<br>$$<br>则称$\omicron$​​适合交换律。</p>
 <p><strong>（3）消去律：</strong></p>
 <p>​		&amp;#x2460;，若<br>$$<br>\textcolor{blue}{a,\omicron, b&#x3D;a,\omicron,c \quad\Rightarrow \quad b&#x3D;c}<br>$$<br>​	则称$\omicron$​适合左消去律;</p>
@@ -300,9 +309,78 @@
 <p>&amp;#x2460;若		$b\otimes(a_1\oplus a_2)&#x3D;(b\otimes a_1)\oplus (b\otimes a_2)$​则称$\otimes$​对于$\oplus$​适合左分配律，或第一分配律。</p>
 <p>&amp;#x2461;若		$(a_1\oplus a_2)\otimes b&#x3D;(a_1\otimes b)\oplus (a_2\otimes b)$则称$\otimes$对于$\oplus$适合又分配律，或第二分配律。</p>
 <p>&amp;#x2462;若$\otimes对于\oplus$既适合左分配律又适合右分配律，则称$\otimes 对于\oplus$​适合分配律。</p>
-<h2 id="1-5映射与变换"><a href="#1-5映射与变换" class="headerlink" title="1.5映射与变换"></a>1.5映射与变换</h2><p><strong>定义一：</strong><br>$$<br>\color{blue}{<br>\begin{align}<br>&amp;设\phi :A\to \overline{A}是一个 映射，对于任意的a,b\in A,如果a \neq b \Rightarrow \phi(a) \neq \phi(b)\&amp;则称\phi是A到\overline{A}的单射。<br>\end{align}<br>}<br>$$<br><strong>定理一：</strong><br>$$<br>\color{blue}{<br>\begin{align}<br>\phi :A\to \overline{A}是单射当且仅当对于任意的a,b\in A \phi(a)&#x3D;\phi(b)\Rightarrow a&#x3D;b<br>\end{align}<br>}<br>$$</p>
+<h2 id="映射与变换"><a href="#映射与变换" class="headerlink" title="映射与变换"></a>映射与变换</h2><p><strong>定义一：</strong><br>$$<br>\color{blue}{<br>\begin{align}<br>&amp;设\phi :A\to \overline{A}是一个 映射，对于任意的a,b\in A,如果a \neq b \Rightarrow \phi(a) \neq \phi(b)\&amp;则称\phi是A到\overline{A}的单射。<br>\end{align}<br>}<br>$$<br><strong>定理一：</strong><br>$$<br>\color{blue}{<br>\begin{align}<br>\phi :A\to \overline{A}是单射当且仅当对于任意的a,b\in A \phi(a)&#x3D;\phi(b)\Rightarrow a&#x3D;b<br>\end{align}<br>}<br>$$</p>
 <p><strong>定义二：</strong><br>$$<br>\color{blue}{<br>\begin{align}<br>&amp;设\phi :A\to \overline{A}是一个 映射，对于任意的b\in \overline{A},都存在a\in A,有b&#x3D;\phi(a),则\&amp;称\phi是从A到\overline{A}的满射。\color{red}{既是单设又是满射的映射称为一一映射（双射）。}<br>\end{align}</p>
-<p>}<br>$$<br><strong>定义三：</strong><br>$$<br>\color{blue}{<br>\begin{align}<br>&amp;设f:A\to B和g:B\to C是两个映射，规定g ,\omicron,f:A\to C为对于任意的\&amp;x\in A,g ,\omicron,f(x)&#x3D;g(f(x)),则称g ,\omicron,f为f与g的复合映射。<br>\end{align}<br>}<br>$$<br><strong>定义四：</strong><br>$$<br>\textcolor</p>
+<p>}<br>$$<br><strong>定义三：</strong><br>$$<br>\color{blue}{<br>\begin{align}<br>&amp;设f:A\to B和g:B\to C是两个映射，规定g ,\omicron,f:A\to C为对于任意的\&amp;x\in A,g ,\omicron,f(x)&#x3D;g(f(x)),则称g ,\omicron,f为f与g的复合映射。<br>\end{align}<br>}<br>$$<br><strong>定义四：</strong><br>$$<br>\color{blue}{<br>\begin{align}<br>&amp;设f:A\to B和g:B\to A是两个映射，如果f, \omicron,g&#x3D;id_B:B\to B\<br>&amp;且g,\omicron, f&#x3D;id_A:A\to A,则称f与g互为逆映射。<br>\end{align}<br>}<br>$$<br><strong>定理二：</strong><br>        单射的复合是单射，满射的复合是满射，双射的复合式双射。</p>
+<p><strong>定理三：</strong><br>$$<br>\color{blue}{<br>双射存在唯一的逆映射，且这个逆映射也是双射。<br>}<br>$$<br><strong>定义五：</strong><br>        一个$A$到$A$的映射叫做$A$的一个<em>变换</em>，一个$A$到$A$的单射、满射或者一一映射叫做$A$的一个单射变换、满射变换或者一一变换。</p>
+<h2 id="同态"><a href="#同态" class="headerlink" title="同态"></a>同态</h2><p><strong>定义一：</strong></p>
+<p>​		设$(A,\omicron),(\overline{A},\overline{\omicron})$是两个代数系统，$\phi:A\to \overline{A}$是一个映射，若对于任意的$a,b\in A$，都有</p>
+<p>$\phi(a\omicron b)&#x3D;\phi(a)\overline{\omicron}\phi(b)$,(乘积的像等于像的乘积)，则称$\phi$是从$A$到$\overline{A}$的同态映射，满的同态映射也称为同态满射，或满同态，若$A$到$\overline{A}$存在满同态，则称两个代数系统$A,\overline{A}$是同态的，记为$A,\sim,\overline{A}$​。</p>
+<p><strong>定理一：</strong><br>        设$(A,\omicron),(\overline{A},\overline{\omicron})$是两个代数系统，若$A \sim \overline{A}$则<br>        &amp;#x2460;若$\omicron$适合结合律，那么$\overline{\omicron}$也适合结合律。<br>        &amp;#x2461;若$\omicron$适合交换律，那么$\overline{\omicron}$​也适合交换律。</p>
+<p><strong>定理二：</strong><br>        设$(A,\odot,\oplus),(\overline{A},\overline{\odot},\overline{\oplus})$是两个代数系统，$\varphi:A\to \overline{A}$是满射，若对于任意的$a,b\in A$，有$\varphi(a\odot b)&#x3D;\varphi(a)\overline{\odot}\varphi(b)),\quad \varphi(a\oplus b)&#x3D;\varphi(a)\overline{\oplus}\varphi(b)$，则<br>        &amp;#x2460;若$\odot,\oplus$满足第一分配律，那么$\overline{\odot},\overline{\oplus}$也适合第一分配律。<br>        &amp;#x2461;若$\odot,\oplus$满足第二分配律，那么$\overline{\odot},\overline{\oplus}$也适合第二分配律。</p>
+<p><strong>定理三：</strong><br>        同态映射的复合映射必定是同态映射（满同态的复合一定是满同态，单同态的复合一定是单同态，同构的复合一定是同构）</p>
+<h2 id="同构与自同构"><a href="#同构与自同构" class="headerlink" title="同构与自同构"></a>同构与自同构</h2><p><strong>定义一：</strong><br>        设$(A,\omicron),(\overline{A},\overline{\omicron})$是两个代数系统，$\varphi:A\to\overline{A}$是两个系统之间的一个映射，如果$\varphi$既是双射又是同态映射，则称$\varphi$是从$A$到$\overline{A}$的同构映射。<br>        若$A,\overline{A}$之间存在同构映射，则称$A$与$\overline{A}$同构，记为$A\cong\overline{A}$。特别的，当$\overline{A}&#x3D;A,\overline{\omicron}&#x3D;\omicron$时，我们也称同构映射$\varphi:A\to\overline{A}$为A上的自同构。</p>
+<p><strong>定理一：</strong><br>        同构具有以下 性质：<br>        &amp;#x2460;$A\cong A$;($id_a$)<br>        &amp;#x2461;若$A\cong\overline{A}$，则$\overline{A}\cong A$​​;<br>        &amp;#x2462;若$A\cong\overline{A},\overline{A}\cong\overline{\overline{A}}$，则$A\cong\overline{\overline{A}}$​​​.​</p>
+<p><strong>定理二：</strong><br>        设$(A,\omicron),(\overline{A},\overline{\omicron})$是两个代数系统，若$A \cong \overline{A}$则<br>        &amp;#x2460;$\omicron$适合结合律当且仅当$\overline{\omicron}$也适合结合律。<br>        &amp;#x2461;$\omicron$适合交换律当且仅当$\overline{\omicron}$也适合交换律。<br>        &amp;#x2462;$\omicron$适合左(右)消去律当且仅当$\overline{\omicron}$也适合左(右)消去律。</p>
+<p><strong>定理三：</strong><br>        设$(A,\odot,\oplus),(\overline{A},\overline{\odot},\overline{\oplus})$是两个代数系统，如果$A\cong\overline{A}$,那么$\odot,\oplus$适合左(右)分配律当且仅当$\overline{\odot},\overline{\oplus}$​也适合左(右)分配律。</p>
+<p><strong>推论：</strong><br>        设$(A,\omicron),(\overline{A},\overline{\omicron})$是两个代数系统，如果$\omicron$适合某种运算律$P$而$\omicron$不适合运算律$P$，那么$A$与$\overline{A}$​​不同构。	</p>
+<h2 id="等价关系与集合分类"><a href="#等价关系与集合分类" class="headerlink" title="等价关系与集合分类"></a>等价关系与集合分类</h2><p><strong>定义一：</strong><br>        设$A$是一个集合，$D&#x3D;{对,错}$，则称映射$R:A\times A\to D$为集合A上的一个关系，当$R(a,b)&#x3D;对$时，称$a$与$b$有关系$R$，记为$aRb$​；当$R(a,b)&#x3D;错$时，称$a$​​与$b$没有关系$R$。</p>
+<p><strong>定义二：</strong><br>        设$A$是一个非空集合，我们把$A\times A$的一个子集$\overline{R}$称为$A$上的一个关系，对于任意的$(a,b\in A\times A)$当$(a,b)\in\overline{R}$，称$a$与$b$有关系$\overline{R}$，记为$a\overline{R}b$；当$(a,b)\notin\overline{R}$时，称$a$与$b$没有关系$R$。</p>
+<p><strong>定理一：</strong><br>        关系的两个定义等价。</p>
+<p><strong>定义三：</strong><br>        设$\sim$是集合$A$上的一个关系，如果$\sim$还满足：<br>        &amp;#x2460;自反性：$a\sim a$；(反射律)<br>        &amp;#x2461;对称性：若$a\sim b$则，$b\sim a$；(对称律)<br>        &amp;#x2462;传递性：若$a\sim b,b\sim c$，则$a\sim c$；(推移律)<br>则称$\sim$为A上的一个等价关系，若$a\sim b$则称a与b等价。</p>
+<p><strong>定义四：</strong><br>        设$A$是一个集合，$S&#x3D;{S_i|S_i\subseteq A}$。若<br>        &amp;#x2460;$\cup S_i&#x3D;A$；<br>        &amp;#x2461;对于任意的$i,j,S_i\cap S_j&#x3D;\emptyset$，<br>则称$S$为$A$上的一个分类(划分)，每一个$S_i$都称为是$S$的一个类(块)。</p>
+<p><strong>定理二：</strong><br>        $A$的一个分类决定了$A$上的一个等价关系。（例如：$a\sim b$​当且仅当a,b属于S中的一个类）</p>
+<p><strong>定理三：</strong></p>
+<p>​		$A$上的一个等价关系决定$A$​的一个分类。	</p>
+<p><strong>定义五：</strong><br>        设$S&#x3D;{S_i}$是集合A的一个分类，任意的$A\in S_i$都叫做$S_i$的代表，刚好有每一类的一个代表构成的集合叫做一个$全体代表团$。</p>
+<h1 id="近世代数-群论"><a href="#近世代数-群论" class="headerlink" title="近世代数-群论"></a>近世代数-群论</h1><h2 id="群的定义"><a href="#群的定义" class="headerlink" title="群的定义"></a>群的定义</h2><p><strong>定义一（群的第一定义）：</strong><br>        设$G\neq\emptyset$​，$\omicron$​是定义在$G$​上的一个映射，若：<br>        Ⅰ，对于任意的$a,b\in G$​，都有$a\omicron b\in G$​；<br>        Ⅱ，对于任意的$a,b,c\in G$​，都有$(a\omicron b)\omicron c&#x3D;a\omicron(b\omicron c)$​​；<br>        Ⅲ，对于任意的$a,b\in G$​，方程$a\omicron x&#x3D;b$​和$y\omicron a&#x3D;b$​在G中都有解，<br>则称$G$​关于$\omicron$​构成一个群，记为$(G,\omicron)$​，$\omicron$​也称为$G$​​​​上的乘法。</p>
+<p><strong>定理一：</strong><br>        Ⅳ，存在$e\in G$​，对于任意的$a\in G$​，有$ea&#x3D;a$​。(称$e$​为群$G$​的左单元)。</p>
+<p><strong>定理二：</strong><br>        Ⅴ，对于任意的$a\in G$​，存在$a^{-1}\in G$​，有$a^{-1}a&#x3D;e$​(称$a^{-1}$​为群$G$​中元素$a$​​的左逆元​）</p>
+<p><strong>定义二：</strong><br>        设$G\neq \emptyset$，$\omicron$是定义在G上的一个映射，若：<br>        Ⅰ，对于任意的$a,b\in G$，都有$a\omicron b\in G$；<br>        Ⅱ，对于任意的$a,b,c\in G$，都有$(a\omicron b)\omicron c&#x3D;a\omicron(b\omicron c)$；<br>        Ⅳ，存在$e\in G$，对于任意的$a\in G$，有$ea&#x3D;a$。(称$e$为群$G$的左单元)。<br>        Ⅴ，对于任意的$a\in G$，存在$a^{-1}\in G$，有$a^{-1}a&#x3D;e$(称$a^{-1}$为群$G$中元素$a$的左逆元）<br>则称$G$关于$\omicron$构成一个群，记为$(G,\omicron)$，$\omicron$也称为$G$​上的乘法。</p>
+<p><strong>定理三：</strong><br>        $a$的左逆元$a^{-1}$必定也是$a$的右逆元。</p>
+<p><strong>定理四：</strong><br>        $G$的左单位元$e$必定也是$G$的右单位元。</p>
+<p>​	</p>
+<p><strong>注记：</strong><br>        （1）元素有限的群称为有限群，元素无限的群称为无限群。<br>        （2）满足交换律的群称为交换群，也称之为阿贝尔群。</p>
+<p><strong>定义三：</strong><br>        设$G$是一个群，$a\in G$，则称$a^n&#x3D;\underbrace{a\cdot a\cdots \cdot \cdot a}_{n个}$为$a$的$n$次幂（$n$为正整数）。</p>
+<p><strong>定理五：</strong><br>        设$a,b$是群$G$中的元素，$m,n\in \mathbb{Z_+}$，则有<br>    （1）$\displaystyle{a^{m+n}&#x3D;a^ma^n,\qquad (a^m)^n&#x3D;a^{mn}}$<br>    （2）当$G$是交换群时，$(ab)^n&#x3D;a^nb^n$</p>
+<h2 id="单位元、逆元和消去律"><a href="#单位元、逆元和消去律" class="headerlink" title="单位元、逆元和消去律"></a>单位元、逆元和消去律</h2><p><strong>定理一：</strong><br>        左单位元$e$存在且唯一（$e$也称为单位元）</p>
+<p><strong>定理二：</strong><br>        元素$a$的左逆元$a^{-1}$存在且唯一（$a^{-1}$也称为逆元）</p>
+<p><strong>注记：</strong><br>        设$G$是一个群，$e$是单位元，$a,b\in G$，那么若$ab&#x3D;e$，则$a,b$互为逆元，特别的，若$a^{2}&#x3D;a$，则$a^{-1}&#x3D;a$，进而$e^{-1}&#x3D;e$。</p>
+<p><strong>定理三：</strong><br>        设$G$是一个群，$a,b\in G$，则：<br>        （1）$(a^{-1})^{-1}&#x3D;a;$<br>        （2）$(ab)^{-1}&#x3D;b^{-1}a^{-1}$，一般的，有$(a_1a_2\cdots a_n)^{-1}&#x3D;a_n^{-1}\cdots a_2^{-1}a_1^{-1})$​进而$(a^n)^{-1}&#x3D;(a^{-1})^n$。</p>
+<p><strong>定义一：</strong><br>        设$G$是一个群，$a\in G,n\in \mathbb{Z^-}$，规定：<br>        $a^0&#x3D;e,\quad a^n&#x3D;(a^{-1})^{-n}&#x3D;\underbrace{a^{-1}\cdot a^{-1}\cdots a^{-1}}_{(-n)个}$​.</p>
+<p><strong>定理四：</strong><br>        设$G$是一个群，$a\in G ,m,n\in \mathbb{Z}$，则:<br>    （1）$a^ma^n&#x3D;a^{m+m}$<br>    （2）$(a^m)^n&#x3D;a^{mn}$</p>
+<p><strong>定理五：</strong><br>        设$G$是一个交换群，$a\in G,n\in \mathbb{Z}$，则<br>        $(ab)^n&#x3D;a^nb^n$</p>
+<p><strong>定义二：</strong><br>        设$a\in G$，则称使得等式$a^m&#x3D;e$成立的最小的整数$m$为$a$的阶，记为$|a|$或者$\omicron(a)$。若这样的阶不存在，则称$a$是无限阶的，记为$|a|&#x3D;\infty$。​</p>
+<p><strong>定理六：</strong><br>        在群$G$中，$a\in G$则<br>    （1）一个元的阶为1当且仅当这个元就是单位元；<br>    （2）一个元的逆元等于自身当且仅当它的平方是单位元。</p>
+<p><strong>定理七：</strong><br>        在群$G$中，$a\in G$，则$|a|&#x3D;|a^{-1}|$​。</p>
+<p><strong>定理八：</strong><br>        群的乘法适合消去律，即：<br>        $Ⅲ’:$若$ax&#x3D;ax’$，则$x&#x3D;x’$（左消去律）<br>              若$ya&#x3D;y’a$，则$y&#x3D;y’$（右消去律)</p>
+<p><strong>定理九：</strong><br>        一个有限群的每一个元的阶都有限。</p>
+<h2 id="有限群的另一定义"><a href="#有限群的另一定义" class="headerlink" title="有限群的另一定义"></a>有限群的另一定义</h2><p><strong>定理一：</strong><br>        设$G$是有限集，$\cdot$是定义在$G$上的映射，若$\cdot$适合公理Ⅰ、Ⅱ、$Ⅲ’$​，那么它也适合Ⅲ。</p>
+<p><strong>定义一（有限群的第三定义）：</strong><br>        设$G\neq \emptyset$，$\omicron$是定义在$G$上的一个映射，若满足公理Ⅰ、Ⅱ、$Ⅲ’$，则称$G$关于$\omicron$构成一个有限群。</p>
+<h2 id="群的同态"><a href="#群的同态" class="headerlink" title="群的同态"></a>群的同态</h2><p><strong>定理一:</strong><br>        设$(G,\omicron)$是一个群，$(\overline{G},\overline{\omicron})$是一个代数系统，如果$G\sim \overline{G}$，那么$\overline{G}$也是一个群。</p>
+<p><strong>定理二：</strong><br>        设$\phi$是群$G$到群$\overline{G}$的同态映射，那么$G$的单位元的像是$\overline{G}$的单位元；$a\in G$的逆元$a^{-1}$的像是$a$的像$\phi(a)$的逆元。</p>
+<h2 id="变换群"><a href="#变换群" class="headerlink" title="变换群"></a>变换群</h2><p><strong>定理一：</strong><br>        集合$A$上的所有一一变换的集合$G$关于变换的乘法（复合）构成群。</p>
+<p><strong>定理二：</strong><br>        设$\sigma:\mathbb{R^2\to R^2}$定义为：<br>$$<br>\color{blue}{<br>\sigma<br>\begin{pmatrix}<br>x\<br>y<br>\end{pmatrix}<br>&#x3D;<br>\begin{pmatrix}<br>\cos\theta &amp;{-\sin\theta}\<br>\sin\theta &amp;\cos\theta<br>\end{pmatrix}</p>
+<p>\begin{pmatrix}<br>x\<br>y<br>\end{pmatrix}<br>\quad<br>(\theta\in\mathbb{R})<br>}<br>$$<br>证明：$\sigma$是$\mathbb{R^2}$上的一一变换，也称$\sigma$​为以原点为中心的<em>旋转变换</em>，简称<em>旋转</em>。</p>
+<p><strong>定理三：</strong>		设$\sigma:\mathbb{R^2\to R^2}$定义为：<br>$$<br>\color{blue}{<br>\sigma<br>\begin{pmatrix}<br>x\<br>y<br>\end{pmatrix}<br>&#x3D;<br>\begin{pmatrix}<br>\lambda &amp;0\<br>0 &amp;\lambda<br>\end{pmatrix}</p>
+<p>\begin{pmatrix}<br>x\<br>y<br>\end{pmatrix}<br>&#x3D;<br>\begin{pmatrix}<br>\lambda x\<br>\lambda y<br>\end{pmatrix}<br>\quad<br>(\lambda\neq0)<br>}<br>$$<br>证明：$\sigma$是$\mathbb{R^2}$上的一一变换，也称$\sigma$为以原点为中心的<em>位似变换</em>，简称<em>位似</em>。</p>
+<p><strong>定理四：</strong>设$\sigma:\mathbb{R^2\to R^2}$​定义为：<br>$$<br>\color{blue}{<br>\sigma<br>\begin{pmatrix}<br>x\<br>y<br>\end{pmatrix}<br>&#x3D;<br>\begin{pmatrix}<br>x\<br>y<br>\end{pmatrix}<br>+<br>\begin{pmatrix}<br>a\<br>b<br>\end{pmatrix}<br>&#x3D;<br>\begin{pmatrix}<br>x+a\<br>y+a<br>\end{pmatrix}<br>}<br>$$<br>证明：$\sigma$是$\mathbb{R^2}$上的一一变换，也称$\sigma$为以原点为中心的<em>平移变换</em>，简称<em>平移</em>。</p>
+<p><strong>定义一：</strong><br>        若集合$A$上的若干一一变换对于变换的乘法作成群，则称这样的群为变换群。</p>
+<p><strong>定理五（凯莱定理）：</strong><br>        任何一个群$G$​都同构于一个变换群（该群所有的一一变换构成的变换群）。</p>
+<h2 id="置换群"><a href="#置换群" class="headerlink" title="置换群"></a>置换群</h2><p><strong>定义一：</strong><br>        有限集上的一一变换叫做置换，同一集合上的若干置换构成的群叫做置换群。包含$n$个元素的集合上的全体置换作成的群，称为$n$次对称群，记为$S_n$。</p>
+<p><strong>定理一（有限群的凯莱定理）：</strong><br>        任何一个有限群都同构与一个置换群。</p>
+<p><strong>定理二：</strong><br>        $n$次对称群$S_n$的阶是$n!$，即$|S_n|&#x3D;n!$。</p>
+<p><strong>定理三：</strong><br>        置换可以表示为若干个不相交（没有相同的元素，例如(12)(34)）循环置换的乘积。</p>
+<p><strong>定理四：</strong><br>        任何一个循环置换都可以表示为若干个对换的乘积。（k循环可以表示为至少k-1个对换的乘积）</p>
+<p><strong>定义二：</strong><br>        在$S_n$中，能够表示为奇数多个对换乘积的置换称为奇置换，能够表示为偶数个对换乘积的置换称为偶置换，并且把所有偶置换的集合记为$A_n$</p>
+<p><strong>定理五：</strong><br>        $n\geq2$时，$S_n$中奇置换和偶置换各占一半，即$|A_n|&#x3D;\frac{n!}{2}$。</p>
+<p><strong>定理六：</strong><br>        两个不相交的循环置换的乘积可以交换</p>
+<p><strong>定理七：</strong><br>        $k$循环的逆元等于反序写出的循环，即：$(i_1i_2\cdots i_k)^{-1}&#x3D;(i_k\cdots i_2i_1)&#x3D;(i_1i_k\cdots i_2)$。特别地，对换的逆元等于自身。</p>
+<p><strong>定理八：</strong><br>    （1）k循环的阶等于k;<br>    （2）如果一个置换可以表示为一个k循环和一个l循环的乘积，那么$|\sigma|&#x3D;lcm(k,l)$，这里$lcm(k,l)$表示$k,l$的最小公倍数。</p>
+<h2 id="循环群"><a href="#循环群" class="headerlink" title="循环群"></a>循环群</h2><p><strong>注解：</strong><br>        欧拉函数$\phi(n)$定义为小于n且与n互素的非负整数的个数。</p>
+<p><strong>定义一：</strong><br>        设$G$是一个群，$a\in G$，如果对于任意的$b\in G$，都存在$m\in \mathbb{Z}$，有$b&#x3D;a^m$，则称$a$为群$G$的生成元，群$G$为一个循环群，记为$G&#x3D;(a)$。</p>
+<p><strong>注解：</strong><br>        整数加群$(\mathbb{Z},+)$是一个循环群。</p>
+<p><strong>定理一(循环群基本定理)：</strong><br>        设$G&#x3D;(a)$，则<br>    （1）若$|a|&#x3D;\infty$，则$G\cong(\mathbb{Z},+)$;<br>    （2）若$|a|&#x3D;n$，则$</p>
 
     </div>
 
@@ -348,8 +426,9 @@
 
 
       <footer class="post-footer">
+          
           <div class="post-tags">
-              <a href="/tags/test/" rel="tag"># test</a>
+              <a href="/tags/test/" rel="tag"><i class="fa fa-tag"></i> test</a>
           </div>
 
         
@@ -414,7 +493,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1%EF%BC%8C%E8%BF%91%E4%B8%96%E4%BB%A3%E6%95%B0-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">1，近世代数-基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1%E9%9B%86%E5%90%88"><span class="nav-number">1.1.</span> <span class="nav-text">1.1集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2%E6%98%A0%E5%B0%84"><span class="nav-number">1.2.</span> <span class="nav-text">1.2映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3%E4%BB%A3%E6%95%B0%E8%BF%90%E7%AE%97"><span class="nav-number">1.3.</span> <span class="nav-text">1.3代数运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4%E8%BF%90%E7%AE%97%E5%BE%8B"><span class="nav-number">1.4.</span> <span class="nav-text">1.4运算律</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5%E6%98%A0%E5%B0%84%E4%B8%8E%E5%8F%98%E6%8D%A2"><span class="nav-number">1.5.</span> <span class="nav-text">1.5映射与变换</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%91%E4%B8%96%E4%BB%A3%E6%95%B0-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">近世代数-基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88"><span class="nav-number">1.1.</span> <span class="nav-text">集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%A0%E5%B0%84"><span class="nav-number">1.2.</span> <span class="nav-text">映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E6%95%B0%E8%BF%90%E7%AE%97"><span class="nav-number">1.3.</span> <span class="nav-text">代数运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E5%BE%8B"><span class="nav-number">1.4.</span> <span class="nav-text">运算律</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%A0%E5%B0%84%E4%B8%8E%E5%8F%98%E6%8D%A2"><span class="nav-number">1.5.</span> <span class="nav-text">映射与变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%80%81"><span class="nav-number">1.6.</span> <span class="nav-text">同态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%9E%84%E4%B8%8E%E8%87%AA%E5%90%8C%E6%9E%84"><span class="nav-number">1.7.</span> <span class="nav-text">同构与自同构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%89%E4%BB%B7%E5%85%B3%E7%B3%BB%E4%B8%8E%E9%9B%86%E5%90%88%E5%88%86%E7%B1%BB"><span class="nav-number">1.8.</span> <span class="nav-text">等价关系与集合分类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%91%E4%B8%96%E4%BB%A3%E6%95%B0-%E7%BE%A4%E8%AE%BA"><span class="nav-number">2.</span> <span class="nav-text">近世代数-群论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BE%A4%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">群的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%BD%8D%E5%85%83%E3%80%81%E9%80%86%E5%85%83%E5%92%8C%E6%B6%88%E5%8E%BB%E5%BE%8B"><span class="nav-number">2.2.</span> <span class="nav-text">单位元、逆元和消去律</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E9%99%90%E7%BE%A4%E7%9A%84%E5%8F%A6%E4%B8%80%E5%AE%9A%E4%B9%89"><span class="nav-number">2.3.</span> <span class="nav-text">有限群的另一定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BE%A4%E7%9A%84%E5%90%8C%E6%80%81"><span class="nav-number">2.4.</span> <span class="nav-text">群的同态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E6%8D%A2%E7%BE%A4"><span class="nav-number">2.5.</span> <span class="nav-text">变换群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%AE%E6%8D%A2%E7%BE%A4"><span class="nav-number">2.6.</span> <span class="nav-text">置换群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E7%BE%A4"><span class="nav-number">2.7.</span> <span class="nav-text">循环群</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -448,28 +527,7 @@
         <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-google"></i>Google</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://twitter.com/yourname" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.facebook.com/yourname" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i>FB Page</a>
-      </span>
-      <span class="links-of-author-item">
         <a href="https://stackoverflow.com/yourname" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://youtube.com/yourname" title="YouTube → https:&#x2F;&#x2F;youtube.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-youtube"></i>YouTube</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://instagram.com/yourname" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-instagram"></i>Instagram</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="skype:yourname?call|chat" title="Skype → skype:yourname?call|chat" rel="noopener" target="_blank"><i class="fa fa-fw fa-skype"></i>Skype</a>
       </span>
   </div>
   <div class="cc-license motion-element" itemprop="license">
@@ -480,7 +538,7 @@
   <div class="links-of-blogroll motion-element">
     <div class="links-of-blogroll-title">
       <i class="fa fa-fw fa-link"></i>
-      Links
+      Follow
     </div>
     <ul class="links-of-blogroll-list">
         <li class="links-of-blogroll-item">
@@ -517,12 +575,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">2k</span>
+    <span title="站点总字数">10k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3 分钟</span>
+    <span title="站点阅读时长">11 分钟</span>
 </div>
 
         
@@ -555,9 +613,14 @@
                 console.error('Failed to save visitor count', error);
               });
           } else {
-              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
-              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
-            
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
           }
         })
         .catch(error => {
@@ -584,7 +647,7 @@
         });
     }
 
-    let { app_id, app_key, server_url } = {"enable":true,"app_id":"DekYcPtnzEz132al1qjmNzKk-gzGzoHsz","app_key":"602oiehhrji9gciX3tjM5xeJ","server_url":null,"security":true};
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"DekYcPtnzEz132al1qjmNzKk-gzGzoHsz","app_key":"602oiehhrji9gciX3tjM5xeJ","server_url":null,"security":false,"betterPerformance":true};
     function fetchData(api_server) {
       var Counter = (method, url, data) => {
         return fetch(`${api_server}/1.1${url}`, {

@@ -1,214 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2022/04/28/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<span id="more"></span>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="近世代数-基本概念">近世代数-基本概念</h1>
-<h2 id="集合">集合</h2>
-<p><strong>笛卡尔积：</strong></p>
-<p><span class="math inline">\(A_1 \times A_2 \times \cdots \times A_n = \{ (a_1,a_2,\cdots,a_n ) | a_i \in A_i\}\)</span>为<span class="math inline">\(n\)</span>个集合<span class="math inline">\(A_1,A_2,\cdots,A_n\)</span>​的积（或笛卡尔积）。一般的，如果<span class="math inline">\(|A|=m,|B|=n,那么 |A \times B|=mn\)</span>.其中<span class="math inline">\(|A|读作A的阶，表示集合A当中元素的个数\)</span></p>
-<h2 id="映射">映射</h2>
-<p><span class="math display">\[
-\textcolor{blue}{
-\begin{align}
-&amp;假设\phi是从笛卡尔积A_1 \times A_2 \times \cdots \times A_n到集合D的一个法则,如果A_1 \times A_2\\
-&amp;\times \cdots \times A_n中的每一个元素(a_1,a_2,\cdots,a_n )都有D中唯一的元素d与之对应，\\
-&amp;那么则称\phi是从A_1 \times A_2 \times \cdots \times A_n到D的一个映射。
-\end{align}}
-\]</span></p>
-<h2 id="代数运算">代数运算</h2>
-<p><strong>定义1：</strong>一个从<span class="math inline">\(A \times B\)</span>到D的映射叫做<span class="math inline">\(A\times B\)</span>​到D的代数运算。</p>
-<p><strong>定义2：</strong>我们称<span class="math inline">\(A\times A\)</span>到<span class="math inline">\(A\)</span>的代数运算<span class="math inline">\(\omicron\)</span>为<span class="math inline">\(A\)</span>上的代数运算，或<span class="math inline">\(A\)</span>上的二元运算，有时候也说集合<span class="math inline">\(A\)</span>对于代数运算<span class="math inline">\(\omicron\)</span>来说是封闭的，或<span class="math inline">\(\omicron\)</span>​具有封闭性。</p>
-<h2 id="运算律">运算律</h2>
-<p><strong>（1）结合律：</strong>如果对于<span class="math inline">\(\forall a,b,c \in A\)</span>​,都有 <span class="math display">\[
-\textcolor{blue}{(a\,\omicron\, b)\,\omicron\,c = a\,\omicron\,(b\,\omicron\,c)}
-\]</span> 则称<span class="math inline">\(\omicron\)</span>​适合结合律。</p>
-<p><strong>（2）交换律：</strong>如果对于<span class="math inline">\(\forall a,b\in A\)</span>都有 <span class="math display">\[
-\textcolor{blue}{a\,\omicron\,b=b\,\omicron\,a}
-\]</span> 则称<span class="math inline">\(\omicron\)</span>​​适合交换律。</p>
-<p><strong>（3）消去律：</strong></p>
-<p>​ ①，若 <span class="math display">\[
-\textcolor{blue}{a\,\omicron\, b=a\,\omicron\,c \quad\Rightarrow \quad b=c}
-\]</span> ​ 则称<span class="math inline">\(\omicron\)</span>​适合左消去律;</p>
-<p>​ ②，若 <span class="math display">\[
-\textcolor{blue}{b\,\omicron\, a=c\,\omicron\,a \quad\Rightarrow \quad b=c}
-\]</span> 则称<span class="math inline">\(\omicron\)</span>​适合右消去律;</p>
-<p>​ ③，若<span class="math inline">\(\omicron\)</span>既适合左消去律又适合右消去律，则称<span class="math inline">\(\omicron\)</span>​适合消去律。</p>
-<p><strong>（4）分配律：</strong></p>
-<p>设<span class="math inline">\(\otimes,\oplus\)</span>​是集合A上的两个代数运算，<span class="math inline">\(\forall a_1,a_2,b \in A\)</span>.</p>
-<p>①若 <span class="math inline">\(b\otimes(a_1\oplus a_2)=(b\otimes a_1)\oplus (b\otimes a_2)\)</span>​则称<span class="math inline">\(\otimes\)</span>​对于<span class="math inline">\(\oplus\)</span>​适合左分配律，或第一分配律。</p>
-<p>②若 <span class="math inline">\((a_1\oplus a_2)\otimes b=(a_1\otimes b)\oplus (a_2\otimes b)\)</span>则称<span class="math inline">\(\otimes\)</span>对于<span class="math inline">\(\oplus\)</span>适合又分配律，或第二分配律。</p>
-<p>③若<span class="math inline">\(\otimes对于\oplus\)</span>既适合左分配律又适合右分配律，则称<span class="math inline">\(\otimes 对于\oplus\)</span>​适合分配律。</p>
-<h2 id="映射与变换">映射与变换</h2>
-<p><strong>定义一：</strong> <span class="math display">\[
-\color{blue}{
-\begin{align}
-&amp;设\phi :A\to \overline{A}是一个 映射，对于任意的a,b\in A,如果a \neq b \Rightarrow \phi(a) \neq \phi(b)\\&amp;则称\phi是A到\overline{A}的单射。
-\end{align}
-}
-\]</span> <strong>定理一：</strong> <span class="math display">\[
-\color{blue}{
-\begin{align}
-\phi :A\to \overline{A}是单射当且仅当对于任意的a,b\in A \phi(a)=\phi(b)\Rightarrow a=b
-\end{align}
-}
-\]</span></p>
-<p><strong>定义二：</strong> <span class="math display">\[
-\color{blue}{
-\begin{align}
-&amp;设\phi :A\to \overline{A}是一个 映射，对于任意的b\in \overline{A},都存在a\in A,有b=\phi(a),则\\&amp;称\phi是从A到\overline{A}的满射。\color{red}{既是单设又是满射的映射称为一一映射（双射）。}
-\end{align}
-}
-\]</span> <strong>定义三：</strong> <span class="math display">\[
-\color{blue}{
-\begin{align}
-&amp;设f:A\to B和g:B\to C是两个映射，规定g \,\omicron\,f:A\to C为对于任意的\\&amp;x\in A,g \,\omicron\,f(x)=g(f(x)),则称g \,\omicron\,f为f与g的复合映射。
-\end{align}
-}
-\]</span> <strong>定义四：</strong> <span class="math display">\[
-\color{blue}{
-\begin{align}
-&amp;设f:A\to B和g:B\to A是两个映射，如果f\, \omicron\,g=id_B:B\to B\\
-&amp;且g\,\omicron\, f=id_A:A\to A,则称f与g互为逆映射。
-\end{align}
-}
-\]</span> <strong>定理二：</strong> 单射的复合是单射，满射的复合是满射，双射的复合式双射。</p>
-<p><strong>定理三：</strong> <span class="math display">\[
-\color{blue}{
-双射存在唯一的逆映射，且这个逆映射也是双射。
-}
-\]</span> <strong>定义五：</strong> 一个<span class="math inline">\(A\)</span>到<span class="math inline">\(A\)</span>的映射叫做<span class="math inline">\(A\)</span>的一个<em>变换</em>，一个<span class="math inline">\(A\)</span>到<span class="math inline">\(A\)</span>的单射、满射或者一一映射叫做<span class="math inline">\(A\)</span>的一个单射变换、满射变换或者一一变换。</p>
-<h2 id="同态">同态</h2>
-<p><strong>定义一：</strong></p>
-<p>​ 设<span class="math inline">\((A,\omicron),(\overline{A},\overline{\omicron})\)</span>是两个代数系统，<span class="math inline">\(\phi:A\to \overline{A}\)</span>是一个映射，若对于任意的<span class="math inline">\(a,b\in A\)</span>，都有</p>
-<p><span class="math inline">\(\phi(a\omicron b)=\phi(a)\overline{\omicron}\phi(b)\)</span>,(乘积的像等于像的乘积)，则称<span class="math inline">\(\phi\)</span>是从<span class="math inline">\(A\)</span>到<span class="math inline">\(\overline{A}\)</span>的同态映射，满的同态映射也称为同态满射，或满同态，若<span class="math inline">\(A\)</span>到<span class="math inline">\(\overline{A}\)</span>存在满同态，则称两个代数系统<span class="math inline">\(A,\overline{A}\)</span>是同态的，记为<span class="math inline">\(A\,\sim\,\overline{A}\)</span>​。</p>
-<p><strong>定理一：</strong> 设<span class="math inline">\((A,\omicron),(\overline{A},\overline{\omicron})\)</span>是两个代数系统，若<span class="math inline">\(A \sim \overline{A}\)</span>则 ①若<span class="math inline">\(\omicron\)</span>适合结合律，那么<span class="math inline">\(\overline{\omicron}\)</span>也适合结合律。 ②若<span class="math inline">\(\omicron\)</span>适合交换律，那么<span class="math inline">\(\overline{\omicron}\)</span>​也适合交换律。</p>
-<p><strong>定理二：</strong> 设<span class="math inline">\((A,\odot,\oplus),(\overline{A},\overline{\odot},\overline{\oplus})\)</span>是两个代数系统，<span class="math inline">\(\varphi:A\to \overline{A}\)</span>是满射，若对于任意的<span class="math inline">\(a,b\in A\)</span>，有<span class="math inline">\(\varphi(a\odot b)=\varphi(a)\overline{\odot}\varphi(b)),\quad \varphi(a\oplus b)=\varphi(a)\overline{\oplus}\varphi(b)\)</span>，则 ①若<span class="math inline">\(\odot,\oplus\)</span>满足第一分配律，那么<span class="math inline">\(\overline{\odot},\overline{\oplus}\)</span>也适合第一分配律。 ②若<span class="math inline">\(\odot,\oplus\)</span>满足第二分配律，那么<span class="math inline">\(\overline{\odot},\overline{\oplus}\)</span>也适合第二分配律。</p>
-<p><strong>定理三：</strong> 同态映射的复合映射必定是同态映射（满同态的复合一定是满同态，单同态的复合一定是单同态，同构的复合一定是同构）</p>
-<h2 id="同构与自同构">同构与自同构</h2>
-<p><strong>定义一：</strong> 设<span class="math inline">\((A,\omicron),(\overline{A},\overline{\omicron})\)</span>是两个代数系统，<span class="math inline">\(\varphi:A\to\overline{A}\)</span>是两个系统之间的一个映射，如果<span class="math inline">\(\varphi\)</span>既是双射又是同态映射，则称<span class="math inline">\(\varphi\)</span>是从<span class="math inline">\(A\)</span>到<span class="math inline">\(\overline{A}\)</span>的同构映射。 若<span class="math inline">\(A,\overline{A}\)</span>之间存在同构映射，则称<span class="math inline">\(A\)</span>与<span class="math inline">\(\overline{A}\)</span>同构，记为<span class="math inline">\(A\cong\overline{A}\)</span>。特别的，当<span class="math inline">\(\overline{A}=A,\overline{\omicron}=\omicron\)</span>时，我们也称同构映射<span class="math inline">\(\varphi:A\to\overline{A}\)</span>为A上的自同构。</p>
-<p><strong>定理一：</strong> 同构具有以下 性质： ①<span class="math inline">\(A\cong A\)</span>;(<span class="math inline">\(id_a\)</span>) ②若<span class="math inline">\(A\cong\overline{A}\)</span>，则<span class="math inline">\(\overline{A}\cong A\)</span>​​; ③若<span class="math inline">\(A\cong\overline{A},\overline{A}\cong\overline{\overline{A}}\)</span>，则<span class="math inline">\(A\cong\overline{\overline{A}}\)</span>​​​.​</p>
-<p><strong>定理二：</strong> 设<span class="math inline">\((A,\omicron),(\overline{A},\overline{\omicron})\)</span>是两个代数系统，若<span class="math inline">\(A \cong \overline{A}\)</span>则 ①<span class="math inline">\(\omicron\)</span>适合结合律当且仅当<span class="math inline">\(\overline{\omicron}\)</span>也适合结合律。 ②<span class="math inline">\(\omicron\)</span>适合交换律当且仅当<span class="math inline">\(\overline{\omicron}\)</span>也适合交换律。 ③<span class="math inline">\(\omicron\)</span>适合左(右)消去律当且仅当<span class="math inline">\(\overline{\omicron}\)</span>也适合左(右)消去律。</p>
-<p><strong>定理三：</strong> 设<span class="math inline">\((A,\odot,\oplus),(\overline{A},\overline{\odot},\overline{\oplus})\)</span>是两个代数系统，如果<span class="math inline">\(A\cong\overline{A}\)</span>,那么<span class="math inline">\(\odot,\oplus\)</span>适合左(右)分配律当且仅当<span class="math inline">\(\overline{\odot},\overline{\oplus}\)</span>​也适合左(右)分配律。</p>
-<p><strong>推论：</strong> 设<span class="math inline">\((A,\omicron),(\overline{A},\overline{\omicron})\)</span>是两个代数系统，如果<span class="math inline">\(\omicron\)</span>适合某种运算律<span class="math inline">\(P\)</span>而<span class="math inline">\(\omicron\)</span>不适合运算律<span class="math inline">\(P\)</span>，那么<span class="math inline">\(A\)</span>与<span class="math inline">\(\overline{A}\)</span>​​不同构。</p>
-<h2 id="等价关系与集合分类">等价关系与集合分类</h2>
-<p><strong>定义一：</strong> 设<span class="math inline">\(A\)</span>是一个集合，<span class="math inline">\(D=\{对,错\}\)</span>，则称映射<span class="math inline">\(R:A\times A\to D\)</span>为集合A上的一个关系，当<span class="math inline">\(R(a,b)=对\)</span>时，称<span class="math inline">\(a\)</span>与<span class="math inline">\(b\)</span>有关系<span class="math inline">\(R\)</span>，记为<span class="math inline">\(aRb\)</span>​；当<span class="math inline">\(R(a,b)=错\)</span>时，称<span class="math inline">\(a\)</span>​​与<span class="math inline">\(b\)</span>没有关系<span class="math inline">\(R\)</span>。</p>
-<p><strong>定义二：</strong> 设<span class="math inline">\(A\)</span>是一个非空集合，我们把<span class="math inline">\(A\times A\)</span>的一个子集<span class="math inline">\(\overline{R}\)</span>称为<span class="math inline">\(A\)</span>上的一个关系，对于任意的<span class="math inline">\((a,b\in A\times A)\)</span>当<span class="math inline">\((a,b)\in\overline{R}\)</span>，称<span class="math inline">\(a\)</span>与<span class="math inline">\(b\)</span>有关系<span class="math inline">\(\overline{R}\)</span>，记为<span class="math inline">\(a\overline{R}b\)</span>；当<span class="math inline">\((a,b)\notin\overline{R}\)</span>时，称<span class="math inline">\(a\)</span>与<span class="math inline">\(b\)</span>没有关系<span class="math inline">\(R\)</span>。</p>
-<p><strong>定理一：</strong> 关系的两个定义等价。</p>
-<p><strong>定义三：</strong> 设<span class="math inline">\(\sim\)</span>是集合<span class="math inline">\(A\)</span>上的一个关系，如果<span class="math inline">\(\sim\)</span>还满足： ①自反性：<span class="math inline">\(a\sim a\)</span>；(反射律) ②对称性：若<span class="math inline">\(a\sim b\)</span>则，<span class="math inline">\(b\sim a\)</span>；(对称律) ③传递性：若<span class="math inline">\(a\sim b,b\sim c\)</span>，则<span class="math inline">\(a\sim c\)</span>；(推移律) 则称<span class="math inline">\(\sim\)</span>为A上的一个等价关系，若<span class="math inline">\(a\sim b\)</span>则称a与b等价。</p>
-<p><strong>定义四：</strong> 设<span class="math inline">\(A\)</span>是一个集合，<span class="math inline">\(S=\{S_i|S_i\subseteq A\}\)</span>。若 ①<span class="math inline">\(\cup S_i=A\)</span>； ②对于任意的<span class="math inline">\(i,j,S_i\cap S_j=\emptyset\)</span>， 则称<span class="math inline">\(S\)</span>为<span class="math inline">\(A\)</span>上的一个分类(划分)，每一个<span class="math inline">\(S_i\)</span>都称为是<span class="math inline">\(S\)</span>的一个类(块)。</p>
-<p><strong>定理二：</strong> <span class="math inline">\(A\)</span>的一个分类决定了<span class="math inline">\(A\)</span>上的一个等价关系。（例如：<span class="math inline">\(a\sim b\)</span>​当且仅当a,b属于S中的一个类）</p>
-<p><strong>定理三：</strong></p>
-<p>​ <span class="math inline">\(A\)</span>上的一个等价关系决定<span class="math inline">\(A\)</span>​的一个分类。</p>
-<p><strong>定义五：</strong> 设<span class="math inline">\(S=\{S_i\}\)</span>是集合A的一个分类，任意的<span class="math inline">\(A\in S_i\)</span>都叫做<span class="math inline">\(S_i\)</span>的代表，刚好有每一类的一个代表构成的集合叫做一个<span class="math inline">\(全体代表团\)</span>。</p>
-<h1 id="近世代数-群论">近世代数-群论</h1>
-<h2 id="群的定义">群的定义</h2>
-<p><strong>定义一（群的第一定义）：</strong> 设<span class="math inline">\(G\neq\emptyset\)</span>​，<span class="math inline">\(\omicron\)</span>​是定义在<span class="math inline">\(G\)</span>​上的一个映射，若： Ⅰ，对于任意的<span class="math inline">\(a,b\in G\)</span>​，都有<span class="math inline">\(a\omicron b\in G\)</span>​； Ⅱ，对于任意的<span class="math inline">\(a,b,c\in G\)</span>​，都有<span class="math inline">\((a\omicron b)\omicron c=a\omicron(b\omicron c)\)</span>​​； Ⅲ，对于任意的<span class="math inline">\(a,b\in G\)</span>​，方程<span class="math inline">\(a\omicron x=b\)</span>​和<span class="math inline">\(y\omicron a=b\)</span>​在G中都有解， 则称<span class="math inline">\(G\)</span>​关于<span class="math inline">\(\omicron\)</span>​构成一个群，记为<span class="math inline">\((G,\omicron)\)</span>​，<span class="math inline">\(\omicron\)</span>​也称为<span class="math inline">\(G\)</span>​​​​上的乘法。</p>
-<p><strong>定理一：</strong> Ⅳ，存在<span class="math inline">\(e\in G\)</span>​，对于任意的<span class="math inline">\(a\in G\)</span>​，有<span class="math inline">\(ea=a\)</span>​。(称<span class="math inline">\(e\)</span>​为群<span class="math inline">\(G\)</span>​的左单元)。</p>
-<p><strong>定理二：</strong> Ⅴ，对于任意的<span class="math inline">\(a\in G\)</span>​，存在<span class="math inline">\(a^{-1}\in G\)</span>​，有<span class="math inline">\(a^{-1}a=e\)</span>​(称<span class="math inline">\(a^{-1}\)</span>​为群<span class="math inline">\(G\)</span>​中元素<span class="math inline">\(a\)</span>​​的左逆元​）</p>
-<p><strong>定义二：</strong> 设<span class="math inline">\(G\neq \emptyset\)</span>，<span class="math inline">\(\omicron\)</span>是定义在G上的一个映射，若： Ⅰ，对于任意的<span class="math inline">\(a,b\in G\)</span>，都有<span class="math inline">\(a\omicron b\in G\)</span>； Ⅱ，对于任意的<span class="math inline">\(a,b,c\in G\)</span>，都有<span class="math inline">\((a\omicron b)\omicron c=a\omicron(b\omicron c)\)</span>； Ⅳ，存在<span class="math inline">\(e\in G\)</span>，对于任意的<span class="math inline">\(a\in G\)</span>，有<span class="math inline">\(ea=a\)</span>。(称<span class="math inline">\(e\)</span>为群<span class="math inline">\(G\)</span>的左单元)。 Ⅴ，对于任意的<span class="math inline">\(a\in G\)</span>，存在<span class="math inline">\(a^{-1}\in G\)</span>，有<span class="math inline">\(a^{-1}a=e\)</span>(称<span class="math inline">\(a^{-1}\)</span>为群<span class="math inline">\(G\)</span>中元素<span class="math inline">\(a\)</span>的左逆元） 则称<span class="math inline">\(G\)</span>关于<span class="math inline">\(\omicron\)</span>构成一个群，记为<span class="math inline">\((G,\omicron)\)</span>，<span class="math inline">\(\omicron\)</span>也称为<span class="math inline">\(G\)</span>​上的乘法。</p>
-<p><strong>定理三：</strong> <span class="math inline">\(a\)</span>的左逆元<span class="math inline">\(a^{-1}\)</span>必定也是<span class="math inline">\(a\)</span>的右逆元。</p>
-<p><strong>定理四：</strong> <span class="math inline">\(G\)</span>的左单位元<span class="math inline">\(e\)</span>必定也是<span class="math inline">\(G\)</span>的右单位元。</p>
-<p>​</p>
-<p><strong>注记：</strong> （1）元素有限的群称为有限群，元素无限的群称为无限群。 （2）满足交换律的群称为交换群，也称之为阿贝尔群。</p>
-<p><strong>定义三：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(a\in G\)</span>，则称<span class="math inline">\(a^n=\underbrace{a\cdot a\cdots \cdot \cdot a}_{n个}\)</span>为<span class="math inline">\(a\)</span>的<span class="math inline">\(n\)</span>次幂（<span class="math inline">\(n\)</span>为正整数）。</p>
-<p><strong>定理五：</strong> 设<span class="math inline">\(a,b\)</span>是群<span class="math inline">\(G\)</span>中的元素，<span class="math inline">\(m,n\in \mathbb{Z_+}\)</span>，则有 （1）<span class="math inline">\(\displaystyle{a^{m+n}=a^ma^n,\qquad (a^m)^n=a^{mn}}\)</span> （2）当<span class="math inline">\(G\)</span>是交换群时，<span class="math inline">\((ab)^n=a^nb^n\)</span></p>
-<h2 id="单位元逆元和消去律">单位元、逆元和消去律</h2>
-<p><strong>定理一：</strong> 左单位元<span class="math inline">\(e\)</span>存在且唯一（<span class="math inline">\(e\)</span>也称为单位元）</p>
-<p><strong>定理二：</strong> 元素<span class="math inline">\(a\)</span>的左逆元<span class="math inline">\(a^{-1}\)</span>存在且唯一（<span class="math inline">\(a^{-1}\)</span>也称为逆元）</p>
-<p><strong>注记：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(e\)</span>是单位元，<span class="math inline">\(a,b\in G\)</span>，那么若<span class="math inline">\(ab=e\)</span>，则<span class="math inline">\(a,b\)</span>互为逆元，特别的，若<span class="math inline">\(a^{2}=a\)</span>，则<span class="math inline">\(a^{-1}=a\)</span>，进而<span class="math inline">\(e^{-1}=e\)</span>。</p>
-<p><strong>定理三：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(a,b\in G\)</span>，则： （1）<span class="math inline">\((a^{-1})^{-1}=a;\)</span> （2）<span class="math inline">\((ab)^{-1}=b^{-1}a^{-1}\)</span>，一般的，有<span class="math inline">\((a_1a_2\cdots a_n)^{-1}=a_n^{-1}\cdots a_2^{-1}a_1^{-1})\)</span>​进而<span class="math inline">\((a^n)^{-1}=(a^{-1})^n\)</span>。</p>
-<p><strong>定义一：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(a\in G,n\in \mathbb{Z^-}\)</span>，规定： <span class="math inline">\(a^0=e,\quad a^n=(a^{-1})^{-n}=\underbrace{a^{-1}\cdot a^{-1}\cdots a^{-1}}_{(-n)个}\)</span>​.</p>
-<p><strong>定理四：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(a\in G ,m,n\in \mathbb{Z}\)</span>，则: （1）<span class="math inline">\(a^ma^n=a^{m+m}\)</span> （2）<span class="math inline">\((a^m)^n=a^{mn}\)</span></p>
-<p><strong>定理五：</strong> 设<span class="math inline">\(G\)</span>是一个交换群，<span class="math inline">\(a\in G,n\in \mathbb{Z}\)</span>，则 <span class="math inline">\((ab)^n=a^nb^n\)</span></p>
-<p><strong>定义二：</strong> 设<span class="math inline">\(a\in G\)</span>，则称使得等式<span class="math inline">\(a^m=e\)</span>成立的最小的整数<span class="math inline">\(m\)</span>为<span class="math inline">\(a\)</span>的阶，记为<span class="math inline">\(|a|\)</span>或者<span class="math inline">\(\omicron(a)\)</span>。若这样的阶不存在，则称<span class="math inline">\(a\)</span>是无限阶的，记为<span class="math inline">\(|a|=\infty\)</span>。​</p>
-<p><strong>定理六：</strong> 在群<span class="math inline">\(G\)</span>中，<span class="math inline">\(a\in G\)</span>则 （1）一个元的阶为1当且仅当这个元就是单位元； （2）一个元的逆元等于自身当且仅当它的平方是单位元。</p>
-<p><strong>定理七：</strong> 在群<span class="math inline">\(G\)</span>中，<span class="math inline">\(a\in G\)</span>，则<span class="math inline">\(|a|=|a^{-1}|\)</span>​。</p>
-<p><strong>定理八：</strong> 群的乘法适合消去律，即： <span class="math inline">\(Ⅲ&#39;:\)</span>若<span class="math inline">\(ax=ax&#39;\)</span>，则<span class="math inline">\(x=x&#39;\)</span>（左消去律） 若<span class="math inline">\(ya=y&#39;a\)</span>，则<span class="math inline">\(y=y&#39;\)</span>（右消去律)</p>
-<p><strong>定理九：</strong> 一个有限群的每一个元的阶都有限。</p>
-<h2 id="有限群的另一定义">有限群的另一定义</h2>
-<p><strong>定理一：</strong> 设<span class="math inline">\(G\)</span>是有限集，<span class="math inline">\(\cdot\)</span>是定义在<span class="math inline">\(G\)</span>上的映射，若<span class="math inline">\(\cdot\)</span>适合公理Ⅰ、Ⅱ、<span class="math inline">\(Ⅲ&#39;\)</span>​，那么它也适合Ⅲ。</p>
-<p><strong>定义一（有限群的第三定义）：</strong> 设<span class="math inline">\(G\neq \emptyset\)</span>，<span class="math inline">\(\omicron\)</span>是定义在<span class="math inline">\(G\)</span>上的一个映射，若满足公理Ⅰ、Ⅱ、<span class="math inline">\(Ⅲ&#39;\)</span>，则称<span class="math inline">\(G\)</span>关于<span class="math inline">\(\omicron\)</span>构成一个有限群。</p>
-<h2 id="群的同态">群的同态</h2>
-<p><strong>定理一:</strong> 设<span class="math inline">\((G,\omicron)\)</span>是一个群，<span class="math inline">\((\overline{G},\overline{\omicron})\)</span>是一个代数系统，如果<span class="math inline">\(G\sim \overline{G}\)</span>，那么<span class="math inline">\(\overline{G}\)</span>也是一个群。</p>
-<p><strong>定理二：</strong> 设<span class="math inline">\(\phi\)</span>是群<span class="math inline">\(G\)</span>到群<span class="math inline">\(\overline{G}\)</span>的同态映射，那么<span class="math inline">\(G\)</span>的单位元的像是<span class="math inline">\(\overline{G}\)</span>的单位元；<span class="math inline">\(a\in G\)</span>的逆元<span class="math inline">\(a^{-1}\)</span>的像是<span class="math inline">\(a\)</span>的像<span class="math inline">\(\phi(a)\)</span>的逆元。</p>
-<h2 id="变换群">变换群</h2>
-<p><strong>定理一：</strong> 集合<span class="math inline">\(A\)</span>上的所有一一变换的集合<span class="math inline">\(G\)</span>关于变换的乘法（复合）构成群。</p>
-<p><strong>定理二：</strong> 设<span class="math inline">\(\sigma:\mathbb{R^2\to R^2}\)</span>定义为： $$  $$ 证明：<span class="math inline">\(\sigma\)</span>是<span class="math inline">\(\mathbb{R^2}\)</span>上的一一变换，也称<span class="math inline">\(\sigma\)</span>​为以原点为中心的<em>旋转变换</em>，简称<em>旋转</em>。</p>
-<p><strong>定理三：</strong> 设<span class="math inline">\(\sigma:\mathbb{R^2\to R^2}\)</span>定义为： $$  $$ 证明：<span class="math inline">\(\sigma\)</span>是<span class="math inline">\(\mathbb{R^2}\)</span>上的一一变换，也称<span class="math inline">\(\sigma\)</span>为以原点为中心的<em>位似变换</em>，简称<em>位似</em>。</p>
-<p><strong>定理四：</strong>设<span class="math inline">\(\sigma:\mathbb{R^2\to R^2}\)</span>​定义为： <span class="math display">\[
-\color{blue}{
-\sigma
-\begin{pmatrix}
-x\\
-y
-\end{pmatrix}
-=
-\begin{pmatrix}
-x\\
-y
-\end{pmatrix}
-+
-\begin{pmatrix}
-a\\
-b
-\end{pmatrix}
-=
-\begin{pmatrix}
-x+a\\
-y+a
-\end{pmatrix}
-}
-\]</span> 证明：<span class="math inline">\(\sigma\)</span>是<span class="math inline">\(\mathbb{R^2}\)</span>上的一一变换，也称<span class="math inline">\(\sigma\)</span>为以原点为中心的<em>平移变换</em>，简称<em>平移</em>。</p>
-<p><strong>定义一：</strong> 若集合<span class="math inline">\(A\)</span>上的若干一一变换对于变换的乘法作成群，则称这样的群为变换群。</p>
-<p><strong>定理五（凯莱定理）：</strong> 任何一个群<span class="math inline">\(G\)</span>​都同构于一个变换群（该群所有的一一变换构成的变换群）。</p>
-<h2 id="置换群">置换群</h2>
-<p><strong>定义一：</strong> 有限集上的一一变换叫做置换，同一集合上的若干置换构成的群叫做置换群。包含<span class="math inline">\(n\)</span>个元素的集合上的全体置换作成的群，称为<span class="math inline">\(n\)</span>次对称群，记为<span class="math inline">\(S_n\)</span>。</p>
-<p><strong>定理一（有限群的凯莱定理）：</strong> 任何一个有限群都同构与一个置换群。</p>
-<p><strong>定理二：</strong> <span class="math inline">\(n\)</span>次对称群<span class="math inline">\(S_n\)</span>的阶是<span class="math inline">\(n!\)</span>，即<span class="math inline">\(|S_n|=n!\)</span>。</p>
-<p><strong>定理三：</strong> 置换可以表示为若干个不相交（没有相同的元素，例如(12)(34)）循环置换的乘积。</p>
-<p><strong>定理四：</strong> 任何一个循环置换都可以表示为若干个对换的乘积。（k循环可以表示为至少k-1个对换的乘积）</p>
-<p><strong>定义二：</strong> 在<span class="math inline">\(S_n\)</span>中，能够表示为奇数多个对换乘积的置换称为奇置换，能够表示为偶数个对换乘积的置换称为偶置换，并且把所有偶置换的集合记为<span class="math inline">\(A_n\)</span></p>
-<p><strong>定理五：</strong> <span class="math inline">\(n\geq2\)</span>时，<span class="math inline">\(S_n\)</span>中奇置换和偶置换各占一半，即<span class="math inline">\(|A_n|=\frac{n!}{2}\)</span>。</p>
-<p><strong>定理六：</strong> 两个不相交的循环置换的乘积可以交换</p>
-<p><strong>定理七：</strong> <span class="math inline">\(k\)</span>循环的逆元等于反序写出的循环，即：<span class="math inline">\((i_1i_2\cdots i_k)^{-1}=(i_k\cdots i_2i_1)=(i_1i_k\cdots i_2)\)</span>。特别地，对换的逆元等于自身。</p>
-<p><strong>定理八：</strong> （1）k循环的阶等于k; （2）如果一个置换可以表示为一个k循环和一个l循环的乘积，那么<span class="math inline">\(|\sigma|=lcm(k,l)\)</span>，这里<span class="math inline">\(lcm(k,l)\)</span>表示<span class="math inline">\(k,l\)</span>的最小公倍数。</p>
-<h2 id="循环群">循环群</h2>
-<p><strong>注解：</strong> 欧拉函数<span class="math inline">\(\phi(n)\)</span>定义为小于n且与n互素的非负整数的个数。</p>
-<p><strong>定义一：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(a\in G\)</span>，如果对于任意的<span class="math inline">\(b\in G\)</span>，都存在<span class="math inline">\(m\in \mathbb{Z}\)</span>，有<span class="math inline">\(b=a^m\)</span>，则称<span class="math inline">\(a\)</span>为群<span class="math inline">\(G\)</span>的生成元，群<span class="math inline">\(G\)</span>为一个循环群，记为<span class="math inline">\(G=(a)\)</span>。</p>
-<p><strong>注解：</strong> 整数加群<span class="math inline">\((\mathbb{Z},+)\)</span>是一个循环群。</p>
-<p><strong>定理一(循环群基本定理)：</strong> 设<span class="math inline">\(G=(a)\)</span>，则 （1）若<span class="math inline">\(|a|=\infty\)</span>，则<span class="math inline">\(G\cong(\mathbb{Z},+)\)</span>; （2）若<span class="math inline">\(|a|=n\)</span>，则<span class="math inline">\(G\cong(\mathbb{Z}_n,+)\)</span></p>
-]]></content>
-      <categories>
-        <category>math</category>
-        <category>submath</category>
-        <category>subsubmath</category>
-        <category>test</category>
-        <category>subtest</category>
-      </categories>
-      <tags>
-        <tag>test</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>抽象代数之基本概念</title>
     <url>/2022/05/02/%E6%8A%BD%E8%B1%A1%E4%BB%A3%E6%95%B0%E4%B9%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
     <content><![CDATA[<p>介绍了抽象代数的基本定义以及定理</p>
 <span id="more"></span>
 <h1 id="近世代数-基本概念">近世代数-基本概念</h1>
 <h2 id="集合">集合</h2>
-<p><strong>笛卡尔积：</strong></p>
-<p><span class="math inline">\(A_1 \times A_2 \times \cdots \times A_n = \{ (a_1,a_2,\cdots,a_n ) | a_i \in A_i\}\)</span>为<span class="math inline">\(n\)</span>个集合<span class="math inline">\(A_1,A_2,\cdots,A_n\)</span>​的积（或笛卡尔积）。一般的，如果<span class="math inline">\(|A|=m,|B|=n,那么 |A \times B|=mn\)</span>.其中<span class="math inline">\(|A|读作A的阶，表示集合A当中元素的个数\)</span></p>
+<p><strong>笛卡尔积：</strong> <span class="math inline">\(A_1 \times A_2 \times \cdots \times A_n = \{ (a_1,a_2,\cdots,a_n ) | a_i \in A_i\}\)</span>为<span class="math inline">\(n\)</span>个集合<span class="math inline">\(A_1,A_2,\cdots,A_n\)</span>​的积（或笛卡尔积）。一般的，如果<span class="math inline">\(|A|=m,|B|=n,那么 |A \times B|=mn\)</span>.其中<span class="math inline">\(|A|读作A的阶，表示集合A当中元素的个数\)</span></p>
 <h2 id="映射">映射</h2>
 <p><span class="math display">\[
-\begin{align}
+\begin{aligned}
 &amp;假设\phi是从笛卡尔积A_1 \times A_2 \times \cdots \times A_n到集合D的一个法则,如果A_1 \times A_2\\
 &amp;\times \cdots \times A_n中的每一个元素(a_1,a_2,\cdots,a_n )都有D中唯一的元素d与之对应，\\
 &amp;那么则称\phi是从A_1 \times A_2 \times \cdots \times A_n到D的一个映射。
-\end{align}
+\end{aligned}
 \]</span></p>
 <h2 id="代数运算">代数运算</h2>
 <p><strong>定义1：</strong>一个从<span class="math inline">\(A \times B\)</span>到D的映射叫做<span class="math inline">\(A\times B\)</span>​到D的代数运算。</p>
@@ -235,126 +41,180 @@ b\,\omicron\, a=c\,\omicron\,a \quad\Rightarrow \quad b=c
 <p>③若<span class="math inline">\(\otimes对于\oplus\)</span>既适合左分配律又适合右分配律，则称<span class="math inline">\(\otimes 对于\oplus\)</span>​适合分配律。</p>
 <h2 id="映射与变换">映射与变换</h2>
 <p><strong>定义一：</strong> <span class="math display">\[
-\begin{align}
+\begin{aligned}
 &amp;设\phi :A\to \overline{A}是一个 映射，对于任意的a,b\in A,如果a \neq b \Rightarrow \phi(a) \neq \phi(b)\\&amp;则称\phi是A到\overline{A}的单射。
-\end{align}
+\end{aligned}
 \]</span> <strong>定理一：</strong> <span class="math display">\[
-\begin{align}
+\begin{aligned}
 \phi :A\to \overline{A}是单射当且仅当对于任意的a,b\in A \phi(a)=\phi(b)\Rightarrow a=b
-\end{align}
+\end{aligned}
 \]</span></p>
 <p><strong>定义二：</strong> <span class="math display">\[
-\begin{align}
+\begin{aligned}
 &amp;设\phi :A\to \overline{A}是一个 映射，对于任意的b\in \overline{A},都存在a\in A,有b=\phi(a),则\\&amp;称\phi是从A到\overline{A}的满射。\color{red}{既是单设又是满射的映射称为一一映射（双射）。}
-\end{align}
+\end{aligned}
 \]</span> <strong>定义三：</strong> <span class="math display">\[
-\begin{align}
+\begin{aligned}
 &amp;设f:A\to B和g:B\to C是两个映射，规定g \,\omicron\,f:A\to C为对于任意的\\&amp;x\in A,g \,\omicron\,f(x)=g(f(x)),则称g \,\omicron\,f为f与g的复合映射。
-\end{align}
+\end{aligned}
 \]</span> <strong>定义四：</strong> <span class="math display">\[
-\begin{align}
+\begin{aligned}
 &amp;设f:A\to B和g:B\to A是两个映射，如果f\, \omicron\,g=id_B:B\to B\\
 &amp;且g\,\omicron\, f=id_A:A\to A,则称f与g互为逆映射。
 \\&amp; \tiny{_{id_x表示恒等映射，即自己映射为自己本身}}
-\end{align}
-\]</span> <strong>定理二：</strong> 单射的复合是单射，满射的复合是满射，双射的复合式双射。</p>
-<p><strong>定理三：</strong> <span class="math display">\[
-双射存在唯一的逆映射，且这个逆映射也是双射。
-\]</span> <strong>定义五：</strong> 一个<span class="math inline">\(A\)</span>到<span class="math inline">\(A\)</span>的映射叫做<span class="math inline">\(A\)</span>的一个<em>变换</em>，一个<span class="math inline">\(A\)</span>到<span class="math inline">\(A\)</span>的单射、满射或者一一映射叫做<span class="math inline">\(A\)</span>的一个单射变换、满射变换或者一一变换。</p>
+\end{aligned}
+\]</span> <strong>定理二：</strong>单射的复合是单射，满射的复合是满射，双射的复合式双射。</p>
+<p><strong>定理三：</strong>双射存在唯一的逆映射，且这个逆映射也是双射。</p>
+<p><strong>定义五：</strong>一个<span class="math inline">\(A\)</span>到<span class="math inline">\(A\)</span>的映射叫做<span class="math inline">\(A\)</span>的一个<em>变换</em>，一个<span class="math inline">\(A\)</span>到<span class="math inline">\(A\)</span>的单射、满射或者一一映射叫做<span class="math inline">\(A\)</span>的一个单射变换、满射变换或者一一变换。</p>
 <h2 id="同态">同态</h2>
-<p><strong>定义一：</strong></p>
-<p>​ 设<span class="math inline">\((A,\omicron),(\overline{A},\overline{\omicron})\)</span>是两个代数系统，<span class="math inline">\(\phi:A\to \overline{A}\)</span>是一个映射，若对于任意的<span class="math inline">\(a,b\in A\)</span>，都有</p>
+<p><strong>定义一：</strong>设<span class="math inline">\((A,\omicron),(\overline{A},\overline{\omicron})\)</span>是两个代数系统，<span class="math inline">\(\phi:A\to \overline{A}\)</span>是一个映射，若对于任意的<span class="math inline">\(a,b\in A\)</span>，都有</p>
 <p><span class="math inline">\(\phi(a\omicron b)=\phi(a)\overline{\omicron}\phi(b)\)</span>,(乘积的像等于像的乘积)，则称<span class="math inline">\(\phi\)</span>是从<span class="math inline">\(A\)</span>到<span class="math inline">\(\overline{A}\)</span>的同态映射，满的同态映射也称为同态满射，或满同态，若<span class="math inline">\(A\)</span>到<span class="math inline">\(\overline{A}\)</span>存在满同态，则称两个代数系统<span class="math inline">\(A,\overline{A}\)</span>是同态的，记为<span class="math inline">\(A\,\sim\,\overline{A}\)</span>​。</p>
-<p><strong>定理一：</strong> 设<span class="math inline">\((A,\omicron),(\overline{A},\overline{\omicron})\)</span>是两个代数系统，若<span class="math inline">\(A \sim \overline{A}\)</span>则 ①若<span class="math inline">\(\omicron\)</span>适合结合律，那么<span class="math inline">\(\overline{\omicron}\)</span>也适合结合律。 ②若<span class="math inline">\(\omicron\)</span>适合交换律，那么<span class="math inline">\(\overline{\omicron}\)</span>​也适合交换律。</p>
-<p><strong>定理二：</strong> 设<span class="math inline">\((A,\odot,\oplus),(\overline{A},\overline{\odot},\overline{\oplus})\)</span>是两个代数系统，<span class="math inline">\(\varphi:A\to \overline{A}\)</span>是满射，若对于任意的<span class="math inline">\(a,b\in A\)</span>，有<span class="math inline">\(\varphi(a\odot b)=\varphi(a)\overline{\odot}\varphi(b)),\quad \varphi(a\oplus b)=\varphi(a)\overline{\oplus}\varphi(b)\)</span>，则 ①若<span class="math inline">\(\odot,\oplus\)</span>满足第一分配律，那么<span class="math inline">\(\overline{\odot},\overline{\oplus}\)</span>也适合第一分配律。 ②若<span class="math inline">\(\odot,\oplus\)</span>满足第二分配律，那么<span class="math inline">\(\overline{\odot},\overline{\oplus}\)</span>也适合第二分配律。</p>
-<p><strong>定理三：</strong> 同态映射的复合映射必定是同态映射（满同态的复合一定是满同态，单同态的复合一定是单同态，同构的复合一定是同构）</p>
+<p><strong>定理一：</strong>设<span class="math inline">\((A,\omicron),(\overline{A},\overline{\omicron})\)</span>是两个代数系统，若<span class="math inline">\(A \sim \overline{A}\)</span>则</p>
+<p>​ ①若<span class="math inline">\(\omicron\)</span>适合结合律，那么<span class="math inline">\(\overline{\omicron}\)</span>也适合结合律。</p>
+<p>​ ②若<span class="math inline">\(\omicron\)</span>适合交换律，那么<span class="math inline">\(\overline{\omicron}\)</span>​也适合交换律。</p>
+<p><strong>定理二：</strong>设<span class="math inline">\((A,\odot,\oplus),(\overline{A},\overline{\odot},\overline{\oplus})\)</span>是两个代数系统，<span class="math inline">\(\varphi:A\to \overline{A}\)</span>是满射，若对于任意的<span class="math inline">\(a,b\in A\)</span>，有<span class="math inline">\(\varphi(a\odot b)=\varphi(a)\overline{\odot}\varphi(b)),\quad \varphi(a\oplus b)=\varphi(a)\overline{\oplus}\varphi(b)\)</span>，则:</p>
+<p>​ ①若<span class="math inline">\(\odot,\oplus\)</span>满足第一分配律，那么<span class="math inline">\(\overline{\odot},\overline{\oplus}\)</span>也适合第一分配律。</p>
+<p>​ ②若<span class="math inline">\(\odot,\oplus\)</span>满足第二分配律，那么<span class="math inline">\(\overline{\odot},\overline{\oplus}\)</span>也适合第二分配律。</p>
+<p><strong>定理三：</strong>同态映射的复合映射必定是同态映射（满同态的复合一定是满同态，单同态的复合一定是单同态，同构的复合一定是同构）</p>
 <h2 id="同构与自同构">同构与自同构</h2>
-<p><strong>定义一：</strong> 设<span class="math inline">\((A,\omicron),(\overline{A},\overline{\omicron})\)</span>是两个代数系统，<span class="math inline">\(\varphi:A\to\overline{A}\)</span>是两个系统之间的一个映射，如果<span class="math inline">\(\varphi\)</span>既是双射又是同态映射，则称<span class="math inline">\(\varphi\)</span>是从<span class="math inline">\(A\)</span>到<span class="math inline">\(\overline{A}\)</span>的同构映射。 若<span class="math inline">\(A,\overline{A}\)</span>之间存在同构映射，则称<span class="math inline">\(A\)</span>与<span class="math inline">\(\overline{A}\)</span>同构，记为<span class="math inline">\(A\cong\overline{A}\)</span>。特别的，当<span class="math inline">\(\overline{A}=A,\overline{\omicron}=\omicron\)</span>时，我们也称同构映射<span class="math inline">\(\varphi:A\to\overline{A}\)</span>为A上的自同构。</p>
-<p><strong>定理一：</strong> 同构具有以下 性质： ①<span class="math inline">\(A\cong A\)</span>;(<span class="math inline">\(id_a\)</span>) ②若<span class="math inline">\(A\cong\overline{A}\)</span>，则<span class="math inline">\(\overline{A}\cong A\)</span>​​; ③若<span class="math inline">\(A\cong\overline{A},\overline{A}\cong\overline{\overline{A}}\)</span>，则<span class="math inline">\(A\cong\overline{\overline{A}}\)</span>​​​.​</p>
-<p><strong>定理二：</strong> 设<span class="math inline">\((A,\omicron),(\overline{A},\overline{\omicron})\)</span>是两个代数系统，若<span class="math inline">\(A \cong \overline{A}\)</span>则 ①<span class="math inline">\(\omicron\)</span>适合结合律当且仅当<span class="math inline">\(\overline{\omicron}\)</span>也适合结合律。 ②<span class="math inline">\(\omicron\)</span>适合交换律当且仅当<span class="math inline">\(\overline{\omicron}\)</span>也适合交换律。 ③<span class="math inline">\(\omicron\)</span>适合左(右)消去律当且仅当<span class="math inline">\(\overline{\omicron}\)</span>也适合左(右)消去律。</p>
-<p><strong>定理三：</strong> 设<span class="math inline">\((A,\odot,\oplus),(\overline{A},\overline{\odot},\overline{\oplus})\)</span>是两个代数系统，如果<span class="math inline">\(A\cong\overline{A}\)</span>,那么<span class="math inline">\(\odot,\oplus\)</span>适合左(右)分配律当且仅当<span class="math inline">\(\overline{\odot},\overline{\oplus}\)</span>​也适合左(右)分配律。</p>
-<p><strong>推论：</strong> 设<span class="math inline">\((A,\omicron),(\overline{A},\overline{\omicron})\)</span>是两个代数系统，如果<span class="math inline">\(\omicron\)</span>适合某种运算律<span class="math inline">\(P\)</span>而<span class="math inline">\(\omicron\)</span>不适合运算律<span class="math inline">\(P\)</span>，那么<span class="math inline">\(A\)</span>与<span class="math inline">\(\overline{A}\)</span>​​不同构。</p>
+<p><strong>定义一：</strong></p>
+<p>​ 设<span class="math inline">\((A,\omicron),(\overline{A},\overline{\omicron})\)</span>是两个代数系统，<span class="math inline">\(\varphi:A\to\overline{A}\)</span>是两个系统之间的一个映射，如果<span class="math inline">\(\varphi\)</span>既是双射又是同态映射，则称<span class="math inline">\(\varphi\)</span>是从<span class="math inline">\(A\)</span>到<span class="math inline">\(\overline{A}\)</span>的同构映射。</p>
+<p>​ 若<span class="math inline">\(A,\overline{A}\)</span>之间存在同构映射，则称<span class="math inline">\(A\)</span>与<span class="math inline">\(\overline{A}\)</span>同构，记为<span class="math inline">\(A\cong\overline{A}\)</span>。特别的，当<span class="math inline">\(\overline{A}=A,\overline{\omicron}=\omicron\)</span>时，我们也称同构映射<span class="math inline">\(\varphi:A\to\overline{A}\)</span>为A上的自同构。</p>
+<p><strong>定理一：</strong></p>
+<p>​ 同构具有以下 性质：</p>
+<p>​ ①<span class="math inline">\(A\cong A\)</span>;(<span class="math inline">\(id_a\)</span>);</p>
+<p>​ ②若<span class="math inline">\(A\cong\overline{A}\)</span>，则<span class="math inline">\(\overline{A}\cong A\)</span>​​;</p>
+<p>​ ③若<span class="math inline">\(A\cong\overline{A},\overline{A}\cong\overline{\overline{A}}\)</span>，则<span class="math inline">\(A\cong\overline{\overline{A}}\)</span>​​​.​</p>
+<p><strong>定理二：</strong></p>
+<p>​ 设<span class="math inline">\((A,\omicron),(\overline{A},\overline{\omicron})\)</span>是两个代数系统，若<span class="math inline">\(A \cong \overline{A}\)</span>则</p>
+<p>​ ①<span class="math inline">\(\omicron\)</span>适合结合律当且仅当<span class="math inline">\(\overline{\omicron}\)</span>也适合结合律。</p>
+<p>​ ②<span class="math inline">\(\omicron\)</span>适合交换律当且仅当<span class="math inline">\(\overline{\omicron}\)</span>也适合交换律。</p>
+<p>​ ③<span class="math inline">\(\omicron\)</span>适合左(右)消去律当且仅当<span class="math inline">\(\overline{\omicron}\)</span>也适合左(右)消去律。</p>
+<p><strong>定理三：</strong>设<span class="math inline">\((A,\odot,\oplus),(\overline{A},\overline{\odot},\overline{\oplus})\)</span>是两个代数系统，如果<span class="math inline">\(A\cong\overline{A}\)</span>,那么<span class="math inline">\(\odot,\oplus\)</span>适合左(右)分配律当且仅当<span class="math inline">\(\overline{\odot},\overline{\oplus}\)</span>​也适合左(右)分配律。</p>
+<p><strong>推论：</strong>设<span class="math inline">\((A,\omicron),(\overline{A},\overline{\omicron})\)</span>是两个代数系统，如果<span class="math inline">\(\omicron\)</span>适合某种运算律<span class="math inline">\(P\)</span>而<span class="math inline">\(\omicron\)</span>不适合运算律<span class="math inline">\(P\)</span>，那么<span class="math inline">\(A\)</span>与<span class="math inline">\(\overline{A}\)</span>​​不同构。</p>
 <h2 id="等价关系与集合分类">等价关系与集合分类</h2>
-<p><strong>定义一：</strong> 设<span class="math inline">\(A\)</span>是一个集合，<span class="math inline">\(D=\{对,错\}\)</span>，则称映射<span class="math inline">\(R:A\times A\to D\)</span>为集合A上的一个关系，当<span class="math inline">\(R(a,b)=对\)</span>时，称<span class="math inline">\(a\)</span>与<span class="math inline">\(b\)</span>有关系<span class="math inline">\(R\)</span>，记为<span class="math inline">\(aRb\)</span>​；当<span class="math inline">\(R(a,b)=错\)</span>时，称<span class="math inline">\(a\)</span>​​与<span class="math inline">\(b\)</span>没有关系<span class="math inline">\(R\)</span>。</p>
-<p><strong>定义二：</strong> 设<span class="math inline">\(A\)</span>是一个非空集合，我们把<span class="math inline">\(A\times A\)</span>的一个子集<span class="math inline">\(\overline{R}\)</span>称为<span class="math inline">\(A\)</span>上的一个关系，对于任意的<span class="math inline">\((a,b\in A\times A)\)</span>当<span class="math inline">\((a,b)\in\overline{R}\)</span>，称<span class="math inline">\(a\)</span>与<span class="math inline">\(b\)</span>有关系<span class="math inline">\(\overline{R}\)</span>，记为<span class="math inline">\(a\overline{R}b\)</span>；当<span class="math inline">\((a,b)\notin\overline{R}\)</span>时，称<span class="math inline">\(a\)</span>与<span class="math inline">\(b\)</span>没有关系<span class="math inline">\(R\)</span>。</p>
-<p><strong>定理一：</strong> 关系的两个定义等价。</p>
-<p><strong>定义三：</strong> 设<span class="math inline">\(\sim\)</span>是集合<span class="math inline">\(A\)</span>上的一个关系，如果<span class="math inline">\(\sim\)</span>还满足： ①自反性：<span class="math inline">\(a\sim a\)</span>；(反射律) ②对称性：若<span class="math inline">\(a\sim b\)</span>则，<span class="math inline">\(b\sim a\)</span>；(对称律) ③传递性：若<span class="math inline">\(a\sim b,b\sim c\)</span>，则<span class="math inline">\(a\sim c\)</span>；(推移律) 则称<span class="math inline">\(\sim\)</span>为A上的一个等价关系，若<span class="math inline">\(a\sim b\)</span>则称a与b等价。</p>
-<p><strong>定义四：</strong> 设<span class="math inline">\(A\)</span>是一个集合，<span class="math inline">\(S=\{S_i|S_i\subseteq A\}\)</span>。若 ①<span class="math inline">\(\cup S_i=A\)</span>； ②对于任意的<span class="math inline">\(i,j,S_i\cap S_j=\emptyset\)</span>， 则称<span class="math inline">\(S\)</span>为<span class="math inline">\(A\)</span>上的一个分类(划分)，每一个<span class="math inline">\(S_i\)</span>都称为是<span class="math inline">\(S\)</span>的一个类(块)。</p>
+<p><strong>定义一：</strong>设<span class="math inline">\(A\)</span>是一个集合，<span class="math inline">\(D=\{对,错\}\)</span>，则称映射<span class="math inline">\(R:A\times A\to D\)</span>为集合A上的一个关系，当<span class="math inline">\(R(a,b)=对\)</span>时，称<span class="math inline">\(a\)</span>与<span class="math inline">\(b\)</span>有关系<span class="math inline">\(R\)</span>，记为<span class="math inline">\(aRb\)</span>​；当<span class="math inline">\(R(a,b)=错\)</span>时，称<span class="math inline">\(a\)</span>​​与<span class="math inline">\(b\)</span>没有关系<span class="math inline">\(R\)</span>。</p>
+<p><strong>定义二：</strong>设<span class="math inline">\(A\)</span>是一个非空集合，我们把<span class="math inline">\(A\times A\)</span>的一个子集<span class="math inline">\(\overline{R}\)</span>称为<span class="math inline">\(A\)</span>上的一个关系，对于任意的<span class="math inline">\((a,b\in A\times A)\)</span>当<span class="math inline">\((a,b)\in\overline{R}\)</span>，称<span class="math inline">\(a\)</span>与<span class="math inline">\(b\)</span>有关系<span class="math inline">\(\overline{R}\)</span>，记为<span class="math inline">\(a\overline{R}b\)</span>；当<span class="math inline">\((a,b)\notin\overline{R}\)</span>时，称<span class="math inline">\(a\)</span>与<span class="math inline">\(b\)</span>没有关系<span class="math inline">\(R\)</span>。</p>
+<p><strong>定理一：</strong>关系的两个定义等价。</p>
+<p><strong>定义三：</strong>设<span class="math inline">\(\sim\)</span>是集合<span class="math inline">\(A\)</span>上的一个关系，如果<span class="math inline">\(\sim\)</span>还满足：</p>
+<p>​ ①自反性：<span class="math inline">\(a\sim a\)</span>；(反射律)</p>
+<p>​ ②对称性：若<span class="math inline">\(a\sim b\)</span>则，<span class="math inline">\(b\sim a\)</span>；(对称律)</p>
+<p>​ ③传递性：若<span class="math inline">\(a\sim b,b\sim c\)</span>，则<span class="math inline">\(a\sim c\)</span>；(推移律)</p>
+<p>则称<span class="math inline">\(\sim\)</span>为A上的一个等价关系，若<span class="math inline">\(a\sim b\)</span>则称a与b等价。</p>
+<p><strong>定义四：</strong>设<span class="math inline">\(A\)</span>是一个集合，<span class="math inline">\(S=\{S_i|S_i\subseteq A\}\)</span>。若</p>
+<p>​ ①<span class="math inline">\(\cup S_i=A\)</span>；</p>
+<p>​ ②对于任意的<span class="math inline">\(i,j,S_i\cap S_j=\emptyset\)</span>，</p>
+<p>则称<span class="math inline">\(S\)</span>为<span class="math inline">\(A\)</span>上的一个分类(划分)，每一个<span class="math inline">\(S_i\)</span>都称为是<span class="math inline">\(S\)</span>的一个类(块)。</p>
 <p><strong>定理二：</strong> <span class="math inline">\(A\)</span>的一个分类决定了<span class="math inline">\(A\)</span>上的一个等价关系。（例如：<span class="math inline">\(a\sim b\)</span>​当且仅当a,b属于S中的一个类）</p>
-<p><strong>定理三：</strong></p>
-<p>​ <span class="math inline">\(A\)</span>上的一个等价关系决定<span class="math inline">\(A\)</span>​的一个分类。</p>
-<p><strong>定义五：</strong> 设<span class="math inline">\(S=\{S_i\}\)</span>是集合A的一个分类，任意的<span class="math inline">\(A\in S_i\)</span>都叫做<span class="math inline">\(S_i\)</span>的代表，刚好有每一类的一个代表构成的集合叫做一个<span class="math inline">\(全体代表团\)</span>。</p>
+<p><strong>定理三：</strong> <span class="math inline">\(A\)</span>上的一个等价关系决定<span class="math inline">\(A\)</span>​的一个分类。</p>
+<p><strong>定义五：</strong>设<span class="math inline">\(S=\{S_i\}\)</span>是集合A的一个分类，任意的<span class="math inline">\(A\in S_i\)</span>都叫做<span class="math inline">\(S_i\)</span>的代表，刚好有每一类的一个代表构成的集合叫做一个<span class="math inline">\(全体代表团\)</span>。</p>
 <h1 id="近世代数-群论">近世代数-群论</h1>
 <h2 id="群的定义">群的定义</h2>
-<p><strong>定义一（群的第一定义）：</strong> 设<span class="math inline">\(G\neq\emptyset\)</span>​，<span class="math inline">\(\omicron\)</span>​是定义在<span class="math inline">\(G\)</span>​上的一个映射，若： Ⅰ，对于任意的<span class="math inline">\(a,b\in G\)</span>​，都有<span class="math inline">\(a\omicron b\in G\)</span>​； Ⅱ，对于任意的<span class="math inline">\(a,b,c\in G\)</span>​，都有<span class="math inline">\((a\omicron b)\omicron c=a\omicron(b\omicron c)\)</span>​​； Ⅲ，对于任意的<span class="math inline">\(a,b\in G\)</span>​，方程<span class="math inline">\(a\omicron x=b\)</span>​和<span class="math inline">\(y\omicron a=b\)</span>​在G中都有解， 则称<span class="math inline">\(G\)</span>​关于<span class="math inline">\(\omicron\)</span>​构成一个群，记为<span class="math inline">\((G,\omicron)\)</span>​，<span class="math inline">\(\omicron\)</span>​也称为<span class="math inline">\(G\)</span>​​​​上的乘法。</p>
-<p><strong>定理一：</strong> Ⅳ，存在<span class="math inline">\(e\in G\)</span>​，对于任意的<span class="math inline">\(a\in G\)</span>​，有<span class="math inline">\(ea=a\)</span>​。(称<span class="math inline">\(e\)</span>​为群<span class="math inline">\(G\)</span>​的左单元)。</p>
-<p><strong>定理二：</strong> Ⅴ，对于任意的<span class="math inline">\(a\in G\)</span>​，存在<span class="math inline">\(a^{-1}\in G\)</span>​，有<span class="math inline">\(a^{-1}a=e\)</span>​(称<span class="math inline">\(a^{-1}\)</span>​为群<span class="math inline">\(G\)</span>​中元素<span class="math inline">\(a\)</span>​​的左逆元​）</p>
-<p><strong>定义二：</strong> 设<span class="math inline">\(G\neq \emptyset\)</span>，<span class="math inline">\(\omicron\)</span>是定义在G上的一个映射，若： Ⅰ，对于任意的<span class="math inline">\(a,b\in G\)</span>，都有<span class="math inline">\(a\omicron b\in G\)</span>； Ⅱ，对于任意的<span class="math inline">\(a,b,c\in G\)</span>，都有<span class="math inline">\((a\omicron b)\omicron c=a\omicron(b\omicron c)\)</span>； Ⅳ，存在<span class="math inline">\(e\in G\)</span>，对于任意的<span class="math inline">\(a\in G\)</span>，有<span class="math inline">\(ea=a\)</span>。(称<span class="math inline">\(e\)</span>为群<span class="math inline">\(G\)</span>的左单元)。 Ⅴ，对于任意的<span class="math inline">\(a\in G\)</span>，存在<span class="math inline">\(a^{-1}\in G\)</span>，有<span class="math inline">\(a^{-1}a=e\)</span>(称<span class="math inline">\(a^{-1}\)</span>为群<span class="math inline">\(G\)</span>中元素<span class="math inline">\(a\)</span>的左逆元） 则称<span class="math inline">\(G\)</span>关于<span class="math inline">\(\omicron\)</span>构成一个群，记为<span class="math inline">\((G,\omicron)\)</span>，<span class="math inline">\(\omicron\)</span>也称为<span class="math inline">\(G\)</span>​上的乘法。</p>
+<p><strong>定义一（群的第一定义）：</strong>设<span class="math inline">\(G\neq\emptyset\)</span>​，<span class="math inline">\(\omicron\)</span>​是定义在<span class="math inline">\(G\)</span>​上的一个映射，若：</p>
+<p>​ Ⅰ，对于任意的<span class="math inline">\(a,b\in G\)</span>​，都有<span class="math inline">\(a\omicron b\in G\)</span>​；</p>
+<p>​ Ⅱ，对于任意的<span class="math inline">\(a,b,c\in G\)</span>​，都有<span class="math inline">\((a\omicron b)\omicron c=a\omicron(b\omicron c)\)</span>​​；</p>
+<p>​ Ⅲ，对于任意的<span class="math inline">\(a,b\in G\)</span>​，方程<span class="math inline">\(a\omicron x=b\)</span>​和<span class="math inline">\(y\omicron a=b\)</span>​在G中都有解</p>
+<p>则称<span class="math inline">\(G\)</span>​关于<span class="math inline">\(\omicron\)</span>​构成一个群，记为<span class="math inline">\((G,\omicron)\)</span>​，<span class="math inline">\(\omicron\)</span>​也称为<span class="math inline">\(G\)</span>​​​​上的乘法。</p>
+<p><strong>定理一：</strong></p>
+<p>​ Ⅳ，存在<span class="math inline">\(e\in G\)</span>，对于任意的<span class="math inline">\(a\in G\)</span>，有<span class="math inline">\(ea=a\)</span>。(称<span class="math inline">\(e\)</span>为群<span class="math inline">\(G\)</span>的左单元)。</p>
+<p><strong>定理二：</strong></p>
+<p>​ Ⅴ，对于任意的<span class="math inline">\(a\in G\)</span>​，存在<span class="math inline">\(a^{-1}\in G\)</span>​，有<span class="math inline">\(a^{-1}a=e\)</span>​(称<span class="math inline">\(a^{-1}\)</span>​为群<span class="math inline">\(G\)</span>​中元素<span class="math inline">\(a\)</span>​​的左逆元​）</p>
+<p><strong>定义二：</strong>设<span class="math inline">\(G\neq \emptyset\)</span>，<span class="math inline">\(\omicron\)</span>是定义在G上的一个映射，若：</p>
+<p>​ Ⅰ，对于任意的<span class="math inline">\(a,b\in G\)</span>，都有<span class="math inline">\(a\omicron b\in G\)</span>；</p>
+<p>​ Ⅱ，对于任意的<span class="math inline">\(a,b,c\in G\)</span>，都有<span class="math inline">\((a\omicron b)\omicron c=a\omicron(b\omicron c)\)</span>；</p>
+<p>​ Ⅳ，存在<span class="math inline">\(e\in G\)</span>，对于任意的<span class="math inline">\(a\in G\)</span>，有<span class="math inline">\(ea=a\)</span>。(称<span class="math inline">\(e\)</span>为群<span class="math inline">\(G\)</span>的左单元)。</p>
+<p>​ Ⅴ，对于任意的<span class="math inline">\(a\in G\)</span>，存在<span class="math inline">\(a^{-1}\in G\)</span>，有<span class="math inline">\(a^{-1}a=e\)</span>(称<span class="math inline">\(a^{-1}\)</span>为群<span class="math inline">\(G\)</span>中元素<span class="math inline">\(a\)</span>的左逆元）</p>
+<p>则称<span class="math inline">\(G\)</span>关于<span class="math inline">\(\omicron\)</span>构成一个群，记为<span class="math inline">\((G,\omicron)\)</span>，<span class="math inline">\(\omicron\)</span>也称为<span class="math inline">\(G\)</span>​上的乘法。</p>
 <p><strong>定理三：</strong> <span class="math inline">\(a\)</span>的左逆元<span class="math inline">\(a^{-1}\)</span>必定也是<span class="math inline">\(a\)</span>的右逆元。</p>
 <p><strong>定理四：</strong> <span class="math inline">\(G\)</span>的左单位元<span class="math inline">\(e\)</span>必定也是<span class="math inline">\(G\)</span>的右单位元。</p>
 <p>​</p>
-<p><strong>注记：</strong> （1）元素有限的群称为有限群，元素无限的群称为无限群。 （2）满足交换律的群称为交换群，也称之为阿贝尔群。</p>
-<p><strong>定义三：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(a\in G\)</span>，则称<span class="math inline">\(a^n=\underbrace{a\cdot a\cdots \cdot \cdot a}_{n个}\)</span>为<span class="math inline">\(a\)</span>的<span class="math inline">\(n\)</span>次幂（<span class="math inline">\(n\)</span>为正整数）。</p>
-<p><strong>定理五：</strong> 设<span class="math inline">\(a,b\)</span>是群<span class="math inline">\(G\)</span>中的元素，<span class="math inline">\(m,n\in \mathbb{Z_+}\)</span>，则有 （1）<span class="math inline">\(\displaystyle{a^{m+n}=a^ma^n,\qquad (a^m)^n=a^{mn}}\)</span> （2）当<span class="math inline">\(G\)</span>是交换群时，<span class="math inline">\((ab)^n=a^nb^n\)</span></p>
+<p><strong>注记：</strong></p>
+<p>​ （1）元素有限的群称为有限群，元素无限的群称为无限群。</p>
+<p>​ （2）满足交换律的群称为交换群，也称之为阿贝尔群。</p>
+<p><strong>定义三：</strong>设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(a\in G\)</span>，则称<span class="math inline">\(a^n=\underbrace{a\cdot a\cdots \cdot \cdot a}_{n个}\)</span>为<span class="math inline">\(a\)</span>的<span class="math inline">\(n\)</span>次幂（<span class="math inline">\(n\)</span>为正整数）。</p>
+<p><strong>定理五：</strong>设<span class="math inline">\(a,b\)</span>是群<span class="math inline">\(G\)</span>中的元素，<span class="math inline">\(m,n\in \mathbb{Z_+}\)</span>，则有</p>
+<p>​ （1）<span class="math inline">\(\displaystyle{a^{m+n}=a^ma^n,\qquad (a^m)^n=a^{mn}}\)</span></p>
+<p>​ （2）当<span class="math inline">\(G\)</span>是交换群时，<span class="math inline">\((ab)^n=a^nb^n\)</span></p>
 <h2 id="单位元逆元和消去律">单位元、逆元和消去律</h2>
-<p><strong>定理一：</strong> 左单位元<span class="math inline">\(e\)</span>存在且唯一（<span class="math inline">\(e\)</span>也称为单位元）</p>
-<p><strong>定理二：</strong> 元素<span class="math inline">\(a\)</span>的左逆元<span class="math inline">\(a^{-1}\)</span>存在且唯一（<span class="math inline">\(a^{-1}\)</span>也称为逆元）</p>
-<p><strong>注记：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(e\)</span>是单位元，<span class="math inline">\(a,b\in G\)</span>，那么若<span class="math inline">\(ab=e\)</span>，则<span class="math inline">\(a,b\)</span>互为逆元，特别的，若<span class="math inline">\(a^{2}=a\)</span>，则<span class="math inline">\(a^{-1}=a\)</span>，进而<span class="math inline">\(e^{-1}=e\)</span>。</p>
-<p><strong>定理三：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(a,b\in G\)</span>，则： （1）<span class="math inline">\((a^{-1})^{-1}=a;\)</span> （2）<span class="math inline">\((ab)^{-1}=b^{-1}a^{-1}\)</span>，一般的，有<span class="math inline">\((a_1a_2\cdots a_n)^{-1}=a_n^{-1}\cdots a_2^{-1}a_1^{-1})\)</span>​进而<span class="math inline">\((a^n)^{-1}=(a^{-1})^n\)</span>。</p>
-<p><strong>定义一：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(a\in G,n\in \mathbb{Z^-}\)</span>，规定： <span class="math inline">\(a^0=e,\quad a^n=(a^{-1})^{-n}=\underbrace{a^{-1}\cdot a^{-1}\cdots a^{-1}}_{(-n)个}\)</span>​.</p>
-<p><strong>定理四：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(a\in G ,m,n\in \mathbb{Z}\)</span>，则: （1）<span class="math inline">\(a^ma^n=a^{m+m}\)</span> （2）<span class="math inline">\((a^m)^n=a^{mn}\)</span></p>
-<p><strong>定理五：</strong> 设<span class="math inline">\(G\)</span>是一个交换群，<span class="math inline">\(a\in G,n\in \mathbb{Z}\)</span>，则 <span class="math inline">\((ab)^n=a^nb^n\)</span></p>
-<p><strong>定义二：</strong> 设<span class="math inline">\(a\in G\)</span>，则称使得等式<span class="math inline">\(a^m=e\)</span>成立的最小的正整数<span class="math inline">\(m\)</span>为<span class="math inline">\(a\)</span>的阶，记为<span class="math inline">\(|a|\)</span>或者<span class="math inline">\(\omicron(a)\)</span>。若这样的阶不存在，则称<span class="math inline">\(a\)</span>是无限阶的，记为<span class="math inline">\(|a|=\infty\)</span>。​</p>
-<p><strong>定理六：</strong> 在群<span class="math inline">\(G\)</span>中，<span class="math inline">\(a\in G\)</span>则 （1）一个元的阶为1当且仅当这个元就是单位元； （2）一个元的逆元等于自身当且仅当它的平方是单位元。</p>
-<p><strong>定理七：</strong> 在群<span class="math inline">\(G\)</span>中，<span class="math inline">\(a\in G\)</span>，则<span class="math inline">\(|a|=|a^{-1}|\)</span>​。</p>
-<p><strong>定理八：</strong> 群的乘法适合消去律，即： <span class="math inline">\(Ⅲ&#39;:\)</span>若<span class="math inline">\(ax=ax&#39;\)</span>，则<span class="math inline">\(x=x&#39;\)</span>（左消去律） 若<span class="math inline">\(ya=y&#39;a\)</span>，则<span class="math inline">\(y=y&#39;\)</span>（右消去律)</p>
-<p><strong>定理九：</strong> 一个有限群的每一个元的阶都有限。</p>
+<p><strong>定理一：</strong>左单位元<span class="math inline">\(e\)</span>存在且唯一（<span class="math inline">\(e\)</span>也称为单位元）</p>
+<p><strong>定理二：</strong>元素<span class="math inline">\(a\)</span>的左逆元<span class="math inline">\(a^{-1}\)</span>存在且唯一（<span class="math inline">\(a^{-1}\)</span>也称为逆元）</p>
+<p><strong>注记：</strong>设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(e\)</span>是单位元，<span class="math inline">\(a,b\in G\)</span>，那么若<span class="math inline">\(ab=e\)</span>，则<span class="math inline">\(a,b\)</span>互为逆元，特别的，若<span class="math inline">\(a^{2}=a\)</span>，则<span class="math inline">\(a^{-1}=a\)</span>，进而<span class="math inline">\(e^{-1}=e\)</span>。</p>
+<p><strong>定理三：</strong>设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(a,b\in G\)</span>，则：</p>
+<p>​ （1）<span class="math inline">\((a^{-1})^{-1}=a;\)</span></p>
+<p>​ （2）<span class="math inline">\((ab)^{-1}=b^{-1}a^{-1}\)</span>，一般的，有<span class="math inline">\((a_1a_2\cdots a_n)^{-1}=a_n^{-1}\cdots a_2^{-1}a_1^{-1})\)</span>​进而<span class="math inline">\((a^n)^{-1}=(a^{-1})^n\)</span>。</p>
+<p><strong>定义一：</strong>设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(a\in G,n\in \mathbb{Z^-}\)</span>，规定：<span class="math inline">\(a^0=e,\quad a^n=(a^{-1})^{-n}=\underbrace{a^{-1}\cdot a^{-1}\cdots a^{-1}}_{(-n)个}\)</span>​.</p>
+<p><strong>定理四：</strong>设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(a\in G ,m,n\in \mathbb{Z}\)</span>，则:</p>
+<p>​ （1）<span class="math inline">\(a^ma^n=a^{m+m}\)</span></p>
+<p>​ （2）<span class="math inline">\((a^m)^n=a^{mn}\)</span></p>
+<p><strong>定理五：</strong>设<span class="math inline">\(G\)</span>是一个交换群，<span class="math inline">\(a\in G,n\in \mathbb{Z}\)</span>，则<span class="math inline">\((ab)^n=a^nb^n\)</span></p>
+<p><strong>定义二：</strong>设<span class="math inline">\(a\in G\)</span>，则称使得等式<span class="math inline">\(a^m=e\)</span>成立的最小的正整数<span class="math inline">\(m\)</span>为<span class="math inline">\(a\)</span>的阶，记为<span class="math inline">\(|a|\)</span>或者<span class="math inline">\(\omicron(a)\)</span>。若这样的阶不存在，则称<span class="math inline">\(a\)</span>是无限阶的，记为<span class="math inline">\(|a|=\infty\)</span>。​</p>
+<p><strong>定理六：</strong>在群<span class="math inline">\(G\)</span>中，<span class="math inline">\(a\in G\)</span>则：</p>
+<p>​ （1）一个元的阶为1当且仅当这个元就是单位元；</p>
+<p>​ （2）一个元的逆元等于自身当且仅当它的平方是单位元。</p>
+<p><strong>定理七：</strong>在群<span class="math inline">\(G\)</span>中，<span class="math inline">\(a\in G\)</span>，则<span class="math inline">\(|a|=|a^{-1}|\)</span>​。</p>
+<p><strong>定理八：</strong>群的乘法适合消去律，即：</p>
+<p>​ <span class="math inline">\(Ⅲ&#39;:\)</span>若<span class="math inline">\(ax=ax&#39;\)</span>，则<span class="math inline">\(x=x&#39;\)</span>（左消去律）</p>
+<p>​ 若<span class="math inline">\(ya=y&#39;a\)</span>，则<span class="math inline">\(y=y&#39;\)</span>（右消去律)</p>
+<p><strong>定理九：</strong>一个有限群的每一个元的阶都有限。</p>
 <h2 id="有限群的另一定义">有限群的另一定义</h2>
-<p><strong>定理一：</strong> 设<span class="math inline">\(G\)</span>是有限集，<span class="math inline">\(\cdot\)</span>是定义在<span class="math inline">\(G\)</span>上的映射，若<span class="math inline">\(\cdot\)</span>适合公理Ⅰ、Ⅱ、<span class="math inline">\(Ⅲ&#39;\)</span>​，那么它也适合Ⅲ。</p>
-<p><strong>定义一（有限群的第三定义）：</strong> 设<span class="math inline">\(G\neq \emptyset\)</span>，<span class="math inline">\(\omicron\)</span>是定义在<span class="math inline">\(G\)</span>上的一个映射，若满足公理Ⅰ、Ⅱ、<span class="math inline">\(Ⅲ&#39;\)</span>，则称<span class="math inline">\(G\)</span>关于<span class="math inline">\(\omicron\)</span>构成一个有限群。</p>
+<p><strong>定理一：</strong>设<span class="math inline">\(G\)</span>是有限集，<span class="math inline">\(\cdot\)</span>是定义在<span class="math inline">\(G\)</span>上的映射，若<span class="math inline">\(\cdot\)</span>适合公理Ⅰ、Ⅱ、<span class="math inline">\(Ⅲ&#39;\)</span>​，那么它也适合Ⅲ。</p>
+<p><strong>定义一（有限群的第三定义）：</strong>设<span class="math inline">\(G\neq \emptyset\)</span>，<span class="math inline">\(\omicron\)</span>是定义在<span class="math inline">\(G\)</span>上的一个映射，若满足公理Ⅰ、Ⅱ、<span class="math inline">\(Ⅲ&#39;\)</span>，则称<span class="math inline">\(G\)</span>关于<span class="math inline">\(\omicron\)</span>构成一个有限群。</p>
 <h2 id="群的同态">群的同态</h2>
-<p><strong>定理一:</strong> 设<span class="math inline">\((G,\omicron)\)</span>是一个群，<span class="math inline">\((\overline{G},\overline{\omicron})\)</span>是一个代数系统，如果<span class="math inline">\(G\sim \overline{G}\)</span>，那么<span class="math inline">\(\overline{G}\)</span>也是一个群。</p>
-<p><strong>定理二：</strong> 设<span class="math inline">\(\phi\)</span>是群<span class="math inline">\(G\)</span>到群<span class="math inline">\(\overline{G}\)</span>的同态映射，那么<span class="math inline">\(G\)</span>的单位元的像是<span class="math inline">\(\overline{G}\)</span>的单位元；<span class="math inline">\(a\in G\)</span>的逆元<span class="math inline">\(a^{-1}\)</span>的像是<span class="math inline">\(a\)</span>的像<span class="math inline">\(\phi(a)\)</span>的逆元。</p>
+<p><strong>定理一:</strong>设<span class="math inline">\((G,\omicron)\)</span>是一个群，<span class="math inline">\((\overline{G},\overline{\omicron})\)</span>是一个代数系统，如果<span class="math inline">\(G\sim \overline{G}\)</span>，那么<span class="math inline">\(\overline{G}\)</span>也是一个群。</p>
+<p><strong>定理二：</strong>设<span class="math inline">\(\phi\)</span>是群<span class="math inline">\(G\)</span>到群<span class="math inline">\(\overline{G}\)</span>的同态映射，那么<span class="math inline">\(G\)</span>的单位元的像是<span class="math inline">\(\overline{G}\)</span>的单位元；<span class="math inline">\(a\in G\)</span>的逆元<span class="math inline">\(a^{-1}\)</span>的像是<span class="math inline">\(a\)</span>的像<span class="math inline">\(\phi(a)\)</span>的逆元。</p>
 <h2 id="变换群">变换群</h2>
-<p><strong>定理一：</strong> 集合<span class="math inline">\(A\)</span>上的所有一一变换的集合<span class="math inline">\(G\)</span>关于变换的乘法（复合）构成群。</p>
-<strong>定理二：</strong> 设<span class="math inline">\(\sigma:\mathbb{R^2\to R^2}\)</span>定义为： $$ 
-<span class="math display">\[\begin{pmatrix}
-x\\
-y
-\end{pmatrix}\]</span>
-=
-<span class="math display">\[\begin{pmatrix}
-\cos\theta &amp;{-\sin\theta}\\
-\sin\theta &amp;\cos\theta
-\end{pmatrix}\]</span>
-<span class="math display">\[\begin{pmatrix}
+<p><strong>定理一：</strong>集合<span class="math inline">\(A\)</span>上的所有一一变换的集合<span class="math inline">\(G\)</span>关于变换的乘法（复合）构成群。</p>
+<strong>定理二：</strong>设<span class="math inline">\(\sigma:\mathbb{R^2\to R^2}\)</span>定义为： $$
+<span class="math display">\[\begin{aligned}
+\sigma
+\begin{pmatrix}
 x\\
 y
 \end{pmatrix}
-\quad\]</span>
-<p>() $$ 证明：<span class="math inline">\(\sigma\)</span>是<span class="math inline">\(\mathbb{R^2}\)</span>上的一一变换，也称<span class="math inline">\(\sigma\)</span>​为以原点为中心的<em>旋转变换</em>，简称<em>旋转</em>。</p>
-<strong>定理三：</strong> 设<span class="math inline">\(\sigma:\mathbb{R^2\to R^2}\)</span>定义为： $$ 
-<span class="math display">\[\begin{pmatrix}
+=
+\begin{pmatrix}
+\cos\theta &amp;{-\sin\theta}\\
+\sin\theta &amp;\cos\theta
+\end{pmatrix}
+
+\begin{pmatrix}
 x\\
 y
-\end{pmatrix}\]</span>
+\end{pmatrix}
+\quad
+(\theta \in \mathbb{R})
+\end{aligned}\]</span>
+<p>$$</p>
+<p>证明：<span class="math inline">\(\sigma\)</span>是<span class="math inline">\(\mathbb{R^2}\)</span>上的一一变换，也称<span class="math inline">\(\sigma\)</span>为以原点为中心的<em>旋转变换</em>，简称<em>旋转</em>。</p>
+<p><strong>定理三：</strong>设<span class="math inline">\(\sigma:\mathbb{R^2\to R^2}\)</span>定义为：</p>
+$$
+<span class="math display">\[\begin{aligned}
+\sigma
+\begin{pmatrix}
+x\\
+y
+\end{pmatrix}
 =
-<span class="math display">\[\begin{pmatrix}
+\begin{pmatrix}
 \lambda &amp;0\\
 0 &amp;\lambda
-\end{pmatrix}\]</span>
-<span class="math display">\[\begin{pmatrix}
+\end{pmatrix}
+
+\begin{pmatrix}
 x\\
 y
-\end{pmatrix}\]</span>
+\end{pmatrix}
 =
-<span class="math display">\[\begin{pmatrix}
+\begin{pmatrix}
 \lambda x\\
 \lambda y
 \end{pmatrix}
-\quad\]</span>
-<p>() $$ 证明：<span class="math inline">\(\sigma\)</span>是<span class="math inline">\(\mathbb{R^2}\)</span>上的一一变换，也称<span class="math inline">\(\sigma\)</span>为以原点为中心的<em>位似变换</em>，简称<em>位似</em>。</p>
-<p><strong>定理四：</strong>设<span class="math inline">\(\sigma:\mathbb{R^2\to R^2}\)</span>​定义为： <span class="math display">\[
+\quad
+(\lambda \neq 0)
+\end{aligned}\]</span>
+<p>$$</p>
+<p>证明：<span class="math inline">\(\sigma\)</span>是<span class="math inline">\(\mathbb{R^2}\)</span>上的一一变换，也称<span class="math inline">\(\sigma\)</span>为以原点为中心的<em>位似变换</em>，简称<em>位似</em>。</p>
+<p><strong>定理四：</strong>设<span class="math inline">\(\sigma:\mathbb{R^2\to R^2}\)</span>定义为： <span class="math display">\[
 \sigma
 \begin{pmatrix}
 x\\
@@ -375,127 +235,208 @@ b
 x+a\\
 y+a
 \end{pmatrix}
-\]</span> 证明：<span class="math inline">\(\sigma\)</span>是<span class="math inline">\(\mathbb{R^2}\)</span>上的一一变换，也称<span class="math inline">\(\sigma\)</span>为以原点为中心的<em>平移变换</em>，简称<em>平移</em>。</p>
-<p><strong>定义一：</strong> 若集合<span class="math inline">\(A\)</span>上的若干一一变换对于变换的乘法作成群，则称这样的群为变换群。</p>
-<p><strong>定理五（凯莱定理）：</strong> 任何一个群<span class="math inline">\(G\)</span>​都同构于一个变换群（该群所有的一一变换构成的变换群）。</p>
+\]</span></p>
+<p>证明：<span class="math inline">\(\sigma\)</span>是<span class="math inline">\(\mathbb{R^2}\)</span>上的一一变换，也称<span class="math inline">\(\sigma\)</span>为以原点为中心的<em>平移变换</em>，简称<em>平移</em>。</p>
+<p><strong>定义一：</strong>若集合<span class="math inline">\(A\)</span>上的若干一一变换对于变换的乘法作成群，则称这样的群为变换群。</p>
+<p><strong>定理五（凯莱定理）：</strong>任何一个群<span class="math inline">\(G\)</span>​都同构于一个变换群（该群所有的一一变换构成的变换群）。</p>
 <h2 id="置换群">置换群</h2>
-<p><strong>定义一：</strong> 有限集上的一一变换叫做置换，同一集合上的若干置换构成的群叫做置换群。包含<span class="math inline">\(n\)</span>个元素的集合上的全体置换作成的群，称为<span class="math inline">\(n\)</span>次对称群，记为<span class="math inline">\(S_n\)</span>。</p>
-<p><strong>定理一（有限群的凯莱定理）：</strong> 任何一个有限群都同构与一个置换群。</p>
+<p><strong>定义一：</strong>有限集上的一一变换叫做置换，同一集合上的若干置换构成的群叫做置换群。包含<span class="math inline">\(n\)</span>个元素的集合上的全体置换作成的群，称为<span class="math inline">\(n\)</span>次对称群，记为<span class="math inline">\(S_n\)</span>。</p>
+<p><strong>定理一（有限群的凯莱定理）：</strong>任何一个有限群都同构与一个置换群。</p>
 <p><strong>定理二：</strong> <span class="math inline">\(n\)</span>次对称群<span class="math inline">\(S_n\)</span>的阶是<span class="math inline">\(n!\)</span>，即<span class="math inline">\(|S_n|=n!\)</span>。</p>
-<p><strong>定理三：</strong> 置换可以表示为若干个不相交（没有相同的元素，例如(12)(34)）循环置换的乘积。</p>
-<p><strong>定理四：</strong> 任何一个循环置换都可以表示为若干个对换的乘积。（k循环可以表示为至少k-1个对换的乘积）</p>
-<p><strong>定义二：</strong> 在<span class="math inline">\(S_n\)</span>中，能够表示为奇数多个对换乘积的置换称为奇置换，能够表示为偶数个对换乘积的置换称为偶置换，并且把所有偶置换的集合记为<span class="math inline">\(A_n\)</span></p>
+<p><strong>定理三：</strong>置换可以表示为若干个不相交（没有相同的元素，例如(12)(34)）循环置换的乘积。</p>
+<p><strong>定理四：</strong>任何一个循环置换都可以表示为若干个对换的乘积。（k循环可以表示为至少k-1个对换的乘积）</p>
+<p><strong>定义二：</strong>在<span class="math inline">\(S_n\)</span>中，能够表示为奇数多个对换乘积的置换称为奇置换，能够表示为偶数个对换乘积的置换称为偶置换，并且把所有偶置换的集合记为<span class="math inline">\(A_n\)</span></p>
 <p><strong>定理五：</strong> <span class="math inline">\(n\geq2\)</span>时，<span class="math inline">\(S_n\)</span>中奇置换和偶置换各占一半，即<span class="math inline">\(|A_n|=\frac{n!}{2}\)</span>。</p>
-<p><strong>定理六：</strong> 两个不相交的循环置换的乘积可以交换</p>
+<p><strong>定理六：</strong>两个不相交的循环置换的乘积可以交换</p>
 <p><strong>定理七：</strong> <span class="math inline">\(k\)</span>循环的逆元等于反序写出的循环，即：<span class="math inline">\((i_1i_2\cdots i_k)^{-1}=(i_k\cdots i_2i_1)=(i_1i_k\cdots i_2)\)</span>。特别地，对换的逆元等于自身。</p>
-<p><strong>定理八：</strong> （1）k循环的阶等于k; （2）如果一个置换可以表示为一个k循环和一个l循环的乘积，那么<span class="math inline">\(|\sigma|=lcm(k,l)\)</span>，这里<span class="math inline">\(lcm(k,l)\)</span>表示<span class="math inline">\(k,l\)</span>的最小公倍数。</p>
+<p><strong>定理八：</strong></p>
+<p>​ （1）k循环的阶等于k;</p>
+<p>​ （2）如果一个置换可以表示为一个k循环和一个l循环的乘积，那么<span class="math inline">\(|\sigma|=lcm(k,l)\)</span>，这里<span class="math inline">\(lcm(k,l)\)</span>表示<span class="math inline">\(k,l\)</span>的最小公倍数。</p>
 <h2 id="循环群">循环群</h2>
-<p><strong>注解：</strong> 欧拉函数<span class="math inline">\(\phi(n)\)</span>定义为小于n且与n互素的非负整数的个数。</p>
-<p><strong>定义一：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(a\in G\)</span>，如果对于任意的<span class="math inline">\(b\in G\)</span>，都存在<span class="math inline">\(m\in \mathbb{Z}\)</span>，有<span class="math inline">\(b=a^m\)</span>，则称<span class="math inline">\(a\)</span>为群<span class="math inline">\(G\)</span>的生成元，群<span class="math inline">\(G\)</span>为一个循环群，记为<span class="math inline">\(G=(a)\)</span>。</p>
-<p><strong>注解：</strong> 整数加群<span class="math inline">\((\mathbb{Z},+)\)</span>是一个循环群。</p>
-<p><strong>定理一(循环群基本定理)：</strong> 设<span class="math inline">\(G=(a)\)</span>，则 （1）若<span class="math inline">\(|a|=\infty\)</span>，则<span class="math inline">\(G\cong(\mathbb{Z},+)\)</span>; （2）若<span class="math inline">\(|a|=n\)</span>，则<span class="math inline">\(G\cong(\mathbb{Z}_n,+)\)</span></p>
-<p><strong>推论</strong> 假设<span class="math inline">\(G=(a)\)</span>，则 (1)若<span class="math inline">\(|a|=\infty\)</span>，则<span class="math inline">\(G\)</span>恰好有两个生成元<span class="math inline">\(a,a^{-1}\)</span>； (2)若<span class="math inline">\(|a|=n\)</span>，则<span class="math inline">\(G\)</span>至少有两个生成元<span class="math inline">\(a,a^{-1}\)</span>(分别对应[1]，[n-1])； (3)<span class="math inline">\(|a|=\infty\)</span>当且仅当<span class="math inline">\(|G|=\infty\)</span>； (4)<span class="math inline">\(|a|=n\)</span>当且仅当<span class="math inline">\(|G|=n\)</span>；</p>
-<p><strong>定理二：</strong> 设<span class="math inline">\(G=(a)\)</span>是一个<span class="math inline">\(n\)</span>阶循环群，则 (1)<span class="math inline">\(|a^r|=\frac{n}{(r,n)}\)</span>； (2)当<span class="math inline">\((r,n)=1\)</span>时，<span class="math inline">\(a^r\)</span>也是一个生成元； (3)<span class="math inline">\(G\)</span>中有欧拉函数<span class="math inline">\(\varphi{(n)}\)</span>个生成元。（<span class="math inline">\(\varphi{(n)}\)</span>表示小于<span class="math inline">\(n\)</span>，且与<span class="math inline">\(n\)</span>互素的非负整数的个数）</p>
-<p><strong>推论：</strong> 循环群一定是交换群</p>
+<p><strong>注解：</strong>欧拉函数<span class="math inline">\(\phi(n)\)</span>定义为小于n且与n互素的非负整数的个数。</p>
+<p><strong>定义一：</strong>设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(a\in G\)</span>，如果对于任意的<span class="math inline">\(b\in G\)</span>，都存在<span class="math inline">\(m\in \mathbb{Z}\)</span>，有<span class="math inline">\(b=a^m\)</span>，则称<span class="math inline">\(a\)</span>为群<span class="math inline">\(G\)</span>的生成元，群<span class="math inline">\(G\)</span>为一个循环群，记为<span class="math inline">\(G=(a)\)</span>。</p>
+<p><strong>注解：</strong>整数加群<span class="math inline">\((\mathbb{Z},+)\)</span>是一个循环群。</p>
+<p><strong>定理一(循环群基本定理)：</strong>设<span class="math inline">\(G=(a)\)</span>，则</p>
+<p>​ （1）若<span class="math inline">\(|a|=\infty\)</span>，则<span class="math inline">\(G\cong(\mathbb{Z},+)\)</span>;</p>
+<p>​ （2）若<span class="math inline">\(|a|=n\)</span>，则<span class="math inline">\(G\cong(\mathbb{Z}_n,+)\)</span></p>
+<p><strong>推论</strong>假设<span class="math inline">\(G=(a)\)</span>，则</p>
+<p>​ (1)若<span class="math inline">\(|a|=\infty\)</span>，则<span class="math inline">\(G\)</span>恰好有两个生成元<span class="math inline">\(a,a^{-1}\)</span>；</p>
+<p>​ (2)若<span class="math inline">\(|a|=n\)</span>，则<span class="math inline">\(G\)</span>至少有两个生成元<span class="math inline">\(a,a^{-1}\)</span>(分别对应[1]，[n-1])；</p>
+<p>​ (3)<span class="math inline">\(|a|=\infty\)</span>当且仅当<span class="math inline">\(|G|=\infty\)</span>；</p>
+<p>​ (4)<span class="math inline">\(|a|=n\)</span>当且仅当<span class="math inline">\(|G|=n\)</span>；</p>
+<p><strong>定理二：</strong>设<span class="math inline">\(G=(a)\)</span>是一个<span class="math inline">\(n\)</span>阶循环群，则</p>
+<p>​ (1)<span class="math inline">\(|a^r|=\frac{n}{(r,n)}\)</span>；</p>
+<p>​ (2)当<span class="math inline">\((r,n)=1\)</span>时，<span class="math inline">\(a^r\)</span>也是一个生成元；</p>
+<p>​ (3)<span class="math inline">\(G\)</span>中有欧拉函数<span class="math inline">\(\varphi{(n)}\)</span>个生成元。（<span class="math inline">\(\varphi{(n)}\)</span>表示小于<span class="math inline">\(n\)</span>，且与<span class="math inline">\(n\)</span>互素的非负整数的个数）</p>
+<p><strong>推论：</strong>循环群一定是交换群</p>
 <h2 id="子群">子群</h2>
-<p><strong>定义一：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(H\)</span>是<span class="math inline">\(G\)</span>的一个非空子集，如果<span class="math inline">\(H\)</span>关于<span class="math inline">\(G\)</span>的乘法也能做成群，则称<span class="math inline">\(H\)</span>是<span class="math inline">\(G\)</span>的子群，记为<span class="math inline">\(H\leq G\)</span>。如果子群<span class="math inline">\(H\)</span>真包含于G，也称<span class="math inline">\(H\)</span>是<span class="math inline">\(G\)</span>的真子群，记为<span class="math inline">\(H&lt;G\)</span>。</p>
-<p><strong>定理一（子群第一判定定理）：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(H\)</span>是<span class="math inline">\(G\)</span>的一个非空子集，则<span class="math inline">\(H\leq G\)</span>当且仅当 (1)<span class="math inline">\(a,b\in H\)</span>，都有<span class="math inline">\(ab\in H\)</span>； (2)<span class="math inline">\(a\in H\)</span>，有<span class="math inline">\(a^{-1}\in H\)</span>。</p>
-<p><strong>推论：</strong> 设<span class="math inline">\(H\leq G\)</span>，则<span class="math inline">\(e_H=e_G,a_H^{-1}=a_G^{-1}\)</span>。</p>
-<p><strong>定理二（子群第二判定定理）：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(H\)</span>是<span class="math inline">\(G\)</span>的一个非空子集，则<span class="math inline">\(H\leq G\)</span>当且仅当<span class="math inline">\(a,b\in H\)</span>，有<span class="math inline">\(ab^{-1}\in H\)</span>。</p>
-<p><strong>定理三（子群第三判定定理）：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(H\)</span>是<span class="math inline">\(G\)</span>的一个非空<em>有限</em>子集，则<span class="math inline">\(H\leq G\)</span>当且仅当<span class="math inline">\(a,b\in H\)</span>，有<span class="math inline">\(ab\in H\)</span>。</p>
-<p><strong>推论：</strong> 设<span class="math inline">\(G\)</span>是一个有限群，<span class="math inline">\(H\)</span>是<span class="math inline">\(G\)</span>的非空子集，则<span class="math inline">\(H\leq G\)</span>当且仅当<span class="math inline">\(a,b\in H\)</span>，有<span class="math inline">\(ab\in H\)</span>。</p>
-<p><strong>定理四：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(S\)</span>是<span class="math inline">\(G\)</span>的一个非空子集，则<span class="math inline">\((S)=\{\underbrace{a^mb^n\cdots c^k}_{有限个}|a,b,\cdots ,c \in S,m,n,k\in \mathbb{Z}\}\)</span>是<span class="math inline">\(G\)</span>的一个子群，且是包含<span class="math inline">\(S\)</span>的最小子群（称为<span class="math inline">\(S\)</span>的生成子群）</p>
+<p><strong>定义一：</strong>设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(H\)</span>是<span class="math inline">\(G\)</span>的一个非空子集，如果<span class="math inline">\(H\)</span>关于<span class="math inline">\(G\)</span>的乘法也能做成群，则称<span class="math inline">\(H\)</span>是<span class="math inline">\(G\)</span>的子群，记为<span class="math inline">\(H\leq G\)</span>。如果子群<span class="math inline">\(H\)</span>真包含于G，也称<span class="math inline">\(H\)</span>是<span class="math inline">\(G\)</span>的真子群，记为<span class="math inline">\(H&lt;G\)</span>。</p>
+<p><strong>定理一（子群第一判定定理）：</strong>设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(H\)</span>是<span class="math inline">\(G\)</span>的一个非空子集，则<span class="math inline">\(H\leq G\)</span>当且仅当</p>
+<p>​ (1)<span class="math inline">\(a,b\in H\)</span>，都有<span class="math inline">\(ab\in H\)</span>；</p>
+<p>​ (2)<span class="math inline">\(a\in H\)</span>，有<span class="math inline">\(a^{-1}\in H\)</span>。</p>
+<p><strong>推论：</strong>设<span class="math inline">\(H\leq G\)</span>，则<span class="math inline">\(e_H=e_G,a_H^{-1}=a_G^{-1}\)</span>。</p>
+<p><strong>定理二（子群第二判定定理）：</strong>设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(H\)</span>是<span class="math inline">\(G\)</span>的一个非空子集，则<span class="math inline">\(H\leq G\)</span>当且仅当<span class="math inline">\(a,b\in H\)</span>，有<span class="math inline">\(ab^{-1}\in H\)</span>。</p>
+<p><strong>定理三（子群第三判定定理）：</strong>设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(H\)</span>是<span class="math inline">\(G\)</span>的一个非空<em>有限</em>子集，则<span class="math inline">\(H\leq G\)</span>当且仅当<span class="math inline">\(a,b\in H\)</span>，有<span class="math inline">\(ab\in H\)</span>。</p>
+<p><strong>推论：</strong>设<span class="math inline">\(G\)</span>是一个有限群，<span class="math inline">\(H\)</span>是<span class="math inline">\(G\)</span>的非空子集，则<span class="math inline">\(H\leq G\)</span>当且仅当<span class="math inline">\(a,b\in H\)</span>，有<span class="math inline">\(ab\in H\)</span>。</p>
+<p><strong>定理四：</strong>设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(S\)</span>是<span class="math inline">\(G\)</span>的一个非空子集，则<span class="math inline">\((S)=\{\underbrace{a^mb^n\cdots c^k}_{有限个}|a,b,\cdots ,c \in S,m,n,k\in \mathbb{Z}\}\)</span>是<span class="math inline">\(G\)</span>的一个子群，且是包含<span class="math inline">\(S\)</span>的最小子群（称为<span class="math inline">\(S\)</span>的生成子群）</p>
 <h2 id="子群的陪集">子群的陪集</h2>
-<p><strong>定义一：</strong> 设<span class="math inline">\(H\leq G,a\in G\)</span>，称<span class="math inline">\(aH=\{ah|h\in H\} \quad (Ha=\{ha|h\in H\})\)</span>为子群<span class="math inline">\(H\)</span>的左陪集（右陪集）。如果<span class="math inline">\(aH=Ha\)</span>，则称它们为子群<span class="math inline">\(H\)</span>的陪集。</p>
-<p><strong>命题一：</strong> 设$ HG,a,bG<span class="math inline">\(，则  (1)\)</span>aaH (aHa)$ (2)$ abH aH=bH a^{-1}bH<span class="math inline">\((\)</span> aHb Ha=Hb ab^{-1}H<span class="math inline">\()  (3)\)</span>|aH|=|Ha|=|H|$</p>
-<p><strong>定理一：</strong> 设<span class="math inline">\(S_l,S_r\)</span>分别是群<span class="math inline">\(G\)</span>关于子群<span class="math inline">\(H\)</span>的左、右陪集分解，则<span class="math inline">\(|S_l|=|S_r|\)</span></p>
-<p><strong>定义二：</strong> 设<span class="math inline">\(H\leq G,s_l,S_r\)</span>分别是<span class="math inline">\(G\)</span>关于<span class="math inline">\(H\)</span>的左、右陪集分解，称<span class="math inline">\(|S_l|=|S_r|\)</span>为<span class="math inline">\(H\)</span>在<span class="math inline">\(G\)</span>中的指数，记为<span class="math inline">\([G:H]\)</span>。</p>
-<p><strong>定理二（拉格朗日定理）：</strong> 设<span class="math inline">\(G\)</span>是一个有限群，<span class="math inline">\(H\leq G\)</span>，则<span class="math inline">\([G:H]=\frac{|G|}{|H|},\quad (|G|=|H|\cdot [G:H])\)</span>，即<span class="math inline">\(|H|,[G:H]\)</span>都整除<span class="math inline">\(|G|\)</span>。</p>
-<p><strong>定理三：</strong> 设<span class="math inline">\(G\)</span>是一个有限群，<span class="math inline">\(a\in G\)</span>，则<span class="math inline">\(|a|\)</span>整除<span class="math inline">\(|G|\)</span>。</p>
-<p><strong>命题二：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(e\)</span>是单位元，<span class="math inline">\(a\in G,m,n,k\)</span>都是正整数，则 (1)若<span class="math inline">\(|a|=k,a^m=e\)</span>，则<span class="math inline">\(k|m\)</span>； (2)若<span class="math inline">\(m|k,n|k,(m,n)=1\)</span>，则<span class="math inline">\(mn|k\)</span>； (3)若<span class="math inline">\(m|kn,(m,n)=1\)</span>，则<span class="math inline">\(m|k\)</span>。</p>
+<p><strong>定义一：</strong>设<span class="math inline">\(H\leq G,a\in G\)</span>，称<span class="math inline">\(aH=\{ah|h\in H\} \quad (Ha=\{ha|h\in H\})\)</span>为子群<span class="math inline">\(H\)</span>的左陪集（右陪集）。如果<span class="math inline">\(aH=Ha\)</span>，则称它们为子群<span class="math inline">\(H\)</span>的陪集。</p>
+<p><strong>命题一：</strong>设$ HG,a,bG$，则</p>
+<p>​ (1)<span class="math inline">\(a\in aH \quad (a\in Ha)\)</span></p>
+<p>​ (2)$ abH aH=bH a^{-1}bH<span class="math inline">\((\)</span> aHb Ha=Hb ab^{-1}H$)</p>
+<p>​ (3)<span class="math inline">\(|aH|=|Ha|=|H|\)</span></p>
+<p><strong>定理一：</strong>设<span class="math inline">\(S_l,S_r\)</span>分别是群<span class="math inline">\(G\)</span>关于子群<span class="math inline">\(H\)</span>的左、右陪集分解，则<span class="math inline">\(|S_l|=|S_r|\)</span></p>
+<p><strong>定义二：</strong>设<span class="math inline">\(H\leq G,s_l,S_r\)</span>分别是<span class="math inline">\(G\)</span>关于<span class="math inline">\(H\)</span>的左、右陪集分解，称<span class="math inline">\(|S_l|=|S_r|\)</span>为<span class="math inline">\(H\)</span>在<span class="math inline">\(G\)</span>中的指数，记为<span class="math inline">\([G:H]\)</span>。</p>
+<p><strong>定理二（拉格朗日定理）：</strong>设<span class="math inline">\(G\)</span>是一个有限群，<span class="math inline">\(H\leq G\)</span>，则<span class="math inline">\([G:H]=\frac{|G|}{|H|},\quad (|G|=|H|\cdot [G:H])\)</span>，即<span class="math inline">\(|H|,[G:H]\)</span>都整除<span class="math inline">\(|G|\)</span>。</p>
+<p><strong>定理三：</strong>设<span class="math inline">\(G\)</span>是一个有限群，<span class="math inline">\(a\in G\)</span>，则<span class="math inline">\(|a|\)</span>整除<span class="math inline">\(|G|\)</span>。</p>
+<p><strong>命题二：</strong>设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(e\)</span>是单位元，<span class="math inline">\(a\in G,m,n,k\)</span>都是正整数，则</p>
+<p>​ (1)若<span class="math inline">\(|a|=k,a^m=e\)</span>，则<span class="math inline">\(k|m\)</span>；</p>
+<p>​ (2)若<span class="math inline">\(m|k,n|k,(m,n)=1\)</span>，则<span class="math inline">\(mn|k\)</span>；</p>
+<p>​ (3)若<span class="math inline">\(m|kn,(m,n)=1\)</span>，则<span class="math inline">\(m|k\)</span>。</p>
 <h2 id="不变子群和商群">不变子群和商群</h2>
-<p><strong>定义一：</strong> 设<span class="math inline">\(N\leq G\)</span>，如果对于任意的<span class="math inline">\(a\in G\)</span>，都有<span class="math inline">\(aN=Na\)</span>，则称群<span class="math inline">\(N\)</span>是群<span class="math inline">\(G\)</span>的不变子群（或正规子群），记为<span class="math inline">\(N\vartriangleleft G\)</span>。<span class="math inline">\(N\)</span>的一个左陪集（也是右陪集）称为<span class="math inline">\(N\)</span>的一个陪集。</p>
-<p><strong>推论一：</strong> (1)循环群的子群都是不变子群。 (2)素数阶群的任何子群都是不变子群。</p>
-<p><strong>定义二：</strong> 设<span class="math inline">\(S_1,S_2,\cdots ,S_m \subseteq G\)</span>，称<span class="math inline">\(S_1S_2\cdots S_m=\{s_1s_2\cdots s_m|s_i\in S_i\}\)</span>为<span class="math inline">\(G\)</span>的子集<span class="math inline">\(S_1,S_2,\cdots ,S_m\)</span>的乘积。</p>
-<p><strong>命题一：</strong> 群中子集的乘积满足结合律，即<span class="math inline">\((S_1S_2)S_3=S_1(S_2S_3)\)</span></p>
-<p><strong>定理一：</strong> 设<span class="math inline">\(N\leq G\)</span>，则<span class="math inline">\(N\vartriangleleft G\)</span>当且仅当对于任意的<span class="math inline">\(a\in G\)</span>，有<span class="math inline">\(aNa^{-1}=N\)</span>。</p>
-<p><strong>定理二：</strong> 设<span class="math inline">\(N\leq G\)</span>，则<span class="math inline">\(N\vartriangleleft G\)</span>当且仅当对于任意的<span class="math inline">\(a\in G\)</span>和任意的<span class="math inline">\(n\in N\)</span>，有<span class="math inline">\(ana^{-1}\in N\)</span>。</p>
-<p><strong>定理三：</strong> 设<span class="math inline">\(N\vartriangleleft G\)</span>，<span class="math inline">\(G/N=\{aN.bN,\cdots\}\)</span>是群<span class="math inline">\(G\)</span>关于其不变子群<span class="math inline">\(N\)</span>的一个陪集分解，对于任意的<span class="math inline">\(xN,yN\in S\)</span>，定义<span class="math inline">\(xN\cdot yN=(xy)N\)</span>，则<span class="math inline">\(G/N\)</span>关于上述法则作成一个群，称之为群<span class="math inline">\(G\)</span>关于不变子群<span class="math inline">\(N\)</span>的商群。</p>
-<p><strong>推论二：</strong> 设<span class="math inline">\(G\)</span>是有限群，<span class="math inline">\(N\vartriangleleft G\)</span>，则<span class="math inline">\(|G/N|=\frac{|G|}{|N|}\)</span>。</p>
+<p><strong>定义一：</strong>设<span class="math inline">\(N\leq G\)</span>，如果对于任意的<span class="math inline">\(a\in G\)</span>，都有<span class="math inline">\(aN=Na\)</span>，则称群<span class="math inline">\(N\)</span>是群<span class="math inline">\(G\)</span>的不变子群（或正规子群），记为<span class="math inline">\(N\vartriangleleft G\)</span>。<span class="math inline">\(N\)</span>的一个左陪集（也是右陪集）称为<span class="math inline">\(N\)</span>的一个陪集。</p>
+<p><strong>推论一：</strong></p>
+<p>​ (1)循环群的子群都是不变子群。</p>
+<p>​ (2)素数阶群的任何子群都是不变子群。</p>
+<p><strong>定义二：</strong>设<span class="math inline">\(S_1,S_2,\cdots ,S_m \subseteq G\)</span>，称<span class="math inline">\(S_1S_2\cdots S_m=\{s_1s_2\cdots s_m|s_i\in S_i\}\)</span>为<span class="math inline">\(G\)</span>的子集<span class="math inline">\(S_1,S_2,\cdots ,S_m\)</span>的乘积。</p>
+<p><strong>命题一：</strong>群中子集的乘积满足结合律，即<span class="math inline">\((S_1S_2)S_3=S_1(S_2S_3)\)</span></p>
+<p><strong>定理一：</strong>设<span class="math inline">\(N\leq G\)</span>，则<span class="math inline">\(N\vartriangleleft G\)</span>当且仅当对于任意的<span class="math inline">\(a\in G\)</span>，有<span class="math inline">\(aNa^{-1}=N\)</span>。</p>
+<p><strong>定理二：</strong>设<span class="math inline">\(N\leq G\)</span>，则<span class="math inline">\(N\vartriangleleft G\)</span>当且仅当对于任意的<span class="math inline">\(a\in G\)</span>和任意的<span class="math inline">\(n\in N\)</span>，有<span class="math inline">\(ana^{-1}\in N\)</span>。</p>
+<p><strong>定理三：</strong>设<span class="math inline">\(N\vartriangleleft G\)</span>，<span class="math inline">\(G/N=\{aN.bN,\cdots\}\)</span>是群<span class="math inline">\(G\)</span>关于其不变子群<span class="math inline">\(N\)</span>的一个陪集分解，对于任意的<span class="math inline">\(xN,yN\in S\)</span>，定义<span class="math inline">\(xN\cdot yN=(xy)N\)</span>，则<span class="math inline">\(G/N\)</span>关于上述法则作成一个群，称之为群<span class="math inline">\(G\)</span>关于不变子群<span class="math inline">\(N\)</span>的商群。</p>
+<p><strong>推论二：</strong>设<span class="math inline">\(G\)</span>是有限群，<span class="math inline">\(N\vartriangleleft G\)</span>，则<span class="math inline">\(|G/N|=\frac{|G|}{|N|}\)</span>。</p>
 <h2 id="同态与不变子群">同态与不变子群</h2>
-<p><strong>定理一：</strong> 一个群<span class="math inline">\(G\)</span>同它的每一个商群<span class="math inline">\(G/N\)</span>同态。</p>
-<p><strong>推论一：</strong> 交换群的每一个商群都是交换群。</p>
-<p><strong>定义一：</strong> 设<span class="math inline">\(G,\bar{G}\)</span>都是群，<span class="math inline">\(\phi:G\to \bar{G}\)</span>是一个满同态，则称<span class="math inline">\(ker\phi=\{a\in G|\phi(a)=\bar{e}\}\)</span>为满同态<span class="math inline">\(\phi\)</span>的核。</p>
-<p><strong>定理二（同态基本定理：）</strong> 设<span class="math inline">\(G,\bar{G}\)</span>都是群，<span class="math inline">\(\phi:G\to \bar{G}\)</span>是一个满同态，则<span class="math inline">\(N=ker\phi\vartriangleleft G\)</span>，且$G/N {G} $。</p>
-<p><strong>定义二：</strong> 设<span class="math inline">\(\phi:A\to \bar{A}\)</span>是一个满射 (1)如果<span class="math inline">\(S\subseteq A\)</span>，则称<span class="math inline">\(\phi(S)=\{\phi(a)|a\in A\}\)</span>为<span class="math inline">\(S\)</span>在<span class="math inline">\(\phi\)</span>下的象。 (2)如果<span class="math inline">\(\bar{S}\subseteq \bar{A}\)</span>，则称<span class="math inline">\(\phi^{-1}(\bar{S})=\{\phi^{-1}(\bar{a})|\bar{a}\in \bar{A}\}\)</span>为<span class="math inline">\(\bar{S}\)</span>在<span class="math inline">\(\phi\)</span>下的逆象，或者原象。</p>
-<p><strong>定理三：</strong> 设<span class="math inline">\(G,\bar{G}\)</span>都是群，<span class="math inline">\(\phi:G\to \bar{G}\)</span>是一个满同态，则 (1)若<span class="math inline">\(H\leq G\)</span>，则<span class="math inline">\(\phi(H)\leq \bar{G}\)</span>； (2)若<span class="math inline">\(N\vartriangleleft G\)</span>，则<span class="math inline">\(\phi(N)\vartriangleleft \bar{G}\)</span></p>
-<p><strong>定理四：</strong> 设<span class="math inline">\(G,\bar{G}\)</span>都是群，<span class="math inline">\(\phi:G\to \bar{G}\)</span>是一个满同态，则 (1)若<span class="math inline">\(\bar{H}\leq \bar{G}\)</span>，则<span class="math inline">\(\phi^{-1}(\bar{H})\leq G\)</span>； (2)若<span class="math inline">\(\bar{N}\vartriangleleft \bar{G}\)</span>，则<span class="math inline">\(\phi^{-1}(\bar{N})\vartriangleleft G\)</span></p>
+<p><strong>定理一：</strong>一个群<span class="math inline">\(G\)</span>同它的每一个商群<span class="math inline">\(G/N\)</span>同态。</p>
+<p><strong>推论一：</strong>交换群的每一个商群都是交换群。</p>
+<p><strong>定义一：</strong>设<span class="math inline">\(G,\bar{G}\)</span>都是群，<span class="math inline">\(\phi:G\to \bar{G}\)</span>是一个满同态，则称<span class="math inline">\(ker\phi=\{a\in G|\phi(a)=\bar{e}\}\)</span>为满同态<span class="math inline">\(\phi\)</span>的核。</p>
+<p><strong>定理二（同态基本定理：）</strong>设<span class="math inline">\(G,\bar{G}\)</span>都是群，<span class="math inline">\(\phi:G\to \bar{G}\)</span>是一个满同态，则<span class="math inline">\(N=ker\phi\vartriangleleft G\)</span>，且$G/N {G} $。</p>
+<p><strong>定义二：</strong>设<span class="math inline">\(\phi:A\to \bar{A}\)</span>是一个满射</p>
+<p>​ (1)如果<span class="math inline">\(S\subseteq A\)</span>，则称<span class="math inline">\(\phi(S)=\{\phi(a)|a\in A\}\)</span>为<span class="math inline">\(S\)</span>在<span class="math inline">\(\phi\)</span>下的象。</p>
+<p>​ (2)如果<span class="math inline">\(\bar{S}\subseteq \bar{A}\)</span>，则称<span class="math inline">\(\phi^{-1}(\bar{S})=\{\phi^{-1}(\bar{a})|\bar{a}\in \bar{A}\}\)</span>为<span class="math inline">\(\bar{S}\)</span>在<span class="math inline">\(\phi\)</span>下的逆象，或者原象。</p>
+<p><strong>定理三：</strong>设<span class="math inline">\(G,\bar{G}\)</span>都是群，<span class="math inline">\(\phi:G\to \bar{G}\)</span>是一个满同态，则</p>
+<p>​ (1)若<span class="math inline">\(H\leq G\)</span>，则<span class="math inline">\(\phi(H)\leq \bar{G}\)</span>；</p>
+<p>​ (2)若<span class="math inline">\(N\vartriangleleft G\)</span>，则<span class="math inline">\(\phi(N)\vartriangleleft \bar{G}\)</span></p>
+<p><strong>定理四：</strong>设<span class="math inline">\(G,\bar{G}\)</span>都是群，<span class="math inline">\(\phi:G\to \bar{G}\)</span>是一个满同态，则</p>
+<p>​ (1)若<span class="math inline">\(\bar{H}\leq \bar{G}\)</span>，则<span class="math inline">\(\phi^{-1}(\bar{H})\leq G\)</span>；</p>
+<p>​ (2)若<span class="math inline">\(\bar{N}\vartriangleleft \bar{G}\)</span>，则<span class="math inline">\(\phi^{-1}(\bar{N})\vartriangleleft G\)</span> ​</p>
 <h1 id="近世代数-环与域">近世代数-环与域</h1>
 <h2 id="环的定义">环的定义</h2>
-<p><strong>定义一：</strong> 设集合<span class="math inline">\(R\neq \emptyset , + ,\cdot\)</span>是<span class="math inline">\(R\)</span>上定义的两个映射，如果 (1)<span class="math inline">\((R,+)\)</span>构成交换群； (2)<span class="math inline">\((R,\cdot)\)</span>中群公理Ⅰ，Ⅱ成立（构成半群）； (3)左右分配律<span class="math inline">\(c\cdot(a+b)=c\cdot a+a\cdot b,\quad(a+b)\cdot c=a\cdot c+b\cdot c\)</span>成立， 则称<span class="math inline">\(R\)</span>关于<span class="math inline">\(+,\cdot\)</span>作成一个环，记为<span class="math inline">\((R,+,\cdot)\)</span>。 <em>ps：加群当中的单位元改称为零元，记为0，元素</em><span class="math inline">\(a\)</span><em>在加群中的逆元改称为负元记为</em><span class="math inline">\(-a\)</span>，<span class="math inline">\(a+(-b)\)</span><em>简写为</em><span class="math inline">\(a-b\)</span><em>，读作</em><span class="math inline">\(a\)</span><em>减</em><span class="math inline">\(b\)</span>。</p>
-<p><strong>注记：</strong> 我们把所有非零元关于乘法能作成交换群的环叫做<em>域</em>。 <img src="/2022/05/02/%E6%8A%BD%E8%B1%A1%E4%BB%A3%E6%95%B0%E4%B9%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/域的定义的补充.png" alt="域的定义的补充"></p>
-<p><strong>定理一：</strong> 环<span class="math inline">\((R,+,\cdot)\)</span>具有一下性质： (1)<span class="math inline">\(0+a=a+0=a\)</span>； (2)<span class="math inline">\(-a+a=a-a=0\)</span>； (3)<span class="math inline">\(-(-a)=a\)</span>； (4)<span class="math inline">\(a+c=b\)</span>等价于<span class="math inline">\(c=b-a\)</span>； (5)<span class="math inline">\(-(a+b)=-a-b,-(a-b)=-a+b\)</span>。</p>
-<p><strong>定义二：</strong> 设<span class="math inline">\((R,+,\cdot)\)</span>是一个环，<span class="math inline">\(n\in \mathbb{Z_+}\)</span>，称<span class="math inline">\(na=\underbrace{a+a+\cdots+a}_{n个}\)</span>为<span class="math inline">\(a\)</span>的<span class="math inline">\(n\)</span>倍，简称<span class="math inline">\(n\)</span>倍<span class="math inline">\(a\)</span>。 <strong>定义三：</strong> 设<span class="math inline">\((R,+,\cdot)\)</span>是一个环，<span class="math inline">\(n\in \mathbb{Z_-}\)</span>，规定<span class="math inline">\(0a=0,\quad na=\underbrace{(-a)+(-a)+\cdots+(-a)}_{-n个}\)</span>这里<span class="math inline">\(0a=0\)</span>中，第一个<span class="math inline">\(0\)</span>是整数零，第二个<span class="math inline">\(0\)</span>是环中的零元。</p>
+<p><strong>定义一：</strong>设集合<span class="math inline">\(R\neq \emptyset , + ,\cdot\)</span>是<span class="math inline">\(R\)</span>上定义的两个映射，如果</p>
+<p>​ (1)<span class="math inline">\((R,+)\)</span>构成交换群；</p>
+<p>​ (2)<span class="math inline">\((R,\cdot)\)</span>中群公理Ⅰ，Ⅱ成立（构成半群）；</p>
+<p>​ (3)左右分配律<span class="math inline">\(c\cdot(a+b)=c\cdot a+a\cdot b,\quad(a+b)\cdot c=a\cdot c+b\cdot c\)</span>成立，</p>
+<p>则称<span class="math inline">\(R\)</span>关于<span class="math inline">\(+,\cdot\)</span>作成一个环，记为<span class="math inline">\((R,+,\cdot)\)</span>。</p>
+<p><em>ps：加群当中的单位元改称为零元，记为0，元素</em><span class="math inline">\(a\)</span><em>在加群中的逆元改称为负元记为</em><span class="math inline">\(-a\)</span>，<span class="math inline">\(a+(-b)\)</span><em>简写为</em><span class="math inline">\(a-b\)</span><em>，读作</em><span class="math inline">\(a\)</span><em>减</em><span class="math inline">\(b\)</span>。</p>
+<p><strong>注记：</strong>我们把所有非零元关于乘法能作成交换群的环叫做<em>域</em>。 <img src="/2022/05/02/%E6%8A%BD%E8%B1%A1%E4%BB%A3%E6%95%B0%E4%B9%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/域的定义的补充.png" alt="域的定义的补充"></p>
+<p><strong>定理一：</strong>环<span class="math inline">\((R,+,\cdot)\)</span>具有一下性质：</p>
+<p>​ (1)<span class="math inline">\(0+a=a+0=a\)</span>；</p>
+<p>​ (2)<span class="math inline">\(-a+a=a-a=0\)</span>；</p>
+<p>​ (3)<span class="math inline">\(-(-a)=a\)</span>；</p>
+<p>​ (4)<span class="math inline">\(a+c=b\)</span>等价于<span class="math inline">\(c=b-a\)</span>；</p>
+<p>​ (5)<span class="math inline">\(-(a+b)=-a-b,-(a-b)=-a+b\)</span>。</p>
+<p><strong>定义二：</strong>设<span class="math inline">\((R,+,\cdot)\)</span>是一个环，<span class="math inline">\(n\in \mathbb{Z_+}\)</span>，称<span class="math inline">\(na=\underbrace{a+a+\cdots+a}_{n个}\)</span>为<span class="math inline">\(a\)</span>的<span class="math inline">\(n\)</span>倍，简称<span class="math inline">\(n\)</span>倍<span class="math inline">\(a\)</span>。</p>
+<p><strong>定义三：</strong>设<span class="math inline">\((R,+,\cdot)\)</span>是一个环，<span class="math inline">\(n\in \mathbb{Z_-}\)</span>，规定<span class="math inline">\(0a=0,\quad na=\underbrace{(-a)+(-a)+\cdots+(-a)}_{-n个}\)</span>这里<span class="math inline">\(0a=0\)</span>中，第一个<span class="math inline">\(0\)</span>是整数零，第二个<span class="math inline">\(0\)</span>是环中的零元。</p>
 <p><strong>定理二：</strong> 设<span class="math inline">\((R,+,\cdot)\)</span>是一个环，<span class="math inline">\(a\in R,n\in \mathbb{Z_+}\)</span>，则<span class="math inline">\((-n)a=n(-a)=-(na)\)</span>。</p>
-<p><strong>定理三：</strong> 环<span class="math inline">\((R,+,\cdot)\)</span>具有以下性质： (6)<span class="math inline">\(ma+na=(m+n)a,\quad m\cdot na=mn\cdot a,\quad n(a+b)=na+nb\)</span></p>
-<p><strong>定理四：</strong> 环<span class="math inline">\((R,+,\cdot)\)</span>具有以下性质： (7)<span class="math inline">\((a-b)c=ac-bc,c(a-b)=ca-cb\)</span>； (8)<span class="math inline">\(0a=a0=0\)</span>；（这里的<span class="math inline">\(0\)</span>指的是零元） (9)<span class="math inline">\((-a)b=a(-b)=-ab\)</span>； (10)<span class="math inline">\((-a)(-b)=ab\)</span>； (11.1)<span class="math inline">\(a(b_1+b_2+\cdots+b_n)=ab_1+ab_2+\cdots+ab_n\)</span>； (11.2)<span class="math inline">\((b_1+b_2+\cdots+b_n)a=b_1a+b_2a+\cdots+b_na\)</span>； (12)<span class="math inline">\((a_1+a_2+\cdots+a_m)(b_1+b_2+\cdots+b_n)=a_1b_1+\cdots+a_1b_n+\cdots+a_mb_1+\cdots+a_mb_n\)</span>； (13)<span class="math inline">\((na)b=a(nb)=n(ab)\)</span>；(<span class="math inline">\(n\)</span>是任意整数) (14)<span class="math inline">\(a^ma^n=a^{m+n},\quad (a^m)^n=a^{mn}\)</span>。（<span class="math inline">\(m.n\)</span>是任意整数）</p>
+<p><strong>定理三：</strong>环<span class="math inline">\((R,+,\cdot)\)</span>具有以下性质：</p>
+<p>​ (6)<span class="math inline">\(ma+na=(m+n)a,\quad m\cdot na=mn\cdot a,\quad n(a+b)=na+nb\)</span></p>
+<p><strong>定理四：</strong>环<span class="math inline">\((R,+,\cdot)\)</span>具有以下性质：</p>
+<p>​ (7)<span class="math inline">\((a-b)c=ac-bc,c(a-b)=ca-cb\)</span>；</p>
+<p>​ (8)<span class="math inline">\(0a=a0=0\)</span>；（这里的<span class="math inline">\(0\)</span>指的是零元）</p>
+<p>​ (9)<span class="math inline">\((-a)b=a(-b)=-ab\)</span>；</p>
+<p>​ (10)<span class="math inline">\((-a)(-b)=ab\)</span>；</p>
+<p>​ (11.1)<span class="math inline">\(a(b_1+b_2+\cdots+b_n)=ab_1+ab_2+\cdots+ab_n\)</span>；</p>
+<p>​ (11.2)<span class="math inline">\((b_1+b_2+\cdots+b_n)a=b_1a+b_2a+\cdots+b_na\)</span>；</p>
+<p>​ (12)<span class="math inline">\((a_1+a_2+\cdots+a_m)(b_1+b_2+\cdots+b_n)=a_1b_1+\cdots+a_1b_n+\cdots+a_mb_1+\cdots+a_mb_n\)</span>；</p>
+<p>​ (13)<span class="math inline">\((na)b=a(nb)=n(ab)\)</span>；(<span class="math inline">\(n\)</span>是任意整数)</p>
+<p>​ (14)<span class="math inline">\(a^ma^n=a^{m+n},\quad (a^m)^n=a^{mn}\)</span>。（<span class="math inline">\(m.n\)</span>是任意整数）</p>
 <h2 id="零因子环和环的分类">零因子环和环的分类</h2>
-<p><strong>定义一：</strong> 设<span class="math inline">\(R\)</span>是一个换，<span class="math inline">\(a,b\)</span>是<span class="math inline">\(R\)</span>中的两个非零元，如果<span class="math inline">\(ab=0\)</span>，则称<span class="math inline">\(a\)</span>是<span class="math inline">\(R\)</span>的一个<em>左零因子</em>，<span class="math inline">\(b\)</span>是<span class="math inline">\(R\)</span>的一个<em>右零因子</em>，如果一个元素既是左零因子又是右零因子，则称它为一个零因子。</p>
-<p><strong>定理一：</strong> 在一个无零因子的环中，乘法消去律成立： (1)<span class="math inline">\(a\neq0,\quad ab=ac \Rightarrow b=c\)</span>； (2)<span class="math inline">\(a\neq 0,\quad ba=ca\Rightarrow b=c\)</span>。 反过来，在一个环里，如果有一个消去律成立，那么这个环 没有零因子。</p>
-<p><strong>推论一：</strong> 在一个环中，如果有一个消去律成立，那么另一个消去律也成立。</p>
-<p><strong>定义二：</strong> 设<span class="math inline">\(R\)</span>是一个环， (1)如果<span class="math inline">\(R\)</span>的乘法适合交换率，则称<span class="math inline">\(R\)</span>是<em>交换环</em>； (2)如果<span class="math inline">\(R\)</span>有乘法单位元，则称<span class="math inline">\(R\)</span>是<em>含幺环</em>； (3)如果<span class="math inline">\(R\)</span>不含任何零因子，则称<span class="math inline">\(R\)</span>是<em>无零因子环</em>； (4)同时满足(1)、(2)、(3)条件的环，称为<em>整环</em>。</p>
-<p><strong>定义三：</strong> 设<span class="math inline">\(R\)</span>是一个环，如果 (1)<span class="math inline">\(R\)</span>至少包含一个非零元； (2)<span class="math inline">\(R\)</span>有乘法单位元； (3)<span class="math inline">\(R\)</span>的每一个非零元都有乘法逆元。 则称<span class="math inline">\(R\)</span>是一个<em>除环</em>，交换除环称为域。</p>
+<p><strong>定义一：</strong>设<span class="math inline">\(R\)</span>是一个换，<span class="math inline">\(a,b\)</span>是<span class="math inline">\(R\)</span>中的两个非零元，如果<span class="math inline">\(ab=0\)</span>，则称<span class="math inline">\(a\)</span>是<span class="math inline">\(R\)</span>的一个<em>左零因子</em>，<span class="math inline">\(b\)</span>是<span class="math inline">\(R\)</span>的一个<em>右零因子</em>，如果一个元素既是左零因子又是右零因子，则称它为一个零因子。</p>
+<p><strong>定理一：</strong>在一个无零因子的环中，乘法消去律成立：</p>
+<p>​ (1)<span class="math inline">\(a\neq0,\quad ab=ac \Rightarrow b=c\)</span>；</p>
+<p>​ (2)<span class="math inline">\(a\neq 0,\quad ba=ca\Rightarrow b=c\)</span>。 反过来，在一个环里，如果有一个消去律成立，那么这个环 没有零因子。</p>
+<p><strong>推论一：</strong>在一个环中，如果有一个消去律成立，那么另一个消去律也成立。</p>
+<p><strong>定义二：</strong>设<span class="math inline">\(R\)</span>是一个环，</p>
+<p>​ (1)如果<span class="math inline">\(R\)</span>的乘法适合交换率，则称<span class="math inline">\(R\)</span>是<em>交换环</em>；</p>
+<p>​ (2)如果<span class="math inline">\(R\)</span>有乘法单位元，则称<span class="math inline">\(R\)</span>是<em>含幺环</em>；</p>
+<p>​ (3)如果<span class="math inline">\(R\)</span>不含任何零因子，则称<span class="math inline">\(R\)</span>是<em>无零因子环</em>；</p>
+<p>​ (4)同时满足(1)、(2)、(3)条件的环，称为<em>整环</em>。</p>
+<p><strong>定义三：</strong>设<span class="math inline">\(R\)</span>是一个环，如果</p>
+<p>​ (1)<span class="math inline">\(R\)</span>至少包含一个非零元；</p>
+<p>​ (2)<span class="math inline">\(R\)</span>有乘法单位元；</p>
+<p>​ (3)<span class="math inline">\(R\)</span>的每一个非零元都有乘法逆元。</p>
+<p>则称<span class="math inline">\(R\)</span>是一个<em>除环</em>，交换除环称为域。</p>
 <h2 id="除环和域的例子与性质">除环和域的例子与性质</h2>
-<p><strong>命题一：</strong> 一个至少有两个元而且没有零因子的有限环是一个除环。</p>
-<p><strong>命题二：</strong> 除环是无零因子环。</p>
-<p><strong>命题三：</strong> 设<span class="math inline">\((R,+,\cdot)\)</span>是一个除环。，<span class="math inline">\(R^*=R-\{0\}\)</span>，则<span class="math inline">\((R^*,\cdot)\)</span>作成一个群，我们将<span class="math inline">\(R^*\)</span>称为除环<span class="math inline">\(R\)</span>的乘群</p>
-<p><strong>定义一（域的第二定义）：</strong> 设非空集合<span class="math inline">\(F\)</span>上定义有两种法则<span class="math inline">\(+,\cdot\)</span>，如果<span class="math inline">\((F,+),(F^*,\cdot)\)</span>都是交换群，且<span class="math inline">\(+,\cdot\)</span>适合分配律，则称<span class="math inline">\(F\)</span>是一个域。</p>
-<p><strong>命题四</strong> 在一个域<span class="math inline">\(F\)</span>中，<span class="math inline">\(a,b,c,d\in F,b\neq 0,d\neq 0\)</span>，则： (1)<span class="math inline">\(\frac{a}{b}=\frac{c}{d} \Leftrightarrow ad=bc\)</span>； (2)<span class="math inline">\(\frac{a}{b}+\frac{c}{d}=\frac{ad+bc}{bd}\)</span>； (3)<span class="math inline">\(\frac{a}{b}\cdot \frac{c}{d}=\frac{ac}{bd}\)</span>。</p>
+<p><strong>命题一：</strong>一个至少有两个元而且没有零因子的有限环是一个除环。</p>
+<p><strong>命题二：</strong>除环是无零因子环。</p>
+<p><strong>命题三：</strong>设<span class="math inline">\((R,+,\cdot)\)</span>是一个除环。，<span class="math inline">\(R^*=R-\{0\}\)</span>，则<span class="math inline">\((R^*,\cdot)\)</span>作成一个群，我们将<span class="math inline">\(R^*\)</span>称为除环<span class="math inline">\(R\)</span>的乘群</p>
+<p><strong>定义一（域的第二定义）：</strong>设非空集合<span class="math inline">\(F\)</span>上定义有两种法则<span class="math inline">\(+,\cdot\)</span>，如果<span class="math inline">\((F,+),(F^*,\cdot)\)</span>都是交换群，且<span class="math inline">\(+,\cdot\)</span>适合分配律，则称<span class="math inline">\(F\)</span>是一个域。</p>
+<p><strong>命题四</strong>在一个域<span class="math inline">\(F\)</span>中，<span class="math inline">\(a,b,c,d\in F,b\neq 0,d\neq 0\)</span>，则：</p>
+<p>​ (1)<span class="math inline">\(\frac{a}{b}=\frac{c}{d} \Leftrightarrow ad=bc\)</span>；</p>
+<p>​ (2)<span class="math inline">\(\frac{a}{b}+\frac{c}{d}=\frac{ad+bc}{bd}\)</span>；</p>
+<p>​ (3)<span class="math inline">\(\frac{a}{b}\cdot \frac{c}{d}=\frac{ac}{bd}\)</span>。</p>
 <h2 id="无零因子环的特征">无零因子环的特征</h2>
-<p><strong>规则：</strong> 在一个环<span class="math inline">\((R,+,\cdot)\)</span>中，我们规定： 规则：(1)<span class="math inline">\(\forall a\neq0,\forall m \in\mathbb{Z_+},ma=\underbrace{a+a+\cdots+a}_{m个} \neq0\)</span>，即<em>非零元的加法阶都是无限大</em></p>
-<p><strong>定理一：</strong> 设<span class="math inline">\(R\)</span>是一个无零因子环，则<span class="math inline">\(R\)</span>中所有非零元对于加法来说，阶都相同（无限大认为是相同的）。</p>
-<p><strong>定义一：</strong> 一个无零因子环<span class="math inline">\(R\)</span>的非零元的相同的（对于加法来说）阶叫做环<span class="math inline">\(R\)</span>的特征。</p>
-<p><strong>定理二：</strong> 如果无零因子环<span class="math inline">\(R\)</span>的特征是有限整数<span class="math inline">\(n\)</span>，那么<span class="math inline">\(n\)</span>是素数。</p>
-<p><strong>推论一：</strong> 整环，除环以及域的特征或是无限大，或是一个素数<span class="math inline">\(P\)</span></p>
-<p><strong>命题一：</strong> 在一个特征是<span class="math inline">\(P\)</span>的交换环里，有<span class="math inline">\((a+b)^p=a^p+b^p\)</span>。</p>
+<p><strong>规则：</strong>在一个环<span class="math inline">\((R,+,\cdot)\)</span>中，我们规定：</p>
+<p>​ (1)<span class="math inline">\(\forall a\neq0,\forall m \in\mathbb{Z_+},ma=\underbrace{a+a+\cdots+a}_{m个} \neq0\)</span>，即<em>非零元的加法阶都是无限大</em></p>
+<p><strong>定理一：</strong>设<span class="math inline">\(R\)</span>是一个无零因子环，则<span class="math inline">\(R\)</span>中所有非零元对于加法来说，阶都相同（无限大认为是相同的）。</p>
+<p><strong>定义一：</strong>一个无零因子环<span class="math inline">\(R\)</span>的非零元的相同的（对于加法来说）阶叫做环<span class="math inline">\(R\)</span>的特征。</p>
+<p><strong>定理二：</strong>如果无零因子环<span class="math inline">\(R\)</span>的特征是有限整数<span class="math inline">\(n\)</span>，那么<span class="math inline">\(n\)</span>是素数。</p>
+<p><strong>推论一：</strong>整环，除环以及域的特征或是无限大，或是一个素数<span class="math inline">\(P\)</span></p>
+<p><strong>命题一：</strong>在一个特征是<span class="math inline">\(P\)</span>的交换环里，有<span class="math inline">\((a+b)^p=a^p+b^p\)</span>。</p>
 <h2 id="子环和环的同态">子环和环的同态</h2>
-<p><strong>定义一：</strong> 设<span class="math inline">\((R,+,\cdot)\)</span>是一个环，<span class="math inline">\(\neq S \subseteq R\)</span>，如果<span class="math inline">\((S,+,\cdot)\)</span>也是一个环，则称<span class="math inline">\(S\)</span>是环<span class="math inline">\(R\)</span>的一个子环，记作<span class="math inline">\(S\leq R\)</span>。 <em>PS：类似的还可以定义子除环、子整环、子域</em></p>
-<p><strong>定理一：</strong> (1)设<span class="math inline">\(R\)</span>是一个环，则<span class="math inline">\(\neq S \subseteq R\)</span>是R的子环，当且仅当对于任意的<span class="math inline">\(a,b\in S,a-b\in S,ab\in S\)</span>； (2)设<span class="math inline">\(R\)</span>是除环（域），则<span class="math inline">\(\neq S \subseteq R\)</span>是R的子除环（子域），当且仅当对于任意的<span class="math inline">\(a,b\in S,a-b\in S\)</span>，且任意的<span class="math inline">\(a,b\in S,b\neq0,ab^{-1}\in S\)</span>。</p>
-<p><strong>定理二：</strong> 设<span class="math inline">\(R\)</span>是一个环，<span class="math inline">\(\neq \bar{R}\)</span>上有两种代数运算：<span class="math inline">\(\bigoplus,\bigotimes\)</span>。如果纯在漫射<span class="math inline">\(\phi:R\to \bar{R}\)</span>，使得<span class="math inline">\(\phi\)</span>对于一对加法和一队乘法都是同态映射，则<span class="math inline">\(\bar{R}\)</span>也是一个环。</p>
-<p><strong>定理三：</strong> 设<span class="math inline">\(R,\bar{R}\)</span>是两个环，且<span class="math inline">\(\phi:R\to \bar{R}\)</span>是满同态映射（对于两种运算），则 (1)零元的同态像是零元； (2)负元的同态像是负元； (3)单位元的同态像是单位元； (4)<span class="math inline">\(R\)</span>是交换环，则<span class="math inline">\(\bar{R}\)</span>也是交换环。</p>
-<p><strong>定理四：</strong> 假定<span class="math inline">\(R,\bar{R}\)</span>是两个环，且<span class="math inline">\(\R\cong \bar{R}\)</span>，那么 (1)若<span class="math inline">\(R\)</span>是整环，则<span class="math inline">\(\bar{R}\)</span>也是整环； (2)若<span class="math inline">\(R\)</span>是除环，则<span class="math inline">\(\bar{R}\)</span>也是除环； (3)若<span class="math inline">\(R\)</span>是域，则<span class="math inline">\(\bar{R}\)</span>也是域。</p>
-<p><strong>定理五：</strong> 设<span class="math inline">\(A,\bar{A}\)</span>是两个非空集合，<span class="math inline">\(\phi:A\to \bar{A}\)</span>是一一映射，如果<span class="math inline">\(A\)</span>有加法<span class="math inline">\(+\)</span>和乘法<span class="math inline">\(\cdot\)</span>，那么适当的为<span class="math inline">\(\bar{A}\)</span>规定加法和乘法，可以使得<span class="math inline">\(A \cong \bar{A}\)</span>。</p>
-<p><strong>定理六（补足定理）：</strong> 设<span class="math inline">\(S\)</span>是环<span class="math inline">\(R\)</span>的子环，<span class="math inline">\(S\cong \bar{S}\)</span>，且<span class="math inline">\((R-S)\bigcap\bar{S}=????\)</span>，则存在环<span class="math inline">\(\bar{R}\)</span>与<span class="math inline">\(R\)</span>同构，且<span class="math inline">\(\bar{S}\leq\bar{R}\)</span>。</p>
+<p><strong>定义一：</strong>设<span class="math inline">\((R,+,\cdot)\)</span>是一个环，<span class="math inline">\(\neq S \subseteq R\)</span>，如果<span class="math inline">\((S,+,\cdot)\)</span>也是一个环，则称<span class="math inline">\(S\)</span>是环<span class="math inline">\(R\)</span>的一个子环，记作<span class="math inline">\(S\leq R\)</span>。</p>
+<p>​ <em>PS：类似的还可以定义子除环、子整环、子域</em></p>
+<p><strong>定理一：</strong></p>
+<p>​ (1)设<span class="math inline">\(R\)</span>是一个环，则<span class="math inline">\(\neq S \subseteq R\)</span>是R的子环，当且仅当对于任意的<span class="math inline">\(a,b\in S,a-b\in S,ab\in S\)</span>；</p>
+<p>​ (2)设<span class="math inline">\(R\)</span>是除环（域），则<span class="math inline">\(\neq S \subseteq R\)</span>是R的子除环（子域），当且仅当对于任意的<span class="math inline">\(a,b\in S,a-b\in S\)</span>，且任意的<span class="math inline">\(a,b\in S,b\neq0,ab^{-1}\in S\)</span>。</p>
+<p><strong>定理二：</strong>设<span class="math inline">\(R\)</span>是一个环，<span class="math inline">\(\neq \bar{R}\)</span>上有两种代数运算：<span class="math inline">\(\bigoplus,\bigotimes\)</span>。如果纯在漫射<span class="math inline">\(\phi:R\to \bar{R}\)</span>，使得<span class="math inline">\(\phi\)</span>对于一对加法和一队乘法都是同态映射，则<span class="math inline">\(\bar{R}\)</span>也是一个环。</p>
+<p><strong>定理三：</strong>设<span class="math inline">\(R,\bar{R}\)</span>是两个环，且<span class="math inline">\(\phi:R\to \bar{R}\)</span>是满同态映射（对于两种运算），则</p>
+<p>​ (1)零元的同态像是零元；</p>
+<p>​ (2)负元的同态像是负元；</p>
+<p>​ (3)单位元的同态像是单位元；</p>
+<p>​ (4)<span class="math inline">\(R\)</span>是交换环，则<span class="math inline">\(\bar{R}\)</span>也是交换环。</p>
+<p><strong>定理四：</strong>假定<span class="math inline">\(R,\bar{R}\)</span>是两个环，且<span class="math inline">\(R \cong \bar{R}\)</span>，那么</p>
+<p>​ (1)若<span class="math inline">\(R\)</span>是整环，则<span class="math inline">\(\bar{R}\)</span>也是整环；</p>
+<p>​ (2)若<span class="math inline">\(R\)</span>是除环，则<span class="math inline">\(\bar{R}\)</span>也是除环；</p>
+<p>​ (3)若<span class="math inline">\(R\)</span>是域，则<span class="math inline">\(\bar{R}\)</span>也是域。</p>
+<p><strong>定理五：</strong>设<span class="math inline">\(A,\bar{A}\)</span>是两个非空集合，<span class="math inline">\(\phi:A\to \bar{A}\)</span>是一一映射，如果<span class="math inline">\(A\)</span>有加法<span class="math inline">\(+\)</span>和乘法<span class="math inline">\(\cdot\)</span>，那么适当的为<span class="math inline">\(\bar{A}\)</span>规定加法和乘法，可以使得<span class="math inline">\(A \cong \bar{A}\)</span>。</p>
+<p><strong>定理六（补足定理）：</strong>设<span class="math inline">\(S\)</span>是环<span class="math inline">\(R\)</span>的子环，<span class="math inline">\(S\cong \bar{S}\)</span>，且<span class="math inline">\((R-S)\bigcap\bar{S}=????\)</span>，则存在环<span class="math inline">\(\bar{R}\)</span>与<span class="math inline">\(R\)</span>同构，且<span class="math inline">\(\bar{S}\leq\bar{R}\)</span>。</p>
 <h2 id="多项式环">多项式环</h2>
-<p><strong>定理一：</strong> 设<span class="math inline">\(F\)</span>是一个域，则关于数域上的行列式理论，多项式理论，线性方程组理论，矩阵运算理论，线性空间和线性变换理论在域<span class="math inline">\(F\)</span>上都成立。</p>
-<p><strong>定义一：</strong> 设<span class="math inline">\(R_0\)</span>是一个有单位元的交换环，<span class="math inline">\(R\leq R_0\)</span>，且<span class="math inline">\(R\)</span>包含<span class="math inline">\(R_0\)</span>的单位元，<span class="math inline">\(\alpha \in R_0\)</span>，则称<span class="math inline">\(a_0+a_1\alpha+\cdots+a_n\alpha^n(a_i\in R)\)</span>为<span class="math inline">\(R\)</span>上的<span class="math inline">\(\alpha\)</span>的一个多项式，<span class="math inline">\(a_i\)</span>叫做多项式的系数。</p>
-<p><strong>命题一：</strong></p>
-<p>​ <span class="math inline">\(R[\alpha]=\{f(\alpha)=a_0+a_1\alpha+\cdots+a_n\alpha^n| a_i\in R,\alpha\in R_0,n是非负整数\}\)</span>是<span class="math inline">\(R_0\)</span>的包含<span class="math inline">\(R\)</span>和<span class="math inline">\(\alpha\)</span>的最小子环。（称<span class="math inline">\(R[\alpha]\)</span>为R上的多项式环）</p>
-<p><strong>推论一：</strong> 多项式环<span class="math inline">\(R[\alpha]\)</span>是有单位元的交换环。</p>
-<p><strong>定义二：</strong> 设<span class="math inline">\(x\in R_0\)</span>，如果不存在不全为零的元<span class="math inline">\(a_0,a_1,\cdots,a_n\)</span>使得<span class="math inline">\(a_0+a_1x+\cdots+a_nx^n=0\)</span>，则称<span class="math inline">\(x\)</span>为<span class="math inline">\(R\)</span>上的一个未定元。</p>
+<p><strong>定理一：</strong>设<span class="math inline">\(F\)</span>是一个域，则关于数域上的行列式理论，多项式理论，线性方程组理论，矩阵运算理论，线性空间和线性变换理论在域<span class="math inline">\(F\)</span>上都成立。</p>
+<p><strong>定义一：</strong>设<span class="math inline">\(R_0\)</span>是一个有单位元的交换环，<span class="math inline">\(R\leq R_0\)</span>，且<span class="math inline">\(R\)</span>包含<span class="math inline">\(R_0\)</span>的单位元，<span class="math inline">\(\alpha \in R_0\)</span>，则称<span class="math inline">\(a_0+a_1\alpha+\cdots+a_n\alpha^n(a_i\in R)\)</span>为<span class="math inline">\(R\)</span>上的<span class="math inline">\(\alpha\)</span>的一个多项式，<span class="math inline">\(a_i\)</span>叫做多项式的系数。</p>
+<p><strong>命题一：</strong> <span class="math inline">\(R[\alpha]=\{f(\alpha)=a_0+a_1\alpha+\cdots+a_n\alpha^n| a_i\in R,\alpha\in R_0,n是非负整数\}\)</span>是<span class="math inline">\(R_0\)</span>的包含<span class="math inline">\(R\)</span>和<span class="math inline">\(\alpha\)</span>的最小子环。（称<span class="math inline">\(R[\alpha]\)</span>为R上的多项式环）</p>
+<p><strong>推论一：</strong>多项式环<span class="math inline">\(R[\alpha]\)</span>是有单位元的交换环。</p>
+<p><strong>定义二：</strong>设<span class="math inline">\(x\in R_0\)</span>，如果不存在不全为零的元<span class="math inline">\(a_0,a_1,\cdots,a_n\)</span>使得<span class="math inline">\(a_0+a_1x+\cdots+a_nx^n=0\)</span>，则称<span class="math inline">\(x\)</span>为<span class="math inline">\(R\)</span>上的一个未定元。</p>
 <p><strong>命题二：</strong> <span class="math inline">\(x\in R_0\)</span>为<span class="math inline">\(R\)</span>上的一个未定元，当且仅当，若<span class="math inline">\(R\)</span>上<span class="math inline">\(x\)</span>的多项式<span class="math inline">\(a0+a_1x+\cdots+a_nx^n=0\)</span>，则系数<span class="math inline">\(a_0=a_1=a_2=\cdots=a_n=0\)</span>。（即零多项式的表示法唯一）</p>
-<p><strong>命题三：</strong> 环<span class="math inline">\(R\)</span>上未定元<span class="math inline">\(x\)</span>的多项式<span class="math inline">\(f(x)\)</span>的表示法唯一。</p>
-<p><strong>定义三：</strong> 设<span class="math inline">\(a_0+a_1x+\cdots+a_nx^n,a_n=0\)</span>是环<span class="math inline">\(R\)</span>上的一个一元多项式，那么非负整数<span class="math inline">\(n\)</span>叫做这个多项式的次数。规定多项式0没有次数。.</p>
-<p><strong>定理二：</strong> 设<span class="math inline">\(R\)</span>是一个含幺交换环，则<span class="math inline">\(R\)</span>上必定存在未定元<span class="math inline">\(x\)</span>，因此也就有<span class="math inline">\(R\)</span>上的多项式环<span class="math inline">\(R[x]\)</span>存在。</p>
-<p><strong>定义四：</strong> 形如<span class="math inline">\(\Sigma_{i_1,i_2,\cdots,i_n}a_{i_1,i_2,\cdots,i_n} \alpha_1^{i_1}\alpha_2^{i_2}\cdots\alpha_n^{i_n}\)</span>的元叫做<span class="math inline">\(R\)</span>上的元<span class="math inline">\(\alpha_1,\alpha_2,\cdots,\alpha_n\)</span>的一个多项式，<span class="math inline">\(a_{i_1,i_2,\cdots,i_n}\)</span>叫做多项式的系数（这里<span class="math inline">\(a_{i_1,i_2,\cdots,i_n}\in R\)</span>但是只有有限个不为0）</p>
-<p>​ 环<span class="math inline">\(R[\alpha_1,\alpha_2,\cdots,\alpha_3]=R[\alpha_1][\alpha_2]\cdots[\alpha_n]\)</span>叫做<span class="math inline">\(R\)</span>上的<span class="math inline">\(\alpha_1,\alpha_2,\cdots,\alpha_3\)</span>的多项式。</p>
-<p><strong>命题四：</strong> 多项式环<span class="math inline">\(R[\alpha_1,\alpha_2]\)</span>中，<span class="math inline">\(\alpha_1\alpha_2=\alpha_2\alpha_1\)</span>。</p>
-<p><strong>定义五：</strong> 设<span class="math inline">\(n\)</span>个元<span class="math inline">\(x_1,x_2,\cdots,x_n\in R_0\)</span>，如果任何一个<span class="math inline">\(R\)</span>上的<span class="math inline">\(x_1,x_2,\cdots,x_n\)</span>的多项式都不会等于<span class="math inline">\(0\)</span>，除非这个多项式的所有系数都等于<span class="math inline">\(0\)</span>，那么则称<span class="math inline">\(x_1,x_2,\cdots,x_n\)</span>为<span class="math inline">\(R\)</span>上的无关未定元。</p>
-<p><strong>定理三：</strong> 设<span class="math inline">\(R\)</span>是一个含幺交换环，<span class="math inline">\(n\in\mathbb{Z_+}\)</span>，则<span class="math inline">\(R\)</span>上无关未定元<span class="math inline">\(x_1,x_2,\cdots,x_n\)</span>必定存在，<span class="math inline">\(R\)</span>上的多项式环也一定存在。</p>
-<p><strong>定理四：</strong> 设<span class="math inline">\(R[x_1,x_2,\cdots,x_n]\)</span>和都<span class="math inline">\(R[x_1,x_2,\cdots,x_n]\)</span>是有单位元的交换环<span class="math inline">\(R\)</span>上的环多项式，<span class="math inline">\(x_1,x_2,\cdots,x_n\)</span>是<span class="math inline">\(R\)</span>上的无关未定元，<span class="math inline">\(\alpha_1,\alpha_2,\cdots,\alpha_n\)</span>是<span class="math inline">\(R\)</span>上的任意元，那么多项式环<span class="math inline">\(R[x_1,x_2,\cdots,x_n]\)</span><span class="math inline">\(\sim\)</span><span class="math inline">\(R[x_1,x_2,\cdots,x_n]\)</span>。</p>
+<p><strong>命题三：</strong>环<span class="math inline">\(R\)</span>上未定元<span class="math inline">\(x\)</span>的多项式<span class="math inline">\(f(x)\)</span>的表示法唯一。</p>
+<p><strong>定义三：</strong>设<span class="math inline">\(a_0+a_1x+\cdots+a_nx^n,a_n=0\)</span>是环<span class="math inline">\(R\)</span>上的一个一元多项式，那么非负整数<span class="math inline">\(n\)</span>叫做这个多项式的次数。规定多项式0没有次数。.</p>
+<p><strong>定理二：</strong>设<span class="math inline">\(R\)</span>是一个含幺交换环，则<span class="math inline">\(R\)</span>上必定存在未定元<span class="math inline">\(x\)</span>，因此也就有<span class="math inline">\(R\)</span>上的多项式环<span class="math inline">\(R[x]\)</span>存在。</p>
+<p><strong>定义四：</strong>形如<span class="math inline">\(\Sigma_{i_1,i_2,\cdots,i_n}a_{i_1,i_2,\cdots,i_n} \alpha_1^{i_1}\alpha_2^{i_2}\cdots\alpha_n^{i_n}\)</span>的元叫做<span class="math inline">\(R\)</span>上的元<span class="math inline">\(\alpha_1,\alpha_2,\cdots,\alpha_n\)</span>的一个多项式，<span class="math inline">\(a_{i_1,i_2,\cdots,i_n}\)</span>叫做多项式的系数（这里<span class="math inline">\(a_{i_1,i_2,\cdots,i_n}\in R\)</span>但是只有有限个不为0）</p>
+<p>环<span class="math inline">\(R[\alpha_1,\alpha_2,\cdots,\alpha_3]=R[\alpha_1][\alpha_2]\cdots[\alpha_n]\)</span>叫做<span class="math inline">\(R\)</span>上的<span class="math inline">\(\alpha_1,\alpha_2,\cdots,\alpha_3\)</span>的多项式。</p>
+<p><strong>命题四：</strong>多项式环<span class="math inline">\(R[\alpha_1,\alpha_2]\)</span>中，<span class="math inline">\(\alpha_1\alpha_2=\alpha_2\alpha_1\)</span>。</p>
+<p><strong>定义五：</strong>设<span class="math inline">\(n\)</span>个元<span class="math inline">\(x_1,x_2,\cdots,x_n\in R_0\)</span>，如果任何一个<span class="math inline">\(R\)</span>上的<span class="math inline">\(x_1,x_2,\cdots,x_n\)</span>的多项式都不会等于<span class="math inline">\(0\)</span>，除非这个多项式的所有系数都等于<span class="math inline">\(0\)</span>，那么则称<span class="math inline">\(x_1,x_2,\cdots,x_n\)</span>为<span class="math inline">\(R\)</span>上的无关未定元。</p>
+<p><strong>定理三：</strong>设<span class="math inline">\(R\)</span>是一个含幺交换环，<span class="math inline">\(n\in\mathbb{Z_+}\)</span>，则<span class="math inline">\(R\)</span>上无关未定元<span class="math inline">\(x_1,x_2,\cdots,x_n\)</span>必定存在，<span class="math inline">\(R\)</span>上的多项式环也一定存在。</p>
+<p><strong>定理四：</strong>设<span class="math inline">\(R[x_1,x_2,\cdots,x_n]\)</span>和都<span class="math inline">\(R[x_1,x_2,\cdots,x_n]\)</span>是有单位元的交换环<span class="math inline">\(R\)</span>上的环多项式，<span class="math inline">\(x_1,x_2,\cdots,x_n\)</span>是<span class="math inline">\(R\)</span>上的无关未定元，<span class="math inline">\(\alpha_1,\alpha_2,\cdots,\alpha_n\)</span>是<span class="math inline">\(R\)</span>上的任意元，那么多项式环<span class="math inline">\(R[x_1,x_2,\cdots,x_n]\)</span><span class="math inline">\(\sim\)</span><span class="math inline">\(R[x_1,x_2,\cdots,x_n]\)</span>。</p>
 <h2 id="理想">理想</h2>
-<p><strong>定义一：</strong> 设<span class="math inline">\(\empty \neq \mathscr{U} \subseteq\)</span>环<span class="math inline">\(R\)</span>，如果 (1)对于任意的<span class="math inline">\(a,b\in\mathscr{U}\)</span>都有，<span class="math inline">\(a-b\in \mathscr{U}\)</span>； (2)对于任意的<span class="math inline">\(a\in\mathscr{U},r\in R\)</span>吗，都有<span class="math inline">\(ra,ar\in\mathscr{U}\)</span>(强闭合性) 则称<span class="math inline">\(\mathscr{U}\)</span>是环<span class="math inline">\(R\)</span>的理想子环，简称理想，记作<span class="math inline">\(\mathscr{U}\vartriangleleft R\)</span>。</p>
-<p><strong>命题一：</strong> 理想必定是子环。</p>
-<p><strong>注解一：</strong> 子环未必是理想，反例：整数环<span class="math inline">\(\mathbb{Z}\)</span>是有理数环<span class="math inline">\(\mathbb{Q}\)</span>的子环，但是不是有理数环<span class="math inline">\(\mathbb{Q}\)</span>的理想。</p>
-<p><strong>定理一：</strong> 除环和域只有平凡理想。</p>
-<p><strong>注解二：</strong> 两个理想的并未必还是理想。</p>
-<p><strong>命题二：</strong> 设<span class="math inline">\(R\)</span>是一个环，<span class="math inline">\(a\in R\)</span>，则 <span class="math inline">\(\mathscr{U}=\{(\displaystyle\sum_{i=1}^mx_iay_i)+sa+at+na|x_i,y_i,s,t\in R,n\in\mathbb{Z}\}\)</span>是<span class="math inline">\(R\)</span>包含<span class="math inline">\(a\)</span>的最小的理想，记为<span class="math inline">\((a)\)</span>。<span class="math inline">\((a)\)</span>称为<span class="math inline">\(R\)</span>的元<span class="math inline">\(a\)</span>生成的主理想。</p>
-<p><strong>推论一：</strong> 设<span class="math inline">\(R\)</span>是一个环，<span class="math inline">\(a\in R\)</span>，则 (1)若<span class="math inline">\(R\)</span>是交换环，则<span class="math inline">\((a)=\{ra+na|r\in R,n\in\mathbb{Z}\}\)</span> (2)若<span class="math inline">\(R\)</span>是含幺环，则<span class="math inline">\((a)=\{\displaystyle\sum_{i=1}^mx_iay_i|x_1,y_i\in R\}\)</span> (3)若<span class="math inline">\(R\)</span>是有单位元的交换环，则<span class="math inline">\((a)=\{ra|r\in R\}\)</span>。</p>
-<p><strong>推论二：</strong> 整数环<span class="math inline">\(\mathbb{Z}\)</span>的每一个理想<span class="math inline">\(\mathscr{U}\)</span>是它的主理想。</p>
-<p><strong>注解三：</strong> (1)当<span class="math inline">\(k=0\)</span>时，整数环<span class="math inline">\(\mathbb{Z}\)</span>的主理想<span class="math inline">\((0)=\{r0|r\in\mathbb{Z}\}={0}\)</span>是零理想 (2)当<span class="math inline">\(k=1\)</span>时，整数环<span class="math inline">\(\mathbb{Z}\)</span>的主理想<span class="math inline">\((1)=\{r1=r|r\in\mathbb{Z}\}=\mathbb{Z}\)</span>是单位理想</p>
+<p><strong>定义一：</strong>设 <span class="math inline">\(\emptyset \neq \mathscr{U} \subseteq\)</span> 环<span class="math inline">\(R\)</span>，如果</p>
+<p>​ (1)对于任意的<span class="math inline">\(a,b\in\mathscr{U}\)</span>都有，<span class="math inline">\(a-b\in \mathscr{U}\)</span>；</p>
+<p>​ (2)对于任意的<span class="math inline">\(a\in\mathscr{U},r\in R\)</span>吗，都有<span class="math inline">\(ra,ar\in\mathscr{U}\)</span>(强闭合性)</p>
+<p>则称<span class="math inline">\(\mathscr{U}\)</span>是环<span class="math inline">\(R\)</span>的理想子环，简称理想，记作<span class="math inline">\(\mathscr{U}\vartriangleleft R\)</span>。</p>
+<p><strong>命题一：</strong>理想必定是子环。</p>
+<p><strong>注解一：</strong>子环未必是理想，反例：整数环<span class="math inline">\(\mathbb{Z}\)</span>是有理数环<span class="math inline">\(\mathbb{Q}\)</span>的子环，但是不是有理数环<span class="math inline">\(\mathbb{Q}\)</span>的理想。</p>
+<p><strong>定理一：</strong>除环和域只有平凡理想。</p>
+<p><strong>注解二：</strong>两个理想的并未必还是理想。</p>
+<p><strong>命题二：</strong>设<span class="math inline">\(R\)</span>是一个环，<span class="math inline">\(a\in R\)</span>，则</p>
+<p>​ <span class="math inline">\(\mathscr{U}=\{(\displaystyle\sum_{i=1}^mx_iay_i)+sa+at+na|x_i,y_i,s,t\in R,n\in\mathbb{Z}\}\)</span>是<span class="math inline">\(R\)</span>包含<span class="math inline">\(a\)</span>的最小的理想，记为<span class="math inline">\((a)\)</span>。<span class="math inline">\((a)\)</span>称为<span class="math inline">\(R\)</span>的元<span class="math inline">\(a\)</span>生成的主理想。</p>
+<p><strong>推论一：</strong>设<span class="math inline">\(R\)</span>是一个环，<span class="math inline">\(a\in R\)</span>，则</p>
+<p>​ (1)若<span class="math inline">\(R\)</span>是交换环，则<span class="math inline">\((a)=\{ra+na|r\in R,n\in\mathbb{Z}\}\)</span></p>
+<p>​ (2)若<span class="math inline">\(R\)</span>是含幺环，则<span class="math inline">\((a)=\{\displaystyle\sum_{i=1}^mx_iay_i|x_1,y_i\in R\}\)</span></p>
+<p>​ (3)若<span class="math inline">\(R\)</span>是有单位元的交换环，则<span class="math inline">\((a)=\{ra|r\in R\}\)</span>。</p>
+<p><strong>推论二：</strong>整数环<span class="math inline">\(\mathbb{Z}\)</span>的每一个理想<span class="math inline">\(\mathscr{U}\)</span>是它的主理想。</p>
+<p><strong>注解三：</strong></p>
+<p>​ (1)当<span class="math inline">\(k=0\)</span>时，整数环<span class="math inline">\(\mathbb{Z}\)</span>的主理想<span class="math inline">\((0)=\{r0|r\in\mathbb{Z}\}={0}\)</span>是零理想</p>
+<p>​ (2)当<span class="math inline">\(k=1\)</span>时，整数环<span class="math inline">\(\mathbb{Z}\)</span>的主理想<span class="math inline">\((1)=\{r1=r|r\in\mathbb{Z}\}=\mathbb{Z}\)</span>是单位理想</p>
 <p><strong>命题三：</strong> <span class="math inline">\(\mathbb{Z}_n\)</span>的理想都是主理想，并且<span class="math inline">\(\mathbb{Z}_n\)</span>的理想的个数等于<span class="math inline">\(n\)</span>的正因子的个数。</p>
-<p><strong>命题四：</strong> 设<span class="math inline">\(R\)</span>是一个环，<span class="math inline">\(a_1,a_2,\cdots,a_m\in R\)</span>，<span class="math inline">\(\mathscr{U}=\{s_1+s_2+\cdots+s_m|s_i\in(a_i)\}\)</span>则<span class="math inline">\(\mathscr{U}\)</span>是<span class="math inline">\(R\)</span>的包含<span class="math inline">\(a_1,a_2,\cdots,a_m\)</span>的最小理想，称<span class="math inline">\(\mathscr{U}\)</span>为<span class="math inline">\(R\)</span>的由<span class="math inline">\(a_1,a_2,\cdots,a_m\)</span>确定的生成理想，记为<span class="math inline">\((a_1,a_2,\cdots,a_m)\)</span>。</p>
-<p><strong>注解四：</strong> 更一般的结论是：在整数环中，生成理想<span class="math inline">\((k,l)\)</span>等于主理想<span class="math inline">\((a)\)</span>，并且<span class="math inline">\(a\)</span>是<span class="math inline">\(k,l\)</span>的最大公因数。</p>
+<p><strong>命题四：</strong>设<span class="math inline">\(R\)</span>是一个环，<span class="math inline">\(a_1,a_2,\cdots,a_m\in R\)</span>，<span class="math inline">\(\mathscr{U}=\{s_1+s_2+\cdots+s_m|s_i\in(a_i)\}\)</span>则<span class="math inline">\(\mathscr{U}\)</span>是<span class="math inline">\(R\)</span>的包含<span class="math inline">\(a_1,a_2,\cdots,a_m\)</span>的最小理想，称<span class="math inline">\(\mathscr{U}\)</span>为<span class="math inline">\(R\)</span>的由<span class="math inline">\(a_1,a_2,\cdots,a_m\)</span>确定的生成理想，记为<span class="math inline">\((a_1,a_2,\cdots,a_m)\)</span>。</p>
+<p><strong>注解四：</strong>更一般的结论是：在整数环中，生成理想<span class="math inline">\((k,l)\)</span>等于主理想<span class="math inline">\((a)\)</span>，并且<span class="math inline">\(a\)</span>是<span class="math inline">\(k,l\)</span>的最大公因数。</p>
 <h2 id="剩余类环商环同态与理想">剩余类环（商环），同态与理想</h2>
 ]]></content>
       <categories>

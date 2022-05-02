@@ -3,11 +3,10 @@
   <entry>
     <title>抽象代数之基本概念</title>
     <url>/2022/05/02/%E6%8A%BD%E8%B1%A1%E4%BB%A3%E6%95%B0%E4%B9%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
-    <content><![CDATA[<p>介绍了抽象代数的基本定义以及定理</p>
-<span id="more"></span>
-<h1 id="近世代数-基本概念">近世代数-基本概念</h1>
+    <content><![CDATA[<h1 id="近世代数-基本概念">近世代数-基本概念</h1>
 <h2 id="集合">集合</h2>
 <p><strong>笛卡尔积：</strong> <span class="math inline">\(A_1 \times A_2 \times \cdots \times A_n = \{ (a_1,a_2,\cdots,a_n ) | a_i \in A_i\}\)</span>为<span class="math inline">\(n\)</span>个集合<span class="math inline">\(A_1,A_2,\cdots,A_n\)</span>​的积（或笛卡尔积）。一般的，如果<span class="math inline">\(|A|=m,|B|=n,那么 |A \times B|=mn\)</span>.其中<span class="math inline">\(|A|读作A的阶，表示集合A当中元素的个数\)</span></p>
+<span id="more"></span>
 <h2 id="映射">映射</h2>
 <p><span class="math display">\[
 \begin{aligned}

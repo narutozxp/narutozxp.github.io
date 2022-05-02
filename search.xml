@@ -180,7 +180,7 @@ y+a
 <p><strong>注解：</strong> 欧拉函数<span class="math inline">\(\phi(n)\)</span>定义为小于n且与n互素的非负整数的个数。</p>
 <p><strong>定义一：</strong> 设<span class="math inline">\(G\)</span>是一个群，<span class="math inline">\(a\in G\)</span>，如果对于任意的<span class="math inline">\(b\in G\)</span>，都存在<span class="math inline">\(m\in \mathbb{Z}\)</span>，有<span class="math inline">\(b=a^m\)</span>，则称<span class="math inline">\(a\)</span>为群<span class="math inline">\(G\)</span>的生成元，群<span class="math inline">\(G\)</span>为一个循环群，记为<span class="math inline">\(G=(a)\)</span>。</p>
 <p><strong>注解：</strong> 整数加群<span class="math inline">\((\mathbb{Z},+)\)</span>是一个循环群。</p>
-<p><strong>定理一(循环群基本定理)：</strong> 设<span class="math inline">\(G=(a)\)</span>，则 （1）若<span class="math inline">\(|a|=\infty\)</span>，则<span class="math inline">\(G\cong(\mathbb{Z},+)\)</span>; （2）若<span class="math inline">\(|a|=n\)</span>，则$</p>
+<p><strong>定理一(循环群基本定理)：</strong> 设<span class="math inline">\(G=(a)\)</span>，则 （1）若<span class="math inline">\(|a|=\infty\)</span>，则<span class="math inline">\(G\cong(\mathbb{Z},+)\)</span>; （2）若<span class="math inline">\(|a|=n\)</span>，则<span class="math inline">\(G\cong(\mathbb{Z}_n,+)\)</span></p>
 ]]></content>
       <categories>
         <category>math</category>
@@ -192,11 +192,5 @@ y+a
       <tags>
         <tag>test</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>tags</title>
-    <url>/2022/04/29/tags/</url>
-    <content><![CDATA[
-]]></content>
   </entry>
 </search>

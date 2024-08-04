@@ -1,0 +1,561 @@
+<!DOCTYPE html><html class="hide-aside" lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>CRC校验详解 | narutozxp</title><meta name="keywords" content="CRC"><meta name="author" content="narutozxp"><meta name="copyright" content="narutozxp"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="摘要 错误检测的目的 发射机产生的数据，在经过带有噪声的信道之后，会被噪声所污染，从而导致接收机接收到错误的数据。为了解决这一情况，通常可以使用一个校验算法函数\(f(Msg)\)，该函通常是一个关于数据原文的函数，产生一个校验和\(CheckSum\)。然后接收方即可以通过实现约定好的算法，验证\(Msg\)与\(CheckSum\)之间的关系。 {     reg:[         {bit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CRC校验详解">
+<meta property="og:url" content="https://www.narutozxp.top/2024/07/31/CRC%E6%A0%A1%E9%AA%8C%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="narutozxp">
+<meta property="og:description" content="摘要 错误检测的目的 发射机产生的数据，在经过带有噪声的信道之后，会被噪声所污染，从而导致接收机接收到错误的数据。为了解决这一情况，通常可以使用一个校验算法函数\(f(Msg)\)，该函通常是一个关于数据原文的函数，产生一个校验和\(CheckSum\)。然后接收方即可以通过实现约定好的算法，验证\(Msg\)与\(CheckSum\)之间的关系。 {     reg:[         {bit">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.narutozxp.top/img/18.jpg">
+<meta property="article:published_time" content="2024-07-31T15:51:02.000Z">
+<meta property="article:modified_time" content="2024-08-02T06:50:57.000Z">
+<meta property="article:author" content="narutozxp">
+<meta property="article:tag" content="CRC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.narutozxp.top/img/18.jpg"><link rel="shortcut icon" href="/img/myself.jpg"><link rel="canonical" href="https://www.narutozxp.top/2024/07/31/CRC%E6%A0%A1%E9%AA%8C%E8%AF%A6%E8%A7%A3/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great%20Vibes" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CRC校验详解',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-02 06:50:57'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"> <link rel="stylesheet" href="/css/font.css"> <script src="https://wavedrom.com/wavedrom.min.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/default.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/dark.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/narrow.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/lowkey.js" type="text/javascript"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.5.0/style.css" /><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/myself.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/18.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">narutozxp</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CRC校验详解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-31T15:51:02.000Z" title="发表于 2024-07-31 15:51:02">2024-07-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-02T06:50:57.000Z" title="更新于 2024-08-02 06:50:57">2024-08-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CRC/">CRC</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CRC校验详解"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="摘要">摘要</h1>
+<h1 id="错误检测的目的">错误检测的目的</h1>
+<p>发射机产生的数据，在经过带有噪声的信道之后，会被噪声所污染，从而导致接收机接收到错误的数据。为了解决这一情况，通常可以使用一个校验算法函数<span class="math inline">\(f(Msg)\)</span>，该函通常是一个关于数据原文的函数，产生一个校验和<span class="math inline">\(CheckSum\)</span>。然后接收方即可以通过实现约定好的算法，验证<span class="math inline">\(Msg\)</span>与<span class="math inline">\(CheckSum\)</span>之间的关系。</p>
+<script type="WaveDrom">{
+    reg:[
+        {bits:8,name:"CheckSum",type:1},
+        {bits:24,name:"Msg",type:6}
+    ]
+}</script>
+<p>例如，如若定义<span class="math inline">\(CheckSum = f(Msg) = sum(int(byte))\mod 256\)</span>，则整个校验流程如下图，接收方可以计算出<span class="math inline">\((6+27+4) \mod 256 \neq 33\)</span>，因此可以判断出数据收到了损坏。</p>
+<script type="WaveDrom">{
+    reg:[
+        {bits:8,name:"4",type:6},
+        {bits:8,name:"23",type:6},
+        {bits:8,name:"6",type:6}
+    ],config:{label:{left:"Msg"}},
+}</script>
+<script type="WaveDrom">{
+    reg:[
+        {bits:8,name:"33",type:1},
+        {bits:8,name:"4",type:6},
+        {bits:8,name:"23",type:6},
+        {bits:8,name:"6",type:6}
+    ],config:{label:{left:"Tran"}}
+}</script>
+<script type="WaveDrom">{
+    reg:[
+        {bits:8,name:"33",type:1},
+        {bits:8,name:"4",type:6},
+        {bits:8,name:"27",type:6},
+        {bits:8,name:"6",type:6}
+    ],config:{label:{left:"Recv"}}
+}</script>
+<p>但是如果<span class="math inline">\(Msg\)</span>与<span class="math inline">\(CheckSum\)</span>都被改变了，而且改变之后的值能够与校验函数<span class="math inline">\(f\)</span>对应上，就会使接收方误以为数据正确，从而引发故障。不幸的是，这种可能性是完全不能够避免的，最好的办法就是增加校验中的信息量来减小其发生的概率。</p>
+<h1 id="纠错复杂度">纠错复杂度</h1>
+<p>上述的算法的问题在于其太过于简单，如果数据受到了随机污染，则会接收方有<span class="math inline">\(\frac{1}{256}\)</span>的概率无法检测处错误。例如：</p>
+<script type="WaveDrom">{
+    reg:[
+        {bits:8,name:"4",type:6},
+        {bits:8,name:"23",type:6},
+        {bits:8,name:"6",type:6}
+    ],config:{label:{left:"Msg"}},
+}</script>
+<script type="WaveDrom">{
+    reg:[
+        {bits:8,name:"33",type:1},
+        {bits:8,name:"4",type:6},
+        {bits:8,name:"23",type:6},
+        {bits:8,name:"6",type:6}
+    ],config:{label:{left:"Tran"}}
+}</script>
+<script type="WaveDrom">{
+    reg:[
+        {bits:8,name:"33",type:1},
+        {bits:8,name:"5",type:6},
+        {bits:8,name:"20",type:6},
+        {bits:8,name:"8",type:6}
+    ],config:{label:{left:"Recv"}}
+}</script>
+<p>为了增加该校验算法，我们可以将存储校验和的寄存器从8bit增加到16bit，然后使用模<span class="math inline">\(2^{16}\)</span>的加法作为校验算法。这样无法检测出错误的概率就降低到了<span class="math inline">\(\frac{1}{2^{16}}\)</span>。虽然这是一个好的改进，但是依然无法解决本例的错误。因为该校验算法是求和，不够随机——每次求和的时候，不管校验寄存器有多宽，都只会影响校验寄存器中大约一个字节的数据。从而我们可以从以下两个方面来增强校验算法：</p>
+<ul>
+<li><strong>WIDTH:</strong> 校验寄存器的宽度——减小碰撞的概率</li>
+<li><strong>CHAOS:</strong> 改进校验算法，使得每个字节都有潜力去改变校验急窜去中的任意数量bits</li>
+</ul>
+<h1 id="crc算法背后的基础思想">CRC算法背后的基础思想</h1>
+<p>虽然加法不够具有随机性，但是只要除数的宽度与校验寄存器的宽度一样，除法就能满足要求。而CRC算法的基本思想是简单地将消息视为一个巨大的二进制数，将其除以另一个固定二进制数，并将该除法的余数作为校验和。收到消息后，接收器可以执行相同的除法，并将余数与“校验和”（传输的余数）进行比较。</p>
+<p>例如，有两个字节的消息原文（6，23），校验寄存器一个字节宽，除数为1001，其结果如下所示：</p>
+<script type="WaveDrom">{
+    reg:[
+        {bits:8,name:"23",attr:["0001-0111","0x17"],type:6},
+        {bits:8,name:"6",attr:["0000-0110","0x06"],type:6}
+    ],config:{label:{left:"Msg"}}
+}</script>
+<script type="WaveDrom">{
+    reg:[
+        {bits:8,name:"2",attr:["0000-0010","0x02"],type:1},
+        {bits:8,name:"23",attr:["0001-0111","0x17"],type:6},
+        {bits:8,name:"6",attr:["0000-0110","0x06"],type:6}
+    ],config:{label:{left:"Tran"}}
+}</script>
+<p><span class="math display">\[
+\require{enclose}
+\begin{array}{r}
+                000\underline{0}000\underline{0}101\underline{0}110\underline{1}\, \\[-3pt]
+9= 1001 \enclose{longdiv}{000\underline{0}011\underline{0}000\underline{1}011\underline{1}} \\[-3pt]
+    \underline{\underline{1001}0000000}\, \\[-3pt]
+    110010111\, \\
+    \underline{\underline{1001}00000}\, \\
+    1110111\, \\
+    \underline{\underline{1001}000}\, \\
+    101111\, \\
+    \underline{\underline{1001}00}\, \\
+    1011\, \\
+    \underline{\underline{1001}}\, \\
+    10\,
+\end{array}\\
+\]</span></p>
+<p>虽然输入消息的每个位对商的影响并不那么显著，但在计算过程中，4位余数会被影响得很厉害，如果向消息中添加更多字节（被除数），它的值可能会很快再次发生根本性变化。这就是为什么除法在加法不起作用的地方起作用。</p>
+<h1 id="多项式运算">多项式运算</h1>
+<p>虽然前一节中描述的除法方案与称为CRC方案的校验和方案非常相似，但CRC方案实际上有点奇怪，我们需要深入研究一些奇怪的数字系统来理解它们。</p>
+<h2 id="多项式环">多项式环</h2>
+<p>我们知道，函数是一种映射，特指 “值域是数字集合” 的映射。这里的 “数字集合”，通常指任何一个环，换句话说，只要是个环，其元素都可以被视为 “数字”。我们熟悉的整数环、有理数域2、实数域、复数域等都是很好的例子。</p>
+<p>多项式就是一种极为重要的函数。在微积分中，性质良好的函数（解析函数）都可以被表示为一列多项式函数的极限，或者说总可以用一个多项式函数来逼近它。而多项式的性质较为简单，求导也很容易。我们现在讨论的是代数，所以就不关心可以怎么用求导啊积分啊等手段去处理多项式函数，而是关心这个概念可以怎么在代数上拓展。</p>
+<p>先来观察一下我们熟知的多项式吧。作为实变量函数，一个多项式<span class="math inline">\(f(x)\)</span>可以表示为：</p>
+<p><span class="math display">\[
+\begin{equation}
+f(x) = \sum_{i=0}^N a_i x^i~,
+\end{equation}
+\]</span></p>
+<p>其中各<span class="math inline">\(a_i\)</span>都是实数，而 xi是用来抽象表示 “任意自变量” 的。我们可以给<span class="math inline">\(x\)</span>赋值，比如取一个实数<span class="math inline">\(c\)</span>，然后令<span class="math inline">\(x=c\)</span>，这样就能得到一个<strong>实数</strong><span class="math inline">\(f(c)=\sum_{i=0}^N a_i c^i\)</span>。但要是不赋值，那<span class="math inline">\(f(x)\)</span>就不是一个具体的数，而是一个映射；<span class="math inline">\(x\)</span>只是一个抽象符号。</p>
+<p>两个多项式之间根本的不同，体现在哪里呢？是抽象符号吗？显然不是。<span class="math inline">\(x^2+1\)</span>和<span class="math inline">\(y^2+1\)</span>完全可以视为同一个多项式，用的符号不同而已。决定两个多项式差异的，是多项式的<strong>系数</strong>，对吧？<span class="math inline">\(x^2+1\)</span>和<span class="math inline">\(x^2+3\)</span>就不是同一个多项式。很明显，我们应该拓展的是系数的概念。</p>
+<div class="admonition admonition-success">
+<p class="admonition-title">定义
+</p>
+<p>设<span class="math inline">\(R\)</span>是一个环,<span class="math inline">\(x\)</span>是一个抽象符号。则形如:</p>
+<p><span class="math display">\[
+\begin{equation}
+f(x) = \sum_{i=0}^N a_i x^i~
+\end{equation}
+\]</span></p>
+<p>的表达式称为环<span class="math inline">\(R\)</span>上的（一元）<strong>多项式（polynomial）</strong>，其中各<span class="math inline">\(a_i\in R\)</span>，称为该多项式的<strong>系数（coefficient）</strong>。<span class="math inline">\(a_i x^i\)</span>称为<span class="math inline">\(f(x)\)</span>的<span class="math inline">\(i\)</span>次<strong>项（item）</strong>，或者一个单项式，<span class="math inline">\(i\)</span>称为其<strong>次数（degree）</strong>。全体以<span class="math inline">\(x\)</span>为抽象符号的一元多项式构成的集合，记为<span class="math inline">\(R[x]\)</span>。<span class="math inline">\(R\)</span>称为<span class="math inline">\(R[x]\)</span>的<strong>系数环</strong>；如果<span class="math inline">\(R\)</span>是个域，也称之为<strong>系数域</strong>。</p>
+<p>类似地，设各<span class="math inline">\(x_k\)</span>都是抽象符号，那么形如</p>
+<p><span class="math display">\[
+\begin{equation}
+f(x_1, x_2, \cdots, x_m) = \sum_{k_1+k_2+\cdots k_m=0}^N a_{k_1, k_2, \cdots, k_m} x_1^{k_1}x_2^{k_2}\cdots x_m^{k_m}~
+\end{equation}
+\]</span></p>
+<p>的表达式称为环<span class="math inline">\(R\)</span>上的<span class="math inline">\(m\)</span> <strong>元多项式（polynomial）</strong>，其中各<span class="math inline">\(a_{k_1, k_2, \cdots, k_m}\in R\)</span>，称为其系数。每个<span class="math inline">\(a_{k_1, k_2, \cdots, k_m} x_1^{k_1}x_2^{k_2}\cdots x_m^{k_m}\)</span>是该多项式的一个<span class="math inline">\(k_1+k_2+\cdots k_m\)</span>次项。</p>
+<p>多项式中最高次的单项式的次数，称为该多项式的<strong>次数（degree）</strong>。特别的例外是，<span class="math inline">\(\operatorname {deg}0 = -\infty\)</span>。多项式<span class="math inline">\(f⁡(x)\)</span>的次数记为<span class="math inline">\(\operatorname {deg} f(x)\)</span>。在不至于混淆的情况下，也可以简单地用<span class="math inline">\(f\)</span>来表示多项式<span class="math inline">\(f⁡(x)\)</span>或<span class="math inline">\(f(x_1, x_2, \cdots, x_m)\)</span>。</p>
+</div>
+<div class="admonition admonition-success">
+<p class="admonition-title">定义
+</p>
+<p>设<span class="math inline">\(g(x_1, x_2, \cdots, x_m)\in R[x_1, x_2, \cdots, x_m]\)</span>。<br>
+如果<span class="math inline">\(r\in R\)</span>满足<span class="math inline">\(f(r)=0\)</span>，则称<span class="math inline">\(r\)</span>是<span class="math inline">\(f\)</span>的一个<strong>根（root）</strong>。如果数组<span class="math inline">\(\{r_1, r_2, \cdots, r_m\}\)</span>满足<span class="math inline">\(g(r_1, r_2, \cdots, r_m)\)</span>，则称该数组是<span class="math inline">\(g\)</span>的一个根。</p>
+</div>
+<p>举几个例子。<span class="math inline">\(x^2y+xy+y^3+2y\)</span>是一个整数环上的二元三次多项式，其中<span class="math inline">\(x^2y\)</span>和<span class="math inline">\(y^3\)</span>是其<span class="math inline">\(3\)</span>次项。我们常会用到 “多项式环” 这一术语，这是因为环上的全体多项式构成的集合<span class="math inline">\(R[x]\)</span>，还真就是一个环。</p>
+<div class="admonition admonition-attention">
+<p class="admonition-title">Attention</p>
+<p><span class="math inline">\(R[x]\)</span>上加法和乘法的定义：同类单项式（即仅系数不同的单项式）之间的加法定义为以其系数相加的结果为系数的同类单项式，乘法类似地定义为系数的乘法；多项式乘法由单项式加法、乘法以及乘法对加法的分配律定义。</p>
+</div>
+<p>上面说了那么多，我一直在强调<span class="math inline">\(x\)</span>是“抽象符号”。作为实变量函数的多项式，可以把抽象符号替换为实数来赋值，一般的环上当然也可以这么做。设<span class="math inline">\(f\)</span>是环<span class="math inline">\(R\)</span>上的一元多项式，那任取一个<span class="math inline">\(r \in R\)</span>，依然有<span class="math inline">\(f(r) \in R\)</span>。</p>
+<h2 id="域上的多项式除法">域上的多项式除法</h2>
+<p>设<span class="math inline">\(f(x)\)</span>是一个多项式，那么使得<span class="math inline">\(f(r)=0\)</span>的<span class="math inline">\(r\)</span>就被称为这个多项式的<strong>根（root）</strong>。根的性质决定了多项式的性质。为了理解这一点，我们要先讨论一下多项式之间的除法。不过要注意的是，我们这里要讨论的是域上的多项式除法，也就是系数选自域中，而不只是一个环中。尽管如此，多项式构成的集合依然只是一个环。</p>
+<p>由于环没有要求乘法逆元存在性，故除法并不总是可行的。比如<span class="math inline">\(5 \div 2\)</span>的结果就不在整数环中，尽管<span class="math inline">\(5\)</span>和<span class="math inline">\(2\)</span>都是整数。但是也正因为这样，环上诞生了独特的 “带余除法”，对，就是小学学过的<span class="math inline">\(5/2=2\cdots 1\)</span>。但是<span class="math inline">\(a/b=c\cdots r\)</span>的表述方法挺累赘的，不如写成<span class="math inline">\(a=bc+r\)</span>好了，<span class="math inline">\(a\)</span>是被除数，<span class="math inline">\(b\)</span>是除数，<span class="math inline">\(c\)</span>是商，<span class="math inline">\(r\)</span>是余数。</p>
+<p>尽管上述讨论中的<span class="math inline">\(a, b, c, r\)</span>都是整数，我们也可以把这个概念移植到一般的环上。在稍后我们会讨论的 “欧几里得环” 中，这种带余除法非常重要，但现在我们就着眼于多项式环即可。</p>
+<p>虑环<span class="math inline">\(R\)</span>上的多项式<span class="math inline">\(f(x)\)</span>和<span class="math inline">\(g(x)\)</span>，则总存在<span class="math inline">\(h(x)\)</span>和<span class="math inline">\(r(x)\)</span>，其中<span class="math inline">\(\operatorname {deg}r\leq \operatorname {deg}g\)</span>，使得<span class="math inline">\(f(x)=h(x)g(x)+r(x)\)</span>。这就是多项式之间的除法。如果遇到<span class="math inline">\(r(x)=0\)</span>的情况，那么就说<span class="math inline">\(g\)</span>整除<span class="math inline">\(f\)</span>，记为<span class="math inline">\(g|f\)</span> 。</p>
+<div class="admonition admonition-abstract">
+<p class="admonition-title">定理1<span id="定理一"></span>
+</p>
+<p>给定域<span class="math inline">\(\mathbb{F}\)</span>上的一个多项式<span class="math inline">\(f(x)\)</span>。如果<span class="math inline">\(r \in R\)</span>是<span class="math inline">\(f\)</span>的一个根，那么<span class="math inline">\((x-r)|f\)</span>。</p>
+<div class="admonition admonition-note">
+<p class="admonition-title">证明
+</p>
+<p>存在<span class="math inline">\(h(x), s(x)\in\mathbb{F}[x]\)</span>，使得<span class="math inline">\(f(x)=h(x)\cdot(x-r)+s(x)\)</span>，且<span class="math inline">\(s(x)\)</span>的次数小于<span class="math inline">\(1\)</span>。这样一来，<span class="math inline">\(s\)</span>实际上就是<span class="math inline">\(\mathbb{F}\)</span>的一个元素。将<span class="math inline">\(r\)</span>代入<span class="math inline">\(x\)</span>，得到<span class="math inline">\(0=f(r)=h(r)\cdot(r-r)+s\)</span>，因此<span class="math inline">\(s=0\)</span>。故得证。</p>
+</div>
+</div>
+<p>如果环<span class="math inline">\(R\)</span>上的多项式<span class="math inline">\(f⁡(x)\)</span>可以表示为两个多项式的乘积<span class="math inline">\(h(x)g(x)\)</span>，或者说它可以被另一个次数为正的多项式整除，那么我们就说这个多项式是<strong>可约（reducible）</strong>的，而<span class="math inline">\(h\)</span> 和<span class="math inline">\(g\)</span>就被称为其<strong>因子</strong>；否则，称<span class="math inline">\(f\)</span>是<strong>不可约（irreducible）</strong>的。这样，我们只需要研究好其因子的性质，就能方便地推知<span class="math inline">\(f\)</span>本身的性质。又由于<a href="#定理一">定理1</a>，多项式的性质归根到底由根来决定——如果根存在的话。</p>
+<p>现在，我们引入一个实际计算多项式除法的方法，称为长除法，用表格表示。为方便理解，我们直接用一个具体实例来讲解：在整数环上，用<span class="math inline">\(2x^2+1\)</span>去除<span class="math inline">\(6x^5+x^4+2x^3-x^2-2\)</span>。</p>
+<p>第一步，是比较两个多项式的最高次项，即<span class="math inline">\(2⁢x^2\)</span>和<span class="math inline">\(6⁢x^5\)</span>，然后凑一个<span class="math inline">\(3⁢x^3\)</span>，比较<span class="math inline">\((2x^2+1)\cdot(3x^3)\)</span>和<span class="math inline">\(6x^5+x^4+2x^3-x^2-2\)</span>的差，得到<span class="math inline">\(x^4-x^3-x^2-2\)</span>。整个过程表示如下：</p>
+<table>
+<caption>表1</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;"><span class="math inline">\(3⁢x^3\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(2x^2+1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(6x^5+x^4+2x^3-x^2-2\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><span class="math inline">\(x^4-x^3-x^2-2\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>然后，再考虑剩下的<span class="math inline">\(x^4-x^3-x^2-2\)</span>被<span class="math inline">\(2x^2+1\)</span>除：</p>
+<table>
+<caption>表2</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;"><span class="math inline">\(3x^3+0.5x^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(2x^2+1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(6x^5+x^4+2x^3-x^2-2\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><span class="math inline">\(x^4-x^3-x^2-2\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><span class="math inline">\(-x^3-1.5x^2-2\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>以此类推，最终使被除多项式的次数小于<span class="math inline">\(2x^2+1\)</span>的次数：</p>
+<table>
+<caption>表3<span id="表3"></span></caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;"><span class="math inline">\(3x^3+0.5x^2-0.5x-0.75\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(2x^2+1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(6x^5+x^4+2x^3-x^2-2\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><span class="math inline">\(x^4-x^3-x^2-2\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><span class="math inline">\(-x^3-1.5x^2-2\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><span class="math inline">\(-1.5x^2+0.5x-2\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><span class="math inline">\(0.5x-1.25\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>于是我们就得到了:</p>
+<p><span class="math display">\[
+\begin{equation}
+\begin{aligned}
+&amp;6x^5+x^4+2x^3-x^2-2 \\
+= &amp;(3x^3+0.5x^2-0.5x-0.75)(2x^2+1)+(0.5x-1.25)~.
+\end{aligned}
+\end{equation}
+\]</span></p>
+<p>我们所求的有效信息在<a href="#表3">表 3</a>的最上方和最下方，即 “商数” 和 “余数”，而第二行则是已知的信息。剩下的部分全都是中间计算过程，算完以后就不用再关心了。</p>
+<p>从运算过程你也可以看出来，为什么我们之前要求讨论范围是 “域” 上的多项式。除法的概念是可以局限在 “环” 上的多项式来讨论的，也依然可以使用长除法来计算，但就没法用到<span class="math inline">\(0.5\)</span>这样的元素，也就无法保证余的次数比除数要小了。</p>
+<h2 id="素域prime-field">素域（Prime field）</h2>
+<p>有限域也叫伽罗瓦域（galois field），指的是由有限个元素组成的集合，在这个集合内可以执行加、减、乘和逆运算。</p>
+<ul>
+<li>域中包含元素的个数称为<strong>域的阶</strong>。</li>
+<li>只有当<span class="math inline">\(m\)</span>是一个素数幂时，即<span class="math inline">\(m=p^n\)</span>(其中<span class="math inline">\(n\)</span>为正整数是<span class="math inline">\(p\)</span>的次数，<span class="math inline">\(p\)</span>为素数)，阶为<span class="math inline">\(m\)</span>的域才存在，<span class="math inline">\(p\)</span>称为这个<strong>域的特征</strong>。</li>
+</ul>
+<p>也就是说，有限域中元素的个数可以是11(<span class="math inline">\(p\)</span>=11是一个素数,<span class="math inline">\(n\)</span>=1)、可以是81(<span class="math inline">\(p\)</span>=3是一个素数，<span class="math inline">\(n\)</span>=4)、也可以是256(<span class="math inline">\(p\)</span>=2是一个素数，<span class="math inline">\(n\)</span>=8).....但有限域的中不可能拥有12个元素，因为<span class="math inline">\(12=2·2·3\)</span>，因此12也不是一个素数幂。</p>
+<p>有限域中最直观的例子就是阶为素数的域，即<span class="math inline">\(m=pn,(n=1)\)</span>的域，域中的元素可以用整数<span class="math inline">\(\{0、1、...、p−1\}\)</span>来表示。</p>
+<p>域的两种操作就是<strong>整数加法（模<span class="math inline">\(p\)</span>）</strong>和<strong>整数乘法（模<span class="math inline">\(p\)</span>）</strong>，<span class="math inline">\(p\)</span>是一个素数，整数环Z表示为<span class="math inline">\(GF(p)\)</span>，也成为拥<strong>有素数个元素的素数域</strong>或者<strong>伽罗瓦域</strong>。</p>
+<div class="admonition admonition-note">
+<p class="admonition-title">总结
+</p>
+<p>素域就是有素数个元素的有限域，即阶为素数的有限域。</p>
+</div>
+<ul>
+<li><span class="math inline">\(GF(p)\)</span>中所有的非零元素都存在逆元</li>
+<li><span class="math inline">\(GF(p)\)</span>内所有的运算都是模<span class="math inline">\(p\)</span>实现的。</li>
+</ul>
+<p>素域内的算数运算规则如下：</p>
+<ul>
+<li>加法和乘法都是通过模<span class="math inline">\(p\)</span>实现的；</li>
+<li>任何一个元素<span class="math inline">\(a\)</span>的加法逆元都是由<span class="math inline">\(a+\)</span>(<span class="math inline">\(a\)</span>的逆元)=<span class="math inline">\(0\)</span>(mod <span class="math inline">\(p\)</span>)得到的；</li>
+<li>任何一个非零元素<span class="math inline">\(a\)</span>的乘法逆元定义为<span class="math inline">\(a·\)</span>(<span class="math inline">\(a\)</span>的逆元)=<span class="math inline">\(1\)</span>(mod <span class="math inline">\(p\)</span>)。</li>
+</ul>
+<p>例：在素域<span class="math inline">\(GF(5)=\{0,1,2,3,4\}\)</span>中，<span class="math inline">\(2\)</span>的加法逆元为<span class="math inline">\(3\)</span>，这是因为，<span class="math inline">\(2+(3)=5\)</span>，<span class="math inline">\(5 \mod 5=0\)</span>,所以<span class="math inline">\(2+3=5 \mod 5=0\)</span>；<span class="math inline">\(2\)</span>的乘法逆元为<span class="math inline">\(3\)</span>，这是因为，<span class="math inline">\(2·3=6\)</span>，<span class="math inline">\(6 \mod 5=1\)</span>，所以<span class="math inline">\(2·3=6 \mod 5=1\)</span>。</p>
+<div class="admonition admonition-note">
+<p class="admonition-title">Note</p>
+<p>在很多地方<span class="math inline">\(a\)</span>的加法逆元用<span class="math inline">\(-a\)</span>表示，<span class="math inline">\(a\)</span>的乘法逆元用<span class="math inline">\(a^{-1}\)</span>表示</p>
+</div>
+<p>注：<span class="math inline">\(GF(2)\)</span>是一个非常重要的素域，也是存在的最小的有限域，由于<span class="math inline">\(GF(2)\)</span>的加法，即模<span class="math inline">\(2\)</span>加法与<strong>异或(XOR)门</strong>等价，<span class="math inline">\(GF(2)\)</span>的乘法与<strong>逻辑与(AND)门</strong>等价。<br>
+加法：<span class="math inline">\(0+1=1;1+1=0;0+0=0\)</span><br>
+乘法：<span class="math inline">\(1\times 0 = 0;1 \times 1 =1; 0 \times 0 = 0\)</span></p>
+<p>另外素域<span class="math inline">\(GF(p)\)</span>一般还用符号<span class="math inline">\(F_p\)</span>表示，记<span class="math inline">\(F_p^*\)</span>是由<span class="math inline">\(F_p\)</span>中所有非零元构成的乘法群，即<span class="math inline">\((1,2,\dots,p-1)\)</span>，又因为<span class="math inline">\(F_p^*\)</span>是循环群，所以在<span class="math inline">\(F_p\)</span>中至少存在一个元素<span class="math inline">\(g\)</span>，使得<span class="math inline">\(F_p\)</span>中任意非零元都可以由<span class="math inline">\(g\)</span>的一个幂表示，称<span class="math inline">\(g\)</span>为<span class="math inline">\(F_p^*\)</span>的生成元（本原元），即<span class="math inline">\(F_p^*=\{g^i|0\leq i \leq p-2\}\)</span>。设<span class="math inline">\(a=g^i \in F_p^*\)</span>，其中<span class="math inline">\(0 \leq i \leq p-2\)</span>。则<span class="math inline">\(a\)</span>的乘法逆元<span class="math inline">\(a^{-1}=g^{p-1-i}\)</span>。</p>
+<p>举例：<br>
+<span class="math inline">\(13\)</span>是<span class="math inline">\(F_{19}^∗\)</span>的一个生成元，则<span class="math inline">\(F_{19}^∗\)</span>中的元素可以由13的方幂表示出来：<br>
+<span class="math inline">\(13^0=1,13^1=13,13^2=17,13^3=12,13^4=4,13^5=14,13^6=11,13^7=10,13^8=16,13^9=18,\)</span><br>
+<span class="math inline">\(13^{10}=6,13^{11}=2,13^{12}=7,13^{13}=15,13^{14}=5,13^{15}=8,13^{16}=9,13^{17}=3,13^{18}=1\)</span></p>
+<h2 id="扩域extension-field">扩域（extension field）</h2>
+<p>如果有限域的阶不是素数，则这样的有限域内的加法和乘法运算就不能用整数加法模<span class="math inline">\(p\)</span>和整数乘法模<span class="math inline">\(p\)</span>表示。</p>
+<div class="admonition admonition-note">
+<p class="admonition-title">Note</p>
+<p>阶数不是素数，且大于1的有限域被称为扩展域</p>
+</div>
+<p>为了处理扩展域，我们就要使用不同的符号表示扩展域内的元素，使用不同的规则执行扩展域内元素的算术运算。</p>
+<p>设<span class="math inline">\(q\)</span>是一个素数或素数方幂，<span class="math inline">\(f(x)\)</span>是多项式环<span class="math inline">\(F_q[x]\)</span>上的一个<span class="math inline">\(m(m&gt;1)\)</span>次<strong>不可约多项式</strong>，<strong>商环</strong><span class="math inline">\(F_q[x]/f(x)\)</span>是含<span class="math inline">\(q^m\)</span>个元素的有限域，记<span class="math inline">\(F_{q^m}\)</span>，即<span class="math inline">\(F_{q^m}\)</span>是有限域<span class="math inline">\(F_q\)</span>的扩域，域<span class="math inline">\(F_q\)</span>是域<span class="math inline">\(F_{q^m}\)</span>的子域，<span class="math inline">\(m\)</span>是扩展次数（因子）。</p>
+<p><span class="math inline">\(F_{q^m}\)</span>可以看作<span class="math inline">\(F_q\)</span>上的<span class="math inline">\(m\)</span>维向量空间，即在<span class="math inline">\(F_{q^m}\)</span>中存在<span class="math inline">\(m\)</span>个元素<span class="math inline">\(\left \{ \alpha_{0},\alpha_{1},...., a_{m-1} \right \}\)</span>，使得<span class="math inline">\(\forall a \in F_{q^{m}}\)</span>，<span class="math inline">\(a\)</span>可以唯一表示为：<span class="math inline">\(a=a_{m-1}\alpha_{m-1}+...+a_{1}\alpha_{1}\)</span>，其中<span class="math inline">\(a_i\in F_q\)</span>，把<span class="math inline">\(\left\{\alpha_{m-1}, \cdots, \alpha_{1}, \alpha_{0}\right\}\)</span>叫做<span class="math inline">\(F_{q^m}\)</span>上在<span class="math inline">\(F_q\)</span>上的一组基。</p>
+<p>给定这样的一组基，就可以由向量<span class="math inline">\(\left(a_{m-1},a_{m-2}...., a_{1}, a_{0}\right)\)</span>来表示域元素<span class="math inline">\(a\)</span>。</p>
+<p><span class="math inline">\(F_{q^m}\)</span>在<span class="math inline">\(F_q\)</span>上的基有多种选择：多项式基和正规基等，下面简单介绍：</p>
+<div class="admonition admonition-success">
+<p class="admonition-title">多项式基
+</p>
+<p>不可约多项式<span class="math inline">\(f(x)\)</span>可以取首一多项式<span class="math inline">\(f(x)=x^{m}+f x^{m-1}+...+f_{2} x^{2}+f_{1} x+f_{0}\)</span>（其中<span class="math inline">\(f_i\in F_q,i=0,...,m-1\)</span>）</p>
+<p><span class="math inline">\(F_{q^m}\)</span>中的元素由多项式环<span class="math inline">\(F_q[x]\)</span>中所有次数低于<span class="math inline">\(m\)</span>的多项式构成，即<span class="math inline">\(F_{q^m}=\left\{a_{m-1} x^{m-1}+a_{m-2} x^{m-2}+\cdots+a_{1} x+a_{0} \mid a_{i} \in F_{q}, i=0,1, \cdots, m-1\right\}\)</span></p>
+<p>多项式集合<span class="math inline">\(\left\{x^{m-1}, x^{m-2}, \cdots, x, 1\right\}\)</span>是 <span class="math inline">\(F_{q^m}\)</span>作为向量空间在<span class="math inline">\(F_q\)</span>上的一组基，称为多项式基</p>
+<p>当<span class="math inline">\(m\)</span>含有因子<span class="math inline">\(d(1&lt;d&lt;m)\)</span>时, <span class="math inline">\(F_{q^m}\)</span>可以由<span class="math inline">\(F_{q^d}\)</span>扩张生成, 从<span class="math inline">\(F_{q^d}[x]\)</span>中选取一个合适的<span class="math inline">\(m/d\)</span>次不可约多项式作为<span class="math inline">\(F_{q^m}\)</span>在<span class="math inline">\(F_{q^d}\)</span>上的不可约多项式，<span class="math inline">\(F_{q^m}\)</span>可以由<strong>塔式扩张方法 (towering method)</strong> 得到, 这种扩张的基本形式仍是由<span class="math inline">\(F_q\)</span>中元素组成的向量</p>
+<p>例如当<span class="math inline">\(m=6\)</span>时, 可以先由<span class="math inline">\(F_q\)</span>经过<span class="math inline">\(3\)</span>次扩张得扩域<span class="math inline">\(F_{q^3}\)</span> ，再由<span class="math inline">\(F_{q^3}\)</span>经过<span class="math inline">\(2\)</span>次扩张得到扩域<span class="math inline">\(F_{q^6}\)</span> ; 也可以先由<span class="math inline">\(F_q\)</span>经过<span class="math inline">\(2\)</span>次扩张得扩域<span class="math inline">\(F_{q^2}\)</span>, 再由<span class="math inline">\(F_{q^2}\)</span>经过<span class="math inline">\(3\)</span>次扩张得到扩域<span class="math inline">\(F_{q^6}\)</span></p>
+</div>
+<div class="admonition admonition-success">
+<p class="admonition-title">正规基
+</p>
+<p><span class="math inline">\(F_{q^m}\)</span>在<span class="math inline">\(F_q\)</span>上形如<span class="math inline">\(\left\{\beta, \beta^{q}, \beta^{q^{2}}, \cdots, \beta^{q^{m-1}}\right\}\)</span>的一组基称为<strong>正规基</strong>, 其中<span class="math inline">\(\beta \in F_{q^{m}}\)</span> 。 <span class="math inline">\(\forall a \in F_{q^{m}}, a\)</span>可以唯一表示为:<span class="math inline">\(a=a_{0} \beta+a_{1} \beta^{q}+\cdots+a_{m-1} \beta^{q^{m-1}}\)</span>, 其中<span class="math inline">\(a_{i} \in F_{q}, i=0,1, \cdots, m-1\)</span>。</p>
+<p>对于任意有限域<span class="math inline">\(F_q\)</span>及其扩域<span class="math inline">\(F_{q^m}\)</span>, 这样的基总是存在的。</p>
+</div>
+<p>例如在扩展域<span class="math inline">\(GF(2^m)\)</span>中，元素并不是用整数表示的，而是用系数为域GF(2)中元素的多项式表示，这个多项式最大<strong>阶数（degree）</strong>为<span class="math inline">\(m-1\)</span>，所以每个元素共有<span class="math inline">\(m\)</span>个系数。比如在AES算法使用的域<span class="math inline">\(GF(2^8)\)</span>中，每个元素<span class="math inline">\(A\in GF(2^8)\)</span>都可以表示为：<span class="math inline">\(A(x)=a_7x^7+a_6x^6+...+a_1x+a_0,a_i\in GF(2)\)</span></p>
+<p>注意：在域<span class="math inline">\(GF(2^8)\)</span>中这样的多项式共有<span class="math inline">\(256\)</span>个，这<span class="math inline">\(256\)</span>个多项式组成的集合就是<strong>扩展域</strong><span class="math inline">\(GF(28)\)</span>，每个多项式都可以按一个<span class="math inline">\(8\)</span>位向量的数值形式存储：<span class="math inline">\(A=(a_7,a_6,...,a_1,a_0)\)</span>，像<span class="math inline">\(x^7,x^6,…x\)</span>等因子都无需存储，因为从位的位置就可以清楚地判断出每个系数对应的幂。</p>
+<p>扩域<span class="math inline">\(GF(2^m)\)</span>内的算数运算规则如下：</p>
+<div class="admonition admonition-success">
+<p class="admonition-title">加减法
+</p>
+<p>在AES算法中的密钥加法层中就使用了这部分的知识，但是不是很明显，因为我们通常把扩展域中的加法当作异或运算进行处理了，因为<strong>在扩展域</strong><span class="math inline">\(GF(2^m)\)</span>中的加减法处理都是在底层域<span class="math inline">\(GF(2)\)</span>内完成的，与按位异或运算等价。假设<span class="math inline">\(A(x)、B(x)∈GF(2^m)\)</span>。</p>
+<p>计算两个元素之和的方法就是：<span class="math inline">\(C(x)=A(x)+B(x)=\sum_{i=0}^{m-1}c_ix^i\)</span>,其中<span class="math inline">\(c_i=(a_i+b_i)mod 2\)</span></p>
+<p>两个元素之差的计算公式就是：<span class="math inline">\(C(x)=A(x)-B(x)=\sum_{i=0}^{m-1}C_ix^i\)</span>,其中<span class="math inline">\(c_i=(a_i-b_i)mod 2=(a_i+b_i)mod 2\)</span></p>
+<p><strong>注：</strong>在减法运算中减号之所以变成加号，这就和二进制减法的性质有关了，从上述两个公式中我们发现<strong>在扩展域中加法和减法等价，并且与XOR等价(异或运算也被称作二进制加法)</strong>。</p>
+</div>
+<div class="admonition admonition-success">
+<p class="admonition-title">乘法
+</p>
+<p>扩展域的乘法主要运用在AES算法的列混淆层(Mix Column)中，也是列混淆层中最重要的操作。</p>
+<p>我们想将扩展域中的两个元素用多项式形式展开，然后使用标准的多项式乘法规则将两个多项式相乘：<span class="math inline">\(C(x)=A(x).B(x)=(a_{m-1}x^{m-1}+...+a_0).(b_{m-1}x^{m-1}+...+b_0)=c_{2m-2}x^{2m-2}+...+c_0\)</span>，其中<span class="math inline">\(c_0=(a_0.b_0)mod 2,c_1=(a_1.b_0+a_0.b_1)mod 2,...,c_{2m-2}=(a_{m-1}.b_{m-1})mod 2\)</span></p>
+<p><strong>注：</strong>通常在多项式乘法中<span class="math inline">\(C(x)\)</span>的级数会大于<span class="math inline">\(m−1\)</span>，因此需要对此进行化简，而化简的基本思想与素域内乘法情况相似：在素域<span class="math inline">\(GF(p)\)</span>中，将两个整数相乘得到的结果除以一个素数，化简后的结果就是最后的余数。而在扩展域中进行的操作就是：<strong>将两个多项式相乘的结果除以一个不可约多项式</strong>，最后的结果就是最后的<strong>余数</strong>。(这里的不可约多项式大致可以看作一个素数)</p>
+<p><img src="/2024/07/31/CRC%E6%A0%A1%E9%AA%8C%E8%AF%A6%E8%A7%A3/1016082-20191013181934067-1708066142.png" alt="GF(2^m)乘法"></p>
+</div>
+<p>举例：<br>
+<img src="/2024/07/31/CRC%E6%A0%A1%E9%AA%8C%E8%AF%A6%E8%A7%A3/1016082-20191013181956923-556582755.png"></p>
+<h2 id="crc多项式运算">CRC多项式运算</h2>
+<p>在处理CRC算法时，你经常听到的单词是“多项式”。给定的CRC算法将被称为使用特定的多项式，而CRC算法通常被称为是使用多项式算法进行操作的，即数字10111对应于多项式<span class="math inline">\(x^4+x^2+x+1\)</span>,而多项式之间的运算满足以下规则：</p>
+<p>而多项式之间的加法和减法都是异或运算（因为CRC多项式的系数属于GF(2),GF(2)加减法就是异或运算）——指数相同的项的系数进行异或。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.narutozxp.top">narutozxp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.narutozxp.top/2024/07/31/CRC%E6%A0%A1%E9%AA%8C%E8%AF%A6%E8%A7%A3/">https://www.narutozxp.top/2024/07/31/CRC%E6%A0%A1%E9%AA%8C%E8%AF%A6%E8%A7%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.narutozxp.top" target="_blank">narutozxp</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CRC/">CRC</a></div><div class="post_share"><div class="social-share" data-image="/img/18.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/07/29/WaveDrom/"><img class="next-cover" src="/img/19.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">WaveDrom教程</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E6%A3%80%E6%B5%8B%E7%9A%84%E7%9B%AE%E7%9A%84"><span class="toc-number">2.</span> <span class="toc-text">错误检测的目的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%A0%E9%94%99%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-number">3.</span> <span class="toc-text">纠错复杂度</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#crc%E7%AE%97%E6%B3%95%E8%83%8C%E5%90%8E%E7%9A%84%E5%9F%BA%E7%A1%80%E6%80%9D%E6%83%B3"><span class="toc-number">4.</span> <span class="toc-text">CRC算法背后的基础思想</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E9%A1%B9%E5%BC%8F%E8%BF%90%E7%AE%97"><span class="toc-number">5.</span> <span class="toc-text">多项式运算</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%8E%AF"><span class="toc-number">5.1.</span> <span class="toc-text">多项式环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F%E4%B8%8A%E7%9A%84%E5%A4%9A%E9%A1%B9%E5%BC%8F%E9%99%A4%E6%B3%95"><span class="toc-number">5.2.</span> <span class="toc-text">域上的多项式除法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B4%A0%E5%9F%9Fprime-field"><span class="toc-number">5.3.</span> <span class="toc-text">素域（Prime field）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E5%9F%9Fextension-field"><span class="toc-number">5.4.</span> <span class="toc-text">扩域（extension field）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#crc%E5%A4%9A%E9%A1%B9%E5%BC%8F%E8%BF%90%E7%AE%97"><span class="toc-number">5.5.</span> <span class="toc-text">CRC多项式运算</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@10.2.3/dist/mermaid.min.js"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}</script></div><script src="https://cdn.jsdelivr.net/gh/narutozxp/live2d-widget@2.1.4/autoload.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

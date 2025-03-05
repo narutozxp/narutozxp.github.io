@@ -1,0 +1,308 @@
+<h1 id="reveal.js-menu">reveal.js-menu</h1>
+<p>A slideout menu plugin for <a href="https://github.com/hakimel/reveal.js">Reveal.js</a> to quickly jump to any slide by title. Also optionally change the theme and set the default transition. <a href="https://denehyg.github.io/reveal.js-menu">Check out the live demo</a></p>
+<h2 id="installation">Installation</h2>
+<h3 id="bower">Bower</h3>
+<p>Download and install the package in your project:</p>
+<p><code>bower install reveal.js-menu</code></p>
+<p>Add the plugin to your presentation, as below.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>script src<span class="op">=</span><span class="st">&quot;bower_components/reveal.js-menu/menu.js&quot;</span><span class="op">&gt;&lt;/</span>script<span class="op">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>script<span class="op">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  Reveal<span class="op">.</span><span class="fu">initialize</span>({</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">plugins</span><span class="op">:</span> [ RevealMenu ]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>script<span class="op">&gt;</span></span></code></pre></div>
+<h3 id="npm">npm</h3>
+<p>Download and install the package in your project:</p>
+<p><code>npm install --save reveal.js-menu</code></p>
+<p>Add the plugin to your presentation, as below.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>script src<span class="op">=</span><span class="st">&quot;node_modules/reveal.js-menu/menu.js&quot;</span><span class="op">&gt;&lt;/</span>script<span class="op">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>script<span class="op">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  Reveal<span class="op">.</span><span class="fu">initialize</span>({</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">plugins</span><span class="op">:</span> [ RevealMenu ]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>script<span class="op">&gt;</span></span></code></pre></div>
+<h3 id="manual">Manual</h3>
+<p>Copy this repository into the plugins folder of your reveal.js presentation, ie <code>plugins/menu</code>.</p>
+<p>Add the plugin to the dependencies in your presentation, as below.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>script src<span class="op">=</span><span class="st">&quot;plugin/menu/menu.js&quot;</span><span class="op">&gt;&lt;/</span>script<span class="op">&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>script<span class="op">&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  Reveal<span class="op">.</span><span class="fu">initialize</span>({</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">plugins</span><span class="op">:</span> [ RevealMenu ]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>script<span class="op">&gt;</span></span></code></pre></div>
+<h2 id="configuration">Configuration</h2>
+<p>You can configure the menu for your presentation by providing a <code>menu</code> option in the reveal.js initialization options. Note that all config values are optional and will default as specified below.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Reveal<span class="op">.</span><span class="fu">initialize</span>({</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">menu</span><span class="op">:</span> {</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Specifies which side of the presentation the menu will</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// be shown. Use &#39;left&#39; or &#39;right&#39;.</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">side</span><span class="op">:</span> <span class="st">&#39;left&#39;</span><span class="op">,</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Specifies the width of the menu.</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Can be one of the following:</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">// &#39;normal&#39;, &#39;wide&#39;, &#39;third&#39;, &#39;half&#39;, &#39;full&#39;, or</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// any valid css length value</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> <span class="st">&#39;normal&#39;</span><span class="op">,</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Add slide numbers to the titles in the slide list.</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Use &#39;true&#39; or format string (same as reveal.js slide numbers)</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">numbers</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Specifies which slide elements will be used for generating</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">// the slide titles in the menu. The default selects the first</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">// heading element found in the slide, but you can specify any</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">// valid css selector and the text from the first matching</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">// element will be used.</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Note: that a section data-menu-title attribute or an element</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">// with a menu-title class will take precedence over this option</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="dt">titleSelector</span><span class="op">:</span> <span class="st">&#39;h1, h2, h3, h4, h5, h6&#39;</span><span class="op">,</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="co">// If slides do not have a matching title, attempt to use the</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="co">// start of the text content as the title instead</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="dt">useTextContentForMissingTitles</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Hide slides from the menu that do not have a title.</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Set to &#39;true&#39; to only list slides with titles.</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="dt">hideMissingTitles</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Adds markers to the slide titles to indicate the</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="co">// progress through the presentation. Set to &#39;false&#39;</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    <span class="co">// to hide the markers.</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    <span class="dt">markers</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Specify custom panels to be included in the menu, by</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">// providing an array of objects with &#39;title&#39;, &#39;icon&#39;</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">// properties, and either a &#39;src&#39; or &#39;content&#39; property.</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    <span class="dt">custom</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Specifies the themes that will be available in the themes</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>    <span class="co">// menu panel. Set to &#39;true&#39; to show the themes menu panel</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>    <span class="co">// with the default themes list. Alternatively, provide an</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    <span class="co">// array to specify the themes to make available in the</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>    <span class="co">// themes menu panel, for example...</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>    <span class="co">//</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>    <span class="co">// [</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>    <span class="co">//     { name: &#39;Black&#39;, theme: &#39;dist/theme/black.css&#39; },</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>    <span class="co">//     { name: &#39;White&#39;, theme: &#39;dist/theme/white.css&#39; },</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>    <span class="co">//     { name: &#39;League&#39;, theme: &#39;dist/theme/league.css&#39; },</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>    <span class="co">//     {</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>    <span class="co">//       name: &#39;Dark&#39;,</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>    <span class="co">//       theme: &#39;lib/reveal.js/dist/theme/black.css&#39;,</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>    <span class="co">//       highlightTheme: &#39;lib/reveal.js/plugin/highlight/monokai.css&#39;</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>    <span class="co">//     },</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    <span class="co">//     {</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>    <span class="co">//       name: &#39;Code: Zenburn&#39;,</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    <span class="co">//       highlightTheme: &#39;lib/reveal.js/plugin/highlight/zenburn.css&#39;</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>    <span class="co">//     }</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ]</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>    <span class="co">//</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Note: specifying highlightTheme without a theme will</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>    <span class="co">// change the code highlight theme while leaving the</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>    <span class="co">// presentation theme unchanged.</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>    <span class="dt">themes</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Specifies the path to the default theme files. If your</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>    <span class="co">// presentation uses a different path to the standard reveal</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>    <span class="co">// layout then you need to provide this option, but only</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>    <span class="co">// when &#39;themes&#39; is set to &#39;true&#39;. If you provide your own</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>    <span class="co">// list of themes or &#39;themes&#39; is set to &#39;false&#39; the</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>    <span class="co">// &#39;themesPath&#39; option is ignored.</span></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>    <span class="dt">themesPath</span><span class="op">:</span> <span class="st">&#39;dist/theme/&#39;</span><span class="op">,</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Specifies if the transitions menu panel will be shown.</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Set to &#39;true&#39; to show the transitions menu panel with</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>    <span class="co">// the default transitions list. Alternatively, provide an</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>    <span class="co">// array to specify the transitions to make available in</span></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>    <span class="co">// the transitions panel, for example...</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>    <span class="co">// [&#39;None&#39;, &#39;Fade&#39;, &#39;Slide&#39;]</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>    <span class="dt">transitions</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Adds a menu button to the slides to open the menu panel.</span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Set to &#39;false&#39; to hide the button.</span></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>    <span class="dt">openButton</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>    <span class="co">// If &#39;true&#39; allows the slide number in the presentation to</span></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>    <span class="co">// open the menu panel. The reveal.js slideNumber option must</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>    <span class="co">// be displayed for this to take effect</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>    <span class="dt">openSlideNumber</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>    <span class="co">// If true allows the user to open and navigate the menu using</span></span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>    <span class="co">// the keyboard. Standard keyboard interaction with reveal</span></span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>    <span class="co">// will be disabled while the menu is open.</span></span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>    <span class="dt">keyboard</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Normally the menu will close on user actions such as</span></span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>    <span class="co">// selecting a menu item, or clicking the presentation area.</span></span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>    <span class="co">// If &#39;true&#39;, the sticky option will leave the menu open</span></span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>    <span class="co">// until it is explicitly closed, that is, using the close</span></span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>    <span class="co">// button or pressing the ESC or m key (when the keyboard</span></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>    <span class="co">// interaction option is enabled).</span></span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>    <span class="dt">sticky</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>    <span class="co">// If &#39;true&#39; standard menu items will be automatically opened</span></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>    <span class="co">// when navigating using the keyboard. Note: this only takes</span></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>    <span class="co">// effect when both the &#39;keyboard&#39; and &#39;sticky&#39; options are enabled.</span></span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>    <span class="dt">autoOpen</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>    <span class="co">// If &#39;true&#39; the menu will not be created until it is explicitly</span></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>    <span class="co">// requested by calling RevealMenu.init(). Note this will delay</span></span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>    <span class="co">// the creation of all menu panels, including custom panels, and</span></span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>    <span class="co">// the menu button.</span></span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>    <span class="dt">delayInit</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>    <span class="co">// If &#39;true&#39; the menu will be shown when the menu is initialised.</span></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>    <span class="dt">openOnInit</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a>    <span class="co">// By default the menu will load it&#39;s own font-awesome library</span></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>    <span class="co">// icons. If your presentation needs to load a different</span></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>    <span class="co">// font-awesome library the &#39;loadIcons&#39; option can be set to false</span></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>    <span class="co">// and the menu will not attempt to load the font-awesome library.</span></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>    <span class="dt">loadIcons</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<h3 id="themes-stylesheet">Themes Stylesheet</h3>
+<p>If you are using the themes panel you need to ensure the theme stylesheet in the presentation uses the <code>id="theme"</code> attribute. For example...</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;link</span> <span class="er">rel</span><span class="ot">=</span><span class="st">&quot;stylesheet&quot;</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;css/theme/black.css&quot;</span> <span class="er">id</span><span class="ot">=</span><span class="st">&quot;theme&quot;</span> <span class="kw">/&gt;</span></span></code></pre></div>
+<p>If your themes configuration includes code highlight themes you need to ensure the highlights theme stylesheet in the presentation uses the <code>id="highlight-theme"</code> attribute. For example...</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;link</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  rel=</span><span class="st">&quot;stylesheet&quot;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ot">  href=</span><span class="st">&quot;plugin/highlight/zenburn.css&quot;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ot">  id=</span><span class="st">&quot;highlight-theme&quot;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">/&gt;</span></span></code></pre></div>
+<h2 id="slide-titles">Slide Titles</h2>
+<p>The slide titles used in the menu can be supplied explicitly or are taken directly from the presentation, using the following rules...</p>
+<h6 id="the-sections-data-menu-title-attribute.">1. The section's <code>data-menu-title</code> attribute.</h6>
+<p>If the slide's section element contains a <code>data-menu-title</code> attribute this will be used for the slide title in the menu. For example...</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;section</span> <span class="er">data-menu-title</span><span class="ot">=</span><span class="st">&quot;Custom Menu Title&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;h1&gt;</span>Title<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;p&gt;</span>...<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/section&gt;</span></span></code></pre></div>
+<h6 id="any-element-with-the-class-menu-title.">2. Any element with the class <code>menu-title</code>.</h6>
+<p>If the slide's section contains an element with the class <code>menu-title</code> then the element's text will be used for the title. The first such element found will be used if there are more than one. Note the element need not be displayed to be used. For example...</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;section&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;h1&gt;</span>Title<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;span</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;menu-title&quot;</span> <span class="er">style</span><span class="ot">=</span><span class="st">&quot;display: none&quot;</span><span class="kw">&gt;</span>Custom Menu Title<span class="kw">&lt;/span&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;p&gt;</span>...<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/section&gt;</span></span></code></pre></div>
+<h6 id="the-first-heading-found-or-a-custom-element-selector">3. The first heading found or a custom element selector</h6>
+<p>The <code>titleSelector</code> option can be used to customise the elements that will be used to generate the slide titles in the menu. The default option selects the first heading element found in the slide. For example...</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;section&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;h3&gt;</span>This will be the slide title in the menu<span class="kw">&lt;/h3&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;h1&gt;</span>Title<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;p&gt;</span>...<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/section&gt;</span></span></code></pre></div>
+<p>Any valid CSS selector should work but note the selector will only be applied to elements contained within the slide section. You could use the <code>'h1'</code> selector to only use level 1 headings or <code>'p'</code> to use the first paragraph element. For example, <code>titleSelector: 'p.lead'</code> would be used like this...</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;section&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;h1&gt;</span>Title<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;p</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;lead&quot;</span><span class="kw">&gt;</span>This will be the slide title in the menu<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;p&gt;</span>...<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/section&gt;</span></span></code></pre></div>
+<p>Using <code>titleSelector: ''</code> will ignore all elements and no title will be provided, unless the slide section contains a <code>data-menu-title</code> attribute or an element with the <code>menu-title</code> class.</p>
+<h6 id="no-title-is-provided">4. No title is provided</h6>
+<p>If no title can be found using the above methods, a default title incorporating the slide number will be used. For example, the following would result in a slide title in the format of 'Slide 12'...</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;section&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;p&gt;</span>...<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/section&gt;</span></span></code></pre></div>
+<p>If the <code>hideMissingTitles</code> option is set to <code>true</code>, however, the slide will not be listed in the menu.</p>
+<h2 id="custom-menu-panels">Custom Menu Panels</h2>
+<p>Additional custom panels can be added the menu using the <code>custom</code> option.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Reveal<span class="op">.</span><span class="fu">initialize</span>({</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">menu</span><span class="op">:</span> {</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">custom</span><span class="op">:</span> [</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>      {</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">title</span><span class="op">:</span> <span class="st">&#39;Links&#39;</span><span class="op">,</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="dt">icon</span><span class="op">:</span> <span class="st">&#39;&lt;i class=&quot;fa fa-external-link&quot;&gt;&#39;</span><span class="op">,</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">src</span><span class="op">:</span> <span class="st">&#39;links.html&#39;</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>      }<span class="op">,</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>      {</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">title</span><span class="op">:</span> <span class="st">&#39;About&#39;</span><span class="op">,</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">icon</span><span class="op">:</span> <span class="st">&#39;&lt;i class=&quot;fa fa-info&quot;&gt;&#39;</span><span class="op">,</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        <span class="dt">content</span><span class="op">:</span> <span class="st">&#39;&lt;p&gt;This slidedeck is created with reveal.js&lt;/p&gt;&#39;</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p><code>title</code> and <code>icon</code> are used for the toolbar buttons at the top of the menu. There are two approaches you can use to provide content for the panels...</p>
+<ul>
+<li>You can provide a URL in <code>src</code> to load html from another file.</li>
+<li>Alternatively, you can provide html in <code>content</code> and this will be added to the custom panel.</li>
+</ul>
+<h6 id="custom-slide-menu-items">Custom slide menu items</h6>
+<p>You can provide menu items in your custom panels using the following format. This allows you to define your own navigation links for your presentation.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;h1&gt;</span>Links<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;ul</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;slide-menu-items&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;li</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;slide-menu-item&quot;</span><span class="kw">&gt;&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;#/transitions&quot;</span><span class="kw">&gt;</span>Transitions<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;li</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;slide-menu-item&quot;</span><span class="kw">&gt;&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;#/13&quot;</span><span class="kw">&gt;</span>Code highlighting<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/ul&gt;</span></span></code></pre></div>
+<p>You are not limited to linking to presentation slides. You can provide any link you wish.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;h1&gt;</span>External Links<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;ul</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;slide-menu-items&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;li</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;slide-menu-item&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;https://github.com/denehyg/reveal.js-menu&quot;</span><span class="kw">&gt;</span>Reveal.js-menu<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;li</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;slide-menu-item&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;https://github.com/hakimel/reveal.js&quot;</span><span class="kw">&gt;</span>Reveal.js<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&lt;/li&gt;</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/ul&gt;</span></span></code></pre></div>
+<p>Using menu items enables keyboard navigation of your links as with the other panels. However, you don't have to use menu items for your links. You can simply provide standard links and unordered lists in your html. Notice you can provide your custom menu items mixed with other html if you wish.</p>
+<h2 id="ready-event">Ready Event</h2>
+<p>A 'menu-ready' event is fired when reveal.js-menu has loaded all non-async dependencies and is ready to start navigating.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>Reveal<span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">&#39;menu-ready&#39;</span><span class="op">,</span> <span class="kw">function</span> (<span class="bu">event</span>) {</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// your code</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<h2 id="api">API</h2>
+<p>The <code>RevealMenu</code> object exposes a JavaScript API for controlling the menu:</p>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>toggle(event)</td>
+<td>Toggles the open state of the menu, ie open if it is closed, and close if it is open</td>
+</tr>
+<tr class="even">
+<td>openMenu(event)</td>
+<td>Opens the menu</td>
+</tr>
+<tr class="odd">
+<td>closeMenu(event, force)</td>
+<td>Closes the menu. To force the menu to close (ie when <code>sticky</code> option is <code>true</code>) call <code>closeMenu(null, true)</code></td>
+</tr>
+<tr class="even">
+<td>openPanel(event, ref)</td>
+<td>Opens the menu to a specific panel, passing the name of the panel or the panel element itself</td>
+</tr>
+<tr class="odd">
+<td>isOpen()</td>
+<td>Returns true if the menu is open</td>
+</tr>
+<tr class="even">
+<td>initialiseMenu()</td>
+<td>Initialises the menu if it has not already been initialised. Used in conjunction with the <code>delayInit</code> option</td>
+</tr>
+<tr class="odd">
+<td>isMenuInitialised()</td>
+<td>Returns true if the menu has been initialised</td>
+</tr>
+</tbody>
+</table>
+<h2 id="compatibility">Compatibility</h2>
+<p>reveal.js-menu v2.0 is built for reveal.js v4. It will not work with reveal.js v3. If you require a menu for reveal.js v3 you will need to install reveal.js-menu v1.2.0.</p>
+<p>v2.0 also introduces API changes that are not backwards compatible. <code>init()</code> has been renamed to <code>initMenu()</code> to deconflict with the reveal.js v4 plugin API. <code>isInit()</code> has also been changed to <code>isMenuInitialised()</code>.</p>
+<h2 id="license">License</h2>
+<p>MIT licensed</p>
+<p>Copyright (C) 2020 Greg Denehy</p>

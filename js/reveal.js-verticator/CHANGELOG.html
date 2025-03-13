@@ -1,0 +1,133 @@
+<h1 id="changelog">Changelog</h1>
+<h2 id="section">[1.2.5] - 2024-02-04</h2>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Override change in Package.json</li>
+<li>Change for mobile view</li>
+<li>Latest Reveal.js version</li>
+</ul>
+<h2 id="section-1">[1.2.4] - 2023-11-21</h2>
+<h3 id="added">Added</h3>
+<ul>
+<li>Added detection for light or dark stacks, with or without light or dark sections</li>
+<li>Expanded the above to also fix text for double negative slide backgrounds</li>
+</ul>
+<h3 id="changed-1">Changed</h3>
+<ul>
+<li>Rewrote plugin so that the demo can be easily started from the command line</li>
+<li>Hide Verticator on presentation in scroll mode</li>
+<li>Correct the Verticator state when going back into classic view</li>
+</ul>
+<h2 id="section-2">[1.2.3] - 2022-11-19</h2>
+<h3 id="changed-2">Changed</h3>
+<ul>
+<li>Changed documentation to show default settings first</li>
+<li>Fix <code>rtl</code> setting to read Reveal config correctly</li>
+<li>Fix click on Verticator bullet if embedded with multiple presentations</li>
+</ul>
+<h2 id="section-3">[1.2.2] - 2022-11-18</h2>
+<h3 id="changed-3">Changed</h3>
+<ul>
+<li>Avoid loading the Verticator style multiple times if there are multiple Reveal.js instances</li>
+<li>Avoid loading the Verticator style through scripting if in a Quarto setup</li>
+</ul>
+<h2 id="section-4">[1.2.1] - 2022-11-17</h2>
+<h3 id="changed-4">Changed</h3>
+<ul>
+<li>Tooltip styling is not a separate stylesheet anymore</li>
+<li>As there is only 1 CSS file, the option <code>csspath</code> is no longer an object of multiple paths, but just the path to the verticator.css file.</li>
+<li>Some small fixes</li>
+</ul>
+<h2 id="section-5">[1.2.0] - 2022-11-11</h2>
+<h3 id="changed-5">Changed</h3>
+<ul>
+<li>Verticator now uses the theme’s colors</li>
+<li>Colors can now be overridden per slide</li>
+<li>The position is now automatically set by the <code>rtl</code> setting</li>
+</ul>
+<h2 id="section-6">[1.1.5] - 2022-10-14</h2>
+<h3 id="changed-6">Changed</h3>
+<ul>
+<li>In some cases the 'has-dark-background' (or light) was not correctly applied to the Reveal element. This fix now also looks at the slides that request these class changes.</li>
+<li>Verticator margin set to 0.</li>
+<li>Increase specificity of the tooltip.</li>
+</ul>
+<h2 id="section-7">[1.1.4] - 2022-06-04</h2>
+<h3 id="changed-7">Changed</h3>
+<ul>
+<li>Typo fix</li>
+</ul>
+<h2 id="section-8">[1.1.3] - 2022-06-04</h2>
+<h3 id="added-1">Added</h3>
+<ul>
+<li>Autoload the CSS styling.</li>
+<li>Added a new <code>csspath</code> option if the user wants to override the autoloading of the included styles. For example, to customise the styling.</li>
+</ul>
+<h2 id="section-9">[1.1.2] - 2022-03-07</h2>
+<h3 id="changed-8">Changed</h3>
+<ul>
+<li>Bugfix</li>
+</ul>
+<h2 id="section-10">[1.1.1] - 2022-03-07</h2>
+<h3 id="added-2">Added</h3>
+<ul>
+<li>Added a new <code>tooltip</code> option</li>
+<li>Added a new <code>scale</code> option</li>
+<li>Started keeping the changelog.</li>
+</ul>
+<h3 id="changed-9">Changed</h3>
+<ul>
+<li>Verticator will now scale according to the scale factor of the main slides</li>
+</ul>
+<h2 id="section-11">[1.1.0] - 2021-02-15</h2>
+<h3 id="added-3">Added</h3>
+<ul>
+<li>Added the option to turn of the autogeneration of Verticator bullets.</li>
+</ul>
+<h2 id="section-12">[1.0.9] - 2021-09-04</h2>
+<h3 id="added-4">Added</h3>
+<ul>
+<li>Support for Verticator bullets on the left-hand side.</li>
+<li>An option to set the Verticator bullets offset off the edge of the presentation.</li>
+</ul>
+<h2 id="section-13">[1.0.8] - 2020-10-23</h2>
+<h3 id="changed-10">Changed</h3>
+<ul>
+<li>Fixed an issue when "hashOneBasedIndex" is set to true.</li>
+<li>Fixed an issue with Safari where the color of the bullets would not update.</li>
+</ul>
+<h2 id="section-14">[1.0.7] - 2020-07-10</h2>
+<h3 id="changed-11">Changed</h3>
+<ul>
+<li>Verticator 1.0.7 now works with multiple Reveal.js instances. Verticator no longer wites a style block, but the colors are injected in the HTML. This way each Reveal instance can have its own colors.</li>
+</ul>
+<h2 id="section-15">[1.0.6] - 2020-06-18</h2>
+<h3 id="added-5">Added</h3>
+<ul>
+<li>Added auto-insert of ul.verticator if it does not exist.</li>
+<li>Added npm install option.</li>
+</ul>
+<h2 id="section-16">[1.0.5] - 2020-06-07</h2>
+<h3 id="changed-12">Changed</h3>
+<ul>
+<li>Bug fix of demo file of 1.0.4.</li>
+<li>Documentation changes by Salim B.</li>
+</ul>
+<h2 id="section-17">[1.0.4] - 2020-06-07</h2>
+<h3 id="added-6">Added</h3>
+<ul>
+<li>Configuration options (by Jochen Wierum) added<br />
+### Changed</li>
+<li>Changes of some formatting.</li>
+<li>Verticator now references the Reveal files by CDN.</li>
+</ul>
+<h2 id="section-18">[1.0.3] - 2020-05-25</h2>
+<h3 id="added-7">Added</h3>
+<ul>
+<li>Added compatibility with the new Reveal.js 4 that changes the way plugins work.</li>
+</ul>
+<h2 id="section-19">[1.0.2] - 2020-05-22</h2>
+<h3 id="added-8">Added</h3>
+<ul>
+<li>The 1.0.2 release is compatible with Reveal.js 3. The next release will only be compatible with Reveal.js 4.</li>
+</ul>

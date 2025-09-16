@@ -1,0 +1,423 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="20250227组会汇报--efpga问题修复"><meta name="keywords" content="student,narutozxp"><meta name="author" content="narutozxp,undefined"><meta name="copyright" content="narutozxp"><title>20250227组会汇报--efpga问题修复 | narutozxp</title><link rel="shortcut icon" href="/img/myself.jpg"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/reveal.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/reset.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/theme/dracula.css" id="theme"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@latest/styles/tokyo-night-dark.css" id="highlight-theme"><link rel="stylesheet" href="/css/reveal.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div class="reveal"><div class="slides"><section data-markdown data-separator="^\r?\n---\r?\n$" data-separator-vertical="^\r?\n--\r?\n$" data-charset="utf-8"><script type="text/template">
+# eFPGA软硬件工作汇报
+
+---
+
+# 解决的问题
+
+--
+
+* SPI无法配置
+* 多驱动情况下，EDA生成的bitstream错误
+
+--
+
+## 多驱动EDA问题
+
+--
+
+```verilog [22-24]
+module multi_driver(
+    input clk,
+    input rst_n,
+
+    input ina1,
+    input ina2,
+    output [1:0] outa,
+
+    input inb1,
+    input inb2,
+    output [1:0] outb1,
+    output [1:0] outb2
+);
+
+reg ina1_reg;
+reg ina2_reg;
+reg inb1_reg;
+reg inb2_reg;
+reg [1:0] outa_reg;
+reg [1:0] outb_reg;
+
+assign outa = outa_reg;
+assign outb1 = outb_reg;
+assign outb2 = outb_reg;
+
+always @(posedge clk, negedge rst_n) begin
+    if(!rst_n) begin 
+        ina1_reg <= 0;
+        ina2_reg <= 0;
+        inb1_reg <= 0;
+        inb2_reg <= 0;
+        outa_reg <= 0;
+        outb_reg <= 0;
+    end else begin
+        ina1_reg <= ina1;
+        ina2_reg <= ina2;
+        inb1_reg <= inb1;
+        inb2_reg <= inb2;
+        outa_reg <= ina1_reg + ina2_reg;
+        outb_reg <= inb1_reg + inb2_reg;
+    end
+end
+
+endmodule
+```
+
+--
+
+
+### 默认情况
+
+```json
+Net 5 (outb1[1])
+
+Node:	2940	SOURCE (0,6,2)  Class: 6  Switch: 0
+Node:	2976	  OPIN (0,6,2)  Pin: 26   clb.O[0] Switch: 6
+Node:	11275	 CHANY (0,6,1) to (6,2)  Track: 33  Switch: 9
+Node:	6169	 CHANX (0,3,1) to (6,1)  Track: 7  Switch: 5
+Node:	10667	 CHANY (0,4,1)  Track: 75  Switch: 3
+Node:	5916	 CHANX (0,5,0) to (8,0)  Track: 96  Switch: 1
+Node:	2454	  IPIN (0,5,0)  Pad: 10  Switch: 0
+Node:	2438	  SINK (0,5,0)  Pad: 10  Switch: -1 Net_pin_index: 2
+Node:	11275	 CHANY (0,6,1) to (6,2)  Track: 33  Switch: 3
+Node:	5861	 CHANX (0,3,0) to (6,0)  Track: 69  Switch: 1
+Node:	2450	  IPIN (0,5,0)  Pad: 6  Switch: 0
+Node:	2434	  SINK (0,5,0)  Pad: 6  Switch: -1 Net_pin_index: 1
+```
+
+--
+
+### 修改Route文件，取消wire复用
+
+```json
+Net 5 (outb1[1])
+
+Node:	2940	SOURCE (0,6,2)  Class: 6  Switch: 0
+Node:	2976	  OPIN (0,6,2)  Pin: 26   clb.O[0] Switch: 6
+Node:	11275	 CHANY (0,6,1) to (6,2)  Track: 33  Switch: 9
+Node:	6169	 CHANX (0,3,1) to (6,1)  Track: 7  Switch: 5
+Node:	10667	 CHANY (0,4,1)  Track: 75  Switch: 3
+Node:	5916	 CHANX (0,5,0) to (8,0)  Track: 96  Switch: 1
+Node:	2454	  IPIN (0,5,0)  Pad: 10  Switch: 0
+Node:	2438	  SINK (0,5,0)  Pad: 10  Switch: -1 Net_pin_index: 2
+Node:	2976	  OPIN (0,6,2)  Pin: 26   clb.O[0] Switch: 6
+Node:   11251    CHANY (0,6,1) to (6,2)  Track: 9  Switch: 3
+Node:	5861	 CHANX (0,3,0) to (6,0)  Track: 69  Switch: 1
+Node:	2450	  IPIN (0,5,0)  Pad: 6  Switch: 0
+Node:	2434	  SINK (0,5,0)  Pad: 6  Switch: -1 Net_pin_index: 1
+```
+
+--
+
+### 修复OpenFPGA trace routing bug
+
+```cpp
+void VprRoutingAnnotation::set_rr_node_prev_node(const RRGraphView& rr_graph,
+                                                 const RRNodeId& rr_node,
+                                                 const RRNodeId& prev_node) {
+  /* Ensure that the node_id is in the list */
+  VTR_ASSERT(size_t(rr_node) < rr_node_nets_.size());
+  /* Warn any override attempt */
+  if ((RRNodeId::INVALID() != rr_node_prev_nodes_[rr_node]) &&
+      (prev_node != rr_node_prev_nodes_[rr_node])) {
+    VTR_LOG_WARN(
+      "Override the previous node '%s' by previous node '%s' for node '%s' "
+      "with in routing context annotation!\n",
+      rr_graph.node_coordinate_to_string(rr_node_prev_nodes_[rr_node]).c_str(),
+      rr_graph.node_coordinate_to_string(prev_node).c_str(),
+      rr_graph.node_coordinate_to_string(rr_node).c_str());
+  }
+    rr_node_prev_nodes_[rr_node] = prev_node;
+
+}
+```
+
+---
+
+# 性能评估
+
+--
+
+|benchmark|EDA关键路径|实测频率|资源占用|
+|:---:|:---:|:---:|:---:|
+|spi_uint8_mult(multiple cycle)|21.5ns|134.4MHz|35/90 CLB|
+|spi_uint8_mult(single cycle)|21.5ns|18MHz|35/90 CLB|
+|uint32_adder|8.23ns|120MHz|6/90 CLB|
+
+
+---
+
+# 存在的问题
+
+--
+
+## CPU异常
+
+* 低频率下(8M)CPU调试断点异常
+* 低频率下(8M)bitstram烧录错误。
+
+
+--
+
+### 断点错误
+
+**异常**
+
+![](./report/error.gif)
+
+--
+
+**正常**
+
+![](./report/right.gif)
+
+--
+
+### bitstream烧录错误
+
+对于`uint32_adder`，虽然bitstream烧录错误（通过spi读出进行校验），但是外在表现正常。
+
+对于`spi_uint8_mult`,读取结果全0。
+
+---
+
+# 下一步的计划
+
+--
+
+* uint8宏单元（局部脉动以及全局脉动）
+* 基于乘法优化LUT
+* 基于benchmark的互联架构优化
+
+--
+
+## 基于LUT乘法器的优势
+
+![](./report/constant_adder.PNG)
+
+--
+
+|类型|面积|功耗|时序|
+|:--:|:--:|:--:|:--:|
+|mac|533.96|0.7334mw|1ns|
+|mac_lut|288.12|0.4016mw|1ns|
+
+
+--
+
+## 初步人融合想法
+
+![](./report/new_lut.PNG)
+
+</script></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/reveal.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/zoom/zoom.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/search/search.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/notes/notes.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/math/math.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/markdown/markdown.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@latest/plugin/highlight/highlight.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js-mermaid-plugin@latest/plugin/mermaid/mermaid.js"></script><script src="/markdown_revealjs/js/reveal.js-menu/menu.js"></script><script>Reveal.initialize({
+  mouseWheel: false,
+  transition: 'slide',
+  transitionSpeed: 'default',
+  parallaxBackgroundImage: '',
+  parallaxBackgroundSize: '',
+  parallaxBackgroundHorizontal: '',
+  parallaxBackgroundVertical: '',
+  autoSlide: false,
+  loop: false,
+  controlsLayout: 'bottom-right', // Determines where controls appear, "edges" or "bottom-right"
+  controlsBackArrows: 'faded',
+  progress: true,
+  showNotes: false,
+  autoPlayMedia: false,
+  backgroundTransition: 'fade',
+  slideNumber: 'c',
+  markdown: {
+    smartypants: true
+  },
+
+  // mermaid initialize config
+  mermaid: {
+    // flowchart: {
+    //   curve: 'linear',
+    // },
+  },
+
+  menu: {
+      // Specifies which side of the presentation the menu will
+      // be shown. Use 'left' or 'right'.
+      side: 'left',
+
+      // Specifies the width of the menu.
+      // Can be one of the following:
+      // 'normal', 'wide', 'third', 'half', 'full', or
+      // any valid css length value
+      width: 'normal',
+
+      // Add slide numbers to the titles in the slide list.
+      // Use 'true' or format string (same as reveal.js slide numbers)
+      numbers: 'c',
+
+      // Specifies which slide elements will be used for generating
+      // the slide titles in the menu. The default selects the first
+      // heading element found in the slide, but you can specify any
+      // valid css selector and the text from the first matching
+      // element will be used.
+      // Note: that a section data-menu-title attribute or an element
+      // with a menu-title class will take precedence over this option
+      titleSelector: 'h1, h2, h3, h4, h5, h6',
+
+      // If slides do not have a matching title, attempt to use the
+      // start of the text content as the title instead
+      useTextContentForMissingTitles: false,
+
+      // Hide slides from the menu that do not have a title.
+      // Set to 'true' to only list slides with titles.
+      hideMissingTitles: false,
+
+      // Adds markers to the slide titles to indicate the
+      // progress through the presentation. Set to 'false'
+      // to hide the markers.
+      markers: true,
+
+      // Specify custom panels to be included in the menu, by
+      // providing an array of objects with 'title', 'icon'
+      // properties, and either a 'src' or 'content' property.
+      custom: false,
+
+      // Specifies the themes that will be available in the themes
+      // menu panel. Set to 'true' to show the themes menu panel
+      // with the default themes list. Alternatively, provide an
+      // array to specify the themes to make available in the
+      // themes menu panel, for example...
+      //
+      // [
+      //     { name: 'Black', theme: 'dist/theme/black.css' },
+      //     { name: 'White', theme: 'dist/theme/white.css' },
+      //     { name: 'League', theme: 'dist/theme/league.css' },
+      //     {
+      //       name: 'Dark',
+      //       theme: 'lib/reveal.js/dist/theme/black.css',
+      //       highlightTheme: 'lib/reveal.js/plugin/highlight/monokai.css'
+      //     },
+      //     {
+      //       name: 'Code: Zenburn',
+      //       highlightTheme: 'lib/reveal.js/plugin/highlight/zenburn.css'
+      //     }
+      // ]
+      //
+      // Note: specifying highlightTheme without a theme will
+      // change the code highlight theme while leaving the
+      // presentation theme unchanged.
+      themes: true,
+
+      // Specifies the path to the default theme files. If your
+      // presentation uses a different path to the standard reveal
+      // layout then you need to provide this option, but only
+      // when 'themes' is set to 'true'. If you provide your own
+      // list of themes or 'themes' is set to 'false' the
+      // 'themesPath' option is ignored.
+      themesPath: 'https://cdn.jsdelivr.net/npm/reveal.js@latest/dist/theme/',
+
+      // Specifies if the transitions menu panel will be shown.
+      // Set to 'true' to show the transitions menu panel with
+      // the default transitions list. Alternatively, provide an
+      // array to specify the transitions to make available in
+      // the transitions panel, for example...
+      // ['None', 'Fade', 'Slide']
+      transitions: true,
+
+      // Adds a menu button to the slides to open the menu panel.
+      // Set to 'false' to hide the button.
+      openButton: true,
+
+      // If 'true' allows the slide number in the presentation to
+      // open the menu panel. The reveal.js slideNumber option must
+      // be displayed for this to take effect
+      openSlideNumber: true,
+
+      // If true allows the user to open and navigate the menu using
+      // the keyboard. Standard keyboard interaction with reveal
+      // will be disabled while the menu is open.
+      keyboard: true,
+
+      // Normally the menu will close on user actions such as
+      // selecting a menu item, or clicking the presentation area.
+      // If 'true', the sticky option will leave the menu open
+      // until it is explicitly closed, that is, using the close
+      // button or pressing the ESC or m key (when the keyboard
+      // interaction option is enabled).
+      sticky: false,
+
+      // If 'true' standard menu items will be automatically opened
+      // when navigating using the keyboard. Note: this only takes
+      // effect when both the 'keyboard' and 'sticky' options are enabled.
+      autoOpen: true,
+
+      // If 'true' the menu will not be created until it is explicitly
+      // requested by calling RevealMenu.init(). Note this will delay
+      // the creation of all menu panels, including custom panels, and
+      // the menu button.
+      delayInit: false,
+
+      // If 'true' the menu will be shown when the menu is initialised.
+      openOnInit: false,
+
+      // By default the menu will load it's own font-awesome library
+      // icons. If your presentation needs to load a different
+      // font-awesome library the 'loadIcons' option can be set to false
+      // and the menu will not attempt to load the font-awesome library.
+      loadIcons: true
+  },
+
+  toolbar: {
+      // Specifies where the toolbar will be shown: 'top' or 'bottom'
+      position: 'bottom',
+
+      // Add button to toggle fullscreen mode for the presentation
+      fullscreen: true,
+
+      // Add button to toggle the overview mode on and off
+      overview: true,
+
+      // Add button to pause (hide) the presentation display
+      pause: true,
+
+      // Add button to show the speaker notes
+      notes: true,
+
+      // Add button to show the help overlay
+      help: true,
+
+      // If true, the reveal.js-menu will be moved into the toolbar.
+      // Set to false to leave the menu on its own.
+      captureMenu: true,
+
+      // If true, the playback control will be moved into the toolbar.
+      // This is only relevant if the presentation is configured to autoSlide.
+      // Set to false to leave the menu on its own.
+      capturePlaybackControl: true,
+
+      // By default the menu will load it's own font-awesome library
+      // icons. If your presentation needs to load a different
+      // font-awesome library the 'loadIcons' option can be set to false
+      // and the menu will not attempt to load the font-awesome library.
+      loadIcons: true
+  },
+
+  plugins: [
+  RevealMarkdown,
+  // Markdown
+  RevealHighlight,
+  // Search
+  RevealSearch,
+  // Speaker notes
+  RevealNotes,
+  // Zoom in and out with Alt+click
+  RevealZoom,
+  // MathJax
+  RevealMath,
+  RevealMermaid,
+  RevealMenu
+  ],
+
+  dependencies: [
+      { src: '/markdown_revealjs/js/reveal.js-toolbar/toolbar.js' },
+      { src: 'https://cdn.jsdelivr.net/npm/reveal-plantuml@1.0.2/dist/reveal-plantuml.min.js'}
+
+  ]
+});</script><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

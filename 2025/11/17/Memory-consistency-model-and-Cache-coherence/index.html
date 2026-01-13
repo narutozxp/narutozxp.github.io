@@ -1,0 +1,603 @@
+<!DOCTYPE html><html class="hide-aside" lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Memory consistency model and Cache coherence | narutozxp</title><meta name="keywords" content="体系结构,内存一致性模型,缓存一致性"><meta name="author" content="narutozxp"><meta name="copyright" content="narutozxp"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="内存一致性模型与缓存一致性的关系 刚开始接触缓存一致性以及内存一致性模型的时候，时常会对其产生误解，对两者的概念比较模糊，在这里借用《A Primer on Memory Consistency and Cache Coherence》中的介绍来对其进行区分。 该书中使用SWMR(Single Writer Multiple Reader)不变量以及数据值（Data Value）不变量来定义缓存一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Memory consistency model and Cache coherence">
+<meta property="og:url" content="https://www.narutozxp.top/2025/11/17/Memory-consistency-model-and-Cache-coherence/index.html">
+<meta property="og:site_name" content="narutozxp">
+<meta property="og:description" content="内存一致性模型与缓存一致性的关系 刚开始接触缓存一致性以及内存一致性模型的时候，时常会对其产生误解，对两者的概念比较模糊，在这里借用《A Primer on Memory Consistency and Cache Coherence》中的介绍来对其进行区分。 该书中使用SWMR(Single Writer Multiple Reader)不变量以及数据值（Data Value）不变量来定义缓存一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.narutozxp.top/img/15.webp">
+<meta property="article:published_time" content="2025-11-17T14:22:02.000Z">
+<meta property="article:modified_time" content="2025-12-25T08:02:53.000Z">
+<meta property="article:author" content="narutozxp">
+<meta property="article:tag" content="体系结构">
+<meta property="article:tag" content="内存一致性模型">
+<meta property="article:tag" content="缓存一致性">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.narutozxp.top/img/15.webp"><link rel="shortcut icon" href="/img/myself.webp"><link rel="canonical" href="https://www.narutozxp.top/2025/11/17/Memory-consistency-model-and-Cache-coherence/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great%20Vibes" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Memory consistency model and Cache coherence',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-12-25 08:02:53'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous"> <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script> <link rel="stylesheet" href="/css/custom.css"> <link rel="stylesheet" href="/css/font.css"> <script src="https://wavedrom.com/wavedrom.min.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/default.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/dark.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/narrow.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/lowkey.js" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js" type="text/javascript"></script> <script data-pjax src="https://cdn.jsdelivr.net/npm/abcjs/dist/abcjs-basic-min.js" type="text/javascript"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/abcjs/abcjs-audio.css"/> <script defer data-pjax src="https://cn.vercount.one/js" type="text/javascript"></script>
+<script data-pjax type="text/javascript"> WaveDrom.ProcessAll(); mermaid.run(); </script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.5.0/style.css" /> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script> <meting-js id="2217718183" server="netease" type="playlist" autoplay = "false" api = "https://v.iarc.top/?server=:server&type=:type&id=:id&r=:r" mini = "true" fixed = "true" loop = "all" order = 'random' list-folded = "true"> </meting-js><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/myself.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/15.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">narutozxp</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Memory consistency model and Cache coherence</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-17T14:22:02.000Z" title="发表于 2025-11-17 14:22:02">2025-11-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-25T08:02:53.000Z" title="更新于 2025-12-25 08:02:53">2025-12-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CS/">CS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Memory consistency model and Cache coherence"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="内存一致性模型与缓存一致性的关系">内存一致性模型与缓存一致性的关系</h1>
+<p>刚开始接触缓存一致性以及内存一致性模型的时候，时常会对其产生误解，对两者的概念比较模糊，在这里借用《A Primer on Memory Consistency and Cache Coherence》中的介绍来对其进行区分。</p>
+<p>该书中使用<strong>SWMR(Single Writer Multiple Reader)不变量</strong>以及<strong>数据值（Data Value）不变量</strong>来定义缓存一致性，前者指的是对于同一时刻，同一个内存地址，要么只有一个核心对其拥有读写权限，要么有零个或者多个对于该地址只有只读权限。而后者则指的是，任何对于内存的修改都会被传播给其他副本，以至于副本保存的总是其最新的值。</p>
+<p>而内存一致性（模型）则是定义在缓存一致性之上的，程序员需要依据内存一致性模型来编写出正确的多线程程序，而缓存一致性主要是为处理器流水线提供一个存储系统的抽象层，对于程序员来说时透明的，如下图所示：</p>
+<p><img src="/2025/11/17/Memory-consistency-model-and-Cache-coherence/consistency_and_conherence.webp" alt="内存一致性模型与缓存一致性"></p>
+<div class="admonition admonition-summary">
+<p class="admonition-title">Summary</p>
+<ul>
+<li>Cache coherence于Memory consistency并不等效</li>
+<li>Memory consistency的具体实现可以将Cache coherence作为一个有用的黑盒</li>
+</ul>
+</div>
+<p>除此之外，依据缓存一致性于内存一致性模型之间是否能够被清晰地划分开来，可以将缓存一致性协议分为两类：</p>
+<ul>
+<li><strong>Consistency-agnostic coherence</strong>:在第一类协议中，一个写操作在返回之前就已经对所有其他内核可见。由于写操作是同步传播的，这类协议提供的接口与无缓存的原子内存系统完全一致。因此，任何与一致性协议交互的子系统——例如处理器核心流水线——都可以假设自己在与一个没有缓存的原子内存系统交互。从一致性保证的角度看，这种一致性接口带来了良好的“关注点分离”。缓存一致性协议完全屏蔽了缓存的存在，呈现出仿佛缓存被移除、只有主存位于一致性盒子中的原子内存假象（见上图），而处理器核心流水线负责执行一致性模型中规定的所有排序要求。</li>
+<li><strong>Consistency-directed coherence</strong>:在第二类（较新的）协议中，写操作异步传播——即一个写操作可以在尚未对所有处理器可见之前就返回，因此其他处理器在真实时间上有可能观察到过期（stale）的值。然而，为了正确实现内存一致性，这类协议必须保证最终对外可见的写入顺序严格遵循一致性模型规定的排序规则。回到上图的抽象模型，这种类型中流水线与一致性协议共同负责执行一致性模型规定的排序要求。这类协议最初为提高通用 GPU（GP-GPU）的吞吐量而出现。</li>
+</ul>
+<div class="admonition admonition-note">
+<p class="admonition-title">Note</p>
+<p>基于我个人的理解而言，<strong>缓存一致性</strong>指的是同一个地址的数据存在多个本地的备份，其中一个备份被修改了，其他的备份需要知道。<br>
+而<strong>内存一致性（模型）</strong> 更多的是一种约定，描述了该多核处理器对于不同地址数据进行访问时，不同核心所看到的执行顺序并不一样。</p>
+</div>
+<h1 id="缓存一致性介绍">缓存一致性介绍</h1>
+<p>在现代的多核系统中，为了弥补主存与处理器速度之间的差距，通常会在每个处理器核心上配备一个或多个级别的缓存（Cache）。而缓存的核心作用就是为处理器提供其所需数据的高速备份，从而提高整体系统的性能。然而，当多个处理器核心同时访问和修改共享数据时，同一个数据就会存在多个备份，当其中一个备份的数据被其对应的处理器修改之后，另一个备份并不知情，这就会导致不同处理器看到的数据是不一致的，从而引发一系列的问题。</p>
+<p>如下所展示的一个简单的缓存一致性问题的例子：假设全局变量A的初始值为0，且仅处于主存当中。</p>
+<ol type="1">
+<li>CPU1读取变量A的值，触发cache miss，从主存中将A的值（0）加载到自己的缓存中。</li>
+<li>CPU4读取变量A的值，触发cache miss，从主存中将A的值（0）加载到自己的缓存中。</li>
+<li>CPU4将变量A的值修改为4，这时候有两者情况，如果是写回（write back）策略，则仅仅是将A的cache值修改为4，并且标记该缓存行为“脏”（dirty），此时主存中的A的值仍然是0；如果是写穿（write through）策略，则不仅将A的cache值修改为4，主存中的A的值也会被更新为4。</li>
+<li>CPU1再次读取变量A的值，这时候如果没有任何缓存一致性协议的介入，CPU1将会继续读取到自己缓存中的A的值0，而不是最新的值4。</li>
+</ol>
+<p>经过上述四步之后，全局的共享变量A，在不同位置上的值如下图所示：</p>
+<pre class="mermaid">graph TB
+
+    subgraph CPUs
+        CPU1((CPU1))
+        CPU2((CPU2))
+        CPU3((CPU3))
+        CPU4((CPU4))
+    end
+
+    Cache1[Cache<br>A=0]
+    Cache2[Cache]
+    Cache3[Cache]
+    Cache4[Cache<br>A=4]
+
+    Bus[===== BUS =====]
+    Mem["Main Memory<br>A=0 (write back) <br>or 4 (write through)"]
+
+    CPU1 --- Cache1
+    CPU2 --- Cache2
+    CPU3 --- Cache3
+    CPU4 --- Cache4
+
+    Cache1 --- Bus
+    Cache2 --- Bus
+    Cache3 --- Bus
+    Cache4 --- Bus
+
+    Bus --- Mem
+
+    Note1[/"1. read A<br>4. read A"/]
+    Note2[/"2. read A<br>3. write A=4"/]
+
+    Note1 -.-> CPU1
+    Note2 -.-> CPU4</pre>
+<p>而由上述的缓存一致性问题，又会导致程序不按照预想的逻辑运行。</p>
+<p>例如有如下一个程序，其有两个线程, 分别被安排在CPU1和CPU2上运行。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> flag = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> data = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// run on CPU1</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">thread1</span><span class="params">()</span> &#123;</span><br><span class="line">    data = <span class="number">1</span>;          <span class="comment">// 操作2</span></span><br><span class="line">    flag = <span class="number">1</span>;          <span class="comment">// 操作3</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// run on CPU2</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">thread2</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> (flag == <span class="number">0</span>); <span class="comment">// 操作1</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, data); <span class="comment">// 操作4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于该程序，我们的期望逻辑是：<code>thread2</code>一直等待，直到<code>thread1</code>将数据<code>data</code>准备好，并且将标志位<code>flag</code>置为之后，<code>thread2</code>才会继续执行并打印出数据<code>data</code>的值。</p>
+<p>但是如下流程图所示，由于缓存一致性问题，<code>thread2</code>可能永远看不到<code>flag</code>被置为1的操作，从而导致它一直处于自旋等待的状态，永远无法打印出数据<code>data</code>的值。</p>
+<pre class="mermaid">sequenceDiagram
+    autonumber
+    participant CPU1 as CPU1 / thread1
+    participant C1 as CPU1 Cache
+    participant MEM as Main Memory
+    participant C2 as CPU2 Cache
+    participant CPU2 as CPU2 / thread2
+
+    Note over CPU1,CPU2: 初始：flag=0, data=0
+
+    %% CPU2 先开始自旋读取 flag（操作1）
+    CPU2->>C2: load flag
+    alt 第一次访问，miss
+        C2->>MEM: read flag
+        MEM-->>C2: flag = 0
+    end
+    C2-->>CPU2: flag = 0
+
+    loop while(flag == 0)
+        CPU2->>C2: load flag 
+        Note right of C2: CPU2 一直命中本地 cache，<br>读取到的都是旧值 flag=0
+        C2-->>CPU2: flag = 0
+    end
+
+    %% 另一方面，CPU1 执行写 data=1, flag=1
+    CPU1->>C1: store data = 1  
+    Note right of C1: data=1 写入 CPU1 的 cache，<br>可能稍后再写回内存
+
+    CPU1->>C1: store flag = 1  
+    Note right of C1: flag=1 也只更新在 CPU1 cache 中，<br>没有触发对 CPU2 cache 的失效/更新
+
+    C1->>MEM: write-back (可选) data=1, flag=1
+    Note over C1,MEM: 即使内存已是 1，<br>但 CPU2 的 cache 里 flag 仍是 0
+
+    %% 因为没有 cache coherence，CPU2 永远看不到 flag=1
+    loop while(flag == 0) 继续自旋
+        CPU2->>C2: load flag
+        C2-->>CPU2: flag = 0
+    end
+
+    Note over CPU2: CPU2 一直认为 flag==0，<br>甚至永远无法执行 printf</pre>
+<p>从上述的两个例子中，我们不难看出缓存一致性的重要性，而为了解决缓存一致性的问题，当前主要有两种解决方案：<strong>总线嗅探（snopping-based）方案</strong>和<strong>目录式（Directory-based）方案</strong>。</p>
+<p><strong>Snoopying-based方案:</strong> 每个缓存控制器都会监听（嗅探）总线上的所有读写请求，当某个处理器对某个地址发起读写请求时，其他缓存控制器会检查自己是否缓存了该地址的数据，如果缓存了，则根据请求的类型（读或写）采取相应的操作，例如无效化自己的缓存行或者更新自己的缓存行，从而确保所有缓存中的数据是一致的。<br>
+<strong>Directory-based方案:</strong> 每个内存块都有一个目录，记录了哪些缓存中存储了该内存块的副本。当某个处理器需要访问某个内存块时，它会先查询目录，目录会告诉它哪些缓存中有该内存块的副本，然后处理器可以直接与这些缓存进行通信，确保数据的一致性。这种方案通常适用于大规模多处理器系统，因为它减少了总线上的通信量。</p>
+<h1 id="内存一致性模型介绍">内存一致性模型介绍</h1>
+<p>内存一致性模型（Memory Consistency Model）定义了在多处理器系统中，多个处理器对共享内存的读写操作的可见性和顺序性规则。它规定了一个处理器对内存的写操作何时对其他处理器可见，以及多个处理器对同一内存位置的读写操作之间的顺序关系。</p>
+<p>仍然拿上面的缓存一致性的例子来介绍内存一致性，其程序如下所示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> flag = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> data = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// run on CPU1</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">thread1</span><span class="params">()</span> &#123;</span><br><span class="line">    data = <span class="number">1</span>;   <span class="comment">// S1    </span></span><br><span class="line">    flag = <span class="number">1</span>;   <span class="comment">// S2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// run on CPU2</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">thread2</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> (flag == <span class="number">0</span>); <span class="comment">// L1</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, data); <span class="comment">// L2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于该程序，如果存在缓存一致性问题，则<code>thread2</code>可能一直在自旋，导致无法打印出数据<code>data</code>的值。但是是不是如果没有缓存一致性问题，该程序就能按照预期来工作呢？<strong>答案是否定的</strong>。</p>
+<p>我们可以假设缓存一致性的问题已经解决了或者假设两个CPU没有缓存，为了简单，我们就假设系统为一个多核无缓存的系统，其系统框图如下：</p>
+<pre class="mermaid">graph TB
+
+    subgraph CPUs
+        CPU1((CPU1))
+        CPU2((CPU2))
+        CPU3((CPU3))
+        CPU4((CPU4))
+    end
+
+    Bus[===== BUS =====]
+    Mem["Main Memory"]
+
+    CPU1 --- Bus
+    CPU2 --- Bus
+    CPU3 --- Bus
+    CPU4 --- Bus
+
+    Bus --- Mem
+
+    Note1[/"1. data = 1<br>2. flag = 1"/]
+    Note2[/"3. while(flag == 0)<br>4. print data"/]
+
+    Note1 -.-> CPU1
+    Note2 -.-> CPU4</pre>
+<p>在不考虑所谓的内存一致性模型的前提下，我们对于上述程序的期望就是最终输出<code>1</code>。但是实际上，基于该CPU的内存模型，程序最终既可能输出<code>1</code>，也可能输出<code>0</code>。</p>
+<p>其根本原因在于，对于CPU4而言，其可能先看到<code>flag = 1</code>，然后才看到<code>data = 1</code>。但是这并不是错误，而是由CPU的设计与实现方案所导致的。究其原因，其主要还是由于当代CPU为了提升性能，通常会重排序内存访问（Reorder Memory Accesses），即允许处理器在执行内存操作时，不严格按照程序中指令的顺序进行，而是根据数据依赖关系和硬件资源的可用性，动态调整内存操作的执行顺序。而上述输出0的情况，就是由于<code>store-store reordering</code>所导致的(CPU1中的<code>S1</code>与<code>S2</code> reorder)。</p>
+<p>而<strong>内存一致性模型</strong>的作用就是用于规范多线程程序的访存行为，从而使得程序能够按照预期的逻辑来运行。</p>
+<div class="admonition admonition-question">
+<p class="admonition-title">CPU存在哪些可能的内存访问重排序？
+</p>
+<p>尽管现代内核可能对许多内存访问进行重排序，但我们只需要考虑两个内存操作的重排序就足够了。多数情况下，我们只需讨论内核针对两个不同地址的内存操作进行重排序的情形，因为顺序执行模型（即冯·诺依曼模型）通常要求对同一地址的操作必须按程序原有顺序执行。我们根据被重排序的内存操作是加载（load）还是存储（store），将可能的重排序情况分为三类。</p>
+<ul>
+<li><strong>store-store reordering</strong>: 如果一个核心有一个非FIFO的写缓存区(store buffer), 那么它可能会允许store-store重排序。也就是说，后面的store操作可能会比前面的store操作更早地被提交到内存系统中。需要注意的是，即使核心是按照程序的顺序执行的，这种重排序仍然可能发生。而对于单线程来说，对不同地址的store操作进行重排序是没有影响的。</li>
+<li><strong>load-load reordering</strong>: 当代的动态调度核心可能会按照不同的顺序执行指令。以上面的程序为例，CPU2可能会对<code>L1</code>和<code>L2</code>进行重排序，因为对于单线程来说，这样的重排序是没有影响的。但是对于多线程，这种排序可能会导致<code>L2、S1、S2、L1</code>的执行顺序，从而导致输出是0。</li>
+<li><strong>load-store and store-load reordering</strong>: 乱序核心也可以重新排序来自同一线程的加载和存储（针对于不同地址的加载和存储），从而导致不确定的结果</li>
+</ul>
+<div class="admonition admonition-example">
+<p class="admonition-title">store-load 重排序示例
+</p>
+<p>下面的程序展示了store-load重排序的一个例子：</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x = <span class="number">0</span>, y = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> r1 = <span class="number">0</span>, r2 = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// run on CPU1</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">thread1</span><span class="params">()</span> {</span><br><span class="line"> x = <span class="number">1</span>; <span class="comment">// S1</span></span><br><span class="line"> r1 = y; <span class="comment">// L1</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// run on CPU2</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">thread2</span><span class="params">()</span> {</span><br><span class="line"> y = <span class="number">1</span>; <span class="comment">// S2</span></span><br><span class="line"> r2 = x; <span class="comment">// L2</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p>上述程序的可能的输出结果：</p>
+<ul>
+<li>（r1 == 1, r2 == 1）—— 执行顺序为 S1, S2, L1, L2</li>
+<li>（r1 == 0, r2 == 1）—— 执行顺序为 S1, L1, S2, L2</li>
+<li>（r1 == 1, r2 == 0）—— 执行顺序为 S2, L2, S1, L1</li>
+<li>（r1 == 0, r2 == 0）—— 执行顺序为 L1, L2, S1, S2</li>
+</ul>
+<p>其中最后一个结果就是由于store-load重排序所导致的。</p>
+</div>
+</div>
+<h1 id="内存一致性模型分类">内存一致性模型分类</h1>
+<h2 id="顺序一致性sequential-consistency-sc">顺序一致性（Sequential Consistency, SC）</h2>
+<p>SC模型最早由Lamport提出，SC定义每个单独的核心的执行顺序（访存顺序）必须按照程序指定的顺序执行，但是不同核心之间的全局执行顺序（访存）可以是任意的。</p>
+<div class="admonition admonition-note">
+<p class="admonition-title">Note</p>
+<p>需要注意的是，在SC模型当中，不同核心看到的内存操作顺序应该是一致的。</p>
+</div>
+<p>如下执行流程图（以上面的代码为例）显示怎么样才算是符合SC模型的执行流程的：</p>
+<pre class="mermaid">sequenceDiagram
+    participant P1 as Program Order {p} of Core C1
+    participant M  as Memory Order {m}
+    participant P2 as Program Order {p} of Core C2
+
+    %% ===================== (a) SC Execution 1 =====================
+    rect rgb(240,255,255)
+    autonumber 1
+    Note over P1,P2: (a) SC Execution 1<br>Outcome: (r1, r2) = (0, 1)
+
+    P1->>M: S1: x = 1 
+    P1->>M: L1: r1 = y 
+    P2->>M: S2: y = 1 
+    P2->>M: L2: r2 = x 
+    end
+
+    %% ===================== (b) SC Execution 2 =====================
+    rect rgb(240,240,255)
+    autonumber 1
+    Note over P1,P2: (b) SC Execution 2<br>Outcome: (r1, r2) = (1, 0)
+
+    P2->>M: S2: y = 1 
+    P2->>M: L2: r2 = x 
+    P1->>M: S1: x = 1 
+    P1->>M: L1: r1 = y 
+    end
+
+    %% ===================== (c) SC Execution 3 =====================
+    rect rgb(240,255,240)
+    autonumber 1
+    Note over P1,P2: (c) SC Execution 3<br>Outcome: (r1, r2) = (1, 1)
+
+    P1->>M: S1: x = 1 
+    P2->>M: S2: y = 1 
+    P1->>M: L1: r1 = y 
+    P2->>M: L2: r2 = x 
+    end
+
+    %% ===================== (d) NOT an SC Execution =====================
+    rect rgb(255,240,240)
+    autonumber 1
+    Note over P1,P2: (d) NOT an SC Execution<br> Outcome: (r1, r2) = (0, 0)
+
+    %% 这里先按程序顺序画事件
+    P2->>M: L2: r2 = x 
+    P1->>M: S1: x = 1 
+    P1->>M: L1: r1 = y 
+    P2->>M: S2: y = 1 
+    end</pre>
+<p>其中前三个就是符合SC模型的执行流程，因此在SC模型的CPU下，该三个结果都是正确的，但是第四个则不是。</p>
+<p>SC模型的优势就是简单，但是其缺点也很明显，那就是性能较低，因为SC模型限制了处理器对内存操作的重排序能力，从而限制了处理器的优化空间。所以先打处理器的内存模型基本都偏离了SC模型。</p>
+<h2 id="放宽的内存一致性模型relaxed-consistency-models">放宽的内存一致性模型（Relaxed Consistency Models）</h2>
+<p>上述的SC模型严格地限制了<code>store-load</code>、<code>store-store</code>、<code>load-load</code>和<code>load-store</code>这四种内存读写的重排序（即使这些操作之间没有控制、数据和流水线上面的依赖）。</p>
+<p>而<strong>宽松内存模型（Relaxed Consistency Models）</strong> 的关键思想是允许乱序执行<code>store</code>和<code>load</code>操作，而依据具体放宽松了哪一对<code>store</code>和<code>load</code>的操作，可以将其分为如下几种类型：</p>
+<ul>
+<li><strong>Total Store Order (TSO)</strong>: 允许<code>store-load</code>重排序，但禁止<code>store-store</code>、<code>load-load</code>和<code>load-store</code>重排序（引入fifo属性的store buffer就会导致这种情况）。</li>
+<li><strong>Partial Store Order (PSO)</strong>: 允许<code>store-load</code>和<code>store-store</code>重排序，但禁止<code>load-load</code>和<code>load-store</code>重排序（引入非fifo属性的store buffer就会导致这种情况）。</li>
+<li><strong>Relaxed Memory Order (RMO)</strong>: 允许所有四种类型的重排序。</li>
+</ul>
+<div class="admonition admonition-note">
+<p class="admonition-title">Note</p>
+<p>这些顺序放松但依旧保证了在本CPU与程序代码一致的存取顺序，但在其它CPU节点看来顺序就可能被打乱了。</p>
+</div>
+<h3 id="tso模型示例">TSO模型示例</h3>
+<p>如下一个示例展示了，对于同一个线程来说，其看到的内存顺序是没有重排序的，但是对于另一个线程来说，其看到的则是<code>store</code>被延后到<code>load</code>后面了。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> y = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">thread1</span><span class="params">()</span> &#123;</span><br><span class="line">    x = <span class="number">1</span>;      <span class="comment">// S1</span></span><br><span class="line">    r1 = x;     <span class="comment">// L1</span></span><br><span class="line">    r2 = y;     <span class="comment">// L2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">thread2</span><span class="params">()</span> &#123;</span><br><span class="line">    y = <span class="number">1</span>;      <span class="comment">// S2</span></span><br><span class="line">    r3 = y;     <span class="comment">// L3</span></span><br><span class="line">    r4 = x;     <span class="comment">// L4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在TSO模型下，很多人可能认为最终会出现<code>(r1, r2, r3, r4) = (0, 0, 0, 0)</code>的结果。但是事实上并不会，这是因为<code>r1</code>和<code>r3</code> load的是本地CPU的值，因此会使用Write Buffer Bypass机制，直接从Write Buffer中读取到最新的值1，因此r1与r3的值最终都会是1。产生这种结果的执行流程图如下图所示。</p>
+<p><img src="/2025/11/17/Memory-consistency-model-and-Cache-coherence/tso.webp" alt="TSO执行"></p>
+<p>再来看另一个例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> b = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">thread1</span><span class="params">()</span> &#123;</span><br><span class="line">    a = <span class="number">1</span>;      <span class="comment">// S1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">thread2</span><span class="params">()</span> &#123;</span><br><span class="line">    b = <span class="number">1</span>;      <span class="comment">// S2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">thread3</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, a); <span class="comment">// L1</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, b); <span class="comment">// L2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">thread4</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, a); <span class="comment">// L3</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, b); <span class="comment">// L4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于这个例子，如果<code>thread3</code>看到的结果是<code>(a, b) = (1, 0)</code>，那么<code>thread4</code>看到的结果就不可能是<code>(a, b) = (0, 1)</code>。因为在TSO模型下，<code>store-store</code>操作是不能重排序的，因此<code>S1</code>必须在<code>S2</code>之前被提交到内存中，从而使得<code>thread4</code>不可能看到<code>b = 1</code>而<code>a = 0</code>的结果。</p>
+<div class="admonition admonition-note">
+<p class="admonition-title">Note</p>
+<p>从这个例子当中，可以看出来，如果允许<code>load-load</code>重排序的话，那么最终就会导致不同线程看到完全不一样的顺序，内存模型就会很复杂。</p>
+</div>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.narutozxp.top">narutozxp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.narutozxp.top/2025/11/17/Memory-consistency-model-and-Cache-coherence/">https://www.narutozxp.top/2025/11/17/Memory-consistency-model-and-Cache-coherence/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.narutozxp.top" target="_blank">narutozxp</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">体系结构</a><a class="post-meta__tags" href="/tags/%E5%86%85%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8B/">内存一致性模型</a><a class="post-meta__tags" href="/tags/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/">缓存一致性</a></div><div class="post_share"><div class="social-share" data-image="/img/15.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/11/26/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"><img class="prev-cover" src="/img/11.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">论文写作的一些技巧与经验</div></div></a></div><div class="next-post pull-right"><a href="/2025/05/28/SpinalHDL/"><img class="next-cover" src="/img/17.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">SpinalHDL</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.</span> <span class="toc-text">内存一致性模型与缓存一致性的关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">缓存一致性介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D"><span class="toc-number">3.</span> <span class="toc-text">内存一致性模型介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8B%E5%88%86%E7%B1%BB"><span class="toc-number">4.</span> <span class="toc-text">内存一致性模型分类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E4%B8%80%E8%87%B4%E6%80%A7sequential-consistency-sc"><span class="toc-number">4.1.</span> <span class="toc-text">顺序一致性（Sequential Consistency, SC）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BE%E5%AE%BD%E7%9A%84%E5%86%85%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8Brelaxed-consistency-models"><span class="toc-number">4.2.</span> <span class="toc-text">放宽的内存一致性模型（Relaxed Consistency Models）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tso%E6%A8%A1%E5%9E%8B%E7%A4%BA%E4%BE%8B"><span class="toc-number">4.2.1.</span> <span class="toc-text">TSO模型示例</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@11.12.1/dist/mermaid.min.js"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}</script><script src="/js/twikoo_emotion_biger.js"></script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.narutozxp.top',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.narutozxp.top',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo@1/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/narutozxp/live2d-widget@latest/autoload.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

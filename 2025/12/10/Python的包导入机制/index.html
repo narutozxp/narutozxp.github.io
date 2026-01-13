@@ -1,0 +1,466 @@
+<!DOCTYPE html><html class="hide-aside" lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Python包导入机制 | narutozxp</title><meta name="keywords" content="python"><meta name="author" content="narutozxp"><meta name="copyright" content="narutozxp"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文的主要参考文献为python的官方文档,针对的python版本为3.14.2 首先一个语言的导入系统是很重要的，因为它决定了代码的模块化以及可复用性，一个好的模块系统可以让开发者更方便地组织和管理代码，提高代码的可维护性和可读性。而我之所以写这么一篇文章，就是因为一直被python的导入系统折磨，因此才下定决定来搞清楚python的模块系统与导入机制。 对于python来说，我们最常用的导入方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python包导入机制">
+<meta property="og:url" content="https://www.narutozxp.top/2025/12/10/Python%E7%9A%84%E5%8C%85%E5%AF%BC%E5%85%A5%E6%9C%BA%E5%88%B6/index.html">
+<meta property="og:site_name" content="narutozxp">
+<meta property="og:description" content="本文的主要参考文献为python的官方文档,针对的python版本为3.14.2 首先一个语言的导入系统是很重要的，因为它决定了代码的模块化以及可复用性，一个好的模块系统可以让开发者更方便地组织和管理代码，提高代码的可维护性和可读性。而我之所以写这么一篇文章，就是因为一直被python的导入系统折磨，因此才下定决定来搞清楚python的模块系统与导入机制。 对于python来说，我们最常用的导入方">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.narutozxp.top/img/13.webp">
+<meta property="article:published_time" content="2025-12-10T17:22:02.000Z">
+<meta property="article:modified_time" content="2025-12-12T09:12:59.000Z">
+<meta property="article:author" content="narutozxp">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.narutozxp.top/img/13.webp"><link rel="shortcut icon" href="/img/myself.webp"><link rel="canonical" href="https://www.narutozxp.top/2025/12/10/Python%E7%9A%84%E5%8C%85%E5%AF%BC%E5%85%A5%E6%9C%BA%E5%88%B6/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great%20Vibes" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Python包导入机制',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-12-12 09:12:59'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous"> <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script> <link rel="stylesheet" href="/css/custom.css"> <link rel="stylesheet" href="/css/font.css"> <script src="https://wavedrom.com/wavedrom.min.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/default.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/dark.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/narrow.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/lowkey.js" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js" type="text/javascript"></script> <script data-pjax src="https://cdn.jsdelivr.net/npm/abcjs/dist/abcjs-basic-min.js" type="text/javascript"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/abcjs/abcjs-audio.css"/> <script defer data-pjax src="https://cn.vercount.one/js" type="text/javascript"></script>
+<script data-pjax type="text/javascript"> WaveDrom.ProcessAll(); mermaid.run(); </script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.5.0/style.css" /> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script> <meting-js id="2217718183" server="netease" type="playlist" autoplay = "false" api = "https://v.iarc.top/?server=:server&type=:type&id=:id&r=:r" mini = "true" fixed = "true" loop = "all" order = 'random' list-folded = "true"> </meting-js><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/myself.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/13.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">narutozxp</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Python包导入机制</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-10T17:22:02.000Z" title="发表于 2025-12-10 17:22:02">2025-12-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-12T09:12:59.000Z" title="更新于 2025-12-12 09:12:59">2025-12-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CS/">CS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Python包导入机制"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>本文的主要参考文献为<a target="_blank" rel="noopener" href="https://docs.python.org/3/reference/import.html">python的官方文档</a>,针对的python版本为<code>3.14.2</code></p>
+<p>首先一个语言的导入系统是很重要的，因为它决定了代码的模块化以及可复用性，一个好的模块系统可以让开发者更方便地组织和管理代码，提高代码的可维护性和可读性。而我之所以写这么一篇文章，就是因为一直被python的导入系统折磨，因此才下定决定来搞清楚python的模块系统与导入机制。</p>
+<p>对于python来说，我们最常用的导入方式是使用<code>import</code>语句，但是其实除了<code>import</code>语句之外，还有很多其他的导入方式，比如<code>importlib.import_module()</code>以及内置的<code>__import__()</code>函数等。</p>
+<p>而<code>import</code>语句主要做了两件事情：</p>
+<ol type="1">
+<li>搜索指定名称的模块（就是调用<code>__import__()</code>）。</li>
+<li>将搜索的结果绑定到一个local的名称上面。</li>
+</ol>
+<div class="admonition admonition-example">
+<p class="admonition-title">Example</p>
+<p><code>import spam</code>会产生如下的字节码：<br>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spam = <span class="built_in"><strong>import</strong></span>(<span class="string">'spam'</span>, <span class="built_in">globals</span>(), <span class="built_in">locals</span>(), [], <span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
+<p><code>import spam.ham</code>会产生如下的字节码：<br>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spam = <span class="built_in"><strong>import</strong></span>(<span class="string">'spam.ham'</span>, <span class="built_in">globals</span>(), <span class="built_in">locals</span>(), [], <span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
+<p><code>from spam.ham import eggs, sausage as saus</code>会产生如下的字节码：<br>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">_temp = <span class="built_in"><strong>import</strong></span>(<span class="string">'spam.ham'</span>, <span class="built_in">globals</span>(), <span class="built_in">locals</span>(), [<span class="string">'eggs'</span>, <span class="string">'sausage'</span>], <span class="number">0</span>)</span><br><span class="line">eggs = _temp.eggs</span><br><span class="line">saus = _temp.sausage</span><br></pre></td></tr></table></figure></p>
+</div>
+<p>而有关<code>importlib</code>的介绍，暂时还不在本文的考虑范围，本文主要针对于<code>import</code>语句。</p>
+<h1 id="packages介绍">Packages介绍</h1>
+<p>python中有模块（module）和包（package）的概念，模块是一个包含python代码的.py文件，而包则是一个包含多个模块的目录。包可以包含子包和模块，从而形成一个层次化的命名空间。除此之外，最早python的包是需要在目录下放置一个<code>__init__.py</code>文件来标识该目录是一个包，但是从python3.3版本开始，这个文件已经不是必须的了（使用<code>__init__.py</code>的是Regular packages，而不使用<code>__init__.py</code>的是Namespace packages，前者需要手动在<code>__init__.py</code>中来维护<code>__path__</code>变量，而后者则是导入机制自动维护）。而且包和模块被导入之后，会定义许多"dunder"(double underscore)的变量，比如<code>__name__</code>，<code>__file__</code>，<code>__path__</code>，<code>__package__</code>等，这些变量在模块和包的导入过程中起着重要的作用。</p>
+<p>以<code>__path__</code>为例，该变量就是包（package）被导入时才会定义的变量，其内容为一个列表，包含了该包内部各个模块以及子包（subpackage）的搜索路径，而且可以在包的<code>__init__.py</code>文件中进行修改，从而影响包内部模块的导入行为。</p>
+<div class="admonition admonition-warning">
+<p class="admonition-title">Warning</p>
+<p>注意，<code>__path__</code>变量只在包（package）中定义，而在普通的模块（module）中是没有该变量的。</p>
+<p>也就是说<code>__path__</code>要么在<code>__init__.py</code>文件中使用，要么import一个包之后，将其作为包的属性来使用。</p>
+</div>
+<div class="admonition admonition-example">
+<p class="admonition-title">__path__的示例
+</p>
+<p>假设有如下的包结构：</p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">my_package/</span><br><span class="line"> |-- <strong>init</strong>.py</span><br><span class="line"> |-- module1.py</span><br><span class="line"> |-- module2.py</span><br></pre></td></tr></table></figure></p>
+<p>然后执行如下的python脚本:<br>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> my_package</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(my_package.__path__)</span><br></pre></td></tr></table></figure><br>
+其输出结果会类似于：</p>
+<blockquote>
+<p>['/path/to/directory/containing/my_package']</p>
+</blockquote>
+<p>而依据该变量的结果，当你导入<code>module1</code>和<code>module2</code>时，python解释器就知道去哪里寻找这些模块。</p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> my_package <span class="keyword">import</span> module1</span><br><span class="line"><span class="keyword">from</span> my_package <span class="keyword">import</span> module2</span><br></pre></td></tr></table></figure></p>
+</div>
+<div class="admonition admonition-example">
+<p class="admonition-title">修改__path__
+</p>
+<p>之所以修改__path__，是因为这样可以将其他的目录变成包<code>my_package</code>的一部分,从而实现更灵活的模块组织和导入。</p>
+<p>继续使用上面的包结构，我们可以在<code>__init__.py</code>文件中修改<code>__path__</code>变量：</p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># my_package/<strong>init</strong>.py</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一个新的路径到__path__</span></span><br><span class="line"><strong>path</strong>.append(os.path.abspath(<span class="string">'../extra_modules'</span>))</span><br></pre></td></tr></table></figure></p>
+<p>这样做了之后，如果<code>extra_modules</code>目录下有一些模块，比如<code>module3.py</code>，我们就可以通过<code>my_package</code>来导入它们：</p>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> my_package <span class="keyword">import</span> module3</span><br></pre></td></tr></table></figure></p>
+</div>
+<h1 id="导入方式介绍">导入方式介绍</h1>
+<p>在使用python的导入功能的时候，我们通常使用的方式是使用<code>import</code>语句，其有两种用法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># method 1</span></span><br><span class="line"><span class="keyword">import</span> &lt;module_name/package_name&gt; [<span class="keyword">as</span> &lt;alias_name&gt;]</span><br><span class="line"></span><br><span class="line"><span class="comment"># method 2 </span></span><br><span class="line"><span class="keyword">from</span> &lt;package_name/module_name&gt; <span class="keyword">import</span> &lt;module_name/class_name/function_name&gt; [<span class="keyword">as</span> &lt;alias_name&gt;]</span><br></pre></td></tr></table></figure>
+<div class="admonition admonition-note">
+<p class="admonition-title">Note</p>
+<p>需要注意的是，如果<code>import package_name</code>后面接的是一个包名，那么实际上导入的是该包的<code>__init__.py</code>文件所定义的内容，如果没有在<code>__init__.py</code>文件中进行特殊处理，<code>package_name</code>目录下的子模块和子包是不会被自动导入的，也无法通过<code>package_name.submodule</code>的方式访问。</p>
+</div>
+<p>而python的导入机制主要分为两种：绝对导入和相对导入。</p>
+<h2 id="绝对导入">绝对导入</h2>
+<p>其中绝对导入可以使用上述的两种<code>import</code>用法，具体的使用语法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> package_name.module_name [<span class="keyword">as</span> alias_name]</span><br><span class="line"><span class="keyword">from</span> package_name.module_name <span class="keyword">import</span> class_name/function_name [<span class="keyword">as</span> alias_name]</span><br></pre></td></tr></table></figure>
+<p>绝对导入的特点在于，其包的搜索路径都是依据<code>sys.path</code>变量的，而默认情况下，<code>sys.path</code>变量包含了当前脚本所在的目录、<code>PYTHONPATH</code>环境变量中指定的目录以及Python安装目录下的标准库目录等。</p>
+<p>假设有如下的项目结构：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/project/</span><br><span class="line">  |-- main.py            <span class="comment"># import my_package.module1  </span></span><br><span class="line">  |-- my_package/</span><br><span class="line">      |-- __init__.py</span><br><span class="line">      |-- module1.py     <span class="comment"># import module2</span></span><br><span class="line">      |-- module2.py     <span class="comment"># print(&quot;Hello from module2&quot;)</span></span><br></pre></td></tr></table></figure>
+<p>当我们在<code>/project</code>目录下运行<code>python my_package/module1.py</code>时，<code>sys.path</code>中会包含<code>/project/my_package</code>目录，因此可以正常运行。但是当我们在<code>/project</code>目录下运行<code>python main.py</code>时，<code>sys.path</code>中会包含<code>/project</code>目录，而不包含<code>/project/my_package</code>目录，因此<code>module1.py</code>中的<code>import module2</code>语句会导致导入失败,因为无法查找到<code>module2</code>模块。</p>
+<p>可行的的解决办法如下：<strong>最推荐的方法是4</strong></p>
+<ol type="1">
+<li>将<code>/project/my_package</code>添加到<code>PYTHONPATH</code>环境变量中</li>
+<li>在<code>module1.py</code>中，将<code>/project/my_package</code>添加到<code>sys.path</code>中，然后才<code>import module2</code></li>
+<li>在<code>module1.py</code>中使用绝对导入的方式来导入<code>module2</code>模块，例如<code>from my_package import module2</code>。但是这个会导致<code>python my_package/module1.py</code>无法运行。</li>
+<li>在<code>module1.py</code>中使用相对导入的方式来导入<code>module2</code>模块，例如<code>from . import module2</code>。这个同样会导致<code>python my_package/module1.py</code>无法运行。但是可以使用<code>python -m my_package.module1</code>来运行。</li>
+</ol>
+<h2 id="相对导入">相对导入</h2>
+<p>而相对导入只能使用第二种<code>from ... import ...</code>的用法，具体的使用语法如下：其与绝对导入的区别在于，使用相对导入时，模块名称前面会有一个或多个点号（<code>.</code>），单个<code>.</code>表示当前包，两个点号<code>..</code>表示上级包，三个点号<code>...</code>表示上上级包，依此类推。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .module_name <span class="keyword">import</span> class_name/function_name [<span class="keyword">as</span> alias_name]      <span class="comment"># 导入当前包中的模块</span></span><br><span class="line"><span class="keyword">from</span> ..package_name.module_name <span class="keyword">import</span> class_name/function_name [<span class="keyword">as</span> alias_name]  <span class="comment"># 导入上级包中的模块</span></span><br><span class="line"><span class="keyword">from</span> ...package_name.module_name <span class="keyword">import</span> class_name/function_name [<span class="keyword">as</span> alias_name]  <span class="comment"># 导入上上级包中的模块</span></span><br></pre></td></tr></table></figure>
+<p>而相对导入的另一个问题在于，既然是相对导入，那么相对于谁呢？答案是相对于当前模块所在的包（package）。因此，相对导入只能在包内部使用，不能在顶层模块中使用。</p>
+<div class="admonition admonition-note">
+<p class="admonition-title">Note</p>
+<p>其实相对导入其实是相对于该语句所在的模块（或者说文件）的<code>__package__</code>属性来进行导入的。</p>
+<blockquote>
+<p>The module’s <code>__package__</code> attribute should be set. Its value must be a string, but it can be the same value as its <code>__name__</code>. If the attribute is set to None or is missing, the import system will fill it in with a more appropriate value. When the module is a package, its <code>__package__</code> value should be set to its <code>__name__</code>. When the module is not a package, <code>__package__</code> should be set to the empty string for top-level modules, or for submodules, to the parent package’s name. See PEP 366 for further details.<br>
+简单来说，<code>__package__</code>属性其实就是模块或者包所处的包的名称，如果是顶层模块，则该属性值为<code>''</code>，如果是包，则该属性值为自己的名称，如果是包中的模块，则该属性值为其父包的名称。</p>
+</blockquote>
+<p>而依据上述关于<code>__package__</code>的描述，我们就知道了为什么相对导入只能在包内部使用，而无法在顶层模块中使用，因为顶层模块的<code>__package__</code>属性值为<code>''</code>，相对导入就不知相对于谁了。</p>
+</div>
+<p>还有一个问题在于对于一个写好的包，其内部其实往往都是使用相对导入的，因为这样可以避免包被移动到其他位置时，导入路径出错的问题。但是有时候我们可能需要直接运行该包内部的某个模块（<code>python my_package/module1.py</code>），这时候就会出现相对导入失败的问题。</p>
+<p>出现这个问题的原因在于，使用<code>python my_package/module1.py</code>运行模块时，Python并没有模块的概念，其<code>__package__</code>属性值为<code>None</code>，<code>__name__</code>属性值为<code>"__main__"</code>，这时候相对导入没有参考点，因此无法正常工作。</p>
+<p>而如果通过<code>import my_package.module1</code>来导入该模块时，其<code>__package__</code>属性值为<code>"my_package"</code>，<code>__name__</code>属性值为<code>"my_package.module1"</code>，只有像这样，<code>__package__</code>有非空的值，相对导入才能正常工作。</p>
+<p>这就出现一个很恼人的现象，一个模块可以被<code>main.py</code>导入并正常工作，但是直接运行该模块（比如需要进行测试之类的），却出现ImportError的问题。</p>
+<p>而如果通过新建一个<code>main.py</code>，然后通过<code>import</code>来运行(测试)模块的话，不仅很麻烦，而且由于通过<code>import</code>导入的模块，其<code>__name__</code>属性值为<code>"my_package.module1"</code>，而不是<code>"__main__"</code>，这会导致一些依赖于<code>__name__</code>属性值的代码无法正常工作。</p>
+<p>因此，为了解决运行模块的问题，我们可以采用<code>-m</code>选项来运行模块，通过命令行使用<code>python -m my_package.module1</code>来运行模块，这样Python会将模块作为包的一部分来处理，从而正确设置<code>__package__</code>属性，同时其<code>__name__</code>属性值为<code>"__main__"</code>，从而依赖于<code>__name__</code>属性值的代码也能正常工作。</p>
+<div class="admonition admonition-note">
+<p class="admonition-title">Note</p>
+<p>需要注意的是，<code>python my_package/module1.py</code>和<code>python -m my_package.module1</code>这两种方式运行模块时，模块的搜索路径（<code>sys.path</code>）是不同的。</p>
+<ul>
+<li>使用<code>python my_package/module1.py</code>运行模块时，Python会将<code>module1.py</code>所在的目录添加到<code>sys.path</code>的开头。</li>
+<li>使用<code>python -m my_package.module1</code>运行模块时，Python会将该命令运行的目录添加到<code>sys.path</code>的开头。</li>
+</ul>
+</div>
+<div class="admonition admonition-note">
+<p class="admonition-title">Note</p>
+<p>需要注意的是，<code>python -m main</code>这种情况，Python是有模块的概念的，<code>main.py</code>会被当做顶层模块,其<code>__package__</code>属性值为<code>''</code>，而不是<code>None</code>。但是这种情况仍然是不能使用相对导入的。</p>
+</div>
+<h1 id="实战建议">实战建议</h1>
+<p>基于我对于python包导入机制的理解，我总结了如下几点开发建议，以及在实际开发中，推荐使用的目录结构以及导入方法：</p>
+<ul>
+<li>在同一个包内部相互导入的时候，统一使用相对导入的方法（package与subpackage之间也是使用相对导入）</li>
+<li>在不同包之间导入的时候，统一使用绝对导入的方法</li>
+<li>在<code>main.py</code>等顶层脚本中，使用绝对导入的方法来导入包和模块</li>
+<li>要单独运行一个package内部的模块时，使用<code>python -m package.module</code>的方式来运行</li>
+</ul>
+<p>而推荐的目录结构如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/project/</span><br><span class="line">    |-- main.py            <span class="comment"># 使用绝对导入，例如：from my_package1 import module1</span></span><br><span class="line">    |</span><br><span class="line">    |-- my_package1/</span><br><span class="line">    |   |-- __init__.py</span><br><span class="line">    |   |-- module1.py     <span class="comment"># 使用相对导入，例如：from . import module2</span></span><br><span class="line">    |   |-- module2.py     <span class="comment"># print(&quot;Hello from module2&quot;)</span></span><br><span class="line">    |   |-- sub_package/</span><br><span class="line">    |       |-- __init__.py</span><br><span class="line">    |       |-- sub_module1.py  <span class="comment"># 使用相对导入，例如：from .. import module1</span></span><br><span class="line">    |</span><br><span class="line">    |-- my_package2/</span><br><span class="line">    |   |-- __init__.py</span><br><span class="line">    |   |-- moduleA.py     <span class="comment"># 使用绝对导入，例如：from my_package1 import module1</span></span><br><span class="line">    |</span><br><span class="line">    |-- tests/</span><br><span class="line">        |-- test_module1.py  <span class="comment"># 使用绝对导入，例如：from my_package1 import module1</span></span><br></pre></td></tr></table></figure>
+<p>然后不同的模块的运行方式如下：（下面所有的命令都是在<code>/project/</code>目录下运行的）</p>
+<ul>
+<li>运行顶层脚本<code>main.py</code>：<code>python main.py</code> 或者 <code>python -m main</code></li>
+<li>运行<code>my_package1</code>包内部的模块<code>module1.py</code>：<code>python -m my_package1.module1</code></li>
+<li>运行<code>my_package1</code>包内部的子包<code>sub_package</code>中的模块<code>sub_module1.py</code>：<code>python -m my_package1.sub_package.sub_module1</code></li>
+<li>运行<code>my_package2</code>包内部的模块<code>moduleA.py</code>：<code>python -m my_package2.moduleA</code></li>
+<li>运行测试模块<code>test_module1.py</code>：<code>python -m tests.test_module1</code></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.narutozxp.top">narutozxp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.narutozxp.top/2025/12/10/Python%E7%9A%84%E5%8C%85%E5%AF%BC%E5%85%A5%E6%9C%BA%E5%88%B6/">https://www.narutozxp.top/2025/12/10/Python%E7%9A%84%E5%8C%85%E5%AF%BC%E5%85%A5%E6%9C%BA%E5%88%B6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.narutozxp.top" target="_blank">narutozxp</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a></div><div class="post_share"><div class="social-share" data-image="/img/13.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2025/11/26/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"><img class="next-cover" src="/img/11.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">论文写作的一些技巧与经验</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#packages%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">Packages介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E6%96%B9%E5%BC%8F%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">导入方式介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9%E5%AF%BC%E5%85%A5"><span class="toc-number">2.1.</span> <span class="toc-text">绝对导入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E5%AF%BC%E5%85%A5"><span class="toc-number">2.2.</span> <span class="toc-text">相对导入</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E5%BB%BA%E8%AE%AE"><span class="toc-number">3.</span> <span class="toc-text">实战建议</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@11.12.1/dist/mermaid.min.js"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}</script><script src="/js/twikoo_emotion_biger.js"></script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.narutozxp.top',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.narutozxp.top',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo@1/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/narutozxp/live2d-widget@latest/autoload.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

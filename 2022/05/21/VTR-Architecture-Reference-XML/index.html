@@ -1,0 +1,893 @@
+<!DOCTYPE html><html class="hide-aside" lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>VTR Architecture Reference XML | narutozxp</title><meta name="keywords" content="VTR"><meta name="author" content="narutozxp"><meta name="copyright" content="narutozxp"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="description test">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VTR Architecture Reference XML">
+<meta property="og:url" content="https://www.narutozxp.top/2022/05/21/VTR-Architecture-Reference-XML/index.html">
+<meta property="og:site_name" content="narutozxp">
+<meta property="og:description" content="description test">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.narutozxp.top/img/21.webp">
+<meta property="article:published_time" content="2022-05-21T13:04:52.000Z">
+<meta property="article:modified_time" content="2022-07-05T07:44:21.000Z">
+<meta property="article:author" content="narutozxp">
+<meta property="article:tag" content="VTR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.narutozxp.top/img/21.webp"><link rel="shortcut icon" href="/img/myself.webp"><link rel="canonical" href="https://www.narutozxp.top/2022/05/21/VTR-Architecture-Reference-XML/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great%20Vibes" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VTR Architecture Reference XML',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-07-05 07:44:21'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous"> <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script> <link rel="stylesheet" href="/css/custom.css"> <link rel="stylesheet" href="/css/font.css"> <script src="https://wavedrom.com/wavedrom.min.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/default.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/dark.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/narrow.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/lowkey.js" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js" type="text/javascript"></script> <script data-pjax src="https://cdn.jsdelivr.net/npm/abcjs/dist/abcjs-basic-min.js" type="text/javascript"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/abcjs/abcjs-audio.css"/> <script defer data-pjax src="https://cn.vercount.one/js" type="text/javascript"></script>
+<script data-pjax type="text/javascript"> WaveDrom.ProcessAll(); mermaid.run(); </script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.5.0/style.css" /> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script> <meting-js id="2217718183" server="netease" type="playlist" autoplay = "false" api = "https://v.iarc.top/?server=:server&type=:type&id=:id&r=:r" mini = "true" fixed = "true" loop = "all" order = 'random' list-folded = "true"> </meting-js><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/myself.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/21.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">narutozxp</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">VTR Architecture Reference XML</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-21T13:04:52.000Z" title="发表于 2022-05-21 13:04:52">2022-05-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-07-05T07:44:21.000Z" title="更新于 2022-07-05 07:44:21">2022-07-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CAD/">CAD</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">8.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>34分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="VTR Architecture Reference XML"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="架构描述">架构描述</h1>
+<h2 id="顶级标签arichitecture">顶级标签(&lt;arichitecture&gt;)</h2>
+<p>首先整体架构使用标签<span class="p red">< architectures ></span>，该标签包含如下标签：</p>
+<ul>
+<li><span class="p red">< models ></span></li>
+<li><span class="p red">< tiles ></span></li>
+<li><span class="p red">< layout ></span></li>
+<li><span class="p red">< device ></span></li>
+<li><span class="p red">< switchlist ></span></li>
+<li><span class="p red">< segmentlist ></span></li>
+<li><span class="p red">< directlist ></span></li>
+<li><span class="p red">< complexblocklist ></span></li>
+</ul>
+<h2 id="识别blif模型models">识别BLIF模型(&lt;models&gt;)</h2>
+<p><code>&lt;models&gt;</code>标签包含<code>&lt;model name="string" never_prune="string"&gt;</code> <code>&lt;model&gt;</code>标签。其中每个标签都描述了 FPGA 架构接受的 BLIF <code>.subckt</code>模型名称。模型名称必须与对应的 BLIF 模型名称匹配。</p>
+<p>never_prune 标志是可选的，可以是：</p>
+<ul>
+<li>false（默认）:裁剪掉没有输出的模块</li>
+<li>true:不裁剪没有输出的模块</li>
+</ul>
+<div class="note info flat"><p>默认情况下接受标准 blif 结构 ( <code>.names</code>, <code>.latch</code>, <code>.input</code>, <code>.output</code>)，因此这些模型不应在 <models> 标记中描述。</models></p>
+</div>
+<p>每一个model标签必须包含两个标签<code>&lt;input_ports&gt;</code> 和 <code>&lt;output_ports&gt;</code>.其中每一个又都包含<code>&lt;port&gt;</code>标签。<code>&lt;port name="string" is_clock="&#123;0 | 1&#125; clock="string" combinational_sink_ports="string1 string2 ..."/&gt;</code>，其属性如下：</p>
+<ul>
+<li><strong>name</strong>-端口名字</li>
+<li><strong>is_clock</strong>(可选标签)-标识端口是否为时钟，默认值为0</li>
+</ul>
+<div class="note success flat"><p><a target="_blank" rel="noopener" href="https://docs.verilogtorouting.org/en/latest/tutorials/arch/timing_modeling/#arch-model-timing-tutorial">Primitive Timing Modeling Tutorial</a>将<code>is_clock</code>用于对时钟控制模块进行建模，例如时钟发生器、时钟缓冲器/门和时钟多路复用器。</p>
+</div>
+<ul>
+<li><strong>clock</strong>-指定一个端口是序列的(sequential)，并由指定的时钟控制（某个is_closk=1的port标签），默认值：端口被对待为组合(combinational)</li>
+<li><strong>combinational_sink_ports</strong>-以空格分隔的输出端口列表，这些输出端口组合连接到当前输入端口。默认值：为组合连接（如果未指定）</li>
+</ul>
+<figure class="highlight xml"><figcaption><span>参考示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">models</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">model</span> <span class="attr">name</span>=<span class="string">&quot;single_port_ram&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input_ports</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">port</span> <span class="attr">name</span>=<span class="string">&quot;we&quot;</span> <span class="attr">clock</span>=<span class="string">&quot;clk&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">port</span> <span class="attr">name</span>=<span class="string">&quot;addr&quot;</span> <span class="attr">clock</span>=<span class="string">&quot;clk&quot;</span> <span class="attr">combinational_sink_ports</span>=<span class="string">&quot;out&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">port</span> <span class="attr">name</span>=<span class="string">&quot;data&quot;</span> <span class="attr">clock</span>=<span class="string">&quot;clk&quot;</span> <span class="attr">combinational_sink_ports</span>=<span class="string">&quot;out&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">port</span> <span class="attr">name</span>=<span class="string">&quot;clk&quot;</span> <span class="attr">is_clock</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">input_ports</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">output_ports</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">port</span> <span class="attr">name</span>=<span class="string">&quot;out&quot;</span> <span class="attr">clock</span>=<span class="string">&quot;clk&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">output_ports</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">model</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">model</span> <span class="attr">name</span>=<span class="string">&quot;adder&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input_ports</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">port</span> <span class="attr">name</span>=<span class="string">&quot;a&quot;</span> <span class="attr">combinational_sink_ports</span>=<span class="string">&quot;cout sumout&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">port</span> <span class="attr">name</span>=<span class="string">&quot;b&quot;</span> <span class="attr">combinational_sink_ports</span>=<span class="string">&quot;cout sumout&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">port</span> <span class="attr">name</span>=<span class="string">&quot;cin&quot;</span> <span class="attr">combinational_sink_ports</span>=<span class="string">&quot;cout sumout&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">input_ports</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">output_ports</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">port</span> <span class="attr">name</span>=<span class="string">&quot;cout&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">port</span> <span class="attr">name</span>=<span class="string">&quot;sumout&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">output_ports</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">model</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">models</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>对于上述的<code>single_port_ram</code>，端口<code>we</code> <code>addr</code> <code>data</code>和<code>out</code>都是序列的，因为都指定了clock。 <code>addr</code> 和 <code>data</code> 被标识为组合连接到<code>out</code>，这对应到内部的时序路径（<code>addr</code> 和 <code>data</code>输入寄存器与<code>out</code>输出寄存器之间）</p>
+<h2 id="全局fpga信息">全局FPGA信息</h2>
+<p><code>&lt;tiles&gt;content&lt;/tiles&gt;</code>：此标签内包含一组<code>&lt;pb_type&gt;</code>标签，用于指定功能块的类型以及属性。</p>
+<p><code>&lt;layout&gt;content&lt;/layout&gt;</code>：此标签用于指定设备的<a href="#1">网格布局</a>。</p>
+<p><code>&lt;device&gt;content&lt;/device&gt;</code>：此标签用于指定设备信息。</p>
+<p><code>&lt;switchlist&gt;content&lt;/switchlist&gt;</code>：此标签包含一组<code>&lt;switch&gt;</code>，用于指定开关的类型以及属性。</p>
+<p><code>&lt;segmentlist&gt;content&lt;/segmentlist&gt;</code>：此标签包含一组<code>&lt;segment&gt;</code>，用于指定线段的类型以及属性</p>
+<p><code>&lt;complexblocklist&gt;content&lt;/complexblocklist&gt;</code>:此标签内包含一组<code>&lt;pb_type&gt;</code>标签，用于指定功能块的类型以及属性。</p>
+<h2 id="fpga网格布局-layout"><span id="1">FPGA网格布局(&lt; layout &gt;)</span></h2>
+<p>本标签内的有效标签为：</p>
+<ul>
+<li><code>&lt;auto_layout aspect_radio="float"&gt;</code>（最多存在一个这个标签），用于定义可自动缩放到所需大小的可缩放设备网格布局。
+<ul>
+<li><code>aspect_radio</code>（可选）-设备网络的横纵比（width/height），默认为1.0</li>
+</ul></li>
+<li><code>&lt;fixed_layout name="string" width="int" height="int"&gt;</code>，用于定义具有固定尺寸的设备网格布局（可指定多个）。
+<ul>
+<li><code>name</code>-标识网格布局的唯一名称</li>
+<li><code>width</code>-设备网格宽度</li>
+<li><code>height</code>-设备网格高度</li>
+</ul></li>
+</ul>
+<p>其中每个<code>&lt;auto_layout&gt;</code>或<code>&lt;fixed_layout&gt;</code>标签应包含一组网格位置标签。每个网格位置规范都有一个相关的数字<em>优先级</em>。优先级较高的位置规范会覆盖优先级较低的位置规范。可以使用特殊的块类型指定空网格位置<code>EMPTY</code>。</p>
+<div class="note info flat"><p>1.如果一个网格块与另一个具有较高优先级的块部分重叠，则整个较低优先级的块将从网格中删除。</p>
+<p>2.除非另有说明，否则所有网格位置都默认为<code>EMPTY</code>。</p>
+</div>
+<div class="timeline undefined"><div class="timeline-item headline"><div class="timeline-item-title"><div class="item-circle"><p>网格位置标签</p>
+</div></div></div><div class="timeline-item"><div class="timeline-item-title"><div class="item-circle"><p>&lt; fill type="string" priority="int"/ &gt;</p>
+</div></div><div class="timeline-item-content"><p>必须标签属性如下：</p>
+<ul>
+<li><strong>type</strong>-指定顶级复杂块的类型（pb_type）的名称</li>
+<li><strong>priority</strong>-此布局规范的优先及。具有较高优先级的标签会覆盖具有较低优先级的标签。</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Fill the device with CLB blocks --&gt;</span>                                         </span><br><span class="line"><span class="tag">&lt;<span class="name">fill</span> <span class="attr">type</span>=<span class="string">&quot;CLB&quot;</span> <span class="attr">priority</span>=<span class="string">&quot;1&quot;</span>/&gt;</span>                           </span><br></pre></td></tr></table></figure>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/fill_fpga_grid.svg" alt="fill.svg"></p>
+</div></div><div class="timeline-item"><div class="timeline-item-title"><div class="item-circle"><p>&lt; perimeter type="string" priority="int"/ &gt;</p>
+</div></div><div class="timeline-item-content"><p>将设备的周长（即边缘）设置为指定的块类型。必须标签属性如下：</p>
+<ul>
+<li><strong>type</strong></li>
+<li><strong>priority</strong></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Create io blocks around the device perimeter --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">perimeter</span> <span class="attr">type</span>=<span class="string">&quot;io&quot;</span> <span class="attr">priority</span>=<span class="string">&quot;10&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/perimeter_fpga_grid.svg" alt="perimeter.svg"></p>
+</div></div><div class="timeline-item"><div class="timeline-item-title"><div class="item-circle"><p>&lt; corners type="string" priority="int"/ &gt;</p>
+</div></div><div class="timeline-item-content"><p>将设备的角设置为指定的块类型。必须标签属性如下：</p>
+<ul>
+<li><strong>type</strong></li>
+<li><strong>priority</strong></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Create PLL blocks at all corners --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">corners</span> <span class="attr">type</span>=<span class="string">&quot;PLL&quot;</span> <span class="attr">priority</span>=<span class="string">&quot;20&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/corners_fpga_grid.svg" alt="coener.svg"></p>
+</div></div><div class="timeline-item"><div class="timeline-item-title"><div class="item-circle"><p>&lt; single type="string" priority="int" x="expr" y="expr"/ &gt;</p>
+</div></div><div class="timeline-item-content"><p>在单个网格位置指定块类型的单个实例。其标签必须属性如下：</p>
+<ul>
+<li><strong>type</strong></li>
+<li><strong>priority</strong></li>
+<li><strong>x</strong>-块类型实例的水平位置</li>
+<li><strong>y</strong>-块类型实例的垂直位置</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Create a single instance of a PCIE block (width 3, height 5)</span><br><span class="line">     at location (1,1)--&gt;</span><br><span class="line">&lt;single type=&quot;PCIE&quot; x=&quot;1&quot; y=&quot;1&quot; priority=&quot;20&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/single_fpga_grid.svg" alt="single_PCIE.svg"></p>
+</div></div><div class="timeline-item"><div class="timeline-item-title"><div class="item-circle"><p>&lt; col type="string" priority="int" startx="expr" repeatx="expr " starty= "expr" incry="expr"/ &gt;</p>
+</div></div><div class="timeline-item-content"><p>在 处创建指定块类型的列<code>startx</code>。如果<code>repeatx</code>指定了该列将在任何地方重复<span class="math inline">\(x=startx+k*repeatx\)</span>，满足任何正整数<span class="math inline">\(k\)</span>。如果指定标签来调整高度 &gt; 1 的块的起始位置，<code>starty</code>则通常使用非零值。<code>&lt;perimeter&gt;</code>。其必选参数如下：</p>
+<ul>
+<li><strong>type</strong></li>
+<li><strong>priority</strong></li>
+<li><strong>startx</strong>-指定列的水平起始位置的表达式。</li>
+</ul>
+<p>其可选参数如下：</p>
+<ul>
+<li><strong>repeatx</strong>-指定列的水平重复因子的表达式。</li>
+<li><strong>starty</strong>-指定列的垂直起始偏移量的表达式。(默认0)</li>
+<li><strong>incry</strong>-一个表达式，指定区域内块实例化之间的垂直增量。（默认h）</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Create a column of RAMs starting at column 2, and</span></span><br><span class="line"><span class="comment">     repeating every 3 columns --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">col</span> <span class="attr">type</span>=<span class="string">&quot;RAM&quot;</span> <span class="attr">startx</span>=<span class="string">&quot;2&quot;</span> <span class="attr">repeatx</span>=<span class="string">&quot;3&quot;</span> <span class="attr">priority</span>=<span class="string">&quot;3&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/col_fpga_grid.svg" alt="col_RAM.svg"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Create IO&#x27;s around the device perimeter --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">perimeter</span> <span class="attr">type</span>=<span class="string">&quot;io&quot;</span> <span class="attr">priority</span>=<span class="string">10</span>&quot;/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Create a column of RAMs starting at column 2, and</span></span><br><span class="line"><span class="comment">     repeating every 3 columns. Note that a vertical offset</span></span><br><span class="line"><span class="comment">     of 1 is needed to avoid overlapping the IOs--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">col</span> <span class="attr">type</span>=<span class="string">&quot;RAM&quot;</span> <span class="attr">startx</span>=<span class="string">&quot;2&quot;</span> <span class="attr">repeatx</span>=<span class="string">&quot;3&quot;</span> <span class="attr">starty</span>=<span class="string">&quot;1&quot;</span> <span class="attr">priority</span>=<span class="string">&quot;3&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/col_perim_fpga_grid.svg" alt="col_RAM and perimeter_io.svg"></p>
+</div></div><div class="timeline-item"><div class="timeline-item-title"><div class="item-circle"><p>&lt; row type="string" priority="int" starty=" expr" repeaty="expr" startx="expr"/ &gt;</p>
+</div></div><div class="timeline-item-content"><p>在 处创建指定块类型的行<code>starty</code>。如果<code>repeaty</code>指定了该列将在任何地方重复<span class="math inline">\(y=starty+k*repeaty\)</span>，满足任何正整数<span class="math inline">\(k\)</span>。如果指定标签来调整宽度 &gt; 1 的块的起始位置，<code>startx</code>则通常使用非零值。<code>&lt;perimeter&gt;</code>。其必选参数如下：</p>
+<ul>
+<li><strong>type</strong></li>
+<li><strong>priority</strong></li>
+<li><strong>starty</strong>-指定行的垂直起始位置的表达式。</li>
+</ul>
+<p>其可选参数如下：</p>
+<ul>
+<li><strong>repeaty</strong>-指定行的垂直重复因子的表达式。</li>
+<li><strong>startx</strong>-指定行的水平起始偏移量的表达式。(默认0)</li>
+<li><strong>incry</strong>-一个表达式，指定区域内块实例化之间的水平增量。（默认w）</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Create a row of DSPs (width 1, height 3) at</span></span><br><span class="line"><span class="comment">     row 1 and repeating every 7th row --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">row</span> <span class="attr">type</span>=<span class="string">&quot;DSP&quot;</span> <span class="attr">starty</span>=<span class="string">&quot;1&quot;</span> <span class="attr">repeaty</span>=<span class="string">&quot;7&quot;</span> <span class="attr">priority</span>=<span class="string">&quot;3&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/row_fpga_grid.svg" alt="row_DSP.svg"></p>
+</div></div><div class="timeline-item"><div class="timeline-item-title"><div class="item-circle"><p>&lt; region type="string" priority="int" startx="expr" endx="expr repeatx="expr" incrx=" expr" starty="expr " endy ="expr" repeaty="expr" incry="expr "/ &gt;</p>
+</div></div><div class="timeline-item-content"><p>用指定的块类型填充由 ( <code>startx</code>, <code>starty</code>) 和 ( <code>endx</code>, <code>endy</code>) 定义的矩形区域。如果<code>repeatx</code>指定了区域将在任何地方重复<span class="math inline">\(x=startx+k_1*repeatx\)</span>，对于任何正整数都满足<span class="math inline">\(k_1\)</span>。如果<code>repeaty</code>指定了区域将在任何地方重复<span class="math inline">\(y=starty+k_2*repeaty\)</span>，对于任何正整数都满足<span class="math inline">\(k_2\)</span>。其必选参数如下：</p>
+<ul>
+<li><strong>type</strong></li>
+<li><strong>priority</strong></li>
+</ul>
+<p>其可选参数如下：</p>
+<ul>
+<li><strong>startx</strong>-指定区域（包括）水平起始位置的表达式。(默认0)</li>
+<li><strong>endx</strong>-指定区域（包括）水平结束位置的表达式（默认W-1）。</li>
+<li><strong>repeatx</strong>-指定列的水平重复因子的表达式。</li>
+<li><strong>incrx</strong>-一个表达式，指定区域内块实例化之间的水平增量。（默认w）</li>
+<li><strong>starty</strong>-指定区域（包括）垂直起始位置的表达式。(默认0)</li>
+<li><strong>endy</strong>-指定区域（包括）垂直结束位置的表达式。（默认H-1）</li>
+<li><strong>repeaty</strong>-<strong>repeaty</strong> – 指定列的垂直重复因子的表达式。</li>
+<li><strong>incry</strong>-一个表达式，指定区域内块实例化之间的垂直增量。(默认h)</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Fill RAMs withing the rectangular region bounded by (1,1) and (5,4) --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">region</span> <span class="attr">type</span>=<span class="string">&quot;RAM&quot;</span> <span class="attr">startx</span>=<span class="string">&quot;1&quot;</span> <span class="attr">endx</span>=<span class="string">&quot;5&quot;</span> <span class="attr">starty</span>=<span class="string">&quot;1&quot;</span> <span class="attr">endy</span>=<span class="string">&quot;4&quot;</span> <span class="attr">priority</span>=<span class="string">&quot;4&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/region_single_fpga_grid.svg" alt="_RAM.svg"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Create RAMs every 2nd column withing the rectangular region bounded</span></span><br><span class="line"><span class="comment">     by (1,1) and (5,4) --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">region</span> <span class="attr">type</span>=<span class="string">&quot;RAM&quot;</span> <span class="attr">startx</span>=<span class="string">&quot;1&quot;</span> <span class="attr">endx</span>=<span class="string">&quot;5&quot;</span> <span class="attr">starty</span>=<span class="string">&quot;1&quot;</span> <span class="attr">endy</span>=<span class="string">&quot;4&quot;</span> <span class="attr">incrx</span>=<span class="string">&quot;2&quot;</span> <span class="attr">priority</span>=<span class="string">&quot;4&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/region_incr_fpga_grid.svg" alt="region_RAM增量.svg"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Fill RAMs within a rectangular 2x4 region and repeat every 3 horizontal</span></span><br><span class="line"><span class="comment">     and 5 vertical units --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">region</span> <span class="attr">type</span>=<span class="string">&quot;RAM&quot;</span> <span class="attr">startx</span>=<span class="string">&quot;1&quot;</span> <span class="attr">endx</span>=<span class="string">&quot;2&quot;</span> <span class="attr">starty</span>=<span class="string">&quot;1&quot;</span> <span class="attr">endy</span>=<span class="string">&quot;4&quot;</span> <span class="attr">repeatx</span>=<span class="string">&quot;3&quot;</span> <span class="attr">repeaty</span>=<span class="string">&quot;5&quot;</span> <span class="attr">priority</span>=<span class="string">&quot;4&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/region_repeat_fpga_grid.svg" alt="region_RAM重复.svg"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Create a 3x3 mesh of NoC routers (width 2, height 2) whose relative positions</span></span><br><span class="line"><span class="comment">     will scale with the device dimensions --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">region</span> <span class="attr">type</span>=<span class="string">&quot;NoC&quot;</span> <span class="attr">startx</span>=<span class="string">&quot;W/4 - w/2&quot;</span> <span class="attr">starty</span>=<span class="string">&quot;W/4 - w/2&quot;</span> <span class="attr">incrx</span>=<span class="string">&quot;W/4&quot;</span> <span class="attr">incry</span>=<span class="string">&quot;W/4&quot;</span> <span class="attr">priority</span>=<span class="string">&quot;3&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/region_incr_mesh_fpga_grid.svg" alt="region_NoC网络.svg"></p>
+</div></div></div>
+<h3 id="整体的网络布局示例">整体的网络布局示例</h3>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">layout</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Specifies an auto-scaling square FPGA floorplan --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">auto_layout</span> <span class="attr">aspect_ratio</span>=<span class="string">&quot;1.0&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- Create I/Os around the device perimeter --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">perimeter</span> <span class="attr">type</span>=<span class="string">&quot;io&quot;</span> <span class="attr">priority</span>=<span class="string">10</span>&quot;/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- Nothing in the corners --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">corners</span> <span class="attr">type</span>=<span class="string">&quot;EMPTY&quot;</span> <span class="attr">priority</span>=<span class="string">&quot;100&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- Create a column of RAMs starting at column 2, and</span></span><br><span class="line"><span class="comment">             repeating every 3 columns. Note that a vertical offset (starty)</span></span><br><span class="line"><span class="comment">             of 1 is needed to avoid overlapping the IOs--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">col</span> <span class="attr">type</span>=<span class="string">&quot;RAM&quot;</span> <span class="attr">startx</span>=<span class="string">&quot;2&quot;</span> <span class="attr">repeatx</span>=<span class="string">&quot;3&quot;</span> <span class="attr">starty</span>=<span class="string">&quot;1&quot;</span> <span class="attr">priority</span>=<span class="string">&quot;3&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- Create a single PCIE block along the bottom, overriding</span></span><br><span class="line"><span class="comment">             I/O and RAM slots --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">single</span> <span class="attr">type</span>=<span class="string">&quot;PCIE&quot;</span> <span class="attr">x</span>=<span class="string">&quot;3&quot;</span> <span class="attr">y</span>=<span class="string">&quot;0&quot;</span> <span class="attr">priority</span>=<span class="string">&quot;20&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- Create an additional row of I/Os just above the PCIE,</span></span><br><span class="line"><span class="comment">             which will not override RAMs --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">row</span> <span class="attr">type</span>=<span class="string">&quot;io&quot;</span> <span class="attr">starty</span>=<span class="string">&quot;5&quot;</span> <span class="attr">priority</span>=<span class="string">&quot;2&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- Fill remaining with CLBs --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">fill</span> <span class="attr">type</span>=<span class="string">&quot;CLB&quot;</span> <span class="attr">priority</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">auto_layout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/fpga_grid_example.svg" alt="FPGA网络布局示例.svg"></p>
+<h2 id="fpga器件信息">FPGA器件信息</h2>
+<p>该信息包含在<code>&lt;device&gt;</code>标签当中，其中包含的子标签为：</p>
+<ul>
+<li><p><code>&lt;sizing R_minW_nmos="float" R_minW_pmos="float"/&gt;</code>（必须要，用于指定面积模型需要的参数）</p>
+<ul>
+<li><strong>R_minW_nmos</strong>-最小宽度 nmos 晶体管的电阻。此数据仅由 VPR 中内置的面积模型使用。</li>
+<li><strong>R_minW_pmos</strong>-最小宽度 pmos 晶体管的电阻。此数据仅由 VPR 中内置的面积模型使用。</li>
+</ul></li>
+<li><p><code>&lt;connection_block input_switch_name="string"/&gt;</code>（必须要）</p>
+<ul>
+<li><p><strong>input_switch_name</strong>-用于指定在<code>&lt;switchlist&gt;</code>中定义的<code>&lt;switch&gt;</code>的名字，用来连接布线导线和模块的输入引脚（即，输入连接块）。</p>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/ipin_diagram.png" alt="输入连接块"></p></li>
+</ul></li>
+<li><p><code>&lt;area grid_logic_tile_area="float"/&gt;</code>(必须要)</p></li>
+</ul>
+<p>​ 指定一个逻辑tile的默认面积（在<a target="_blank" rel="noopener" href="https://docs.verilogtorouting.org/en/latest/glossary/#term-MWTA">MWTAs</a>（Minimum Width Transitor Area）下），不包含布线。用于对所有功能块占用的面积进行面积估计。</p>
+<div class="tip info"><p>这个属性会被覆盖，当指定<pb_type>s with the area属性</pb_type></p>
+</div>
+<ul>
+<li><p><code>&lt;switch_block type="&#123;wilton | subset | universal | custom&#125;" fs="int"/&gt;</code>（必须要）</p>
+<ul>
+<li><strong>type</strong>-指定开关块的类型</li>
+<li>开关块<span class="math inline">\(F_s\)</span>的类型</li>
+</ul>
+<p>此参数控制用于连接（群集间）路由网段的交换机模式。可以使用单个关键字分别指定三个相当简单的模式，也可以指定更复杂的自定义模式。</p>
+<div class="tip error"><p>没搞明白为什么双向开关的<span class="math inline">\(F_s\)</span>都是3，而单向开关的<span class="math inline">\(F_s\)</span>可以是3的整数倍。以及对于穿过开关块的导线是如何处理的</p>
+</div>
+<p>指定<code>custom</code>允许在<code>&lt;switchblocklist&gt;</code>XML 节点下描述自定义开关块，其格式在<a target="_blank" rel="noopener" href="https://docs.verilogtorouting.org/en/latest/arch/reference/#custom-switch-blocks">Custom Switch Blocks</a>中描述。如果开关块指定为<code>custom</code>，则<code>fs</code>不必指定该字段，如果存在则将被忽略。</p></li>
+<li><p><code>&lt;chan_width_distr&gt;content&lt;/chan_width_distr&gt;</code></p>
+<p>此标签内的内容仅在 VPR 处于全局路由模式时使用。该标签的内容在<a target="_blank" rel="noopener" href="https://docs.verilogtorouting.org/en/latest/arch/reference/#global-routing-info">Global Routing Information</a>中描述。</p></li>
+<li><p><code>&lt;default_fc in_type="&#123;frac|abs&#125;" in_val="&#123;int|float&#125;" out_type="&#123;frac|abs&#125;" out_val="&#123;int|float&#125;"/&gt;</code></p></li>
+</ul>
+<p>​ 这定义了默认的 Fc 规范，如果它没有在<code>&lt;fc&gt;</code>顶级复杂块内的标签中指定。这些属性与<fc> 标记属性的含义相同。</fc></p>
+<h2 id="开关switch">开关（switch）</h2>
+<p>标签<code>&lt;switchlist&gt;</code>中的标签，指定用于将电线和引脚连接在一起的开关。</p>
+<p><code>&lt;switch type="&#123;mux|tristate|pass_gate|short|buffer&#125;" name="string" R="float" Cin="float" Cout="float" Cinternal="float" Tdel="float" buf_size=" &#123;auto|float&#125;" mux_trans_size="float", power_buf_size="int"/&gt;</code></p>
+<div class="tabs" id="tabname"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#tabname-1">必须属性</button></li><li class="tab"><button type="button" data-href="#tabname-2">可选属性</button></li><li class="tab"><button type="button" data-href="#tabname-3">子标签</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="tabname-1"><ul>
+<li><p><strong>type</strong>-开关的类型</p>
+<ul>
+<li><strong>mux</strong>:An isolating, configurable multiplexer</li>
+<li><strong>tristate</strong>:An isolating, configurable tristate-able buffer</li>
+<li><strong>pass_gate</strong>:A <em>non-isolating</em>, configurable pass gate</li>
+<li><strong>short</strong>: A <em>non-isolating</em>, <em>non-configurable</em> electrical short (e.g. between two segments).</li>
+<li><strong>buffer</strong>: An isolating, <em>non-configurable</em> non-tristate-able buffer (e.g. in-line along a segment).</li>
+</ul>
+<p><span class="p red">isolating</span>:包含一个缓冲器，有助于减少RC延迟。</p></li>
+<li><p><strong>name</strong>-开关的唯一标识</p></li>
+<li><p><strong>R</strong>-开关的电阻</p></li>
+<li><p><strong>Cin</strong>-开关的输入电容</p></li>
+<li><p><strong>Cout</strong>-开关的输出电容</p></li>
+</ul><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="tabname-2"><ul>
+<li><strong>Cinternal</strong>-内部电容（当开关类型为mux或者tristate时，需要指定该参数，因为这两种开关类型都是多个器件级联而成的，由内部电容）</li>
+</ul>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Pass Transistor</span><br><span class="line">          |</span><br><span class="line">        -----</span><br><span class="line">        -----      Buffer</span><br><span class="line">       |     |       |\</span><br><span class="line"> ------       -------| \--------</span><br><span class="line">   |             |   | /    |</span><br><span class="line"> =====         ===== |/   =====</span><br><span class="line"> =====         =====      =====</span><br><span class="line">   |             |          |</span><br><span class="line"> Input C    Internal C    Output C</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>Tdel</strong>-通过开关的固有延迟。如果该开关由零电阻源驱动，并驱动零电容负载，则其延迟将为：<span class="math inline">\(T_{del}+R\cdot C_{out}\)</span></li>
+<li><strong>buf_size</strong>-以最小宽度晶体管面积 (MWTA) 为单位指定缓冲区大小。(默认值 <code>auto</code>)，若设置为<code>auto</code>则根据R的值自动调整大小。</li>
+<li><strong>mux_trans_size</strong>-指定<code>mux</code>类型开关中使用的两级复用器中的每个晶体管的大小（以最小宽度晶体管为单位）</li>
+<li><strong>power_buf_size</strong>-用于功耗评估，标识buffer相对于最小尺寸反相器的驱动强度</li>
+</ul><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="tabname-3"><p><code>&lt;Tdel num_inputs="int" delay="float"/&gt;</code></p>
+<p>无需指定单个 Tdel 值，而是可以为开关扇入的不同值指定 Tdel 值列表。延迟基于两个最接近的扇入对任何未指定的扇入进行线性外推/插值。</p>
+<ul>
+<li><strong>num_inputs</strong>-开关的输入数量</li>
+<li><strong>delay</strong>-当开关拓扑具有指定数量的开关输入时的固有开关延迟</li>
+</ul>
+<figure class="highlight xml"><figcaption><span>example</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">switch</span> <span class="attr">type</span>=<span class="string">&quot;mux&quot;</span> <span class="attr">name</span>=<span class="string">&quot;my_mux&quot;</span> <span class="attr">R</span>=<span class="string">&quot;522&quot;</span> <span class="attr">Cin</span>=<span class="string">&quot;3.1e-15&quot;</span> <span class="attr">Cout</span>=<span class="string">&quot;3e-15&quot;</span> <span class="attr">Cinternal</span>=<span class="string">&quot;5e-15&quot;</span> <span class="attr">mux_trans_size</span>=<span class="string">&quot;1.7&quot;</span> <span class="attr">buf_size</span>=<span class="string">&quot;23&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Tdel</span> <span class="attr">num_inputs</span>=<span class="string">&quot;12&quot;</span> <span class="attr">delay</span>=<span class="string">&quot;8.00e-11&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Tdel</span> <span class="attr">num_inputs</span>=<span class="string">&quot;15&quot;</span> <span class="attr">delay</span>=<span class="string">&quot;8.4e-11&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Tdel</span> <span class="attr">num_inputs</span>=<span class="string">&quot;20&quot;</span> <span class="attr">delay</span>=<span class="string">&quot;9.4e-11&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">switch</span>&gt;</span></span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h3 id="全局布线信息">全局布线信息</h3>
+<p>如果要进行全局布线，可以将不同方向和FPGA不同部分的通道设置为不同的相对宽度。这是在<code>&lt;chan_width_distr&gt;</code>标签内的内容中指定的。</p>
+<div class="tip info"><p>如果要执行详细的路由，只能使用均匀分布</p>
+</div>
+<div class="tip error"><p>暂时不知道干嘛的，先放着，之后再看</p>
+</div>
+<h2 id="物理tiles">物理Tiles</h2>
+<p>在<code>&lt;tiles&gt;</code>内，描述了FPGA中可用的物理tiles，每一个使用一个<code>&lt;tile&gt;</code>标签指定。</p>
+<p><code>&lt;tile name="string" capacity="int" width="int" height="int" area="float"/&gt;</code>:</p>
+<ul>
+<li><strong>name</strong>-tile的唯一标识符</li>
+</ul>
+<p>以下为可选参数：</p>
+<ul>
+<li><p><strong>capacity</strong>-？？？没看到相关文档介绍</p></li>
+<li><p><strong>width</strong>-tile在网格中所占的宽度（多少个网格宽度，默认1）</p></li>
+<li><p><strong>height</strong>-tile在网格中所占的高度（多少个网格高度，默认1）</p></li>
+<li><p><strong>area</strong>-逻辑面积（in MWTA）(默认值来源于<code>&lt;area&gt;</code>)</p></li>
+</ul>
+<p>以下为可用的子标签：</p>
+<div class="tabs" id="subtags"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#subtags-1">subtags 1</button></li><li class="tab"><button type="button" data-href="#subtags-2">subtags 2</button></li><li class="tab"><button type="button" data-href="#subtags-3">subtags 3</button></li><li class="tab"><button type="button" data-href="#subtags-4">subtags 4</button></li><li class="tab"><button type="button" data-href="#subtags-5">subtags 5</button></li><li class="tab"><button type="button" data-href="#subtags-6">subtags 6</button></li><li class="tab"><button type="button" data-href="#subtags-7">subtags 7</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="subtags-1"><p><code>&lt;clock name="string" num_pins="int" equivalent="{none|full}"/&gt;</code>:用于描述时钟端口</p>
+<p><code>&lt;sub_tile name="string" capacity="{int}"&gt;</code>（每个tile至少指定一个subtile）</p>
+<ul>
+<li><strong>name</strong>-唯一标识符</li>
+<li><strong>capacity</strong>-这种类型的块在每个网格上的实例化数量（默认值1）</li>
+</ul><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="subtags-2"><p><code>&lt;input name="string" num_pins="int" equivalent="{none|full}" is_non_clock_global="{true|false}"/&gt;</code>:用于定义输入端口，多个输入端口使用多个此标签。</p>
+<ul>
+<li><strong>name</strong>-输入端口名称</li>
+<li><strong>num_pins</strong>-输入端口宽度</li>
+<li><strong>equivalent(optional)</strong>-引脚是否具有逻辑灯效性
+<ul>
+<li><code>none</code>:没有输入引脚具有逻辑等效性。（如adder）</li>
+<li><code>full</code>:所有的输入引脚都具有逻辑等效性。(如lut)</li>
+</ul></li>
+<li><strong>is_non_clock_global</strong>-是否为全局时钟信号</li>
+</ul><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="subtags-3"><p><code>&lt;output name="string" num_pins="int" equivalent="{none|full|instance}"/&gt;</code>::用于定义输出端口，多个输出端口使用多个此标签。</p>
+<ul>
+<li><strong>name</strong>-输出端口名称</li>
+<li><strong>num_pins</strong>-输出端口的引脚数量</li>
+<li><strong>equivalent(optional)</strong>-引脚是否具有逻辑灯效性
+<ul>
+<li><code>none</code></li>
+<li><code>full</code></li>
+<li><code>instance</code>:可以交换块内的子实例（例如 LUT/BLE）的模型，以实现有限形式的输出引脚逻辑等效。</li>
+</ul></li>
+</ul><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="subtags-4"><p><code>&lt;clock name="string" num_pins="int" equivalent="{none|full}"/&gt;</code>是否为时钟端口</p>
+<p><code>&lt;equivalent_sites&gt;</code></p>
+<p>其子标签如下：</p>
+<ul>
+<li><code>&lt;site pb_type="string" pin_mapping="string"/&gt;</code>
+<ul>
+<li><strong>pb_type</strong>-对应pb_type的名字</li>
+<li><strong>pin_mapping</strong>-指定在物理tile与逻辑pb_type类型之间需要引脚映射(默认direct)
+<ul>
+<li><code>direct</code>:不需要指定pin映射，因为tile pin定义等于对应的pb_type</li>
+<li><code>custom</code>:引脚映射是用户定义的</li>
+</ul></li>
+<li><code>&lt;direct from="string" to="string"&gt;</code>（描述物理tile与pb_type之间的端口映射）
+<ul>
+<li><code>form</code>:对应于物理tile的引脚</li>
+<li><code>to</code>：对应与逻辑块的引脚</li>
+</ul></li>
+</ul></li>
+</ul><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="subtags-5"><p><code>&lt;fc in_type="{frac|abs}" in_val="{int|float}" out_type="{frac|abs}" out_val="{int|float}"&gt;</code></p>
+<p><code>&lt;fc_override fc_type="{frac|abs}" fc_val="{int|float}", port_name="{string}" segment_name="{string}"&gt;</code>用于覆盖某个端口的<span class="math inline">\(F_c\)</span></p>
+<ul>
+<li><strong>fc_type</strong></li>
+<li><strong>fc_val</strong></li>
+<li><strong>port_name(可选)</strong>-此覆盖适用的端口的名称。如果未指定，则此覆盖适用于所有端口。</li>
+<li><strong>segment_name（可选）</strong>-此覆盖适用的段的名称（在<code>&lt;segmentlist&gt;</code>下定义）。如果未指定，则此覆盖适用于所有段。</li>
+</ul>
+<div class="note info flat">
+<p>两个可选参数至少指定一个</p>
+</div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="subtags-6"><p><code>&lt;pinlocations pattern="{spread|perimeter|custom}"&gt;</code>（没有此标签则默认为spread）</p>
+<ul>
+<li><strong>pattern</strong>
+<ul>
+<li><code>spread</code>:表示引脚将均匀分布在复杂块的所有侧面。</li>
+<li><code>perimeter</code>:表示引脚将均匀分布在复杂块的周边侧</li>
+<li><code>soread_inputs_perimeter_outputs</code>:表示输入引脚将分布在复杂模块的所有侧面，但输出引脚仅分布在模块的周边。</li>
+<li><code>custom</code>:允许架构师使用标签<code>&lt;loc&gt;</code>具体指定引脚的放置位置。
+<ul>
+<li><code>&lt;loc side="{left|right|bottom|top}" xoffset ="int" yoffset="int"&gt;name_of_complex_logic_block.port_name[int:int] ... &lt;/loc&gt;</code>
+<ul>
+<li><strong>side</strong>-位于grid的哪一个边</li>
+<li><strong>xoffset(可选，0)</strong>-指定从块原点（左下角）的水平偏移（以网格为单位）。偏移值必须小于块的宽度。</li>
+<li><strong>yoffset(可选，0)</strong>-指定距块原点（左下角）的垂直偏移量（以网格为单位）。偏移值必须小于块的高度。</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="subtags-7"><p><code>&lt;switchblock_locations pattern="{external_full_internal_straight|all|external|internal|none|custom}" internal_switch="string"&gt;</code>:描述与复杂块相关的全局路由交换块的创建位置。（如果未指定，则假定未默认模式）</p>
+<ul>
+<li><p><strong>pattern(默认值为第一个)</strong></p>
+<ul>
+<li><code>external_full_internal_straight</code>:在复杂块外部创建<em>完整</em>的开关块，在复杂块内创建<em>直接的开关块</em></li>
+<li><code>all</code>:在路由通道交叉的地方创建开关块</li>
+<li><code>external</code>:在路由通道在复杂块<em>之外的任何地方创建开关块</em></li>
+<li><code>internal</code>:在复杂块<em>内</em>路由通道交叉的任何地方创建开关块</li>
+<li><code>none</code>:表示没有为复杂块创建切换块</li>
+<li><code>custom</code>:允许架构师使用<code>&lt;sb_loc&gt;</code>标签指定自定义开关块位置和类型</li>
+</ul>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/sb_locations.svg" alt="宽度为2，高度为3的复杂快的开关位置模式"></p></li>
+<li><p><strong>internal_switch</strong>:来自<code>&lt;switchlist&gt;</code>，应用于内部开关块的开关名称(<strong>Default:</strong> The default switch for the wire <code>&lt;segment&gt;</code>)</p></li>
+</ul>
+<figure class="highlight xml"><figcaption><span>example</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">switchlist</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">switch</span> <span class="attr">type</span>=<span class="string">&quot;short&quot;</span> <span class="attr">name</span>=<span class="string">&quot;electrical_short&quot;</span> <span class="attr">R</span>=<span class="string">&quot;0&quot;</span> <span class="attr">Cin</span>=<span class="string">&quot;0&quot;</span> <span class="attr">Tdel</span>=<span class="string">&quot;0&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">switchlist</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">switchblock_locations</span> <span class="attr">pattern</span>=<span class="string">&quot;external_full_internal_straight&quot;</span> <span class="attr">internal_switch</span>=<span class="string">&quot;electrical_short&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>子标签：</strong></p>
+<p><code>&lt;sb_loc type="{full|straight|turns|none}" xoffset="int" yoffset="int", switch_override="string"&gt;</code>:当选择<code>custom</code>属性时，指定开关块的位置</p>
+<ul>
+<li><p><strong>type(默认full)</strong>-指定开关块的类型</p>
+<ul>
+<li><code>full</code>:表示将创建一个完整的开关块</li>
+<li><code>straight</code>:表示将创建一个只有直通连接的开关块</li>
+<li><code>turns</code>:表示将创建一个只有转向连接的开关块</li>
+<li><code>none</code>:表示不会创建 switchblock</li>
+</ul>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/sb_types.svg" alt="开关块类型"></p></li>
+<li><p><strong>xoffset(可选，0)</strong>-指定从块原点（左下角）的水平偏移（以网格为单位）。偏移值必须小于块的宽度。</p></li>
+<li><p><strong>yoffset(可选，0)</strong>-指定距块原点（左下角）的垂直偏移量（以网格为单位）。偏移值必须小于块的高度。</p></li>
+<li><p><strong>switch_override</strong>-创建开关块所使用的开关名字（from <code>&lt;switchlist&gt;</code>）（<strong>Default:</strong> The default switch for the wire <code>&lt;segment&gt;</code>）</p></li>
+</ul>
+<div class="note info flat">
+<p>The switchblock associated with a grid tile is located to the top-right of the grid tile</p>
+</div>
+<p>如果我们假设一个宽度=2、高度=3 的块，我们可以使用自定义模式来指定等效于“电气短路内部直连”示例的架构：</p>
+<figure class="highlight xml"><figcaption><span>example</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">switchblock_locations</span> <span class="attr">pattern</span>=<span class="string">&quot;custom&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Internal: using straight electrical shorts --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sb_loc</span> <span class="attr">type</span>=<span class="string">&quot;straight&quot;</span> <span class="attr">xoffset</span>=<span class="string">&quot;0&quot;</span> <span class="attr">yoffset</span>=<span class="string">&quot;0&quot;</span> <span class="attr">switch_override</span>=<span class="string">&quot;electrical_short&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sb_loc</span> <span class="attr">type</span>=<span class="string">&quot;straight&quot;</span> <span class="attr">xoffset</span>=<span class="string">&quot;0&quot;</span> <span class="attr">yoffset</span>=<span class="string">&quot;1&quot;</span> <span class="attr">switch_override</span>=<span class="string">&quot;electrical_short&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- External: using default switches --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sb_loc</span> <span class="attr">type</span>=<span class="string">&quot;full&quot;</span> <span class="attr">xoffset</span>=<span class="string">&quot;0&quot;</span> <span class="attr">yoffset</span>=<span class="string">&quot;2&quot;</span>&gt;</span> <span class="comment">&lt;!-- Top edge --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sb_loc</span> <span class="attr">type</span>=<span class="string">&quot;full&quot;</span> <span class="attr">xoffset</span>=<span class="string">&quot;1&quot;</span> <span class="attr">yoffset</span>=<span class="string">&quot;0&quot;</span>&gt;</span> <span class="comment">&lt;!-- Right edge --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sb_loc</span> <span class="attr">type</span>=<span class="string">&quot;full&quot;</span> <span class="attr">xoffset</span>=<span class="string">&quot;1&quot;</span> <span class="attr">yoffset</span>=<span class="string">&quot;1&quot;</span>&gt;</span> <span class="comment">&lt;!-- Right edge --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sb_loc</span> <span class="attr">type</span>=<span class="string">&quot;full&quot;</span> <span class="attr">xoffset</span>=<span class="string">&quot;1&quot;</span> <span class="attr">yoffset</span>=<span class="string">&quot;2&quot;</span>&gt;</span> <span class="comment">&lt;!-- Top Right --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">switchblock_locations</span>/&gt;</span></span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="复杂块">复杂块</h2>
+<p><code>&lt;complexblocklist&gt;</code>中的内容描述了 FPGA 中的复杂模块。<code>&lt;complexblocklist&gt;</code>内每种类型的复杂块都使用标签内的顶级标签<code>&lt;pb_type&gt;</code>指定。</p>
+<h3 id="pb_type">PB_Type</h3>
+<p><code>&lt;pb_type name="string" num_pb="int" blif_model="string"/&gt;</code>:用于指定最顶层的复杂块，或者复杂块内部的部件（sub_blocks），使用哪些属性，取决于该标签在层次结构中的位置。</p>
+<ul>
+<li><strong>顶层(Top Level)</strong>：<code>&lt;complexblocklist&gt;</code>的子标签</li>
+<li><strong>中间（Intermediate）</strong>：一个<code>&lt;pb_type&gt;</code>的子标签</li>
+<li><strong>基元（Primitive/Leaf）</strong>：不包含<code>&lt;pb_type&gt;</code>子标签</li>
+</ul>
+<figure class="highlight xml"><figcaption><span>example</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">complexblocklist</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">pb_type</span> <span class="attr">name</span>=<span class="string">&quot;CLB&quot;</span>/&gt;</span> <span class="comment">&lt;!-- Top level --&gt;</span></span><br><span class="line">        ...</span><br><span class="line">        <span class="tag">&lt;<span class="name">pb_type</span> <span class="attr">name</span>=<span class="string">&quot;ble&quot;</span>/&gt;</span> <span class="comment">&lt;!-- Intermediate --&gt;</span></span><br><span class="line">            ...</span><br><span class="line">            <span class="tag">&lt;<span class="name">pb_type</span> <span class="attr">name</span>=<span class="string">&quot;lut&quot;</span>/&gt;</span> <span class="comment">&lt;!-- Primitive --&gt;</span></span><br><span class="line">                ...</span><br><span class="line">            <span class="tag">&lt;/<span class="name">pb_type</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">pb_type</span> <span class="attr">name</span>=<span class="string">&quot;ff&quot;</span>/&gt;</span> <span class="comment">&lt;!-- Primitive --&gt;</span></span><br><span class="line">                ...</span><br><span class="line">            <span class="tag">&lt;/<span class="name">pb_type</span>&gt;</span></span><br><span class="line">            ...</span><br><span class="line">        <span class="tag">&lt;/<span class="name">pb_type</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">pb_type</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">complexblocklist</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<div class="tabs" id="属性"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#属性-1">General</button></li><li class="tab"><button type="button" data-href="#属性-2">top、intermediate、primitive</button></li><li class="tab"><button type="button" data-href="#属性-3">primitive only</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="属性-1"><p><strong>name</strong>-pb_type的名字，相对于其父节点、同级节点以及子节点都应该是唯一的</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="属性-2"><p><strong>num_pb</strong>-当前pb_type在此层次结构中实例化的数量（默认1）</p>
+<figure class="highlight xml"><figcaption><span>example</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--CLB包含10个BLE--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">pb_type</span> <span class="attr">name</span>=<span class="string">&quot;CLB&quot;</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">pb_type</span> <span class="attr">name</span>=<span class="string">&quot;ble&quot;</span> <span class="attr">num_pb</span>=<span class="string">&quot;10&quot;</span>/&gt;</span></span><br><span class="line">       ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">pb_type</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">pb_type</span>&gt;</span></span><br></pre></td></tr></table></figure><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="属性-3"><p><strong>blif_model</strong>-指定此pb_type所实现的网表基元</p>
+<ul>
+<li><code>.input</code>:A BLIF netlist input</li>
+<li><code>.output</code>:A BLIF netlist output</li>
+<li><code>.names</code>:A BLIF .names (LUT) primitive</li>
+<li><code>.latch</code>:A BLIF .latch (DFF) primitive</li>
+<li><code>.subckt &lt;custom_type&gt;</code>:A user defined black-box primitive.</li>
+</ul>
+<p><strong>class</strong>-指定这个原语是一个特殊的类型，应该被特殊对待。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">pb_type</span> <span class="attr">name</span>=<span class="string">&quot;my_adder&quot;</span> <span class="attr">blif_model</span>=<span class="string">&quot;.subckt adder&quot;</span>/&gt;</span></span><br><span class="line">   ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">pb_type</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<div class="note info flat">
+<p>pb_type基元的输入、输出以及时钟端口必须与<code>&lt;models&gt;</code>中指定的对应</p>
+</div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<p><strong>适用于所有&lt; pb_type &gt;标签的子标签</strong>：(与物理tile的描述很相似)</p>
+<p><code>&lt;input name="string" num_pins="int" equivalent="&#123;none|full&#125;" is_non_clock_global="&#123;true|false&#125;"/&gt;</code>:定义输出端口，多个输入端口使用多个标签。</p>
+<p><code>&lt;output name="string" num_pins="int" equivalent="&#123;none|full|instance&#125;"/&gt;</code></p>
+<p><code>&lt;clock name="string" num_pins="int" equivalent="&#123;none|full&#125;"/&gt;</code></p>
+<p><code>&lt;mode name="string" disable_packing="bool"&gt;</code>:为pb_type指定一个操作模式，每一个子model标签标识一个不同的操作模式，每一个<model>标签可能包含其他的<code>&lt;pb_type&gt;</code>和<code>&lt;interconnexct&gt;</code>标签。</model></p>
+<ul>
+<li><strong>name</strong>-唯一标识符</li>
+<li><strong>disable_packing</strong>-用于指定该模式是否diable，或者不用于VPR打包器，一般用于调式用</li>
+</ul>
+<div class="note info no-icon flat"><p>在同一个<code>&lt;pb_type&gt;</code>父标签中的models是互斥的。</p>
+<p>如果<code>&lt;pb_type&gt;</code>只包含一个操作模式，则可以省略<code>&lt;model&gt;</code></p>
+</div>
+<figure class="highlight xml"><figcaption><span>example</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--A fracturable 6-input LUT--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--指定lut可以使用为一个6-LUT或者两个5-LUT（但是不能同时）--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">pb_type</span> <span class="attr">name</span>=<span class="string">&quot;lut&quot;</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">mode</span> <span class="attr">name</span>=<span class="string">&quot;lut6&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--Can be used as a single 6-LUT--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">pb_type</span> <span class="attr">name</span>=<span class="string">&quot;lut6&quot;</span> <span class="attr">num_pb</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">            ...</span><br><span class="line">        <span class="tag">&lt;/<span class="name">pb_type</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">mode</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">mode</span> <span class="attr">name</span>=<span class="string">&quot;lut5x2&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--Or as two 5-LUTs--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">pb_type</span> <span class="attr">name</span>=<span class="string">&quot;lut5&quot;</span> <span class="attr">num_pb</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br><span class="line">            ...</span><br><span class="line">        <span class="tag">&lt;/<span class="name">pb_type</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">mode</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">pb_type</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="interconnect">interconnect</h3>
+<p><code>&lt;model&gt;</code>标签的子标签<code>&lt;interconnect&gt;</code>包含以下子标签：</p>
+<p><code>&lt;complete name="string" input="string" output="string"&gt;</code>:描述一个全连接crossbar——任何输入都可以连接到任何输出。</p>
+<ul>
+<li><strong>name</strong>-互联标识符</li>
+<li><strong>inout</strong>-输入到互联的引脚</li>
+<li><strong>output</strong>-输出到互联的引脚</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;complete input=&quot;Top.in&quot; output=&quot;Child.in&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/complete_example.png" alt="complete interconnect"></p>
+<p><code>&lt;direct name="string" input="string" output="string"/&gt;</code>：在输入和输出之间描述一个一对一映射。</p>
+<ul>
+<li><strong>name</strong>-互联标识符</li>
+<li><strong>input</strong>-输入引脚</li>
+<li><strong>output</strong>-输出引脚</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">direct</span> <span class="attr">input</span>=<span class="string">&quot;Top.in[2:1]&quot;</span> <span class="attr">output</span>=<span class="string">&quot;Child[1].in&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/direct_example.png" alt="direct interconnect"></p>
+<p><code>&lt;mux name="string" input="string" output="string"/&gt;</code>：描述一个基于总线的多路选择器。</p>
+<ul>
+<li><strong>name</strong></li>
+<li><strong>input</strong></li>
+<li><strong>output</strong></li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mux</span> <span class="attr">input</span>=<span class="string">&quot;Top.A Top.B&quot;</span> <span class="attr">output</span>=<span class="string">&quot;Child.in&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/mux_example.png" alt="mux interconnect"></p>
+<p>上述三个标签都有一个可选的子标签<code>&lt;pack_pattern name="string" in_port="string" out_port="string"/&gt;</code>，使得CAD在打包的时候能将用到该两个元件的时候，能够打包到一起。</p>
+<ul>
+<li><strong>name</strong>-标识符</li>
+<li><strong>in_port</strong>-输入引脚</li>
+<li><strong>out_port</strong>-输出引脚</li>
+</ul>
+<p>下面的例子就可以让CAD在打包的时候，如果遇到一个LUT后面连接一个触发器，则会将其打包在一个BLE当中。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">pack_pattern</span> <span class="attr">name</span>=<span class="string">&quot;ble&quot;</span> <span class="attr">in_port</span>=<span class="string">&quot;lut.out&quot;</span> <span class="attr">out_port</span>=<span class="string">&quot;ff.D&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/pack_pattern_example.png" alt="pack_pattern"></p>
+<h3 id="classes">Classes</h3>
+<p>calss是基元<code>&lt;pb_type&gt;</code>的可选属性，使得指定那些常见的基元更加方便，内置的class可选值为：</p>
+<div class="tabs" id="tab1"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#tab1-1">calss="lut"</button></li><li class="tab"><button type="button" data-href="#tab1-2">class="flipflop"</button></li><li class="tab"><button type="button" data-href="#tab1-3">class="memory"</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="tab1-1"><p>用于描述一个K-LUT（所有哦输入引脚都逻辑等效），当这个类型被使用时，输入段楼必须有属性<code>port_class="lut_in"</code>，并且输出端口必须有属性<code>port_class_"lut_out"</code>。</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="tab1-2"><p>描述一个触发器。其输入端口必须要有属性<code>port_class="D"</code>，输出端口必须要有属性<code>port_class="Q"</code>，时钟端口必须要有属性<code>port_class="clock"</code>。</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="tab1-3"><p>描述一个存储器，存储器是很特殊的，因为一个存储器可以包含多个更小的逻辑存储器，只要满足以下条件：</p>
+<ol type="1">
+<li>地址、时钟以及控制输入是相同的</li>
+<li>当不同的的网表存储器合并成一个物理存储器时，存在足够的物理数据管脚来满足网表存储器的需求。</li>
+</ol>
+<p>不同类型的存储器所需要的属性不一样。</p>
+<p><strong>单端口存储器：</strong></p>
+<ul>
+<li><strong>input 端口</strong>
+<ul>
+<li><code>port_class="address"</code></li>
+<li><code>port_class="data_in"</code></li>
+<li><code>port_class="write_en"</code></li>
+</ul></li>
+<li><strong>output 端口</strong>
+<ul>
+<li><code>port_class="data_out"</code></li>
+</ul></li>
+<li><strong>clock 端口</strong>
+<ul>
+<li><code>port_class="clock"</code></li>
+</ul></li>
+</ul>
+<p><strong>双端口存储器：</strong></p>
+<ul>
+<li><strong>input 端口</strong>
+<ul>
+<li><code>port_class="address1"</code></li>
+<li><code>port_class="data_in1"</code></li>
+<li><code>port_class="write_en1"</code></li>
+<li><code>port_class="address2"</code></li>
+<li><code>port_class="write_en2"</code></li>
+</ul></li>
+<li><strong>output 端口</strong>
+<ul>
+<li><code>port_class="data_out1"</code></li>
+<li><code>port_class="data_out2"</code></li>
+</ul></li>
+<li><strong>clock 端口</strong>
+<ul>
+<li><code>port_class="clock"</code></li>
+</ul></li>
+</ul><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h3 id="timing">Timing</h3>
+<p>时序是通过包在<code>pb_type</code>、<code>complete</code>、<code>direct</code>、<code>mux</code>中的标签来指定的。</p>
+<p><code>&lt;delay_constant max="float" min="float" in_port="string" out_port="string"/&gt;</code>：用于指定从输入端口到输出端口的最大以及最小延迟。</p>
+<div class="note danger flat"><p>不太明白，如果自定义单元的输入端口与输出端口之间很复杂（可以选择是否有寄存器），那么延迟该如何定义？</p>
+</div>
+<p><strong>可选参数如下：</strong>（两者至少包含一个）</p>
+<ul>
+<li><strong>max</strong>-最大延迟值</li>
+<li><strong>min</strong>-最小延迟值</li>
+</ul>
+<p><strong>必须参数如下：</strong></p>
+<ul>
+<li><strong>in_port</strong>-输入端口名字</li>
+<li><strong>out_port</strong>-输出端口名字</li>
+</ul>
+<p>如果<code>in_port</code>与<code>out_port</code>之间是组合逻辑，则该标签指定的是输入与输出之间的组合逻辑延迟。如果<code>in_port</code>与<code>out_port</code>之间是时序逻辑，则该标签指定的是输入寄存器和输出寄存器之间的组合逻辑延迟。</p>
+<p><code>&lt;delay_matrix type="&#123;max | min&#125;" in_port="string" out_port="string"&gt; matrix &lt;/delay&gt;</code>：用于描述输入端口与输出端口之间所有引脚的之间的延迟，矩阵的行数与输入数量一致，矩阵的列数与输出的个数一致。</p>
+<figure class="highlight xml"><figcaption><span>4-bit input and 3-bits out</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">delay_matrix</span> <span class="attr">type</span>=<span class="string">&quot;max&quot;</span> <span class="attr">in_port</span>=<span class="string">&quot;in&quot;</span> <span class="attr">out_port</span>=<span class="string">&quot;out&quot;</span>&gt;</span></span><br><span class="line">    1.2e-10 1.4e-10 3.2e-10</span><br><span class="line">    4.6e-10 1.9e-10 2.2e-10</span><br><span class="line">    4.5e-10 6.7e-10 3.5e-10</span><br><span class="line">    7.1e-10 2.9e-10 8.7e-10</span><br><span class="line"><span class="tag">&lt;/<span class="name">delay</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>&lt;T_setup value="float" port="string" clock="string"/&gt;</code>：指定端口寄存器的建立时间约束。（仅仅只用于 primitive <code>pb_type</code> tags）</p>
+<p><code>&lt;T_hold value="float" port="string" clock="string"/&gt;</code>：指定端口寄存器的保持时间约束。（仅仅只用于 primitive <code>pb_type</code> tags）</p>
+<p><code>&lt;T_clock_to_Q max="float" min="float" port="string" clock="string"/&gt;</code>：指定端口寄存器的保持时间约束。（仅仅只用于 primitive <code>pb_type</code> tags）</p>
+<h4 id="对时序基元的内部时序路径进行建模">对时序基元的内部时序路径进行建模</h4>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">pb_type</span> <span class="attr">name</span>=<span class="string">&quot;seq_foo&quot;</span> <span class="attr">blif_model</span>=<span class="string">&quot;.subckt seq_foo&quot;</span> <span class="attr">num_pb</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;in&quot;</span> <span class="attr">num_pins</span>=<span class="string">&quot;4&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">output</span> <span class="attr">name</span>=<span class="string">&quot;out&quot;</span> <span class="attr">num_pins</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">clock</span> <span class="attr">name</span>=<span class="string">&quot;clk&quot;</span> <span class="attr">num_pins</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- external --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">T_setup</span> <span class="attr">value</span>=<span class="string">&quot;80e-12&quot;</span> <span class="attr">port</span>=<span class="string">&quot;seq_foo.in&quot;</span> <span class="attr">clock</span>=<span class="string">&quot;clk&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">T_clock_to_Q</span> <span class="attr">max</span>=<span class="string">&quot;20e-12&quot;</span> <span class="attr">port</span>=<span class="string">&quot;seq_foo.out&quot;</span> <span class="attr">clock</span>=<span class="string">&quot;clk&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- internal --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">T_clock_to_Q</span> <span class="attr">max</span>=<span class="string">&quot;10e-12&quot;</span> <span class="attr">port</span>=<span class="string">&quot;seq_foo.in&quot;</span> <span class="attr">clock</span>=<span class="string">&quot;clk&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">delay_constant</span> <span class="attr">max</span>=<span class="string">&quot;0.9e-9&quot;</span> <span class="attr">in_port</span>=<span class="string">&quot;seq_foo.in&quot;</span> <span class="attr">out_port</span>=<span class="string">&quot;seq_foo.out&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">T_setup</span> <span class="attr">value</span>=<span class="string">&quot;90e-12&quot;</span> <span class="attr">port</span>=<span class="string">&quot;seq_foo.out&quot;</span> <span class="attr">clock</span>=<span class="string">&quot;clk&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">pb_type</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>为了模拟内部关键路径延迟，我们指定输入寄存器的内部时钟到 Q 延迟 (10ps)、内部组合延迟 (0.9ns) 和输出寄存器的建立时间 (90ps)。这些延迟的总和对应于 1ns 的关键路径延迟。</p>
+<h3 id="power">Power</h3>
+<p><code>&lt;power method="string"&gt;contents&lt;/power&gt;</code></p>
+<p><strong>method</strong>-用于指明功耗评估的方式(default:<code>auto-size</code>)</p>
+<ul>
+<li><code>specify-size</code></li>
+<li><code>auto-size</code></li>
+<li><code>pin-toggle</code></li>
+<li><code>C-internal</code></li>
+<li><code>absolute</code></li>
+<li><code>ignore</code></li>
+<li><code>sum-of-children</code></li>
+</ul>
+<p><strong>contents</strong>则可以包含以下标签：</p>
+<p><code>&lt;dynamic_power power_per_instance="float" C_internal="float"/&gt;</code></p>
+<p><code>&lt;static_power power_per_instance="float"/&gt;</code></p>
+<p><code>&lt;port name="string" energy_per_toggle="float" scaled_by_static_prob="string" scaled_by_static_prob_n="string"/&gt;</code></p>
+<h2 id="wire-segments">Wire Segments</h2>
+<p>根节点为<code>&lt;segmentlist&gt;</code>，其内容为一组<code>&lt;segment&gt;标签组成</code>。</p>
+<p><code>&lt;segment axis="&#123;x|y&#125;" name="unique_name" length="int" type="&#123;bidir|unidir&#125;" freq="float" Rmetal="float" Cmetal="float"&gt;content&lt;/segment&gt;</code></p>
+<p><strong>可选标签：</strong></p>
+<ul>
+<li><strong>axis</strong>-指定线段是只用于x通道还是只用于通道，如果未指定，则x、y通道都可以使用。</li>
+</ul>
+<p><strong>需要的标签：</strong></p>
+<ul>
+<li><strong>name</strong>-独一无二的线段类型的名字</li>
+<li><strong>length</strong>-要么是标识线段长度（穿过多少个逻辑块），或者为关键字<code>longline</code>(跨过整个FPGA阵列)</li>
+<li><strong>freq</strong>-此类线段在通道中所占的权重（该值除以所有线段该值的和）。</li>
+<li><strong>Rmetal</strong>-每单位长度（以逻辑块为单位）的电阻（欧姆）</li>
+<li><strong>Cmetal</strong>-每单位长度（以逻辑块为单位）的电容（法拉）</li>
+<li><strong>directionality</strong>-线段的方向性。表明一个线段是否有多个驱动点（双向），或者线段的一端有一个驱动器（单向）（所有线段必须有相同的方向性值）</li>
+<li><strong>content</strong>-包含开关名称、连接块填充以及开关块填充</li>
+</ul>
+<p><img src="https://docs.verilogtorouting.org/en/latest/_images/sb_pattern.png" alt="线段填充示例"></p>
+<p><strong>content中的可用标签：</strong></p>
+<p><code>&lt;sb type="pattern"&gt;int list&lt;/sb&gt;</code></p>
+<p><code>&lt;cb type="pattren"&gt;int list&lt;/cb&gt;</code></p>
+<p>上述两个标签用于指定开关块以及连接块的填充性质，不能用于<code>longline segments</code>，因为该类型的线段被指定为全部填充。</p>
+<h2 id="自定义开关块">自定义开关块</h2>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">switchblocklist</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">switchblock</span> <span class="attr">name</span>=<span class="string">&quot;my_switchblock&quot;</span> <span class="attr">type</span>=<span class="string">&quot;unidir&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">switchblock_location</span> <span class="attr">type</span>=<span class="string">&quot;EVERYWHERE&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">switchfuncs</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">func</span> <span class="attr">type</span>=<span class="string">&quot;lr&quot;</span> <span class="attr">formula</span>=<span class="string">&quot;t&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">func</span> <span class="attr">type</span>=<span class="string">&quot;lt&quot;</span> <span class="attr">formula</span>=<span class="string">&quot;W-t&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">func</span> <span class="attr">type</span>=<span class="string">&quot;lb&quot;</span> <span class="attr">formula</span>=<span class="string">&quot;W+t-1&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">func</span> <span class="attr">type</span>=<span class="string">&quot;rt&quot;</span> <span class="attr">formula</span>=<span class="string">&quot;W+t-1&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">func</span> <span class="attr">type</span>=<span class="string">&quot;br&quot;</span> <span class="attr">formula</span>=<span class="string">&quot;W-t-2&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">func</span> <span class="attr">type</span>=<span class="string">&quot;bt&quot;</span> <span class="attr">formula</span>=<span class="string">&quot;t&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">func</span> <span class="attr">type</span>=<span class="string">&quot;rl&quot;</span> <span class="attr">formula</span>=<span class="string">&quot;t&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">func</span> <span class="attr">type</span>=<span class="string">&quot;tl&quot;</span> <span class="attr">formula</span>=<span class="string">&quot;W-t&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">func</span> <span class="attr">type</span>=<span class="string">&quot;bl&quot;</span> <span class="attr">formula</span>=<span class="string">&quot;W+t-1&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">func</span> <span class="attr">type</span>=<span class="string">&quot;tr&quot;</span> <span class="attr">formula</span>=<span class="string">&quot;W+t-1&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">func</span> <span class="attr">type</span>=<span class="string">&quot;rb&quot;</span> <span class="attr">formula</span>=<span class="string">&quot;W-t-2&quot;</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">func</span> <span class="attr">type</span>=<span class="string">&quot;tb&quot;</span> <span class="attr">formula</span>=<span class="string">&quot;t&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">switchfuncs</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">wireconn</span> <span class="attr">from_type</span>=<span class="string">&quot;l4&quot;</span> <span class="attr">to_type</span>=<span class="string">&quot;l4&quot;</span> <span class="attr">from_switchpoint</span>=<span class="string">&quot;0,1,2,3&quot;</span> <span class="attr">to_switchpoint</span>=<span class="string">&quot;0&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">wireconn</span> <span class="attr">from_type</span>=<span class="string">&quot;l8_global&quot;</span> <span class="attr">to_type</span>=<span class="string">&quot;l8_global&quot;</span> <span class="attr">from_switchpoint</span>=<span class="string">&quot;0,4&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">to_switchpoint</span>=<span class="string">&quot;0&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">wireconn</span> <span class="attr">from_type</span>=<span class="string">&quot;l8_global&quot;</span> <span class="attr">to_type</span>=<span class="string">&quot;l4&quot;</span> <span class="attr">from_switchpoint</span>=<span class="string">&quot;0,4&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">to_switchpoint</span>=<span class="string">&quot;0&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">switchblock</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">switchblock</span> <span class="attr">name</span>=<span class="string">&quot;another_switch_block&quot;</span> <span class="attr">type</span>=<span class="string">&quot;unidir&quot;</span>&gt;</span></span><br><span class="line">    ... another switch block description ...</span><br><span class="line">  <span class="tag">&lt;/<span class="name">switchblock</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">switchblocklist</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="switchblock-namestring-typestring">&lt;switchblock name="string" type="string"&gt;</h3>
+<p><code>&lt;switchblock&gt;</code> 是描述不同线段类型之间连接的顶层XML文件，有以下属性:</p>
+<ul>
+<li><strong>name</strong> – A unique alphanumeric string</li>
+<li><strong>type</strong> – <code>unidir</code> or <code>bidir</code>.</li>
+</ul>
+<h3 id="switchblock_location-typestring">&lt;switchblock_location type="string"/&gt;</h3>
+<ul>
+<li><p>Required Attributes</p>
+<p><strong>type</strong> –Can be one of the following strings:</p>
+<ul>
+<li><code>EVERYWHERE</code> – at each switch block of the FPGA</li>
+<li><code>PERIMETER</code> – at each perimeter switch block (x-directed and/or y-directed channel segments may terminate here)</li>
+<li><code>CORNER</code> – only at the corner switch blocks (both x and y-directed channels terminate here)</li>
+<li><code>FRINGE</code> – same as PERIMETER but excludes corners</li>
+<li><code>CORE</code> – everywhere but the perimeter</li>
+</ul></li>
+</ul>
+<p>在 FPGA 上设置此开关块所描述的连接将被实例化的位置。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.narutozxp.top">narutozxp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.narutozxp.top/2022/05/21/VTR-Architecture-Reference-XML/">https://www.narutozxp.top/2022/05/21/VTR-Architecture-Reference-XML/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.narutozxp.top" target="_blank">narutozxp</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/VTR/">VTR</a></div><div class="post_share"><div class="social-share" data-image="/img/21.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/06/06/FROM-VPR-TO-OPENFPGA/"><img class="prev-cover" src="/img/34.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">FROM VPR TO OPENFPGA</div></div></a></div><div class="next-post pull-right"><a href="/2022/05/19/reports_record/"><img class="next-cover" src="/img/5.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">组会记录</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/05/10/VTR/" title="VTR FLOW BEGIN"><img class="cover" src="/img/12.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-10</div><div class="title">VTR FLOW BEGIN</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">架构描述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B6%E7%BA%A7%E6%A0%87%E7%AD%BEarichitecture"><span class="toc-number">1.1.</span> <span class="toc-text">顶级标签(&lt;arichitecture&gt;)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%86%E5%88%ABblif%E6%A8%A1%E5%9E%8Bmodels"><span class="toc-number">1.2.</span> <span class="toc-text">识别BLIF模型(&lt;models&gt;)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%B1%80fpga%E4%BF%A1%E6%81%AF"><span class="toc-number">1.3.</span> <span class="toc-text">全局FPGA信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fpga%E7%BD%91%E6%A0%BC%E5%B8%83%E5%B1%80-layout"><span class="toc-number">1.4.</span> <span class="toc-text">FPGA网格布局(&lt; layout &gt;)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E7%9A%84%E7%BD%91%E7%BB%9C%E5%B8%83%E5%B1%80%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.4.1.</span> <span class="toc-text">整体的网络布局示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fpga%E5%99%A8%E4%BB%B6%E4%BF%A1%E6%81%AF"><span class="toc-number">1.5.</span> <span class="toc-text">FPGA器件信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%85%B3switch"><span class="toc-number">1.6.</span> <span class="toc-text">开关（switch）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%B8%83%E7%BA%BF%E4%BF%A1%E6%81%AF"><span class="toc-number">1.6.1.</span> <span class="toc-text">全局布线信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E7%90%86tiles"><span class="toc-number">1.7.</span> <span class="toc-text">物理Tiles</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%9D%97"><span class="toc-number">1.8.</span> <span class="toc-text">复杂块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pb_type"><span class="toc-number">1.8.1.</span> <span class="toc-text">PB_Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#interconnect"><span class="toc-number">1.8.2.</span> <span class="toc-text">interconnect</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#classes"><span class="toc-number">1.8.3.</span> <span class="toc-text">Classes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#timing"><span class="toc-number">1.8.4.</span> <span class="toc-text">Timing</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E6%97%B6%E5%BA%8F%E5%9F%BA%E5%85%83%E7%9A%84%E5%86%85%E9%83%A8%E6%97%B6%E5%BA%8F%E8%B7%AF%E5%BE%84%E8%BF%9B%E8%A1%8C%E5%BB%BA%E6%A8%A1"><span class="toc-number">1.8.4.1.</span> <span class="toc-text">对时序基元的内部时序路径进行建模</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#power"><span class="toc-number">1.8.5.</span> <span class="toc-text">Power</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wire-segments"><span class="toc-number">1.9.</span> <span class="toc-text">Wire Segments</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%80%E5%85%B3%E5%9D%97"><span class="toc-number">1.10.</span> <span class="toc-text">自定义开关块</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#switchblock-namestring-typestring"><span class="toc-number">1.10.1.</span> <span class="toc-text">&lt;switchblock name&#x3D;&quot;string&quot; type&#x3D;&quot;string&quot;&gt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#switchblock_location-typestring"><span class="toc-number">1.10.2.</span> <span class="toc-text">&lt;switchblock_location type&#x3D;&quot;string&quot;&#x2F;&gt;</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@11.12.1/dist/mermaid.min.js"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}</script><script src="/js/twikoo_emotion_biger.js"></script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.narutozxp.top',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.narutozxp.top',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo@1/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/narutozxp/live2d-widget@latest/autoload.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

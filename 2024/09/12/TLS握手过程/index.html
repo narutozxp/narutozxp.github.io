@@ -1,0 +1,588 @@
+<!DOCTYPE html><html class="hide-aside" lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>TLS握手流程 | narutozxp</title><meta name="keywords" content="TLS"><meta name="author" content="narutozxp"><meta name="copyright" content="narutozxp"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="TLS握手过程 HTTP 由于是明文传输，所谓的明文，就是说客户端与服务端通信的信息都是肉眼可见的，随意使用一个抓包工具都可以截获通信的内容。 所以安全上存在以下三个风险：  窃听风险，比如通信链路上可以获取通信内容，用户号容易没。 篡改风险，比如强制植入垃圾广告，视觉污染，用户眼容易瞎。 冒充风险，比如冒充淘宝网站，用户钱容易没。  HTTPS 在 HTTP 与 TCP 层之间加入了 TLS 协">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TLS握手流程">
+<meta property="og:url" content="https://www.narutozxp.top/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/index.html">
+<meta property="og:site_name" content="narutozxp">
+<meta property="og:description" content="TLS握手过程 HTTP 由于是明文传输，所谓的明文，就是说客户端与服务端通信的信息都是肉眼可见的，随意使用一个抓包工具都可以截获通信的内容。 所以安全上存在以下三个风险：  窃听风险，比如通信链路上可以获取通信内容，用户号容易没。 篡改风险，比如强制植入垃圾广告，视觉污染，用户眼容易瞎。 冒充风险，比如冒充淘宝网站，用户钱容易没。  HTTPS 在 HTTP 与 TCP 层之间加入了 TLS 协">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.narutozxp.top/img/12.webp">
+<meta property="article:published_time" content="2024-09-12T16:07:02.000Z">
+<meta property="article:modified_time" content="2025-12-25T08:16:14.000Z">
+<meta property="article:author" content="narutozxp">
+<meta property="article:tag" content="TLS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.narutozxp.top/img/12.webp"><link rel="shortcut icon" href="/img/myself.webp"><link rel="canonical" href="https://www.narutozxp.top/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great%20Vibes" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'TLS握手流程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-12-25 08:16:14'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous"> <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script> <link rel="stylesheet" href="/css/custom.css"> <link rel="stylesheet" href="/css/font.css"> <script src="https://wavedrom.com/wavedrom.min.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/default.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/dark.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/narrow.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/lowkey.js" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js" type="text/javascript"></script> <script data-pjax src="https://cdn.jsdelivr.net/npm/abcjs/dist/abcjs-basic-min.js" type="text/javascript"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/abcjs/abcjs-audio.css"/> <script defer data-pjax src="https://cn.vercount.one/js" type="text/javascript"></script>
+<script data-pjax type="text/javascript"> WaveDrom.ProcessAll(); mermaid.run(); </script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.5.0/style.css" /> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script> <meting-js id="2217718183" server="netease" type="playlist" autoplay = "false" api = "https://v.iarc.top/?server=:server&type=:type&id=:id&r=:r" mini = "true" fixed = "true" loop = "all" order = 'random' list-folded = "true"> </meting-js><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/myself.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/12.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">narutozxp</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">TLS握手流程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-12T16:07:02.000Z" title="发表于 2024-09-12 16:07:02">2024-09-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-25T08:16:14.000Z" title="更新于 2025-12-25 08:16:14">2025-12-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CS/">CS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">7.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>22分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="TLS握手流程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="tls握手过程">TLS握手过程</h1>
+<p>HTTP 由于是明文传输，所谓的明文，就是说客户端与服务端通信的信息都是肉眼可见的，随意使用一个抓包工具都可以截获通信的内容。</p>
+<p>所以安全上存在以下三个风险：</p>
+<ul>
+<li><strong>窃听风险</strong>，比如通信链路上可以获取通信内容，用户号容易没。</li>
+<li><strong>篡改风险</strong>，比如强制植入垃圾广告，视觉污染，用户眼容易瞎。</li>
+<li><strong>冒充风险</strong>，比如冒充淘宝网站，用户钱容易没。</li>
+</ul>
+<p>HTTPS 在 HTTP 与 TCP 层之间加入了 TLS 协议，来解决上述的风险。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640.webp" alt="HTTPS"></p>
+<p>TLS 协议是如何解决 HTTP 的风险的呢？</p>
+<ul>
+<li><strong>信息加密</strong>：HTTP 交互信息是被加密的，第三方就无法被窃取。</li>
+<li><strong>校验机制</strong>：校验信息传输过程中是否有被第三方篡改过，如果被篡改过，则会有警告提示。</li>
+<li><strong>身份证书</strong>：证明淘宝是真的淘宝网。</li>
+</ul>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640-1726128862076-3.webp" alt="TLS握手过程"></p>
+<p>上图简要概述来 TLS 的握手过程，其中每一个「框」都是一个记录（record），记录是 TLS 收发数据的基本单位，类似于 TCP 里的 segment。多个记录可以组合成一个 TCP 包发送，所以<strong>通常经过「四个消息」就可以完成 TLS 握手，也就是需要 2个 RTT 的时延</strong>，然后就可以在安全的通信环境里发送 HTTP 报文，实现 HTTPS 协议。</p>
+<p>所以可以发现，HTTPS 是应用层协议，需要先完成 TCP 连接建立，然后走 TLS 握手过程后，才能建立通信安全的连接。</p>
+<p>事实上，不同的密钥交换算法，TLS 的握手过程可能会有一些区别。</p>
+<p>这里先简单介绍下密钥交换算法，因为考虑到性能的问题，所以双方在加密应用信息时使用的是对称加密密钥，而对称加密密钥是不能被泄漏的，为了保证对称加密密钥的安全性，所以使用非对称加密的方式来保护对称加密密钥的协商，这个工作就是密钥交换算法负责的。</p>
+<p>接下来，我们就以最简单的 RSA 密钥交换算法，来看看它的 TLS 握手过程。</p>
+<h1 id="rsa握手过程">RSA握手过程</h1>
+<p>传统的 TLS 握手基本都是使用 RSA 算法来实现密钥交换的，在将 TLS 证书部署服务端时，证书文件中包含一对公私钥，其中公钥会在 TLS 握手阶段传递给客户端，私钥则一直留在服务端，一定要确保私钥不能被窃取。</p>
+<p>在 RSA 密钥协商算法中，客户端会生成随机密钥，并使用服务端的公钥加密后再传给服务端。根据非对称加密算法，公钥加密的消息仅能通过私钥解密，这样服务端解密后，双方就得到了相同的密钥，再用它加密应用消息。</p>
+<p>我用 Wireshark 工具抓了用 RSA 密钥交换的 TLS 握手过程，你可以从下面看到，一共经历来四次握手：</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640-1726128871865-6.webp"></p>
+<p>对应 Wireshark 的抓包，我也画了一幅图，你可以从下图很清晰地看到该过程：</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640-1726128875542-9.webp"></p>
+<p>那么，接下来针对每一个 TLS 握手做进一步的介绍。</p>
+<h2 id="tls第一次握手">TLS第一次握手</h2>
+<p>客户端首先会发一个「Client Hello」消息，字面意思我们也能理解到，这是跟服务器「打招呼」。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640-1726128881561-12.webp"></p>
+<p>消息里面有客户端使用的<strong>TLS 版本号</strong>、支持的<strong>密码套件列表</strong>，以及生成的<strong>随机数（Client Random）</strong>，这个随机数会被服务端保留，它是生成对称加密密钥的材料之一。</p>
+<h2 id="tls第二次握手">TLS第二次握手</h2>
+<p>当服务端收到客户端的「<strong>Client Hello</strong>」消息后，会确认 TLS 版本号是否支持，和从密码套件列表中选择一个密码套件，以及生成<strong>随机数（Server Random）</strong>。</p>
+<p>接着，返回「<strong>Server Hello</strong>」消息，消息里面有服务器确认的 TLS 版本号，也给出了<strong>随机数（Server Random）</strong>，然后从客户端的密码套件列表选择了一个合适的密码套件。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640-1726128887386-15.webp"></p>
+<p>可以看到，服务端选择的密码套件是<code>Cipher Suite: TLS_RSA_WITH_AES_128_GCM_SHA256</code>。</p>
+<p>这个密码套件看起来真让人头晕，好一大串，但是其实它是有固定格式和规范的。基本的形式是「<strong>密钥交换算法</strong> + <strong>签名算法</strong> + <strong>对称加密算法</strong> + <strong>摘要算法</strong>」， 一般 WITH 单词前面有两个单词，第一个单词是约定密钥交换的算法，第二个单词是约定证书的验证算法。比如刚才的密码套件的意思就是：</p>
+<ul>
+<li>由于 WITH 单词只有一个 RSA，则说明握手时密钥交换算法和签名算法都是使用 RSA；</li>
+<li>握手后的通信使用 AES 对称算法，密钥长度 128 位，分组模式是 GCM；</li>
+<li>摘要算法 SHA256 用于消息认证和产生随机数；</li>
+</ul>
+<p>就前面这两个客户端和服务端相互「打招呼」的过程，客户端和服务端就已确认了 TLS 版本和使用的密码套件，而且你可能发现客户端和服务端都会各自生成一个随机数，并且还会把随机数传递给对方。</p>
+<p>那这个随机数有啥用呢？其实这两个随机数是后续作为生成「主密钥」和「会话密钥」的条件，所谓的主密钥，就是使用DH或者RSA等密钥交换算法得到的密钥(由<strong>预备主密钥</strong>、<strong>ClientHello random</strong> 和 <strong>ServerHello random</strong> 通过 <strong>PRF</strong> 函数生成的)，而会话密钥就是数据传输时，所使用的对称加密密钥（由<strong>主密钥</strong>、<strong>SecurityParameters.server_random</strong> 和 <strong>SecurityParameters.client_random</strong> 通过 <strong>PRF</strong> 函数来生成）。</p>
+<p>然后，服务端为了证明自己的身份，会发送「<strong>Server Certificate</strong>」给客户端，这个消息里含有数字证书。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640-1726128894819-18.webp"></p>
+<p>随后，服务端发了「Server Hello Done」消息，目的是告诉客户端，我已经把该给你的东西都给你了，本次打招呼完毕。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640-1726128898442-21.webp"></p>
+<h3 id="客户端验证证书">客户端验证证书</h3>
+<p>在这里刹个车，客户端拿到了服务端的数字证书后，要怎么校验该数字证书是真实有效的呢？</p>
+<h4 id="数字证书和ca机构">数字证书和CA机构</h4>
+<p>在说校验数字证书是否可信的过程前，我们先来看看数字证书是什么，一个数字证书通常包含了：</p>
+<ul>
+<li>公钥；</li>
+<li>持有者信息；</li>
+<li>证书认证机构（CA）的信息；</li>
+<li>CA 对这份文件的数字签名及使用的算法；</li>
+<li>证书有效期；</li>
+<li>还有一些其他额外信息；</li>
+</ul>
+<p>那数字证书的作用，是用来认证公钥持有者的身份，以防止第三方进行冒充。说简单些，证书就是用来告诉客户端，该服务端是否是合法的，因为只有证书合法，才代表服务端身份是可信的。</p>
+<p>我们用证书来认证公钥持有者的身份（服务端的身份），那证书又是怎么来的？又该怎么认证证书呢？</p>
+<p>为了让服务端的公钥被大家信任，服务端的证书都是由 CA （Certificate Authority，证书认证机构）签名的，CA 就是网络世界里的公安局、公证中心，具有极高的可信度，所以由它来给各个公钥签名，信任的一方签发的证书，那必然证书也是被信任的。</p>
+<p>之所以要签名，是因为签名的作用可以避免中间人在获取证书时对证书内容的篡改。</p>
+<h4 id="数字证书签发和验证流程">数字证书签发和验证流程</h4>
+<p>如下图图所示，为数字证书签发和验证流程：</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640-1726128904315-24.webp"></p>
+<p>CA 签发证书的过程，如上图左边部分：</p>
+<ul>
+<li>首先 CA 会把持有者的公钥、用途、颁发者、有效时间等信息打成一个包，然后对这些信息进行 Hash 计算，得到一个 Hash 值；</li>
+<li>然后 CA 会使用自己的私钥将该 Hash 值加密，生成 Certificate Signature，也就是 CA 对证书做了签名；</li>
+<li>最后将 Certificate Signature 添加在文件证书上，形成数字证书；</li>
+</ul>
+<p>客户端校验服务端的数字证书的过程，如上图右边部分：</p>
+<ul>
+<li>首先客户端会使用同样的 Hash 算法获取该证书的 Hash 值 H1；</li>
+<li>通常浏览器和操作系统中集成了 CA 的公钥信息，浏览器收到证书后可以使用 CA 的公钥解密 Certificate Signature 内容，得到一个 Hash 值 H2 ；</li>
+<li>最后比较 H1 和 H2，如果值相同，则为可信赖的证书，否则则认为证书不可信。</li>
+</ul>
+<h4 id="证书链">证书链</h4>
+<p>但事实上，证书的验证过程中还存在一个证书信任链的问题，因为我们向 CA 申请的证书一般不是根证书签发的，而是由中间证书签发的，比如百度的证书，从下图你可以看到，证书的层级有三级：</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640-1726128908654-27.webp"></p>
+<p>对于这种三级层级关系的证书的验证过程如下：</p>
+<ul>
+<li>客户端收到 baidu.com 的证书后，发现这个证书的签发者不是根证书，就无法根据本地已有的根证书中的公钥去验证 baidu.com 证书是否可信。于是，客户端根据 baidu.com 证书中的签发者，找到该证书的颁发机构是 <code>GlobalSign Organization Validation CA - SHA256 - G2</code>，然后向 CA 请求该中间证书。</li>
+<li>请求到证书后发现 <code>GlobalSign Organization Validation CA - SHA256 - G2</code> 证书是由 <code>GlobalSign Root CA</code> 签发的，由于 <code>GlobalSign Root CA</code> 没有再上级签发机构，说明它是根证书，也就是自签证书。应用软件会检查此证书有否已预载于根证书清单上，如果有，则可以利用根证书中的公钥去验证 <code>GlobalSign Organization Validation CA - SHA256 - G2</code> 证书，如果发现验证通过，就认为该中间证书是可信的。</li>
+<li><code>GlobalSign Organization Validation CA - SHA256 - G2</code> 证书被信任后，可以使用 <code>GlobalSign Organization Validation CA - SHA256 - G2</code> 证书中的公钥去验证 baidu.com 证书的可信性，如果验证通过，就可以信任 baidu.com 证书。</li>
+</ul>
+<p>在这四个步骤中，最开始客户端只信任根证书 <code>GlobalSign Root CA</code> 证书的，然后 <code>GlobalSign Root CA</code> 证书信任 <code>GlobalSign Organization Validation CA - SHA256 - G2</code> 证书，而 <code>GlobalSign Organization Validation CA - SHA256 - G2</code> 证书又信任 baidu.com 证书，于是客户端也信任 baidu.com 证书。</p>
+<p>总括来说，由于用户信任 <code>GlobalSign</code> ，所以由 <code>GlobalSign</code> 所担保的 baidu.com 可以被信任，另外由于用户信任操作系统或浏览器的软件商，所以由软件商预载了根证书的 <code>GlobalSign</code> 都可被信任。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640-1726128912706-30.webp"></p>
+<p>操作系统里一般都会内置一些根证书，比如我的 MAC 电脑里内置的根证书有这么多：</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640-1726128916464-33.webp"></p>
+<p>这样的一层层地验证就构成了一条信任链路，整个证书信任链验证流程如下图所示：</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640-1726128920814-36.webp"></p>
+<p>最后一个问题，为什么需要证书链这么麻烦的流程？Root CA 为什么不直接颁发证书，而是要搞那么多中间层级呢？</p>
+<p>这是为了确保根证书的绝对安全性，将根证书隔离地越严格越好，不然根证书如果失守了，那么整个信任链都会有问题。</p>
+<h2 id="tls第三次握手">TLS第三次握手</h2>
+<p>客户端验证完证书后，认为可信则继续往下走。接着，客户端就会生成一个新的<strong>随机数 (pre-master)</strong>，用服务器的 RSA 公钥加密该随机数，通过「<strong>Change Cipher Key Exchange</strong>」消息传给服务端。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640-1726128925137-39.webp"></p>
+<p>服务端收到后，用 RSA 私钥解密，得到客户端发来的随机数 (pre-master)。</p>
+<p>至此，客户端和服务端双方都共享了三个随机数，分别是 <strong>Client Random</strong>、<strong>Server Random</strong>、<strong>pre-master</strong>。</p>
+<p>于是，双方根据已经得到的三个随机数，生成<strong>主密钥（Master Secret）</strong>，它是对称密钥，用于生成<strong>会话密钥</strong>对后续的 HTTP 请求/响应的数据加解密。</p>
+<div class="admonition admonition-missing">
+<p class="admonition-title">Missing</p>
+<p>具体如何依据该随机数来生成回话密钥，改内容还有待补充。参考<a target="_blank" rel="noopener" href="https://halfrost.com/https-key-cipher/#toc-0">TLS密钥计算</a>和<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/405387352">QUIC协议</a></p>
+</div>
+<p>生成完会话密钥后，然后客户端发一个「<strong>Change Cipher Spec</strong>」，告诉服务端开始使用加密方式发送消息。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640-1726128929945-42.webp"></p>
+<p>然后，客户端再发一个「<strong>Encrypted Handshake Message（Finishd）</strong>」消息，把之前所有发送的数据做个摘要，再用<strong>会话密钥</strong>（<strong>master secret</strong>）加密一下，让服务器做个验证，验证加密通信是否可用和之前握手信息是否有被中途篡改过。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640-1726128933630-45.webp"></p>
+<p>可以发现，「<strong>Change Cipher Spec</strong>」之前传输的 TLS 握手数据都是明文，之后都是对称密钥加密的密文。</p>
+<h2 id="tls第四次握手">TLS第四次握手</h2>
+<p>服务器也是同样的操作，发「<strong>Change Cipher Spec</strong>」和「<strong>Encrypted Handshake Message</strong>」消息，如果双方都验证加密和解密没问题，那么握手正式完成。</p>
+<p>最后，就用「会话密钥」加解密 HTTP 请求和响应了。</p>
+<h1 id="rsa算法的缺陷">RSA算法的缺陷</h1>
+<p><strong>使用 RSA 密钥协商算法的最大问题是不支持前向保密</strong>。因为客户端传递随机数（用于生成对称加密密钥的条件之一）给服务端时使用的是公钥加密的，服务端收到到后，会用私钥解密得到随机数。所以一旦服务端的私钥泄漏了，过去被第三方截获的所有 TLS 通讯密文都会被破解。</p>
+<p>为了解决这一问题，于是就有了 DH 密钥协商算法，这里简单介绍它的工作流程。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/640-1726128939300-48.webp"></p>
+<p>客户端和服务端各自会生成随机数，并以此作为私钥，然后根据公开的 DH 计算公示算出各自的公钥，通过 TLS 握手双方交换各自的公钥，这样双方都有自己的私钥和对方的公钥，然后双方根据各自持有的材料算出一个随机数，这个随机数的值双方都是一样的，这就可以作为后续对称加密时使用的密钥。</p>
+<p>DH 密钥交换过程中，私钥每次都是随机生成的，因此实现了前向保密。</p>
+<h1 id="离散对数">离散对数</h1>
+<p>ECDHE 密钥协商算法是 DH 算法演进过来的，所以我们先从 DH 算法说起。DH 算法是非对称加密算法， 因此它可以用于密钥交换，该算法的核心数学思想是离散对数。离散对数是「离散 + 对数」的两个数学概念的组合，所以我们先来复习一遍对数。要说起对数，必然要说指数，因为它们是互为反函数，指数就是幂运算，对数是指数的逆运算。举个栗子，如果以 2 作为底数，那么指数和对数运算公式，如下所示：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">指数运算</th>
+<th style="text-align: center;">对数运算</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">32的对数</td>
+<td style="text-align: center;"><span class="math inline">\(32 = 2^5\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(5 = log_2^{32}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">64的对数</td>
+<td style="text-align: center;"><span class="math inline">\(64 = 2^6\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(6 = log_2^{64}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>而离散对数其实本质上与常规的对数运算一样，都是求解<span class="math inline">\(a^x = b\)</span>当中的解<span class="math inline">\(x\)</span>，他们的核心不同点在于，两个运算所处的数学结构不同（即群不同）。传统的对数运算主要定义在实数域或者复数域等连续域当中，而离散对数通常定义在有限的离散群当中（模运算群，椭圆曲线群），这就导致了离散对数的计算复杂度非常高（尤其在大素数模数或椭圆曲线群中）。</p>
+<div class="admonition admonition-note">
+<p class="admonition-title">离散对数的一个实例
+</p>
+<p>离散对数最简单的设置之一是组<span class="math inline">\((\mathbb{Z}_p)^x\)</span>。这是以素数 <span class="math inline">\(p\)</span> 为模的一个乘法组。它的元素是以 <span class="math inline">\(p\)</span> 为模的同余类，并且两个元素的组乘积可以在元素的普通整数乘法运算之后再模 <span class="math inline">\(p\)</span> 得到。</p>
+<p>上述组中，一个数的 <span class="math inline">\(k\)</span> 次幂可以通过将其 <span class="math inline">\(k\)</span> 次幂作为整数求出之后，再除以 <span class="math inline">\(p\)</span> 求出余数的方式来计算。当涉及的数字很大时，在计算过程中多次减小模 <span class="math inline">\(p\)</span> 会更加具有效率。不管使用哪种特定算法，都会调用该操作：模幂运算。例如，研究<span class="math inline">\((\mathbb{Z}_{17})^x\)</span>。为了计算该组中的<span class="math inline">\(3^4\)</span> ，计算得到<span class="math inline">\(3^4 = 81\)</span>，然后用<span class="math inline">\(81\)</span>除以<span class="math inline">\(17\)</span>，得到大小为<span class="math inline">\(13\)</span>的余数。因此在组<span class="math inline">\((\mathbb{Z}_{17})^x\)</span>中<span class="math inline">\(3^4 = 13\)</span>。</p>
+<p>离散对数就是逆运算。例如，研究关于 <span class="math inline">\(k\)</span> 的方程<span class="math inline">\(3^k ≡ 13 (mod\ 17)\)</span>。在上面的例子中，一个解是 <span class="math inline">\(k = 4\)</span>，但是这不是唯一的解。由于<span class="math inline">\(3^{16} ≡1(mod\ 17)\)</span>-遵循费马小定理-因此，如果 <span class="math inline">\(n\)</span> 是一个整数，那么就有<span class="math inline">\(3^{4+16n} ≡ 3^4 × (3^{16})^n ≡ 13 × 1^n ≡ 13 (mod\ 17)\)</span>。因此，这个方程有无穷多个<span class="math inline">\(4 + 16n\)</span>形式的解。此外，因为<span class="math inline">\(16\)</span>是满足<span class="math inline">\(3^m ≡ 1 (mod\ 17)\)</span>的最小正整数 <span class="math inline">\(m\)</span> ，所以这些是方程仅有的解。等价地，所有可能解的集合可以由一个约束条件来表示，该约束条件为 <span class="math inline">\(k ≡ 4 (mod\ 16)\)</span>。</p>
+</div>
+<h1 id="dh算法">DH算法</h1>
+<p>认识了离散对数，我们来看看 DH 算法是如何密钥交换的。现假设小红和小明约定使用 DH 算法来交换密钥，那么基于离散对数，小红和小明需要先确定模数和底数作为算法的参数，这两个参数是公开的，用 <span class="math inline">\(P\)</span> 和 <span class="math inline">\(G\)</span> 来代称。</p>
+<p>然后小红和小明各自生成一个随机整数作为私钥，双方的私钥要各自严格保管，不能泄漏，小红的私钥用 <span class="math inline">\(a\)</span> 代称，小明的私钥用 <span class="math inline">\(b\)</span> 代称。</p>
+<p>现在小红和小明双方都有了 <span class="math inline">\(P\)</span> 和 <span class="math inline">\(G\)</span> 以及各自的私钥，于是就可以计算出公钥：</p>
+<ul>
+<li>小红的公钥记作 <span class="math inline">\(A\)</span>，<span class="math inline">\(A = G ^ a ( mod\ P )\)</span>；</li>
+<li>小明的公钥记作 <span class="math inline">\(B\)</span>，<span class="math inline">\(B = G ^ b ( mod\ P )\)</span>；</li>
+</ul>
+<p><span class="math inline">\(A\)</span> 和 <span class="math inline">\(B\)</span> 也是公开的，因为根据离散对数的原理，从真数（<span class="math inline">\(A\)</span> 和 <span class="math inline">\(B\)</span>）反向计算对数 <span class="math inline">\(a\)</span> 和 <span class="math inline">\(b\)</span> 是非常困难的，至少在现有计算机的计算能力是无法破解的，如果量子计算机出来了，那就有可能被破解，当然如果量子计算机真的出来了，那么密钥协商算法就要做大的升级了。</p>
+<p>双方交换各自 DH 公钥后，小红手上共有 <span class="math inline">\(5\)</span> 个数：<span class="math inline">\(P\)</span>、<span class="math inline">\(G\)</span>、<span class="math inline">\(a\)</span>、<span class="math inline">\(A\)</span>、<span class="math inline">\(B\)</span>，小明手上也同样共有 5 个数：<span class="math inline">\(P\)</span>、<span class="math inline">\(G\)</span>、<span class="math inline">\(b\)</span>、<span class="math inline">\(B\)</span>、<span class="math inline">\(A\)</span>。然后小红执行运算：<span class="math inline">\(B ^ a ( mod\ P )\)</span>，其结果为 <span class="math inline">\(K\)</span>，因为离散对数的幂运算有交换律，所以小明执行运算：<span class="math inline">\(A ^ b ( mod\ P )\)</span>，得到的结果也是 <span class="math inline">\(K\)</span>。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/rwm38y35kk.webp" alt="DH算法流程"></p>
+<p>这个 <span class="math inline">\(K\)</span> 就是小红和小明之间用的对称加密密钥，可以作为会话密钥使用（但是通常不这么做）。</p>
+<p>可以看到，整个密钥协商过程中，小红和小明公开了 <span class="math inline">\(4\)</span> 个信息：<span class="math inline">\(P\)</span>、<span class="math inline">\(G\)</span>、<span class="math inline">\(A\)</span>、<span class="math inline">\(B\)</span>，其中 <span class="math inline">\(P\)</span>、<span class="math inline">\(G\)</span> 是算法的参数，<span class="math inline">\(A\)</span> 和 <span class="math inline">\(B\)</span> 是公钥，而 <span class="math inline">\(a\)</span>、<span class="math inline">\(b\)</span> 是双方各自保管的私钥，黑客无法获取这 <span class="math inline">\(2\)</span> 个私钥，因此黑客只能从公开的 <span class="math inline">\(P\)</span>、<span class="math inline">\(G\)</span>、<span class="math inline">\(A\)</span>、<span class="math inline">\(B\)</span> 入手，计算出离散对数（私钥）。</p>
+<p>前面也多次强调， 根据离散对数的原理，如果 <span class="math inline">\(P\)</span> 是一个大数，在现有的计算机的计算能力是很难破解出 私钥 <span class="math inline">\(a\)</span>、<span class="math inline">\(b\)</span> 的，破解不出私钥，也就无法计算出主密钥，因此 DH 密钥交换是安全的。</p>
+<h1 id="dhe算法">DHE算法</h1>
+<p>根据私钥生成的方式，DH 算法分为两种实现：</p>
+<ul>
+<li>static DH 算法，这个是已经被废弃了。</li>
+<li>DHE 算法，现在常用的。</li>
+</ul>
+<p>static DH 算法里有一方的私钥是静态的，也就说每次密钥协商的时候有一方的私钥都是一样的，一般是服务器方固定，即 a 不变，客户端的私钥则是随机生成的。</p>
+<p>于是，DH 交换密钥时就只有客户端的公钥是变化，而服务端公钥是不变的，那么随着时间延长，黑客就会截获海量的密钥协商过程的数据，因为密钥协商的过程有些数据是公开的，黑客就可以依据这些数据暴力破解出服务器的私钥，然后就可以计算出主密钥了，于是之前截获的加密数据会被破解，所以 static DH 算法不具备前向安全性。</p>
+<p>既然固定一方的私钥有被破解的风险，那么干脆就让双方的私钥在每次密钥交换通信时，都是随机生成的、临时的，这个方式也就是 DHE 算法，E 全称是 ephemeral（临时性的）。所以，即使有个牛逼的黑客破解了某一次通信过程的私钥，其他通信过程的私钥仍然是安全的，因为每个通信过程的私钥都是没有任何关系的，都是独立的，这样就保证了「<strong>前向安全</strong>」。</p>
+<h1 id="ecdhe算法">ECDHE算法</h1>
+<p>DHE 算法由于计算性能不佳，因为需要做大量的乘法，为了提升 DHE 算法的性能，所以就出现了现在广泛用于密钥交换算法 —— <strong>ECDHE 算法</strong>。</p>
+<p>ECDHE 算法是在 DHE 算法的基础上利用了 ECC 椭圆曲线特性，可以用更少的计算量计算出公钥，以及最终的会话密钥。</p>
+<p>小红和小明使用 ECDHE 密钥交换算法的过程：</p>
+<ul>
+<li>双方事先确定好使用哪种椭圆曲线，和曲线上的基点 <span class="math inline">\(G\)</span>，这两个参数都是公开的；</li>
+<li>双方各自随机生成一个随机数作为私钥<span class="math inline">\(d\)</span>，并与基点 <span class="math inline">\(G\)</span>相乘得到公钥<span class="math inline">\(Q\)</span>（<span class="math inline">\(Q = dG\)</span>），此时小红的公私钥为 <span class="math inline">\(Q_1\)</span> 和 <span class="math inline">\(d_1\)</span>，小明的公私钥为 <span class="math inline">\(Q_2\)</span> 和 <span class="math inline">\(d_2\)</span>；</li>
+<li>双方交换各自的公钥，最后小红计算点<span class="math inline">\(（x_1，y_1） = d_1Q_2\)</span>，小明计算点<span class="math inline">\(（x_2，y_2） = d_2Q_1\)</span>，由于椭圆曲线上是可以满足乘法交换和结合律，所以 <span class="math inline">\(d_1Q_2 = d_1d_2G = d_2d_1G = d_2Q_1\)</span> ，因此双方的 <span class="math inline">\(x\)</span> 坐标是一样的，所以它是共享密钥，也就是预主密钥。</li>
+</ul>
+<p>这个过程中，双方的私钥都是随机、临时生成的，都是不公开的，即使根据公开的信息（椭圆曲线、公钥、基点 G）也是很难计算出椭圆曲线上的离散对数（私钥）。</p>
+<h1 id="ecdhe握手过程">ECDHE握手过程</h1>
+<p>知道了 ECDHE 算法基本原理后，我们就结合实际的情况来看看。 我用 Wireshark 工具抓了用 ECDHE 密钥协商算法的 TSL 握手过程，可以看到是四次握手：</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/pzdzgr0mln.webp"></p>
+<p>细心的小伙伴应该发现了，<strong>使用了 ECDHE，在 TLS 第四次握手前，客户端就已经发送了加密的 HTTP 数据</strong>，而对于 RSA 握手过程，必须要完成 TLS 四次握手，才能传输应用数据。</p>
+<p>所以，<strong>ECDHE 相比 RSA 握手过程省去了一个消息往返的时间</strong>，这个有点「抢跑」的意思，它被称为是「<em>TLS False Start</em>」，跟「<em>TCP Fast Open</em>」有点像，都是在还没连接完全建立前，就发送了应用数据，这样便提高了传输的效率。</p>
+<p>其详细的通信流程图如下：<br>
+<img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/3602849187.webp"></p>
+<h2 id="tls第一次握手-1">TLS第一次握手</h2>
+<p>客户端首先会发一个「<strong>Client Hello</strong>」消息，消息里面有客户端使用的 TLS 版本号、支持的密码套件列表，以及生成的<strong>随机数（Client Random）</strong>。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/s66ayc0rat.webp"></p>
+<h2 id="tls第二次握手-1">TLS第二次握手</h2>
+<p>服务端收到客户端的「打招呼」，同样也要回礼，会返回「<strong>Server Hello</strong>」消息，消息面有服务器确认的 TLS 版本号，也给出了一个<strong>随机数（Server Random）</strong>，然后从客户端的密码套件列表选择了一个合适的密码套件。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/t0heop0ra2.webp"></p>
+<p>不过，这次选择的密码套件就和 RSA 不一样了，我们来分析一下这次的密码套件的意思。</p>
+<p>「<strong>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</strong>」</p>
+<ul>
+<li>密钥协商算法使用 ECDHE；</li>
+<li>签名算法使用 RSA；</li>
+<li>握手后的通信使用 AES 对称算法，密钥长度 256 位，分组模式是 GCM；</li>
+<li>摘要算法使用 SHA384；</li>
+</ul>
+<p>接着，服务端为了证明自己的身份，发送「<strong>Certificate</strong>」消息，会把证书也发给客户端。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/8z6ijqontn.webp"></p>
+<p>这一步就和 RSA 握手过程有很大到区别了，因为服务端选择了 ECDHE 密钥协商算法，所以会在发送完证书后，发送「<strong>Server Key Exchange</strong>」消息。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/dnkq19f2kp.webp"></p>
+<p>这个过程服务器做了三件事：</p>
+<ul>
+<li>选择了名为 <strong>named_curve</strong> 的椭圆曲线，选好了椭圆曲线相当于椭圆曲线基点 <span class="math inline">\(G\)</span> 也定好了，这些都会公开给客户端；</li>
+<li>生成随机数作为服务端椭圆曲线的私钥，保留到本地；</li>
+<li>根据基点 <span class="math inline">\(G\)</span> 和私钥计算出服务端的椭圆曲线公钥，这个会公开给客户端。</li>
+</ul>
+<p>为了保证这个椭圆曲线的公钥不被第三方篡改，服务端会用 RSA 签名算法给服务端的椭圆曲线公钥做个签名。</p>
+<p>随后，就是「<strong>Server Hello Done</strong>」消息，服务端跟客户端表明：“这些就是我提供的信息，打招呼完毕”。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/e9gsbztuu3.webp"></p>
+<p>至此，TLS 两次握手就已经完成了，目前客户端和服务端通过明文共享了这几个信息：<strong>Client Random</strong>、<strong>Server Random</strong> 、<strong>使用的椭圆曲线</strong>、<strong>椭圆曲线基点 G</strong>、<strong>服务端椭圆曲线的公钥</strong>，这几个信息很重要，是后续生成主密钥和会话密钥的材料。</p>
+<h2 id="tls第三次握手-1">TLS第三次握手</h2>
+<p>客户端收到了服务端的证书后，自然要校验证书是否合法，如果证书合法，那么服务端到身份就是没问题的。校验证书到过程，会走证书链逐级验证，确认证书的真实性，再用证书的公钥验证签名，这样就能确认服务端的身份了，确认无误后，就可以继续往下走。</p>
+<p>客户端会生成一个随机数作为客户端椭圆曲线的私钥，然后再根据服务端前面给的信息，生成客户端的椭圆曲线公钥，然后用「<strong>Client Key Exchange</strong>」消息发给服务端。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/pi6fj19jla.webp"></p>
+<p>至此，双方都有对方的椭圆曲线公钥、自己的椭圆曲线私钥、椭圆曲线基点 <span class="math inline">\(G\)</span>。于是，双方都就计算出点<span class="math inline">\(（x，y）\)</span>，其中 <span class="math inline">\(x\)</span> 坐标值双方都是一样的，前面说 ECDHE 算法时候，说 <span class="math inline">\(x\)</span> 可以作为会话密钥，但实际应用中，<span class="math inline">\(x\)</span> 还不是最终的会话密钥。</p>
+<p>还记得 TLS 握手阶段，客户端和服务端都会生成了一个随机数传递给对方吗？<strong>最终的主密钥，就是用「客户端随机数 + 服务端随机数 + x（ECDHE 算法算出的共享密钥） 」三个材料生成的</strong>。之所以这么麻烦，是因为 TLS 设计者不信任客户端或服务器「伪随机数」的可靠性，为了保证真正的完全随机，把三个不可靠的随机数混合起来，那么「随机」的程度就非常高了，安全性更高。然后再利用<strong>主密钥</strong>，使用<strong>PRF</strong>算法得到会话密钥</p>
+<p>算好会话密钥后，客户端会发一个「<strong>Change Cipher Spec</strong>」消息，告诉服务端后续改用对称算法加密通信。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/dubg1j6fdg.webp"></p>
+<p>接着，客户端会发「<strong>Encrypted Handshake Message</strong>」消息，把之前发送的数据做一个摘要，再用对称密钥加密一下，让服务端做个验证，验证下本次生成的对称密钥是否可以正常使用。</p>
+<p><img src="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/tipgyu0eqd.webp"></p>
+<h2 id="tls第四次握手-1">TLS第四次握手</h2>
+<p>最后，服务端也会有一个同样的操作，发「<strong>Change Cipher Spec</strong>」和「<strong>Encrypted Handshake Message</strong>」消息，如果双方都验证加密和解密没问题，那么握手正式完成。于是，就可以正常收发加密的 HTTP 请求和响应了。</p>
+<h1 id="总结">总结</h1>
+<p>RSA 和 ECDHE 握手过程的区别：</p>
+<ul>
+<li>RSA 密钥协商算法「不支持」前向保密，ECDHE 密钥协商算法「支持」前向保密；</li>
+<li>使用了 RSA 密钥协商算法，TLS 完成四次握手后，才能进行应用数据传输，而对于 ECDHE 算法，客户端可以不用等服务端的最后一次 TLS 握手，就可以提前发出加密的 HTTP 数据，节省了一个消息的往返时间（RTT）；</li>
+<li>使用 ECDHE， 在 TLS 第 2 次握手中，会出现服务器端发出的「<strong>Server Key Exchange</strong>」消息，而 RSA 握手过程没有该消息（握手流程上的区别主要在这里）；</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.narutozxp.top">narutozxp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.narutozxp.top/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/">https://www.narutozxp.top/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.narutozxp.top" target="_blank">narutozxp</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/TLS/">TLS</a></div><div class="post_share"><div class="social-share" data-image="/img/12.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/"><img class="prev-cover" src="/img/34.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">RL理论基础</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/31/CRC%E6%A0%A1%E9%AA%8C%E8%AF%A6%E8%A7%A3/"><img class="next-cover" src="/img/15.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CRC校验详解</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#tls%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">TLS握手过程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rsa%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">RSA握手过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tls%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="toc-number">2.1.</span> <span class="toc-text">TLS第一次握手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tls%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="toc-number">2.2.</span> <span class="toc-text">TLS第二次握手</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%AA%8C%E8%AF%81%E8%AF%81%E4%B9%A6"><span class="toc-number">2.2.1.</span> <span class="toc-text">客户端验证证书</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E5%92%8Cca%E6%9C%BA%E6%9E%84"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">数字证书和CA机构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E7%AD%BE%E5%8F%91%E5%92%8C%E9%AA%8C%E8%AF%81%E6%B5%81%E7%A8%8B"><span class="toc-number">2.2.1.2.</span> <span class="toc-text">数字证书签发和验证流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%81%E4%B9%A6%E9%93%BE"><span class="toc-number">2.2.1.3.</span> <span class="toc-text">证书链</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tls%E7%AC%AC%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="toc-number">2.3.</span> <span class="toc-text">TLS第三次握手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tls%E7%AC%AC%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="toc-number">2.4.</span> <span class="toc-text">TLS第四次握手</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rsa%E7%AE%97%E6%B3%95%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-number">3.</span> <span class="toc-text">RSA算法的缺陷</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A6%BB%E6%95%A3%E5%AF%B9%E6%95%B0"><span class="toc-number">4.</span> <span class="toc-text">离散对数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#dh%E7%AE%97%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">DH算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#dhe%E7%AE%97%E6%B3%95"><span class="toc-number">6.</span> <span class="toc-text">DHE算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ecdhe%E7%AE%97%E6%B3%95"><span class="toc-number">7.</span> <span class="toc-text">ECDHE算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ecdhe%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B"><span class="toc-number">8.</span> <span class="toc-text">ECDHE握手过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tls%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8F%A1%E6%89%8B-1"><span class="toc-number">8.1.</span> <span class="toc-text">TLS第一次握手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tls%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%8F%A1%E6%89%8B-1"><span class="toc-number">8.2.</span> <span class="toc-text">TLS第二次握手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tls%E7%AC%AC%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B-1"><span class="toc-number">8.3.</span> <span class="toc-text">TLS第三次握手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tls%E7%AC%AC%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B-1"><span class="toc-number">8.4.</span> <span class="toc-text">TLS第四次握手</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">9.</span> <span class="toc-text">总结</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@11.12.1/dist/mermaid.min.js"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}</script><script src="/js/twikoo_emotion_biger.js"></script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.narutozxp.top',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.narutozxp.top',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo@1/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/narutozxp/live2d-widget@latest/autoload.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

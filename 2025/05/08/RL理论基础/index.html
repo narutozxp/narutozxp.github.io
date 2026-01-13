@@ -1,0 +1,1250 @@
+<!DOCTYPE html><html class="hide-aside" lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>RL理论基础 | narutozxp</title><meta name="keywords" content="RL"><meta name="author" content="narutozxp"><meta name="copyright" content="narutozxp"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="强化学习基础 强化学习概述 强化学习（reinforcement learning，RL） 讨论的问题是智能体（agent）怎么在复杂、不确定的环境（environment）中最大化它能获得的奖励。如图 1.1 所示，强化学习由两部分组成：智能体和环境。在强化学习过程中，智能体与环境一直在交互。智能体在环境中获取某个状态后，它会利用该状态输出一个动作 （action），这个动作也称为决策（deci">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RL理论基础">
+<meta property="og:url" content="https://www.narutozxp.top/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="narutozxp">
+<meta property="og:description" content="强化学习基础 强化学习概述 强化学习（reinforcement learning，RL） 讨论的问题是智能体（agent）怎么在复杂、不确定的环境（environment）中最大化它能获得的奖励。如图 1.1 所示，强化学习由两部分组成：智能体和环境。在强化学习过程中，智能体与环境一直在交互。智能体在环境中获取某个状态后，它会利用该状态输出一个动作 （action），这个动作也称为决策（deci">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.narutozxp.top/img/34.webp">
+<meta property="article:published_time" content="2025-05-08T10:23:02.000Z">
+<meta property="article:modified_time" content="2025-12-25T08:08:15.000Z">
+<meta property="article:author" content="narutozxp">
+<meta property="article:tag" content="RL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.narutozxp.top/img/34.webp"><link rel="shortcut icon" href="/img/myself.webp"><link rel="canonical" href="https://www.narutozxp.top/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great%20Vibes" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'RL理论基础',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-12-25 08:08:15'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous"> <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script> <link rel="stylesheet" href="/css/custom.css"> <link rel="stylesheet" href="/css/font.css"> <script src="https://wavedrom.com/wavedrom.min.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/default.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/dark.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/narrow.js" type="text/javascript"></script> <script src="https://wavedrom.com/skins/lowkey.js" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js" type="text/javascript"></script> <script data-pjax src="https://cdn.jsdelivr.net/npm/abcjs/dist/abcjs-basic-min.js" type="text/javascript"></script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/abcjs/abcjs-audio.css"/> <script defer data-pjax src="https://cn.vercount.one/js" type="text/javascript"></script>
+<script data-pjax type="text/javascript"> WaveDrom.ProcessAll(); mermaid.run(); </script> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.5.0/style.css" /> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"> <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script> <meting-js id="2217718183" server="netease" type="playlist" autoplay = "false" api = "https://v.iarc.top/?server=:server&type=:type&id=:id&r=:r" mini = "true" fixed = "true" loop = "all" order = 'random' list-folded = "true"> </meting-js><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/myself.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/34.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">narutozxp</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">RL理论基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-05-08T10:23:02.000Z" title="发表于 2025-05-08 10:23:02">2025-05-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-25T08:08:15.000Z" title="更新于 2025-12-25 08:08:15">2025-12-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI/">AI</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">28k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>99分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="RL理论基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="强化学习基础">强化学习基础</h1>
+<h2 id="强化学习概述">强化学习概述</h2>
+<p><strong>强化学习（reinforcement learning，RL）</strong> 讨论的问题是智能体（agent）怎么在复杂、不确定的环境（environment）中最大化它能获得的奖励。如图 1.1 所示，强化学习由两部分组成：智能体和环境。在强化学习过程中，智能体与环境一直在交互。智能体在环境中获取某个状态后，它会利用该状态输出一个动作 （action），这个动作也称为决策（decision）。然后这个动作会在环境中被执行，环境会根据智能体采取的动作，输出下一个状态以及当前这个动作带来的奖励。智能体的目的就是尽可能多地从环境中获取奖励。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/a65c51a6551741678eebe3e9ad33c572957836b591114c4ab3b78962b27f25b4.webp" alt="图 1.1 强化学习示意"></p>
+<h3 id="强化学习与监督学习">强化学习与监督学习</h3>
+<p>我们可以把强化学习与监督学习做一个对比。以图片分类为例，如图 1.2 所示，<strong>监督学习（supervised learning）</strong>假设我们有大量被标注的数据，比如汽车、飞机、椅子这些被标注的图片，这些图片都要满足独立同分布，即它们之间是没有关联关系的。假设我们训练一个分类器，比如神经网络。为了分辨输入的图片中是汽车还是飞机，在训练过程中，需要把正确的标签信息传递给神经网络。当神经网络做出错误的预测时，比如输入汽车的图片，它预测出来是飞机，我们就会直接告诉它，该预测是错误的，正确的标签应该是汽车。最后我们根据类似错误写出一个损失函数（loss function），通过反向传播（back propagation）来训练神经网络。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/cefd394cb8ae4fb5b8f1e99204c0ee7c0a63a8d2338f4b899886d6a82a457309.webp" alt="图 1.2 监督学习"></p>
+<p>所以在监督学习过程中，有两个假设：</p>
+<ul>
+<li>输入的数据（标注的数据）都应是没有关联的。因为如果输入的数据有关联，学习器（learner）是不好学习的。</li>
+<li>需要告诉学习器正确的标签是什么，这样它可以通过正确的标签来修正自己的预测。</li>
+</ul>
+<blockquote>
+<p>通常假设样本空间中全体样本服从一个未知分布，我们获得的每个样本都是独立地从这个分布上采样获得的，即独立同分布(independent and identically distributed，简称 i.i.d.)。</p>
+</blockquote>
+<p>在强化学习中，监督学习的两个假设其实都不能得到满足。以雅达利（Atari） 游戏 Breakout 为例，如图 1.3 所示，这是一个打砖块的游戏，控制木板左右移 动从而把球反弹到上面来消除砖块。在玩游戏的过程中，我们可以发现智能体得到的观测（observation）不是独立同分布的，上一帧与下一帧间其实有非常强的 连续性。我们得到的数据是相关的时间序列数据，不满足独立同分布。另外，我 们并没有立刻获得反馈，游戏没有告诉我们哪个动作是正确动作。比如现在把木板往右移，这只会使得球往上或者往左一点儿，我们并不会得到即时的反馈。因 此，强化学习之所以困难，是因为智能体不能得到即时的反馈，然而我们依然希望智能体在这个环境中学习。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/7453f6746ab14c69998d29c7e18b510366d976a0a6c942fdbe285af3ee6819c4.webp" alt="图 1.3 雅达利游戏Breakout"></p>
+<p>如图 1.4 所示，强化学习的训练数据就是一个玩游戏的过程。我们从第 1 步开始，采取一个动作，比如我们把木板往右移，接到球。第 2 步我们又做出动作，得到的训练数据是一个玩游戏的序列。比如现在是在第 3 步，我们把这个序列放进网络，希望网络可以输出一个动作，即在当前的状态应该输出往右移或 者往左移。这里有个问题，我们没有标签来说明现在这个动作是正确还是错误的，必须等到游戏结束才可能知道，这个游戏可能 10s 后才结束。现在这个动作到底对最后游戏是否能赢有无帮助，我们其实是不清楚的。这里我们就面临<strong>延迟奖励（delayed reward）</strong> 的问题，延迟奖励使得训练网络非常困难。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/3459c0420ce641ae963cb44d3ca5b54e4484294b94c84f3d893d84c9927d8b2d.webp" alt="图 1.4 强化学习：玩Breakout"></p>
+<p>强化学习和监督学习的区别如下。</p>
+<ol type="1">
+<li><p>强化学习输入的样本是序列数据，而不像监督学习里面样本都是独立的。</p></li>
+<li><p>学习器并没有告诉我们每一步正确的动作应该是什么，学习器需要自己去发现哪些动作可以带来 最多的奖励，只能通过不停地尝试来发现最有利的动作。</p></li>
+<li><p>智能体获得自己能力的过程，其实是不断地试错探索（trial-and-error exploration）的过程。探索 （exploration）和利用（exploitation）是强化学习里面非常核心的问题。其中，探索指尝试一些新的动作， 这些新的动作有可能会使我们得到更多的奖励，也有可能使我们“一无所有”；利用指采取已知的可以获 得最多奖励的动作，重复执行这个动作，因为我们知道这样做可以获得一定的奖励。因此，我们需要在探 索和利用之间进行权衡，这也是在监督学习里面没有的情况。</p></li>
+<li><p>在强化学习过程中，没有非常强的监督者（supervisor），只有<strong>奖励信号（reward signal）</strong>，并且奖励信号是延迟的，即环境会在很久以后告诉我们之前我们采取的动作到底是不是有效的。因为我们没有得到即时反馈，所以智能体使用强化学习来学习就非常困难。当我们采取一个动作后，如果我们使用监督学习，我们就可以立刻获得一个指导，比如，我们现在采取了一个错误的动作，正确的动作应该是什么。而在强化学习里面，环境可能会告诉我们这个动作是错误的，但是它并没有告诉我们正确的动作是什么。而且更困难的是，它可能是在一两分钟过后告诉我们这个动作是错误的。所以这也是强化学习和监督学习不同的地方。</p></li>
+</ol>
+<p>通过与监督学习的比较，我们可以总结出强化学习的一些特征。</p>
+<ol type="1">
+<li><p>强化学习会试错探索，它通过探索环境来获取对环境的理解。</p></li>
+<li><p>强化学习智能体会从环境里面获得延迟的奖励。</p></li>
+<li><p>在强化学习的训练过程中，时间非常重要。因为我们得到的是有时间关联的数据（sequential data）， 而不是独立同分布的数据。在机器学习中，如果观测数据有非常强的关联，会使得训练非常不稳定。这也 是为什么在监督学习中，我们希望数据尽量满足独立同分布，这样就可以消除数据之间的相关性。</p></li>
+<li><p>智能体的动作会影响它随后得到的数据，这一点是非常重要的。在训练智能体的过程中，很多时 候我们也是通过正在学习的智能体与环境交互来得到数据的。所以如果在训练过程中，智能体不能保持稳 定，就会使我们采集到的数据非常糟糕。我们通过数据来训练智能体，如果数据有问题，整个训练过程就 会失败。所以在强化学习里面一个非常重要的问题就是，怎么让智能体的动作一直稳定地提升。</p></li>
+</ol>
+<h3 id="强化学习的例子">强化学习的例子</h3>
+<p>为什么我们关注强化学习，其中非常重要的一个原因就是强化学习得到的模型可以有超人类的表现。 监督学习获取的监督数据，其实是人来标注的，比如 ImageNet 的图片的标签都是人类标注的。因此我们 可以确定监督学习算法的上限（upper bound）就是人类的表现，标注结果决定了它的表现永远不可能超 越人类。但是对于强化学习，它在环境里面自己探索，有非常大的潜力，它可以获得超越人类的能力的表 现，比如 DeepMind 的 AlphaGo 这样一个强化学习的算法可以把人类顶尖的棋手打败。</p>
+<p>这里给大家举一些在现实生活中强化学习的例子。</p>
+<ol type="1">
+<li><p>在自然界中，羚羊其实也在做强化学习。它刚刚出生的时候，可能都不知道怎么站立，然后它通过试错，一段时间后就可以跑得很快，可以适应环境。</p></li>
+<li><p>我们也可以把股票交易看成强化学习的过程。我们可以不断地买卖股票，然后根据市场给出的反馈来学会怎么去买卖可以让我们的奖励最大化。</p></li>
+<li><p>玩雅达利游戏或者其他电脑游戏，也是一个强化学习的过程，我们可以通过不断试错来知道怎么 玩才可以通关。</p></li>
+</ol>
+<p>图 1.5 所示为强化学习的一个经典例子，即雅达利的 Pong 游戏。游戏中右边的选手把球拍到左边， 然后左边的选手需要把球拍到右边。训练好的强化学习智能体和正常的选手有区别：强化学习的智能体会一直做无意义的振动，而正常的选手不会做出这样的动作。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/a503ade5195c4bcda969fb755ed788203857d734a4cf43ca9e386083db3a8c5d.webp" alt="图 1.5 Pong游戏"></p>
+<p>在 Pong 游戏里面，其实只有两个动作：往上或者往下。如图 1.6 所示，如果强化学习通过学习一个策略网络来进行分类，那么策略网络会输入当前帧的图片，输出所有决策的可能性，比如往上移动的概率。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/97aca2777d8847d395e1d87fb54c14c4376958567fb4459992b5523188247678.webp" alt="图 1.6 强化学习玩 Pong"></p>
+<p>如图 1.7 所示，对于监督学习，我们可以直接告诉智能体正确动作的标签是什么。但在 Pong 游戏中， 我们并不知道它的正确动作的标签是什么。</p>
+<center>基于策略的智能体（policy-based agent）</center>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/76de6614f56544228ad049de75fc102f433de8f754da4df2a9b2178b217eaa53.webp" alt="图 1.7 监督学习玩 Pong"></p>
+<p>在强化学习里面，我们让智能体尝试玩 Pong 游戏，对动作进行采样，直到游戏结束，然后对每个动作进行惩罚。图 1.8 所示为预演（rollout）的一个过程。预演是指我们从当前帧对动作进行采样，生成很多局游戏。我们将当前的智能体与环境交互，会得到一系列观测。每一个观测可看成一个轨迹（trajectory）。 轨迹就是当前帧以及它采取的策略，即状态和动作的序列：</p>
+<p><span class="math display">\[
+\tau=\left(s_{0}, a_{0}, s_{1}, a_{1}, \ldots\right)
+\]</span></p>
+<p>最后结束时，我们会知道到底有没有把这个球拍到对方区域，对方有没有接住，我们是赢了还是输了。我们可以通过观测序列以及最终奖励（eventual reward）来训练智能体，使它尽可能地采取可以获得最终奖励的动作。一场游戏称为一个<strong>回合（episode）</strong> 或者<strong>试验（trial）</strong>。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/b35afcf432014d58b9d190f2c7551d7be28ee003a6e54c46a4694d08ff6da783.webp" alt="图 1.8 可能的预演序列"></p>
+<h3 id="强化学习的历史">强化学习的历史</h3>
+<p>强化学习是有一定的历史的，早期的强化学习，我们称其为标准强化学习。最近业界把强化学习与深度学习结合起来，就形成了<strong>深度强化学习（deep reinforcement learning）</strong>，因此，深度强化学习 = 深度学习 + 强化学习。我们可将标准强化学习和深度强化学习类比于传统的计算机视觉和深度计算机视觉。</p>
+<p>如图 1.9a 所示，传统的计算机视觉由两个过程组成。</p>
+<ol type="1">
+<li>给定一张图片，我们先要提取它的特征，使用一些设计好的特征，比如方向梯度直方图（histogram of oriental gradient，HOG）、可变现的组件模型（deformable part model，DPM）。</li>
+<li>提取这些特征后，我们再单独训练一个分类器。这个分类器可以是支持向量机（support vector machine，SVM）或 Boosting，然后就可以辨别这张图片是狗还是猫。</li>
+</ol>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/ef68670d4f5a4d6482af3cb3dbc60e47ae95a369cbc94a01a0613a8b2b1275b2.webp" alt="（a）传统的计算机视觉"></p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/47f2c7b88afd4cf689849a0ea629f49cae58049332904ab0acb5e31d4001da13.webp" alt="（b）深度计算机视觉"></p>
+<center>图 1.9 传统的计算机视觉与深度计算机视觉的区别</center>
+<p>2012年，Krizhevsky等人提出了AlexNet，AlexNet在ImageNet分类比赛中取得冠军，迅速引起了人们对于卷积神经网络的广泛关注。</p>
+<p>大家就把特征提取以及分类两者合到一块儿去了，就是训练一个神经网络。这个神经网络既可以做特征提取，也可以做分类，它可以实现端到端训练，如图 1.9b 所示，它的参数可以在每一个阶段都得到极大的优化，这是一个非常重要的突破。</p>
+<p>我们可以把神经网络放到强化学习里面。</p>
+<ul>
+<li>标准强化学习：比如 TD-Gammon 玩 Backgammon 游戏的过程，其实就是设计特征，然后训练价值函数的过程，如图 1.10a 所示。标准强化学习先设计很多特征，这些特征可以描述现在整个状态。得到这些特征后，我们就可以通过训练一个分类网络或者分别训练一个价值估计函数来采取动作。</li>
+<li>深度强化学习：自从我们有了深度学习，有了神经网络，就可以把智能体玩游戏的过程改进成一个端到端训练（end-to-end training）的过程，如图 1.10b 所示。我们不需要设计特征，直接输入状态就可以输出动作。我们可以用一个神经网络来拟合价值函数或策略网络，省去特征工程（feature engineering）的过程。</li>
+</ul>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/8942d835f27f4d6598db72ee0d5dfd142b0c0548b55a40afba2a6e13b0984823.webp" alt="（a）标准强化学习"></p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/1978d45c6e68436da807fe9315801864c001a6888ffe4316b9b85384e112dd32.webp" alt="（b）深度强化学习"></p>
+<center>图 1.10 标准强化学习与深度强化学习的区别 </center>
+<h2 id="序列决策">序列决策</h2>
+<h3 id="智能体与环境">智能体与环境</h3>
+<p>接下来我们介绍序列决策（sequential decision making） 过程。强化学习研究的问题是智能体与环 境交互的问题，图 1.12 左边的智能体一直在与图 1.12 右边的<br>
+环境进行交互。智能体把它的动作输出给环境，环境取得这个动作后会进行下一步，把下一步的观测与这个动作带来的奖励返还给智能体。这样的交 互会产生很多观测，智能体的目的是从这些观测之中学到能最大化奖励的策略。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/11c10bff7611437aa6255a1387cc82afd4db16058e51490c89d3181af5c876da.webp" alt="图 1.12 智能体与环境"></p>
+<h3 id="奖励">奖励</h3>
+<p>奖励是由环境给的一种标量的反馈信号（scalar feedback signal），这种信号可显示智能体在某一步采取某个策略的表现如何。强化学习的目的就是最大化智能体可以获得的奖励，智能体在环境里面存在的目的就是最大化它的期望的累积奖励（expected cumulative reward）。不同的环境中，奖励也是不同的。这里给大家举一些奖励的例子。</p>
+<ol type="1">
+<li>比如一个象棋选手，他的目的是赢棋，在最后棋局结束的时候，他就会得到一个正奖励（赢）或 者负奖励（输）。</li>
+<li>在股票管理里面，奖励由股票获取的奖励与损失决定。</li>
+<li>在玩雅达利游戏的时候，奖励就是增加或减少的游戏的分数，奖励本身的稀疏程度决定了游戏的难度。</li>
+</ol>
+<h3 id="序列决策-1">序列决策</h3>
+<p>在一个强化学习环境里面，智能体的目的就是选取一系列的动作来最大化奖励，所以这些选取的动作 必须有长期的影响。但在这个过程里面，智能体的奖励其实是被延迟了的，就是我们现在选取的某一步动作，可能要等到很久后才知道这一步到底产生了什么样的影响。如图 1.13 所示，在玩雅达利的 Pong 游戏 时，我们可能只有到最后游戏结束时，才知道球到底有没有被击打过去。过程中我们采取的上升（up）或 下降（down）动作，并不会直接产生奖励。强化学习里面一个重要的课题就是近期奖励和远期奖励的权衡 （trade-off），研究怎么让智能体取得更多的远期奖励。</p>
+<p>在与环境的交互过程中，智能体会获得很多观测。针对每一个观测，智能体会采取一个动作，也会得到一个奖励。所以历史是观测、动作、奖励的序列：</p>
+<p><span class="math display">\[
+H_{t}=o_{1}, a_{1}, r_{1}, \ldots, o_{t}, a_{t}, r_{t}
+\]</span></p>
+<p>智能体在采取当前动作的时候会依赖于它之前得到的历史，所以我们可以把整个游戏的状态看成关于这个历史的函数：</p>
+<p><span class="math display">\[
+s_{t}=f\left(H_{t}\right)
+\]</span></p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/269c542dad614f14a25174948fc3070ed9b283cbf3cf46608b4b4016343ed4a7.webp" alt="图 1.13 Pong游戏"></p>
+<div class="admonition admonition-question">
+<p class="admonition-title">状态和观测有什么关系？
+</p>
+<p><strong>状态</strong>是对世界的完整描述，不会隐藏世界的信息。<strong>观测</strong>是对状态的部分描述，可能会遗漏一些信息。在深度强化学习中，我们几乎总是用实值的向量、矩阵或者更高阶的张量来表示状态和观测。例如， 我们可以用 RGB 像素值的矩阵来表示一个视觉的观测，可以用机器人关节的角度和速度来表示一个机器人的状态。</p>
+<p>环境有自己的函数<span class="math inline">\(s_{t}^{e}=f^{e}\left(H_{t}\right)\)</span>来更新状态，在智能体的内部也有一个函数<span class="math inline">\(s_{t}^{a}=f^{a}\left(H_{t}\right)\)</span>来更新状态。当智能体的状态与环境的状态等价的时候，即当智能体能够观察到环境的所有状态时，我们称这个环境是 <strong>完全可观测的（fully observed）</strong>。在这种情况下面，强化学习通常被建模成一个 <strong>马尔可夫决策过程（Markov decision process，MDP）</strong> 的问题(可以使用一个五元组表示<span class="math inline">\((S,A,T,R,\gamma)\)</span>)。在马尔可夫决策过程中，<span class="math inline">\(o_t = s_t^e = s_t^a\)</span>。</p>
+<p>但是有一种情况是智能体得到的观测并不能包含环境运作的所有状态，因为在强化学习的设定里面，环境的状态才是真正的所有状态。比如智能体在玩 black jack 游戏，它能看到的其实是牌面上的牌。或者在 玩雅达利游戏的时候，观测到的只是当前电视上面这一帧的信息，我们并没有得到游戏内部里面所有的运作状态。也就是当智能体只能看到部分的观测，我们就称这个环境是 <strong>部分可观测的（partially observed）</strong> 。 在这种情况下，强化学习通常被建模成 <strong>部分可观测马尔可夫决策过程（partially observable Markov decision process, POMDP）</strong> 的问题。部分可观测马尔可夫决策过程是马尔可夫决策过程的一种泛化。部分可观测马尔可夫决策过程依然具有马尔可夫性质，但是假设智能体无法感知环境的状态，只能知道部分观测值。比如在自动驾驶中，智能体只能感知传感器采集的有限的环境信息。部分可观测马尔可夫决策过程可以用一个七元组描述：<span class="math inline">\((S,A,T,R,\Omega,O,\gamma)\)</span>。其中<span class="math inline">\(S\)</span>表示状态空间，为隐变量，<span class="math inline">\(A\)</span>为动作空间，<span class="math inline">\(T(s&#39;|s,a)\)</span>为状态转移概率，<span class="math inline">\(R\)</span>为奖励函数，<span class="math inline">\(\Omega(o|s,a)\)</span>为观测概率，<span class="math inline">\(O\)</span>为观测空间，<span class="math inline">\(\gamma\)</span>为折扣系数。</p>
+</div>
+<h2 id="动作空间">动作空间</h2>
+<p>不同的环境允许不同种类的动作。在给定的环境中，有效动作的集合经常被称为 <strong>动作空间（action space）</strong>。像雅达利游戏和围棋（Go）这样的环境有 <strong>离散动作空间（discrete action space）</strong>，在这个动作空间里，智能体的动作数量是有限的。在其他环境，比如在物理世界中控制一个智能体，在这个环境中就有 <strong>连续动作空间（continuous action space）</strong>。在连续动作空间中，动作是实值的向量。</p>
+<p>例如，走迷宫机器人如果只有往东、往南、往西、往北这 4 种移动方式，则其动作空间为离散动作空间；如果机器人可以向 360 。中的任意角度进行移动，则其动作空间为连续动作空间。</p>
+<h2 id="agnet的组成成分和类型">Agnet的组成成分和类型</h2>
+<p><strong>部分可观测马尔可夫决策过程(Partially Observable Markov Decision Processes, POMDP)</strong> 是一个马尔可夫决策过程的泛化。POMDP依然具有一个强化学习 agent，它可能有一个或多个如下的组成成分。</p>
+<ul>
+<li><strong>策略（policy）</strong>。智能体会用策略来选取下一步的动作。</li>
+<li><strong>价值函数（value function）</strong>。我们用价值函数来对当前状态进行评估。价值函数用于评估智能体进入某个状态后，可以对后面的奖励带来多大的影响。价值函数值越大，说明智能体进入这个状态越有利。</li>
+<li><strong>模型（model）</strong>。模型表示智能体对环境的状态进行理解，它决定了环境中世界的运行方式。下面我们深入了解这 3 个组成部分的细节。</li>
+</ul>
+<h3 id="策略">策略</h3>
+<p>策略是智能体用来决定下一步动作的函数。策略可以是一个确定性的函数，也可以是一个随机的函数。确定性策略就是给定一个状态，智能体会输出一个动作；而随机策略则是给定一个状态，智能体会输出一个动作的概率分布。</p>
+<p><strong>随机策略（stochastic policy）</strong> 就是<span class="math inline">\(\pi\)</span>函数, 即<span class="math inline">\(\pi(a \mid s) = p(a_t = a \mid s_t = s)\)</span>。输入当前的状态，输出一个概率。<br>
+这个概率是智能体所有动作的概率，然后对这个概率分布进行采用，可得到智能体将采取的动作。比如在雅达利游戏里面，如往上移动的概率是 0.7，往下移动的概率是 0.3，就可以通过采样得到最终所要实施的动作。</p>
+<p><strong>确定性策略（deterministic policy）</strong> 就是智能体直接采用最优可能的动作，即<span class="math inline">\(a^{*}=\underset{a}{\arg \max} \pi(a \mid s)\)</span></p>
+<h3 id="价值函数">价值函数</h3>
+<p>价值函数的值是对未来奖励的预测，我们用它来评估状态的好坏。<br>
+价值函数里面有一个折扣因子（discount factor），我们希望在尽可能短的时间里面得到尽可能多的奖励。比如现在给我们两个选择：10天后给我们100块钱或者现在给我们100块钱。我们肯定更希望现在就给我们 100 块钱，因为我们可以把这 100 块钱存在银行里面，这样就会有一些利息。因此，我们可以把折扣因子放到价值函数的定义里面，价值函数的定义为</p>
+<p><span class="math display">\[
+V_{\pi}(s) \doteq \mathbb{E}_{\pi}\left[G_{t} \mid s_{t}=s\right]=\mathbb{E}_{\pi}\left[\sum_{k=0}^{\infty} \gamma^{k} r_{t+k+1} \mid s_{t}=s\right], \text{对于所有的} s \in S
+\]</span></p>
+<p>其中，价值函数的下标是<span class="math inline">\(\pi\)</span>函数，因此价值函数其实反映了在<span class="math inline">\(\pi\)</span>策略下，某一个状态平均可以得到多少奖励。期望<span class="math inline">\(E_{\pi}\)</span>是指在策略 <span class="math inline">\(\pi\)</span> 下的期望。<span class="math inline">\(G_t\)</span> 是从时间 <span class="math inline">\(t\)</span> 开始到结束的轨迹的 <strong>折扣化回报（Discounted Return）</strong> (由于从<span class="math inline">\(s\)</span>状态开始，直到结束，轨迹有很多种，因此对其求均值)。<span class="math inline">\(\gamma\)</span> 是折扣因子，<span class="math inline">\(\gamma \in [0,1]\)</span>。如果 <span class="math inline">\(\gamma=0\)</span>，那么我们只考虑当前的奖励；如果 <span class="math inline">\(\gamma=1\)</span>，那么我们就考虑所有的奖励。</p>
+<p>我们还有一种价值函数：Q 函数。Q 函数里面包含两个变量：状态和动作。其定义为</p>
+<p><span class="math display">\[
+Q_{\pi}(s, a) \doteq \mathbb{E}_{\pi}\left[G_{t} \mid s_{t}=s, a_{t}=a\right]=\mathbb{E}_{\pi}\left[\sum_{k=0}^{\infty} \gamma^{k} r_{t+k+1} \mid s_{t}=s, a_{t}=a\right]
+\]</span></p>
+<p>所以我们未来可以获得奖励的期望取决于当前的状态和当前的动作。Q函数是强化学习算法里面要学习的一个函数。因为当我们得到 Q 函数后，进入某个状态要采取的最优动作可以通过 Q 函数得到。</p>
+<h3 id="模型">模型</h3>
+<p>第3个组成部分是模型，模型决定了下一步的状态。下一步的状态取决于当前的状态以及当前采取的动作。它由状态转移概率和奖励函数两个部分组成。状态转移概率即</p>
+<p><span class="math display">\[
+p_{s s^{\prime}}^{a}=p\left(s_{t+1}=s^{\prime} \mid s_{t}=s, a_{t}=a\right)
+\]</span></p>
+<p>奖励函数是指我们在当前状态采取了某个动作，可以得到多大的奖励，即</p>
+<p><span class="math display">\[
+R(s,a)=\mathbb{E}\left[r_{t+1} \mid s_{t}=s, a_{t}=a\right]
+\]</span></p>
+<p>当我们有了策略、价值函数和模型3个组成部分后，就形成了一个马尔可夫决策过程（Markov decision process）。如图 1.15 所示，这个决策过程可视化了状态之间的转移以及采取的动作。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/d3fdeedcc36f47dda8b20690e679329fa800110926474c3dbe8416b1c7cf38e4.webp" alt="图 1.15 马尔可夫决策过程"></p>
+<p>我们来看一个走迷宫的例子。如图 1.16 所示，要求智能体从起点（start）开始，然后到达终点（goal）的位置。每走一步，我们就会得到 -1 的奖励。我们可以采取的动作是往上、下、左、右走。我们用现在智能体所在的位置来描述当前状态。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/dcc3fc0b0fcd401db01d7c877bbd6f949a3ea241ea014f28b4b0b971c2a66705.webp" alt="图 1.16 走迷宫的例子"></p>
+<p>我们可以用不同的强化学习方法来解这个环境。</p>
+<p>如果我们采取 <strong>基于策略的强化学习（policy-based RL）</strong> 方法，当学习好了这个环境后，在每一个状态，我们都会得到一个最佳的动作。如图 1.17 所示，比如我们现在在起点位置，我们知道最佳动作是往右走；在第二格的时候，得到的最佳动作是往上走；第三格是往右走......通过最佳的策略，我们可以最快地到达终点。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/9cf6d3bfd9154dfda42de3496dc9df88156976ffcbb646d28406a63d7c18cd48.webp" alt="图 1.17 使用基于策略的强化学习方法得到的结果"></p>
+<p>如果换成 <strong>基于价值的强化学习（value-based RL）</strong> 方法，利用价值函数作为导向，我们就会得到另外一种表征，每一个状态会返回一个价值。如图 1.18 所示，比如我们在起点位置的时候，价值是-16，因为我们最快可以 16 步到达终点。因为每走一步会减1，所以这里的价值是 -16。<br>
+当我们快接近终点的时候，这个数字变得越来越大。在拐角的时候，比如现在在第二格，价值是-15，智能体会看上、下两格，它看到上面格子的价值变大了，变成 -14 了，下面格子的价值是 -16，那么智能体就会采取一个往上走的动作。所以通过学习的价值的不同，我们可以抽取出现在最佳的策略。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/cbd05c38521643d39645d7d8bfa0d5f3ae3d519c0df64b12a9d90e5d4da62bc8.webp" alt="图 1.18 使用基于价值的强化学习方法得到的结果"></p>
+<h3 id="智能体类型">智能体类型</h3>
+<p><strong>1.基于价值的智能体与基于策略的智能体</strong>：</p>
+<p>根据智能体学习的事物不同，我们可以把智能体进行归类。<strong>基于价值的智能体（value-based agent）</strong> 显式地学习价值函数，隐式地学习它的策略。策略是其从学到的价值函数里面推算出来的。<strong>基于策略的智能体（policy-based agent）</strong> 直接学习策略，我们给它一个状态，它就会输出对应动作的概率。基于策略的智能体并没有学习价值函数。把基于价值的智能体和基于策略的智能体结合起来就有了 <strong>演员-评论员智能体（actor-critic agent）</strong> 。这一类智能体把策略和价值函数都学习了，然后通过两者的交互得到最佳的动作。</p>
+<div class="admonition admonition-question">
+<p class="admonition-title">基于价值的智能体与基于策略的智能体有什么区别？
+</p>
+<p>对于一个状态转移概率已知的马尔可夫决策过程，我们可以使用动态规划算法来求解。</p>
+<p>从决策方式来看，强化学习又可以划分为基于策略的方法和基于价值的方法。决策方式是智能体在给定状态下从动作集合中选择一个动作的依据，它是静态的，不随状态变化而变化。</p>
+<p>在 <strong>基于策略的强化学习</strong> 方法中，智能体会制定一套动作策略（确定在给定状态下需要采取何种动作），并根据这个策略进行操作。强化学习算法直接对策略进行优化，使制定的策略能够获得最大的奖励。</p>
+<p>在 <strong>基于价值的强化学习</strong> 方法中，智能体不需要制定显式的策略，它维护一个价值表格或价值函数，并通过这个价值表格或价值函数来选取价值最大的动作。</p>
+<p>基于价值迭代的方法只能应用在不连续的、离散的环境下（如围棋或某些游戏领域），对于动作集合规模庞大、动作连续的场景（如机器人控制领域），其很难学习到较好的结果（此时基于策略迭代的方法能够根据设定的策略来选择连续的动作）。</p>
+</div>
+<p>基于价值的强化学习算法有 <strong>Q学习（Q-learning）</strong> 、 <strong>Sarsa</strong> 等，而基于策略的强化学习算法有 <strong>策略梯度（Policy Gradient，PG）</strong> 算法等。此外，演员-评论员算法同时使用策略和价值评估来做出决策。其中，智能体会根据策略做出动作，而价值函数会对做出的动作给出价值，这样可以在原有的策略梯度算法的基础上加速学习过程，取得更好的效果。</p>
+<p><strong>2.基于模型的智能体与无模型的智能体</strong>：</p>
+<p>在马尔可夫决策过程(MDP)中,有五个关键元素: <span class="math inline">\(S, A, P, R, \gamma\)</span> 。<span class="math inline">\(S\)</span> 和 <span class="math inline">\(A\)</span> 表示环境的状态空间和动作空间; <span class="math inline">\(P\)</span> 表示状态转移函数, <span class="math inline">\(p(s′|s, a)\)</span> 给出了智能体在状态 <span class="math inline">\(s\)</span> 下执行动作 <span class="math inline">\(a\)</span> ,并转移到状态 <span class="math inline">\(s′\)</span> 的概率; <span class="math inline">\(R\)</span> 代表奖励函数, <span class="math inline">\(r(s, a)\)</span> 给出了智能体在状态 <span class="math inline">\(s\)</span> 执行动作 <span class="math inline">\(a\)</span> 时环境返回的奖励值; <span class="math inline">\(\gamma\)</span> 表示奖励的折扣因子,用来给不同时刻的奖励赋予权重。如果所有这些环境相关的元素都是已知的,那么模型就是已知的。此时可以在环境模型上进行计算,而无须再与真实环境进行交互。在通常情况下,智能体并不知道环境的奖励函数 <span class="math inline">\(R\)</span> 和状态转移函数 <span class="math inline">\(p(s′|s, a)\)</span> ,所以需要通过和环境交互,不断试错 (Trials and Errors),观察环境相关信息并利用反馈的奖励信号来不断学习。在这个不断试错和学习的过程中,可能有某些环境元素是未知的,如奖励函数 <span class="math inline">\(R\)</span> 和状态转移函数 <span class="math inline">\(P\)</span> 。此时,如果智能体尝试通过在环境中不断执行动作获取样本 <span class="math inline">\((s, a, s′, r)\)</span> 来构建对 <span class="math inline">\(R\)</span> 和 <span class="math inline">\(P\)</span> 的估计,则 <span class="math inline">\(p(s′|s, a)\)</span> 和 <span class="math inline">\(r\)</span> 的值可以通过监督学习进行拟合。习得奖励函数 <span class="math inline">\(R\)</span> 和状态转移函数 <span class="math inline">\(P\)</span> 之后,所有的环境元素都已知,则规划方法可以直接用来求解该问题。这种方式即称 为 <strong>基于模型</strong> 的方法。</p>
+<p>另一种称为无模型的方法则不尝试对环境建模,而是直接寻找最优策略。例 如,Q-learning 算法对状态-动作对 <span class="math inline">\((s, a)\)</span> 的 Q 值进行估计,通常选择最大 Q 值对应的动作执行, 并利用环境反馈更新 Q 值函数,随着 Q 值收敛,策略随之逐渐收敛达到最优;策略梯度(Policy Gradient)算法不对值函数进行估计,而是将策略参数化,直接在策略空间中搜索最优策略,最大化累积奖励。这两种算法都不关注环境模型,而是直接搜索能最大化奖励的策略。这种不需要对环境建模的方式称为 <strong>无模型的方法</strong> 。可以看到,基于模型和无模型的区别在于,智能体是否利 用环境模型(或称为环境的动力学模型),例如状态转移函数和奖励函数。</p>
+<h2 id="学习与规划">学习与规划</h2>
+<p>学习（learning）和规划（planning）是序列决策的两个基本问题。</p>
+<p>如图 1.21 所示，在强化学习中，环境初始时是未知的，智能体不知道环境如何工作，它通过不断地与环境交互，逐渐改进策略。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/da9b71d02df14ff2895bfc5908a3e45f257ae342cfe04c59844ecd4cf147263c.webp" alt="图 1.21 学习"></p>
+<p>如图 1.22 所示，在规划中，环境是已知的，智能体被告知了整个环境的运作规则的详细信息。智能体能够计算出一个完美的模型，并且在不需要与环境进行任何交互的时候进行计算。智能体不需要实时地与环境交互就能知道未来环境，只需要知道当前的状态，就能够开始思考，来寻找最优解。</p>
+<p>在图 1.22 所示的游戏中，规则是确定的，我们知道选择左之后环境将会产生什么变化。我们完全可以通过已知的规则，来在内部模拟整个决策过程，无需与环境交互。</p>
+<p>一个常用的强化学习问题解决思路是，先学习环境如何工作，也就是了解环境工作的方式，即学习得到一个模型，然后利用这个模型进行规划。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/b50ff38231ca4a6a9e44d277d08ba844d90d2d222b9e4240bb823761cf63e8c9.webp" alt="图 1.22 规划"></p>
+<h2 id="探索和利用">探索和利用</h2>
+<p>在强化学习里面，探索和利用是两个很核心的问题。</p>
+<p><strong>探索</strong> 即我们去探索环境，通过尝试不同的动作来得到最佳的策略（带来最大奖励的策略）。<br>
+<strong>利用</strong> 即我们不去尝试新的动作，而是采取已知的可以带来很大奖励的动作。</p>
+<p>在刚开始的时候，强化学习智能体不知道它采取了某个动作后会发生什么，所以它只能通过试错去探索，所以探索就是通过试错来理解采取的动作到底可不可以带来好的奖励。利用是指我们直接采取已知的可以带来很好奖励的动作。所以这里就面临一个权衡问题，即怎么通过牺牲一些短期的奖励来理解动作，从而学习到更好的策略。</p>
+<p>下面举一些探索和利用的例子。</p>
+<p>以选择餐馆为例，<strong>利用</strong> 是指我们直接去我们最喜欢的餐馆，因为我们去过这个餐馆很多次了，所以我们知道这里面的菜都非常可口。</p>
+<p><strong>探索</strong> 是指我们用手机搜索一个新的餐馆，然后去尝试它的菜到底好不好吃。我们有可能对这个新的餐馆感到非常不满意，这样钱就浪费了。</p>
+<p>以做广告为例，<strong>利用</strong> 是指我们直接采取最优的广告策略。<strong>探索</strong> 是指我们换一种广告策略，看看这个新的广告策略可不可以得到更好的效果。</p>
+<p>以挖油为例，<strong>利用</strong> 是指我们直接在已知的地方挖油，这样可以确保挖到油。<br>
+<strong>探索</strong> 是指我们在一个新的地方挖油，这样就有很大的概率可能不能发现油田，但也可能有比较小的概率可以发现一个非常大的油田。</p>
+<p>以玩游戏为例，<strong>利用</strong> 是指我们总是采取某一种策略。比如，我们玩《街头霸王》游戏的时候，采取的策略可能是蹲在角落，然后一直出脚。这个策略很可能可以奏效，但可能遇到特定的对手就会失效。<strong>探索</strong> 是指我们可能尝试一些新的招式，有可能我们会放出“大招”来，这样就可能“一招毙命”。</p>
+<p>与监督学习任务不同，强化学习任务的最终奖励在多步动作之后才能观察到，这里我们不妨先考虑比较简单的情形：最大化单步奖励，即仅考虑一步动作。需注意的是，即便在这样的简单情形下，强化学习仍与监督学习有显著不同，因为智能体需通过试错来发现各个动作产生的结果，而没有训练数据告诉智能体应当采取哪个动作。</p>
+<p>想要最大化单步奖励需考虑两个方面：一是需知道每个动作带来的奖励，二是要执行奖励最大的动作。若每个动作对应的奖励是一个确定值，那么尝试遍所有的动作便能找出奖励最大的动作。然而，更一般的情形是，一个动作的奖励值是来自一个概率分布，仅通过一次尝试并不能确切地获得平均奖励值。</p>
+<p>实际上，单步强化学习任务对应于一个理论模型，即<span class="math inline">\(K\)</span>-臂赌博机（K-armed bandit）。 <span class="math inline">\(K\)</span>-臂赌博机也被称为多臂赌博机（multi-armed bandit） 。如图 1.23 所示，<span class="math inline">\(K\)</span>-臂赌博机有 <span class="math inline">\(K\)</span>个摇臂，赌徒在投入一个硬币后可选择按下其中一个摇臂，每个摇臂以一定的概率吐出硬币，但这个概率赌徒并不知道。赌徒的目标是通过一定的策略最大化自己的奖励，即获得最多的硬币。</p>
+<p>若仅为获知每个摇臂的期望奖励，则可采用仅探索（exploration-only）法：将所有的尝试机会平均分配给每个摇臂（即轮流按下每个摇臂），最后以每个摇臂各自的平均吐币概率作为其奖励期望的近似估计。若仅为执行奖励最大的动作，则可采用仅利用（exploitation-only）法：按下目前最优的（即到目前为止平均奖励最大的）摇臂，若有多个摇臂同为最优，则从中随机选取一个。</p>
+<p>显然，仅探索法能很好地估计每个摇臂的奖励，却会失去很多选择最优摇臂的机会；仅利用法则相反，它没有很好地估计摇臂期望奖励，很可能经常选不到最优摇臂。因此，这两种方法都难以使最终的累积奖励最大化。</p>
+<p>事实上，探索（估计摇臂的优劣）和利用（选择当前最优摇臂）这两者是矛盾的，因为尝试次数（总投币数）有限，加强了一方则自然会削弱另一方，这就是强化学习所面临的 探索-利用窘境（exploration-exploitation dilemma）。显然，想要累积奖励最大，则必须在探索与利用之间达成较好的折中。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/1b50a404fc294191baccd65dcf2654161f549aabbe6f4f7b8b101c53a3915385.webp" alt="图 1.23 K-臂赌博机图示"></p>
+<h2 id="强化学习实验">强化学习实验</h2>
+<h3 id="gymnasium">Gymnasium</h3>
+<p><a target="_blank" rel="noopener" href="https://gymnasium.farama.org/">Gymnasium</a> 是一个用于开发和比较强化学习算法的工具包。它提供了多种环境供我们使用。Gymnasium 的设计理念是简单易用，用户可以很方便地创建自己的环境。</p>
+<p>Gymanasium主要针对于单agent的强化学习任务，如果想要开发多agent的强化学习任务，可以使用PettingZoo。</p>
+<p>Gymnasium的安装可以通过pip命令进行安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install gymnasium</span><br></pre></td></tr></table></figure>
+<p>但是上面的命令不会安装其他的环境，所以我们需要安装一些额外的环境。Gymnasium提供了很多的环境供我们使用，比如经典控制、 Atari 游戏、机器人等。我们可以通过下面的命令安装一些常用的环境：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install gymnasium[atari]</span><br><span class="line">pip install gymnasium[all] <span class="comment">#install all dependencies.</span></span><br></pre></td></tr></table></figure>
+<p>gymnasium的使用非常简单，我们只需要创建一个环境，然后通过环境的step函数来进行交互。下面是一个简单的例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gymnasium <span class="keyword">as</span> gym</span><br><span class="line"></span><br><span class="line"><span class="comment"># Initialise the environment</span></span><br><span class="line">env = gym.make(<span class="string">&quot;LunarLander-v3&quot;</span>, render_mode=<span class="string">&quot;human&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Reset the environment to generate the first observation</span></span><br><span class="line">observation, info = env.reset(seed=<span class="number">42</span>)</span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):</span><br><span class="line">    <span class="comment"># this is where you would insert your policy</span></span><br><span class="line">    action = env.action_space.sample()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># step (transition) through the environment with the action</span></span><br><span class="line">    <span class="comment"># receiving the next observation, reward and if the episode has terminated or truncated</span></span><br><span class="line">    observation, reward, terminated, truncated, info = env.step(action)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># If the episode has ended then we can reset to start a new episode</span></span><br><span class="line">    <span class="keyword">if</span> terminated <span class="keyword">or</span> truncated:</span><br><span class="line">        observation, info = env.reset()</span><br><span class="line"></span><br><span class="line">env.close()</span><br></pre></td></tr></table></figure>
+<p>如图 1.25 gymnasium 库里面有很多经典的控制类游戏。比如 Acrobot需要让一个双连杆机器人立起来；CartPole需要通过控制一辆小车，让杆立起来；MountainCar需要通过前后移动车，让它到达旗帜的位置。在刚开始测试强化学习的时候，我们可以选择这些简单环境，因为强化学习在这些环境中可以在一两分钟之内见到效果。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/66f623874034489b983854989ae32227ba599f3c8bbe42eda8cfdb372292a8c0.webp" alt="图 1.25 经典控制问题"></p>
+<p>如图 1.26 所示，CartPole-v0 环境有两个动作：将小车向左移动和将小车向右移动。我们还可以得到观测：小车当前的位置，小车当前往左、往右移的速度，杆的角度以及杆的最高点（顶端）的速度。</p>
+<p>观测越详细，我们就可以更好地描述当前所有的状态。这里有奖励的定义，如果能多走一步，我们就会得到一个奖励（奖励值为1），所以我们需要存活尽可能多的时间来得到更多的奖励。当杆的角度大于某一个角度（没能保持平衡），或者小车的中心到达图形界面窗口的边缘，或者累积步数大于200，游戏就结束了，我们就输了。所以智能体的目的是控制杆，让它尽可能地保持平衡以及尽可能保持在环境的中央。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/ad0c6b8721694dc096453a95414e9f57e03bf8684e9c4381bbff3f17fdada4d6.webp" alt="图 1.26 CartPole-v0的例子"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gymnasium <span class="keyword">as</span> gym  <span class="comment"># 导入 Gym 的 Python 接口环境包    </span></span><br><span class="line">env = gym.make(<span class="string">&#x27;CartPole-v1&#x27;</span>,render_mode=<span class="string">&quot;human&quot;</span>)  <span class="comment"># 构建实验环境    </span></span><br><span class="line">observation, info = env.reset()  <span class="comment"># 重置一个回合    </span></span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):    </span><br><span class="line">    action = env.action_space.sample() <span class="comment"># 从动作空间中随机选取一个动作    </span></span><br><span class="line">    observation, reward, terminated, truncated, info = env.step(action) <span class="comment"># 用于提交动作，括号内是具体的动作    </span></span><br><span class="line">    <span class="keyword">if</span> terminated <span class="keyword">or</span> truncated:  <span class="comment"># 检查是否结束</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">env.close() <span class="comment"># 关闭环境</span></span><br></pre></td></tr></table></figure>
+<p>注意：如果绘制了实验的图形界面窗口，那么关闭该窗口的最佳方式是调用 env.close()。试图直接关闭图形界面窗口可能会导致内存不能释放，甚至会导致死机。</p>
+<p>当我们执行这段代码时，机器人会驾驶着小车朝某个方向一直跑，直到游戏失败，这是因为我们还没开始训练机器人。</p>
+<p>我们想要查看当前 gymnasium 库已经注册了哪些环境，可以使用以下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gymnasium <span class="keyword">as</span> gym  <span class="comment"># 导入 Gym 的 Python 接口环境包    </span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> gym.registry:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
+<p>每个环境都定义了自己的观测空间和动作空间。环境 env 的观测空间用 env.observation_space 表示，动作空间用 env.action_space 表示。观测空间和动作空间既可以是离散空间（取值是有限个离散的值），也可以是连续空间（取值是连续的值）。在 Gym 库中，一般离散空间用 gym.spaces.Discrete 类表示，连续空间用 gym.spaces.Box 类表示。</p>
+<p>例如，环境MountainCar-v0的观测空间是Box(2,)，表示观测可以用 2 个 float 值表示；环境MountainCar-v0的动作空间是Discrete(3)，表示动作取值自{0,1,2}。对于离散空间，Discrete 类实例的成员 n 表示有几个可能的取值；对于连续空间，Box类实例的成员 low 和 high 表示每个浮点数的取值范围。</p>
+<h3 id="blackjack-v1历程">Blackjack-v1历程</h3>
+<p>接下来使用一个官方的Blackjack-v1的例程，来了解如何使用Gymnasium库。</p>
+<h4 id="构建agent">构建agent</h4>
+<p>让我们构建一个Q-learning代理来解决Blackjack！我们需要一些函数来选择一个动作并更新代理的动作值。为了确保代理探索环境，一种可能的解决方案是epsilon贪婪策略，其中我们选择一个百分比为epsilon的随机动作，贪婪动作（当前值为最佳）的概率为1-epsilon。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"><span class="keyword">import</span> gymnasium <span class="keyword">as</span> gym</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BlackjackAgent</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self,</span></span><br><span class="line"><span class="params">        env: gym.Env,</span></span><br><span class="line"><span class="params">        learning_rate: <span class="built_in">float</span>,</span></span><br><span class="line"><span class="params">        initial_epsilon: <span class="built_in">float</span>,</span></span><br><span class="line"><span class="params">        epsilon_decay: <span class="built_in">float</span>,</span></span><br><span class="line"><span class="params">        final_epsilon: <span class="built_in">float</span>,</span></span><br><span class="line"><span class="params">        discount_factor: <span class="built_in">float</span> = <span class="number">0.95</span>,</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Initialize a Reinforcement Learning agent with an empty dictionary</span></span><br><span class="line"><span class="string">        of state-action values (q_values), a learning rate and an epsilon.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            env: The training environment</span></span><br><span class="line"><span class="string">            learning_rate: The learning rate</span></span><br><span class="line"><span class="string">            initial_epsilon: The initial epsilon value</span></span><br><span class="line"><span class="string">            epsilon_decay: The decay for epsilon</span></span><br><span class="line"><span class="string">            final_epsilon: The final epsilon value</span></span><br><span class="line"><span class="string">            discount_factor: The discount factor for computing the Q-value</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.env = env</span><br><span class="line">        self.q_values = defaultdict(<span class="keyword">lambda</span>: np.zeros(env.action_space.n))</span><br><span class="line"></span><br><span class="line">        self.lr = learning_rate</span><br><span class="line">        self.discount_factor = discount_factor</span><br><span class="line"></span><br><span class="line">        self.epsilon = initial_epsilon</span><br><span class="line">        self.epsilon_decay = epsilon_decay</span><br><span class="line">        self.final_epsilon = final_epsilon</span><br><span class="line"></span><br><span class="line">        self.training_error = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_action</span>(<span class="params">self, obs: <span class="built_in">tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">bool</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Returns the best action with probability (1 - epsilon)</span></span><br><span class="line"><span class="string">        otherwise a random action with probability epsilon to ensure exploration.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># with probability epsilon return a random action to explore the environment</span></span><br><span class="line">        <span class="keyword">if</span> np.random.random() &lt; self.epsilon:</span><br><span class="line">            <span class="keyword">return</span> self.env.action_space.sample()</span><br><span class="line">        <span class="comment"># with probability (1 - epsilon) act greedily (exploit)</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">int</span>(np.argmax(self.q_values[obs]))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">update</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self,</span></span><br><span class="line"><span class="params">        obs: <span class="built_in">tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">bool</span>],</span></span><br><span class="line"><span class="params">        action: <span class="built_in">int</span>,</span></span><br><span class="line"><span class="params">        reward: <span class="built_in">float</span>,</span></span><br><span class="line"><span class="params">        terminated: <span class="built_in">bool</span>,</span></span><br><span class="line"><span class="params">        next_obs: <span class="built_in">tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">bool</span>],</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Updates the Q-value of an action.&quot;&quot;&quot;</span></span><br><span class="line">        future_q_value = (<span class="keyword">not</span> terminated) * np.<span class="built_in">max</span>(self.q_values[next_obs])</span><br><span class="line">        temporal_difference = (</span><br><span class="line">            reward + self.discount_factor * future_q_value - self.q_values[obs][action]</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        self.q_values[obs][action] = (</span><br><span class="line">            self.q_values[obs][action] + self.lr * temporal_difference</span><br><span class="line">        )</span><br><span class="line">        self.training_error.append(temporal_difference)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">decay_epsilon</span>(<span class="params">self</span>):</span><br><span class="line">        self.epsilon = <span class="built_in">max</span>(self.final_epsilon, self.epsilon - self.epsilon_decay)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="训练agent">训练agent</h4>
+<p>为了训练代理，我们将让agent运行一个episode（一个完整的游戏称为一个episode），并在采取的每个动作后更新其Q值。agent必须经历很多episode才能充分探索环境。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># hyperparameters</span></span><br><span class="line">learning_rate = <span class="number">0.01</span></span><br><span class="line">n_episodes = <span class="number">100_000</span></span><br><span class="line">start_epsilon = <span class="number">1.0</span></span><br><span class="line">epsilon_decay = start_epsilon / (n_episodes / <span class="number">2</span>)  <span class="comment"># reduce the exploration over time</span></span><br><span class="line">final_epsilon = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line">env = gym.make(<span class="string">&quot;Blackjack-v1&quot;</span>, sab=<span class="literal">False</span>)</span><br><span class="line">env = gym.wrappers.RecordEpisodeStatistics(env, buffer_length=n_episodes)</span><br><span class="line"></span><br><span class="line">agent = BlackjackAgent(</span><br><span class="line">    env=env,</span><br><span class="line">    learning_rate=learning_rate,</span><br><span class="line">    initial_epsilon=start_epsilon,</span><br><span class="line">    epsilon_decay=epsilon_decay,</span><br><span class="line">    final_epsilon=final_epsilon,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<div class="admonition admonition-note">
+<p class="admonition-title">Note</p>
+<p>当前的超参数被设置为快速训练一个agent。如果你想收敛到最优策略，尝试将n_episodes增加10倍，并降低learning_rate（例如，降低到0.001）。</p>
+</div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tqdm <span class="keyword">import</span> tqdm</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> episode <span class="keyword">in</span> tqdm(<span class="built_in">range</span>(n_episodes)):</span><br><span class="line">    obs, info = env.reset()</span><br><span class="line">    done = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># play one episode</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> done:</span><br><span class="line">        action = agent.get_action(obs)</span><br><span class="line">        next_obs, reward, terminated, truncated, info = env.step(action)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># update the agent</span></span><br><span class="line">        agent.update(obs, action, reward, terminated, next_obs)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># update if the environment is done and the current obs</span></span><br><span class="line">        done = terminated <span class="keyword">or</span> truncated</span><br><span class="line">        obs = next_obs</span><br><span class="line"></span><br><span class="line">    agent.decay_epsilon()</span><br></pre></td></tr></table></figure>
+<p>使用matplotlib可视化训练过程：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_moving_avgs</span>(<span class="params">arr, window, convolution_mode</span>):</span><br><span class="line">    <span class="keyword">return</span> np.convolve(</span><br><span class="line">        np.array(arr).flatten(),</span><br><span class="line">        np.ones(window),</span><br><span class="line">        mode=convolution_mode</span><br><span class="line">    ) / window</span><br><span class="line"></span><br><span class="line"><span class="comment"># Smooth over a 500 episode window</span></span><br><span class="line">rolling_length = <span class="number">500</span></span><br><span class="line">fig, axs = plt.subplots(ncols=<span class="number">3</span>, figsize=(<span class="number">12</span>, <span class="number">5</span>))</span><br><span class="line"></span><br><span class="line">axs[<span class="number">0</span>].set_title(<span class="string">&quot;Episode rewards&quot;</span>)</span><br><span class="line">reward_moving_average = get_moving_avgs(</span><br><span class="line">    env.return_queue,</span><br><span class="line">    rolling_length,</span><br><span class="line">    <span class="string">&quot;valid&quot;</span></span><br><span class="line">)</span><br><span class="line">axs[<span class="number">0</span>].plot(<span class="built_in">range</span>(<span class="built_in">len</span>(reward_moving_average)), reward_moving_average)</span><br><span class="line"></span><br><span class="line">axs[<span class="number">1</span>].set_title(<span class="string">&quot;Episode lengths&quot;</span>)</span><br><span class="line">length_moving_average = get_moving_avgs(</span><br><span class="line">    env.length_queue,</span><br><span class="line">    rolling_length,</span><br><span class="line">    <span class="string">&quot;valid&quot;</span></span><br><span class="line">)</span><br><span class="line">axs[<span class="number">1</span>].plot(<span class="built_in">range</span>(<span class="built_in">len</span>(length_moving_average)), length_moving_average)</span><br><span class="line"></span><br><span class="line">axs[<span class="number">2</span>].set_title(<span class="string">&quot;Training Error&quot;</span>)</span><br><span class="line">training_error_moving_average = get_moving_avgs(</span><br><span class="line">    agent.training_error,</span><br><span class="line">    rolling_length,</span><br><span class="line">    <span class="string">&quot;same&quot;</span></span><br><span class="line">)</span><br><span class="line">axs[<span class="number">2</span>].plot(<span class="built_in">range</span>(<span class="built_in">len</span>(training_error_moving_average)), training_error_moving_average)</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/training.webp" alt="Blackjack-v1训练过程"></p>
+<h1 id="强化学习理论与建模">强化学习理论与建模</h1>
+<p>本章将介绍马尔可夫决策过程。在介绍马尔可夫决策过程之前，我们先介绍它的简化版本：<strong>马尔可夫过程（Markov process，MP）</strong> 以及 <strong>马尔可夫奖励过程（Markov reward process，MRP）</strong>。通过与这两种过程的比较，我们可以更容易理解马尔可夫决策过程。其次，我们会介绍 马尔可夫决策过程中的 <strong>策略评估（policy evaluation）</strong>，就是当给定决策后，我们怎么去计算它的价值函数。最后，我们会介绍马尔可夫决策过程的控制，具体有 <strong>策略迭代（policy iteration）</strong> 和 <strong>价值迭代（value iteration）</strong> 两种算法。在马尔可夫决策过程中，它的环境是全部可观测的。但是很多时候环境里面有些量是不可观测的，但是这个部分观测的问题也可以转换成马尔可夫决策过程的问题。</p>
+<h2 id="马尔可夫过程">马尔可夫过程</h2>
+<h3 id="马尔可夫的性质">马尔可夫的性质</h3>
+<p>在随机过程中，<strong>马尔可夫性质（Markov property)</strong> 是指一个随机过程在给定现在状态及所有过去状态情况下，其未来状态的条件概率分布仅依赖于当前状态。以离散随机过程为例，假设随机变量 <span class="math inline">\(X_0,X_1,\cdots,X_T\)</span> 构成一个随机过程。这些随机变量的所有可能取值的集合被称为<strong>状态空间（state space）</strong>。如果 <span class="math inline">\(X_{t+1}\)</span> 对于过去状态的条件概率分布仅是 <span class="math inline">\(X_t\)</span> 的一个函数，则</p>
+<p><span class="math display">\[
+p\left(X_{t+1}=x_{t+1} \mid X_{0:t}=x_{0: t}\right)=p\left(X_{t+1}=x_{t+1} \mid X_{t}=x_{t}\right)
+\]</span></p>
+<p>其中 <span class="math inline">\(X_{0:t}\)</span> 表示 <span class="math inline">\(X_0,X_1,\cdots,X_t\)</span> 的联合分布，<span class="math inline">\(x_{0:t}\)</span> 为在状态空间中的状态序列 <span class="math inline">\(x_0,x_1,\cdots,x_t\)</span> 。马尔可夫性质也可以描述为给定当前状态时，将来的状态与过去状态是条件独立的。如果某一个过程满足马尔可夫性质，那么未来的转移与过去的是独立的，它只取决于现在。马尔可夫性质是所有马尔可夫过程的基础。</p>
+<h3 id="马尔可夫链">马尔可夫链</h3>
+<p>马尔可夫过程是一组具有马尔可夫性质的随机变量序列 <span class="math inline">\(s_1,\cdots,s_t\)</span> ，其中下一个时刻的状态 <span class="math inline">\(s_{t+1}\)</span> 只取决于当前状态 <span class="math inline">\(s_t\)</span> ( <strong>1-order markov chain</strong> )。我们设状态的历史为 <span class="math inline">\(h_{t}=\left\{s_{1}, s_{2}, s_{3}, \ldots, s_{t}\right\}\)</span>（包含了之前的所有状态），则马尔可夫过程满足条件：</p>
+<p><span class="math display">\[
+p\left(s_{t+1} \mid s_{t}\right) =p\left(s_{t+1} \mid h_{t}\right) 
+\]</span></p>
+<p>从当前 <span class="math inline">\(s_t\)</span> 转移到 <span class="math inline">\(s_{t+1}\)</span> 就等价于从它之前是所有状态转移到 <span class="math inline">\(s_{t+1}\)</span>。</p>
+<p>离散时间的马尔可夫过程也称为 <strong>马尔可夫链（Markov chain）</strong> 。马尔可夫链是最简单的马尔可夫过程，其状态是有限的。例如，图 2.2 里面有4个状态，这4个状态在 <span class="math inline">\(s_1, s_2, s_3, s_4\)</span> 之间互相转移。比如从<span class="math inline">\(s_1\)</span>开始，<span class="math inline">\(s_1\)</span> 有0.1的概率继续留存在 <span class="math inline">\(s_1\)</span> 状态，有0.2的概率转移到 <span class="math inline">\(s_2\)</span> ，有0.7的概率转移到 <span class="math inline">\(s_4\)</span> 。如果 <span class="math inline">\(s_4\)</span> 是我们的当前状态，它有0.3的概率转移到 <span class="math inline">\(s_2\)</span> ，有0.2的概率转移到 <span class="math inline">\(s_3\)</span> ，有0.5的概率留在当前状态。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/a696173ff7384ae4bda6c2937d605f9231247e06f0e64b218d60568daf445206.webp" alt="图 2.2 马尔可夫链示例"><br>
+我们可以用 <strong>状态转移矩阵（state transition matrix）</strong> <span class="math inline">\(\boldsymbol{P}\)</span> 来描述状态转移 <span class="math inline">\(p\left(s_{t+1}=s^{\prime} \mid s_{t}=s\right)\)</span><br>
+<span class="math display">\[
+\boldsymbol{P}=\left(\begin{array}{cccc}    
+    p\left(s_{1} \mid s_{1}\right) &amp; p\left(s_{2} \mid s_{1}\right) &amp; \ldots &amp; p\left(s_{N} \mid s_{1}\right) \\    
+    p\left(s_{1} \mid s_{2}\right) &amp; p\left(s_{2} \mid s_{2}\right) &amp; \ldots &amp; p\left(s_{N} \mid s_{2}\right) \\    
+    \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\    
+    p\left(s_{1} \mid s_{N}\right) &amp; p\left(s_{2} \mid s_{N}\right) &amp; \ldots &amp; p\left(s_{N} \mid s_{N}\right)    
+    \end{array}\right)
+\]</span></p>
+<p>状态转移矩阵类似于条件概率（conditional probability），它表示当我们知道当前我们在状态 <span class="math inline">\(s_t\)</span>时，到达下面所有状态的概率。所以它的每一行描述的是从一个节点到达所有其他节点的概率。</p>
+<h3 id="隐马尔可夫模型">隐马尔可夫模型</h3>
+<p>本小结关于隐马尔可夫模型的内容主要参考斯坦福的<a target="_blank" rel="noopener" href="https://web.stanford.edu/~jurafsky/slp3/">《Speech and Language Processing》</a>的课件里面，关于<a target="_blank" rel="noopener" href="https://web.stanford.edu/~jurafsky/slp3/A.pdf">HMM的附录</a>部分和一个<a target="_blank" rel="noopener" href="https://sm1les.com/2019/04/10/hidden-markov-model/">在线blog</a></p>
+<p>当我们需要计算可观察事件序列的发生概率的时候，马尔可夫链是很有用的。但是，在很多情况下，我们所感兴趣的事件是隐藏的（我们没有办法直接观察到），例如，我们通常无法直接观察到一个句子当中各个词的词性（part-of-speech）标签，但是我们可以直接观察到单词，我们需要总单词序列中推导出词性标签，该标签就是隐藏的，因为我们无法直接观察到。</p>
+<div class="admonition admonition-note">
+<p class="admonition-title">Part-of-Speech Tagging
+</p>
+<p>词性标注是自然语言处理中的一个重要任务，它的目标是为句子中的每个单词分配一个词性标签。</p>
+<p>词性标注的输入一个tokenized的单词序列<span class="math inline">\(x_1,x_2,\cdots,x_n\)</span>，输出是一个标签序列<span class="math inline">\(y_1,y_2,\cdots,y_n\)</span>。其中输出的每一个<span class="math inline">\(y_i\)</span>都对应到一个输入的<span class="math inline">\(x_i\)</span>。如下图所示</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/part_of_speech_tagging.webp" alt="part-of-speech tagging"></p>
+</div>
+<p>隐马尔可夫模型（Hidden Markov Model, HMM）使我们可以同时处理可观测事件（比如输入的单词）和隐藏事件（比如词性标签），其中隐藏事件我们虽然不能直接观察，但是在模型中，我们认为它们是造成观察结果的潜在因素（causal factors）</p>
+<p>隐马尔可夫模型（如下图所示）通常由以下几个部分组成：</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/HMM.webp" alt="HMM示意图"></p>
+<p><span class="math inline">\(Q = \{q_1,q_2,\cdots,q_N\}\)</span>是所有可能的状态(隐藏状态)的集合，其中<span class="math inline">\(N\)</span>是可能的状态数。</p>
+<p><span class="math inline">\(V = \{v_1,v_2,\cdots,v_M\}\)</span>是所有可能的观测的集合，其中<span class="math inline">\(M\)</span>是可能的观测数。</p>
+<p><span class="math inline">\(I = (i_1,i_2,\cdots,i_T)\)</span>是长度为<span class="math inline">\(T\)</span>的状态序列，而<span class="math inline">\(O = (o_1,o_2,\cdots,o_T)\)</span>是对应的观测序列</p>
+<p><span class="math inline">\(A = [a_{ij}]_{N\times N}\)</span>是状态转移矩阵，其中<span class="math inline">\(a_{ij} = P(i_{t+1} = q_j | i_t = q_i)\)</span>表示在时刻<span class="math inline">\(t\)</span>处于状态<span class="math inline">\(q_i\)</span>的条件下，在时刻<span class="math inline">\(t+1\)</span>处于状态<span class="math inline">\(q_j\)</span>的概率。</p>
+<p><span class="math inline">\(B = [b_{jk}]_{N\times M}\)</span>是观测概率矩阵，其中<span class="math inline">\(b_{jk} = P(o_t = v_k | i_t = q_j)\)</span>表示在时刻<span class="math inline">\(t\)</span>处于状态<span class="math inline">\(q_j\)</span>的条件下，观测到<span class="math inline">\(v_k\)</span>的概率。</p>
+<p><span class="math inline">\(\pi = (\pi_1,\pi_2,\cdots,\pi_N)\)</span>是初始状态概率向量，其中<span class="math inline">\(\pi_i = P(i_1 = q_i)\)</span>表示在时刻<span class="math inline">\(t=1\)</span>处于状态<span class="math inline">\(q_i\)</span>的概率。</p>
+<p>隐马尔可夫模型由初始状态概率向量<span class="math inline">\(\pi\)</span>、状态转移概率矩阵<span class="math inline">\(A\)</span>和观测概率矩阵<span class="math inline">\(B\)</span>决定。<span class="math inline">\(\pi\)</span>和<span class="math inline">\(A\)</span>决定状态序列，<span class="math inline">\(B\)</span>决定观测序列。因此，隐马尔可夫模型<span class="math inline">\(\lambda\)</span>可以用三元符号表示，即：</p>
+<p><span class="math display">\[
+\lambda = (A,B, \pi)
+\]</span></p>
+<p><span class="math inline">\(A,B,\pi\)</span>称为隐马尔可夫模型的三要素。</p>
+<p>从定义可知，隐马尔可夫模型做了两个基本假设：</p>
+<ol type="1">
+<li>齐次马尔可夫性假设，即假设隐藏的马尔可夫链在任意时刻<span class="math inline">\(t\)</span>的状态只依赖于其前一时刻的状态，与其他时刻的状态及观测无关<span class="math inline">\(P(i_t\vert i_{t-1},o_{t-1},...,i_1,o_1)=P(i_t\vert i_{t-1})\)</span></li>
+<li>观测独立性假设，即假设任意时刻的观测只依赖于该时刻的马尔可夫链的状态，与其他观测及状态无关：<span class="math inline">\(P(o_t\vert i_T,o_T,i_{T-1},o_{T-1},...,i_t,i_{t-1},o_{t-1},...,i_1,o_1)=P(o_t\vert i_t)\)</span></li>
+</ol>
+<h3 id="马尔可夫过程示例">马尔可夫过程示例</h3>
+<p>图 2.2 所示为一个马尔可夫过程的例子，这里有七个状态。比如从 <span class="math inline">\(s_1\)</span>开始，它有0.4的概率到 <span class="math inline">\(s_2\)</span>，有 0.6 的概率留在当前的状态。 <span class="math inline">\(s_2\)</span> 有 0.4 的概率到 <span class="math inline">\(s_1\)</span>，有 0.4 的概率到 <span class="math inline">\(s_3\)</span>，另外有 0.2 的概率留在当前状态。所以给定状态转移的马尔可夫链后，我们可以对这个链进行采样，这样就会得到一串轨迹。例如，假设我们从状态 <span class="math inline">\(s_3\)</span>开始，可以得到3个轨迹：</p>
+<ul>
+<li><span class="math inline">\(s_3, s_4, s_5, s_6, s_6\)</span></li>
+<li><span class="math inline">\(s_3, s_2, s_3, s_2, s_1\)</span></li>
+<li><span class="math inline">\(s_3, s_4, s_4, s_5, s_5\)</span></li>
+</ul>
+<p>通过对状态的采样，我们可以生成很多这样的轨迹。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/172f2e4caf414bae8c400b47555ba922db67173061114ef0b30b69b451a14b16.webp" alt="图 2.3 马尔可夫过程的例子"></p>
+<h2 id="马尔可夫奖励过程">马尔可夫奖励过程</h2>
+<p><strong>马尔可夫奖励过程（Markov reward process, MRP）</strong> 是马尔可夫链加上奖励函数。在马尔可夫奖励过程中，状态转移矩阵和状态都与马尔可夫链一样，只是多了 <strong>奖励函数（reward function）</strong> 。奖励函数<span class="math inline">\(R\)</span>是一个期望，表示当我们到达某一个状态的时候，可以获得多大的奖励。这里另外定义了折扣因子<span class="math inline">\(\gamma\)</span>。如果状态数是有限的，那么<span class="math inline">\(R\)</span>可以是一个向量。</p>
+<h3 id="回报与价值函数">回报与价值函数</h3>
+<p>这里我们进一步定义一些概念。<strong>范围（horizon）</strong> 是指一个回合的长度（每个回合最大的时间步数），它是由有限个步数决定的。<br>
+<strong>回报（return）</strong> 可以定义为奖励的逐步叠加，假设时刻<span class="math inline">\(t\)</span>后的奖励序列为<span class="math inline">\(r_{t+1},r_{t+2},r_{t+3},\cdots,\)</span> (其中关于为什么使用<span class="math inline">\(t+1\)</span>而不是<span class="math inline">\(t\)</span>，主要是为了体现<span class="math inline">\(r_{t+1}\)</span>是进入<span class="math inline">\(s_t\)</span>之后获得的瞬时奖励)，则回报为</p>
+<p><span class="math display">\[
+G_{t}=r_{t+1}+\gamma r_{t+2}+\gamma^{2} r_{t+3}+\gamma^{3} r_{t+4}+\ldots+\gamma^{T-t-1} r_{T}
+\]</span></p>
+<p>其中，<span class="math inline">\(T\)</span>是最终时刻，<span class="math inline">\(\gamma\)</span>是折扣因子，越往后得到的奖励，折扣越多。这说明我们更希望得到现有的奖励，对未来的奖励要打折扣。当我们有了回报之后，就可以定义状态的价值了，就是 <strong>状态价值函数（state-value function）</strong>。对于马尔可夫奖励过程，状态价值函数被定义成回报的期望，即</p>
+<p><span class="math display">\[
+\begin{align*}    
+    V^{t}(s) &amp;=\mathbb{E}\left[G_{t} \mid s_{t}=s\right] \\    
+    &amp;=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2} r_{t+3}+\ldots+\gamma^{T-t-1} r_{T} \mid s_{t}=s\right]    
+\end{align*}
+\]</span></p>
+<p>其中，<span class="math inline">\(G_t\)</span>是之前定义的 <strong>折扣回报（discounted return）</strong>。我们对<span class="math inline">\(G_t\)</span>取了一个期望，因为<span class="math inline">\(G_t\)</span>表示的是一个特定的状态转移的回报，但是由于状态转移不是固定的，因此会有很多种状态转移，因此通过取期望来表示从该状态出发，能获得回报的期望，用于表示该状态的价值。</p>
+<p>我们使用折扣因子的原因如下。第一，有些马尔可夫过程是带环的，它并不会终结，我们想避免无穷的奖励。第二，我们并不能建立完美的模拟环境的模型，我们对未来的评估不一定是准确的，我们不一定完全信任模型，因为这种不确定性，所以我们对未来的评估增加一个折扣。我们想把这个不确定性表示出来，希望尽可能快地得到奖励，而不是在未来某一个点得到奖励。第三，如果奖励是有实际价值的，我们可能更希望立刻就得到奖励，而不是后面再得到奖励（现在的钱比以后的钱更有价值）。最后，我们也更想得到即时奖励。有些时候可以把折扣因子设为 0（<span class="math inline">\(\gamma = 0\)</span>），我们就只关注当前的奖励。我们也可以把折扣因子设为 1（<span class="math inline">\(\gamma = 1\)</span>），对未来的奖励并没有打折扣，未来获得的奖励与当前获得的奖励是一样的权重。折扣因子可以作为强化学习智能体的一个 <strong>超参数（hyperparameter）</strong> 来进行调整，通过调整折扣因子，我们可以得到不同动作的智能体。</p>
+<p>在马尔可夫奖励过程里面，我们如何计算价值呢？如图 2.4 所示，马尔可夫奖励过程依旧是状态转移，其奖励函数可以定义为：智能体进入第一个状态<span class="math inline">\(s_1\)</span>的时候会得到<span class="math inline">\(5\)</span>的奖励，进入第七个状态<span class="math inline">\(s_7\)</span>的时候会得到<span class="math inline">\(10\)</span>的奖励，进入其他状态都没有奖励。我们可以用向量来表示奖励函数，即</p>
+<p><span class="math display">\[
+\boldsymbol{R}=[5,0,0,0,0,0,10]
+\]</span></p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/db2837c5a12044e6babd69091120215bfff94a5ecd024de3b827b8bfd39de631.webp" alt="图 2.4 马尔可夫奖励过程的例子"></p>
+<p>我们对 4 步的回合（<span class="math inline">\(\gamma = 0.5\)</span>）来采样回报<span class="math inline">\(G\)</span>。</p>
+<ol type="1">
+<li><span class="math inline">\(s_{4}, s_{5}, s_{6}, s_{7} \text{的回报}: 0+0.5\times 0+0.25 \times 0+ 0.125\times 10=1.25\)</span></li>
+<li><span class="math inline">\(s_{4}, s_{5}, s_{6}, s_{7} \text{的回报}: 0+0.5\times 0+0.25 \times 0+ 0.125\times 10=1.25\)</span></li>
+<li><span class="math inline">\(s_{4}, s_{5}, s_{6}, s_{6} \text{的回报}: 0+0.5\times 0 +0.25 \times 0+0.125 \times 0=0\)</span></li>
+</ol>
+<p>我们现在可以计算每一个轨迹得到的奖励，比如我们对轨迹<span class="math inline">\(s_4,s_5,s_6,s_7\)</span>的奖励进行计算，这里折扣因子是<span class="math inline">\(0.5\)</span>。在 <span class="math inline">\(s_4\)</span>的时候，奖励为0。下一个状态<span class="math inline">\(s_5\)</span>的时候，因为我们已经到了下一步，所以要把<span class="math inline">\(s_5\)</span>进行折扣，<span class="math inline">\(s_5\)</span>的奖励也是0。然后是<span class="math inline">\(s_6\)</span>，奖励也是0，折扣因子应该是0.25。到达<span class="math inline">\(s_7\)</span>后，我们获得了一个奖励，但是因为状态<span class="math inline">\(s_7\)</span>的奖励是未来才获得的奖励，所以我们要对之进行3次折扣。最终这个轨迹的回报就是<span class="math inline">\(1.25\)</span>。类似地，我们可以得到其他轨迹的回报。</p>
+<p>这里就引出了一个问题，当我们有了一些轨迹的实际回报时，怎么计算它的价值函数呢？</p>
+<p>比如我们想知道<span class="math inline">\(s_4\)</span>的价值，即当我们进入<span class="math inline">\(s_4\)</span>后，它的价值到底如何？一个可行的做法就是我们可以生成很多轨迹，然后把轨迹都叠加起来。比如我们可以从<span class="math inline">\(s_4\)</span>开始，采样生成很多轨迹，把这些轨迹的回报都计算出来，然后将其取平均值作为我们进入<span class="math inline">\(s_4\)</span>的价值。这其实是一种计算价值函数的办法，也就是通过 <strong>蒙特卡洛（Monte Carlo，MC）采样</strong> 的方法计算<span class="math inline">\(s_4\)</span>的价值。</p>
+<h3 id="贝尔曼方程">贝尔曼方程</h3>
+<p>但是这里我们采取了另外一种计算方法，从价值函数里面推导出 <strong>贝尔曼方程（Bellman equation）</strong> ：</p>
+<p><span class="math display">\[
+V(s)=\underbrace{R(s)}_{\text {即时奖励}}+\underbrace{\gamma \sum_{s^{\prime} \in S} p\left(s^{\prime} \mid s\right) V\left(s^{\prime}\right)}_{\text {未来奖励的折扣总和}}
+\]</span></p>
+<p>其中，</p>
+<ul>
+<li><span class="math inline">\(V(s)\)</span> 是状态 <span class="math inline">\(s\)</span> 的价值函数</li>
+<li><span class="math inline">\(R(s)\)</span> 是进入状态 <span class="math inline">\(s\)</span> 后获得的即时奖励</li>
+<li><span class="math inline">\(s^{\prime}\)</span> 是未来所有可能的状态</li>
+<li><span class="math inline">\(p\left(s^{\prime} \mid s\right)\)</span> 是从状态 <span class="math inline">\(s\)</span> 转移到状态 <span class="math inline">\(s^{\prime}\)</span> 的概率</li>
+<li><span class="math inline">\(\gamma \sum_{s^{\prime} \in S} p\left(s^{\prime} \mid s\right) V\left(s^{\prime}\right)\)</span> 是未来所有可能状态的平均的折扣价值</li>
+</ul>
+<p>贝尔曼方程定义了当前状态与未来状态之间的关系。未来奖励的折扣总和加上即时奖励，就组成了贝尔曼方程。</p>
+<h4 id="全期望公式">全期望公式</h4>
+<p>在推到贝尔曼方程之间，我们先仿照 <strong>全期望公式（law of total ecpectation）</strong> 的证明过程来证明：</p>
+<p><span class="math display">\[
+\mathbb{E}[V(s_{t+1})|s_t]=\mathbb{E}[\mathbb{E}[G_{t+1}|s_{t+1}]|s_t]=\mathbb{E}[G_{t+1}|s_t]
+\]</span></p>
+<div class="markdown-alert markdown-alert-note" dir="auto"><p class="markdown-alert-title" dir="auto"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p><p dir="auto">
+全期望公式也被称为叠期望公式（law of iterated expectation），它是指在给定一个随机变量的条件下，另一个随机变量的期望值等于在第一个随机变量的条件下的期望，然后第二个随机变量的期望值。全期望公式可以用来计算复杂的期望值，它可以将一个复杂的期望值分解成多个简单的期望值，从而简化计算。</p></div>
+<p>如果<span class="math inline">\(A_i\)</span>是样本空间的有限或可数的划分（partition），则全期望公式可以定义为</p>
+<p><span class="math display">\[
+\mathbb{E}[X]=\sum_{i} \mathbb{E}\left[X \mid A_{i}\right] p\left(A_{i}\right)
+\]</span></p>
+<div class="admonition admonition-note">
+<p class="admonition-title">证明
+</p>
+<p>为了符号简洁且易读，我们去掉了下标，令<span class="math inline">\(s = s_t, g^\prime = G_{t+1}, s^\prime = s_{t+1}\)</span>。因此我们可以重写回报的期望为</p>
+<p><span class="math display">\[
+\begin{aligned}    
+V(s_{t+1}) = \mathbb{E}\left[G_{t+1} \mid s_{t+1}\right] &amp;=\mathbb{E}\left[g^{\prime} \mid s^{\prime}\right] \\    
+&amp;=\sum_{g^{\prime}} g^{\prime}~p\left(g^{\prime} \mid s^{\prime}\right)    
+\end{aligned}
+\]</span></p>
+<div class="admonition admonition-note">
+<p class="admonition-title">Note</p>
+<p>如果<span class="math inline">\(X\)</span>和<span class="math inline">\(Y\)</span>都是离散随机变量，则条件期望(conditional expectation) <span class="math inline">\(\mathbb{E}[X|Y=y]\)</span>定义为</p>
+<p><span class="math display">\[
+\mathbb{E}[X \mid Y=y]=\sum_{x} x p(X=x \mid Y=y)
+\]</span></p>
+</div>
+<p>令<span class="math inline">\(s_t = s\)</span>，我们对上式求期望(给定<span class="math inline">\(s\)</span>下对<span class="math inline">\(s_{t+1}\)</span>)可得</p>
+<p><span class="math display">\[
+\begin{aligned}    
+\mathbb{E}\left[\mathbb{E}\left[G_{t+1} \mid s_{t+1}\right] \mid s_{t}\right] &amp;=\mathbb{E} \left[\mathbb{E}\left[g^{\prime} \mid s^{\prime}\right] \mid s\right] \\    
+&amp;=\mathbb{E} \left[\sum_{g^{\prime}} g^{\prime}~p\left(g^{\prime} \mid s^{\prime}\right)\mid s\right]\\    
+&amp;=\sum_{s^{\prime}} \sum_{g^{\prime}} g^{\prime} p\left(g^{\prime} \mid s^{\prime}, s\right) p\left(s^{\prime} \mid s\right) \\    
+&amp;=\sum_{s^{\prime}} \sum_{g^{\prime}} \frac{g^{\prime} p\left(g^{\prime} \mid s^{\prime}, s\right) p\left(s^{\prime} \mid s\right) p(s)}{p(s)} \\    
+&amp;=\sum_{s^{\prime}} \sum_{g^{\prime}} \frac{g^{\prime} p\left(g^{\prime} \mid s^{\prime}, s\right) p\left(s^{\prime}, s\right)}{p(s)} \\    
+&amp;=\sum_{s^{\prime}} \sum_{g^{\prime}} \frac{g^{\prime} p\left(g^{\prime}, s^{\prime}, s\right)}{p(s)} \\    
+&amp;=\sum_{s^{\prime}} \sum_{g^{\prime}} g^{\prime} p\left(g^{\prime}, s^{\prime} \mid s\right) \\    
+&amp;=\sum_{g^{\prime}} \sum_{s^{\prime}} g^{\prime} p\left(g^{\prime}, s^{\prime} \mid s\right) \\    
+&amp;=\sum_{g^{\prime}} g^{\prime} p\left(g^{\prime} \mid s\right) \\    
+&amp;=\mathbb{E}\left[g^{\prime} \mid s\right]=\mathbb{E}\left[G_{t+1} \mid s_{t}\right]    
+\end{aligned}
+\]</span></p>
+</div>
+<h4 id="贝尔曼方程推导">贝尔曼方程推导</h4>
+<p>贝尔曼方程的推导过程如下：</p>
+<p><span class="math display">\[
+\begin{aligned}    
+    V(s)&amp;=\mathbb{E}\left[G_{t} \mid s_{t}=s\right]\\    
+    &amp;=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2} r_{t+3}+\ldots \mid s_{t}=s\right]  \\    
+    &amp;=\mathbb{E}\left[r_{t+1}|s_t=s\right] +\gamma \mathbb{E}\left[r_{t+2}+\gamma r_{t+3}+\gamma^{2} r_{t+4}+\ldots \mid s_{t}=s\right]\\    
+    &amp;=R(s)+\gamma \mathbb{E}[G_{t+1}|s_t=s] \\    
+    &amp;=R(s)+\gamma \mathbb{E}[V(s_{t+1})|s_t=s]\\    
+    &amp;=R(s)+\gamma \sum_{s^{\prime} \in S} p\left(s^{\prime} \mid s\right) V\left(s^{\prime}\right)    
+    \end{aligned}
+\]</span></p>
+<div class="admonition admonition-note">
+<p class="admonition-title">Note</p>
+<p>贝尔曼方程就是当前状态与未来状态的迭代关系，表示当前状态的价值函数可以通过下个状态的价值函数来计算。贝尔曼方程因其提出者、动态规划创始人理查德·贝尔曼（Richard Bellman）而得名 ，也叫作“动态规划方程”。</p>
+</div>
+<p>贝尔曼方程定义了状态之间的迭代关系，即</p>
+<p><span class="math display">\[
+V(s)=R(s)+\gamma \sum_{s^{\prime} \in S} p\left(s^{\prime} \mid s\right) V\left(s^{\prime}\right)
+\]</span></p>
+<p>假设有一个马尔可夫链如图 2.5a 所示，贝尔曼方程描述的就是当前状态到未来状态的一个转移。如图 2.5b 所示，假设我们当前在<span class="math inline">\(s_1\)</span><br>
+，那么它只可能去到3个未来的状态：有 0.1 的概率留在它当前位置，有 0.2 的概率去到<span class="math inline">\(s_2\)</span>状态，有 0.7 的概率去到<span class="math inline">\(s_4\)</span>状态。所以我们把状态转移概率乘它未来的状态的价值，再加上它的即时奖励（immediate reward），就会得到它当前状态的价值。贝尔曼方程定义的就是当前状态与未来状态的迭代关系。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/c5faaf56f37b49a98bd2e4a23489e6b7d0e57b65c3e743dd97247974f282d423.webp" alt="图 2.5 状态转移"></p>
+<p>我们可以把贝尔曼方程写成矩阵的形式：</p>
+<p><span class="math display">\[
+\left(\begin{array}{c}    
+    V\left(s_{1}\right) \\    
+    V\left(s_{2}\right) \\    
+    \vdots \\    
+    V\left(s_{N}\right)    
+    \end{array}\right)=\left(\begin{array}{c}    
+    R\left(s_{1}\right) \\    
+    R\left(s_{2}\right) \\    
+    \vdots \\    
+    R\left(s_{N}\right)    
+    \end{array}\right)+\gamma\left(\begin{array}{cccc}    
+    p\left(s_{1} \mid s_{1}\right) &amp; p\left(s_{2} \mid s_{1}\right) &amp; \ldots &amp; p\left(s_{N} \mid s_{1}\right) \\    
+    p\left(s_{1} \mid s_{2}\right) &amp; p\left(s_{2} \mid s_{2}\right) &amp; \ldots &amp; p\left(s_{N} \mid s_{2}\right) \\    
+    \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\    
+    p\left(s_{1} \mid s_{N}\right) &amp; p\left(s_{2} \mid s_{N}\right) &amp; \ldots &amp; p\left(s_{N} \mid s_{N}\right)    
+    \end{array}\right)\left(\begin{array}{c}    
+    V\left(s_{1}\right) \\    
+    V\left(s_{2}\right) \\    
+    \vdots \\    
+    V\left(s_{N}\right)    
+    \end{array}\right)
+\]</span></p>
+<p>我们当前的状态是向量<span class="math inline">\([V(s_1),V(s_2),\cdots,V(s_N)]^\mathrm{T}\)</span>。每一行来看，向量<span class="math inline">\(V\)</span>乘状态转移矩阵里面的某一行，再加上它当前可以得到的奖励，就会得到它当前的价值。</p>
+<p>当我们把贝尔曼方程写成矩阵形式后，可以直接求解：</p>
+<p><span class="math display">\[
+\begin{aligned}    
+    \boldsymbol{V} &amp;= \boldsymbol{\boldsymbol{R}}+ \gamma \boldsymbol{P}\boldsymbol{V} \\    
+    \boldsymbol{I}\boldsymbol{V} &amp;= \boldsymbol{R}+ \gamma \boldsymbol{P}\boldsymbol{V} \\    
+    (\boldsymbol{I}-\gamma \boldsymbol{P})\boldsymbol{V}&amp;=\boldsymbol{R} \\    
+    \boldsymbol{V}&amp;=(\boldsymbol{I}-\gamma \boldsymbol{P})^{-1}\boldsymbol{R}    
+    \end{aligned}
+\]</span></p>
+<p>我们可以直接得到 <strong>解析解（analytic solution）</strong>：</p>
+<p><span class="math display">\[
+\boldsymbol{V}=(\boldsymbol{I}-\gamma \boldsymbol{P})^{-1} \boldsymbol{R}
+\]</span></p>
+<p>我们可以通过矩阵求逆把<span class="math inline">\(V\)</span>的价值直接求出来。但是一个问题是这个矩阵求逆的过程的复杂度是<span class="math inline">\(O(N^3)\)</span>。所以当状态非常多的时候，比如从10个状态到1000个状态，或者到100万个状态，当我们有100万个状态的时候，状态转移矩阵就会是一个100万乘100万的矩阵，对这样一个大矩阵求逆是非常困难的。所以这种通过解析解去求解的方法只适用于很小量的马尔可夫奖励过程。</p>
+<h3 id="计算马尔可夫奖励过程价值的迭代算法">计算马尔可夫奖励过程价值的迭代算法</h3>
+<p>我们可以将迭代的方法应用于状态非常多的马尔可夫奖励过程（large MRP），比如：<strong>动态规划的方法</strong> ，<strong>蒙特卡洛的方法</strong>（通过采样的办法计算它），<strong>时序差分学习（temporal-difference learning，TD learning）</strong> 的方法（时序差分学习是动态规划和蒙特卡洛方法的一个结合）。</p>
+<p>首先我们用蒙特卡洛方法来计算价值。如图 2.6 所示，蒙特卡洛方法就是当得到一个马尔可夫奖励过程后，我们可以从某个状态开始，把小船放到状态转移矩阵里面，让它“随波逐流”，这样就会产生一个轨迹。产生一个轨迹之后，就会得到一个奖励，那么直接把折扣的奖励即回报<span class="math inline">\(g\)</span>算出来。算出来之后将它积累起来，得到回报<span class="math inline">\(G_t\)</span>。当积累了一定数量的轨迹之后，我们直接用<span class="math inline">\(G_t\)</span>除以轨迹数量，就会得到某个状态的价值。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/346c92c88e7344eb93e47c3c5b6d794077dc7ae677d64947a6592f85f55e5bba.webp" alt="图 2.6 计算马尔可夫奖励过程价值的蒙特卡洛方法"></p>
+<p>比如我们要计算<span class="math inline">\(s_4\)</span>状态的价值，可以从<span class="math inline">\(s_4\)</span>状态开始，随机产生很多轨迹。把小船放到状态转移矩阵里面，然后它就会“随波逐流”，产生轨迹。每个轨迹都会得到一个回报，我们得到大量的回报，比如100个、1000个回报，然后直接取平均值，就可以等价于现在<span class="math inline">\(s_4\)</span>的价值，因为<span class="math inline">\(s_4\)</span>的价值<span class="math inline">\(V(s_4)\)</span>定义了我们未来可能得到多少的奖励。这就是蒙特卡洛采样的方法。</p>
+<p>如图 2.7 所示，我们也可以用动态规划的方法，一直迭代贝尔曼方程，直到价值函数收敛，我们就可以得到某个状态的价值。我们通过自举（bootstrapping） 的方法不停地迭代贝尔曼方程，当最后更新的状态与我们上一个状态的区别并不大的时候，更新就可以停止，我们就可以输出最新的<span class="math inline">\(V^\prime(s)\)</span>作为它当前的状态的价值。这里就是把贝尔曼方程变成一个贝尔曼更新（Bellman update），这样就可以得到状态的价值。</p>
+<p>动态规划的方法基于后继状态价值的估计来更新现在状态价值的估计（如图 2.7 所示算法中的第 3 行用 <span class="math inline">\(V^\prime(s)\)</span>来更新<span class="math inline">\(V\)</span>）。根据其他估算值来更新估算值的思想，我们称其为自举。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/382da4c14abc40bbae3a54dd38fc4a556d56f69565f34c90809fca446bdf224f.webp" alt="图 2.7 计算马尔可夫奖励过程价值的动态规划算法"></p>
+<h3 id="马尔可夫奖励过程的例子">马尔可夫奖励过程的例子</h3>
+<p>如图 2.8 所示，如果我们在马尔可夫链上加上奖励，那么到达每个状态，我们都会获得一个奖励。我们可以设置对应的奖励，比如智能体到达状态 <span class="math inline">\(s_1\)</span>时，可以获得 5 的奖励；到达<span class="math inline">\(s_7\)</span> 的时候，可以得到 10 的奖励；到达其他状态没有任何奖励。<br>
+因为这里的状态是有限的，所以我们可以用向量<span class="math inline">\(\boldsymbol{R}=[5,0,0,0,0,0,10]\)</span>来表示奖励函数，<span class="math inline">\(R\)</span>表示每个状态的瞬时奖励大小。</p>
+<p>我们通过一个形象的例子来理解马尔可夫奖励过程。我们把一艘纸船放到河流之中，它就会随着水流而流动，它自身是没有动力的。所以我们可以把马尔可夫奖励过程看成一个随波逐流的例子，当我们从某一个点开始的时候，纸船就会随着事先定义好的状态转移进行流动，它到达每个状态后，我们都有可能获得一些奖励。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/4150eb00991b44568ef765e797c3b3086c1c28b0fb644683bb21fd3786a048ae.webp" alt="图 2.8 马尔可夫奖励过程的例子"></p>
+<h2 id="马尔可夫决策过程">马尔可夫决策过程</h2>
+<p>相对于马尔可夫奖励过程，马尔可夫决策过程多了决策（决策是指动作），其他的定义与马尔可夫奖励过程的是类似的。此外，状态转移也多了一个条件，变成了<span class="math inline">\(p\left(s_{t+1}=s^{\prime} \mid s_{t}=s,a_{t}=a\right)\)</span>。未来的状态不仅依赖于当前的状态，也依赖于在当前状态智能体采取的动作。马尔可夫决策过程满足条件：</p>
+<p><span class="math display">\[
+p\left(s_{t+1} \mid s_{t}, a_{t}\right) =p\left(s_{t+1} \mid h_{t}, a_{t}\right)
+\]</span></p>
+<p>对于奖励函数，它也多了一个当前的动作，变成了<span class="math inline">\(R\left(s_{t}=s, a_{t}=a\right)=\mathbb{E}\left[r_{t} \mid s_{t}=s, a_{t}=a\right]\)</span> 。当前的状态以及采取的动作会决定智能体在当前可能得到的奖励多少。</p>
+<h3 id="马尔可夫决策过程的策略">马尔可夫决策过程的策略</h3>
+<p><strong>策略（policy）</strong> 定义了在某一状态下应该采取什么样的行动。直到状态之后，我们可以将当前的状态带入策略函数来得到一个概率，即：</p>
+<p><span class="math display">\[
+\pi(a \mid s)=p\left(a_{t}=a \mid s_{t}=s\right)
+\]</span></p>
+<p>概率表示不同采取不同行动的可能性，比如可能有0.7的概率往左走，有0.3的概率往右走。除此之外，策略也可以是一个确定性的函数，即直接输出一个值（只有一个action的概率为1，其他的都为0），或者直接告诉我们接下来应该采取的动作，而不是动作概率。假设概率函数是平稳的（stationary）, 不同时间点，我们所采取的行动都是对策略函数的采样。</p>
+<p>已知马尔可夫决策过程和策略<span class="math inline">\(\pi\)</span>，我们可以把一个马尔可夫决策过程转换成马尔可夫奖励过程。在马尔可夫决策过程里面，状态转移函数<span class="math inline">\(P(s^\prime \mid s, a)\)</span>是基于当前的状态以及当前的动作的，因为现在已知策略函数，也就是已知在每一个状态下，可能采取的动作的概率，所以我们就可以直接把动作进行求和，去掉<span class="math inline">\(a\)</span>，这样我们就得到了马尔可夫奖励过程的状态转移，即：</p>
+<p><span class="math display">\[
+P_{\pi}\left(s^{\prime} \mid s\right)=\sum_{a \in A} \pi(a \mid s) p\left(s^{\prime} \mid s, a\right)
+\]</span></p>
+<p>对于奖励函数，我们也可以把动作去掉，这样就可以得到类似于马尔可夫奖励过程的奖励函数，即：</p>
+<p><span class="math display">\[
+r_{\pi}(s)=\sum_{a \in A} \pi(a \mid s) R(s, a)
+\]</span></p>
+<h3 id="马尔可夫决策过程与马尔可夫奖励过程的区别">马尔可夫决策过程与马尔可夫奖励过程的区别</h3>
+<p>马尔可夫决策过程里面的状态转移与马尔可夫奖励过程以及马尔可夫过程的状态转移的差异如图 2.9 所示。马尔可夫过程/马尔可夫奖励过程的状态转移是直接决定的。比如当前状态是<span class="math inline">\(s\)</span>，那么直接通过转移概率决定下一个状态是什么。但对于马尔可夫决策过程，它的中间多了一层动作<span class="math inline">\(a\)</span>，即智能体在当前状态的时候，首先要决定采取某一种动作，这样我们会到达某一个黑色的节点。到达这个黑色的节点后，因为有一定的不确定性，所以当智能体当前状态以及智能体当前采取的动作决定过后，智能体进入未来的状态其实也是一个概率分布。在当前状态与未来状态转移过程中多了一层决策性，这是马尔可夫决策过程与之前的马尔可夫过程/马尔可夫奖励过程很不同的一点。在马尔可夫决策过程中，动作是由智能体决定的，智能体会采取动作来决定未来的状态转移。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/45a8692eb64045fa9a015eab921bc3f19f1c1414223947119b9836e0e657d536.webp" alt="图 2.9 马尔可夫决策过程与马尔可夫过程/马尔可夫奖励过程的状态转移的对比"></p>
+<h3 id="马尔可夫决策过程中的价值函数">马尔可夫决策过程中的价值函数</h3>
+<p>马尔可夫决策过程中的价值函数可以定义为：</p>
+<p><span class="math display">\[
+V_{\pi}(s)=\mathbb{E}_{\pi}\left[G_{t} \mid s_{t}=s\right]=\mathbb{E}_{\pi}\left[\sum_{k=0}^{\infty} \gamma^{k} r_{t+k+1} \mid s_{t}=s\right]
+\]</span></p>
+<p>其中，期望是基于我们所采取的策略的。当策略古荡之后，我们通过对策略进行采样来得到一个期望，计算除它的价值函数。</p>
+<p>这里我们引入了一个 <strong>Q函数（Q-function）</strong>，Q函数也被称为 <strong>动作价值函数（action-value function）</strong>，Q函数定义的是在某一状态下采取某一个动作，能够得到的汇报的期望，即</p>
+<p><span class="math display">\[
+Q_{\pi}(s, a)=\mathbb{E}_{\pi}\left[G_{t} \mid s_{t}=s, a_{t}=a\right]=\mathbb{E}_{\pi}\left[\sum_{k=0}^{\infty} \gamma^{k} r_{t+k+1} \mid s_{t}=s, a_{t}=a\right]
+\]</span></p>
+<p>对Q函数中的动作进行求期望，就可以得到价值函数：</p>
+<p><span class="math display">\[
+V_{\pi}(s)=\sum_{a \in A} \pi(a \mid s) Q_{\pi}(s, a)
+\]</span></p>
+<p>此处我们对Q函数的贝尔曼方程进行推导：</p>
+<p><span class="math display">\[
+\begin{aligned}    
+    Q(s,a)&amp;=\mathbb{E}\left[G_{t} \mid s_{t}=s,a_{t}=a\right]\\    
+    &amp;=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2} r_{t+3}+\ldots \mid s_{t}=s,a_{t}=a\right]  \\    
+    &amp;=\mathbb{E}\left[r_{t+1}|s_{t}=s,a_{t}=a\right] +\gamma \mathbb{E}\left[r_{t+2}+\gamma r_{t+3}+\gamma^{2} r_{t+4}+\ldots \mid s_{t}=s,a_{t}=a\right]\\    
+    &amp;=R(s,a)+\gamma \mathbb{E}[G_{t+1}|s_{t}=s,a_{t}=a] \\    
+    &amp;=R(s,a)+\gamma \mathbb{E}[V(s_{t+1})|s_{t}=s,a_{t}=a]\\    
+    &amp;=R(s,a)+\gamma \sum_{s^{\prime} \in S} p\left(s^{\prime} \mid s,a\right) V\left(s^{\prime}\right)    
+    \end{aligned}
+\]</span></p>
+<h3 id="贝尔曼期望方程">贝尔曼期望方程</h3>
+<p>我们可以把状态价值函数和动作价值函数拆解成两个部分：即使奖励和后续状态的折扣价值(discounted valud of sucessor state)。</p>
+<p>通过对状态价值函数的分解，我们就可以得到一个类似于之前马尔可夫奖励过程的贝尔曼方程——贝尔曼期望方程（Bellman expectation equation）：</p>
+<p><span class="math display">\[
+V_{\pi}(s)=\mathbb{E}_{\pi}\left[r_{t+1}+\gamma V_{\pi}\left(s_{t+1}\right) \mid s_{t}=s\right] \tag{2.6}
+\]</span></p>
+<p>对于动作价值函数，我们也可以做类似的分解，得到动作价值函数的贝尔曼期望方程：</p>
+<p><span class="math display">\[
+Q_{\pi}(s, a)=\mathbb{E}_{\pi}\left[r_{t+1}+\gamma Q_{\pi}\left(s_{t+1}, a_{t+1}\right) \mid s_{t}=s, a_{t}=a\right] \tag{2.7}
+\]</span></p>
+<p>贝尔曼期望方程定义了当前状态与未来状态之间的联系。</p>
+<p>我们进一步进行简单的分解，先给出式（2.8）：</p>
+<p><span class="math display">\[
+V_{\pi}(s)=\sum_{a \in A} \pi(a \mid s) Q_{\pi}(s, a) \tag{2.8}
+\]</span></p>
+<p>接着，我们再给出式（2.9）：</p>
+<p><span class="math display">\[
+Q_{\pi}(s, a)=R(s,a)+\gamma \sum_{s^{\prime} \in S} p\left(s^{\prime} \mid s, a\right) V_{\pi}\left(s^{\prime}\right) \tag{2.9}
+\]</span></p>
+<p>式（2.8）和式（2.9）表示了状态价值函数与动作价值函数之间的关系。</p>
+<p>我们把式（2.9）代入式（2.8），就可以得到：</p>
+<p><span class="math display">\[
+V_{\pi}(s)=\sum_{a \in A} \pi(a \mid s)\left(R(s, a)+\gamma \sum_{s^{\prime} \in S} p\left(s^{\prime} \mid s, a\right) V_{\pi}\left(s^{\prime}\right)\right) \tag{2.10}
+\]</span></p>
+<p>其矩阵形式为：</p>
+<p><span class="math display">\[
+R \in \mathbb{R}^{NM \times 1} = 
+\left( \begin{array}{c}
+R(s_1,a_1)\\
+R(s_1,a_2)\\
+\vdots\\
+R(s_N,a_M)\\
+\end{array}\right) 
+\]</span></p>
+<p><span class="math display">\[
+Q \in \mathbb{R}^{NM \times 1} =
+\left( \begin{array}{c}
+Q(s_1,a_1)\\
+Q(s_1,a_2)\\
+\vdots\\
+Q(s_N,a_M)\\
+\end{array}\right)
+\]</span></p>
+<p><span class="math display">\[
+V \in \mathbb{R}^{N \times 1} =
+\left( \begin{array}{c}
+V(s_1)\\    
+V(s_2)\\
+\vdots\\
+V(s_N)\\
+\end{array}\right)
+\]</span></p>
+<p><span class="math display">\[
+P \in \mathbb{R}^{NM \times N} = \left( \begin{array}{c}
+p(s_1 \mid s_1, a_1) &amp; p(s_2 \mid s_1, a_1) &amp; \cdots &amp; p(s_N \mid s_1, a_1)\\
+p(s_1 \mid s_1, a_2) &amp; p(s_2 \mid s_1, a_2) &amp; \cdots &amp; p(s_N \mid s_1, a_2)\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+p(s_1 \mid s_N, a_M) &amp; p(s_2 \mid s_N, a_M) &amp; \cdots &amp; p(s_N \mid s_N, a_M)
+\end{array}\right)
+\]</span></p>
+<p><span class="math display">\[
+\Pi \in \mathbb{R}^{N \times NM} = \left( \begin{array}{c}
+\pi(a_1 \mid s_1) &amp; \pi(a_2 \mid s_1) &amp; \cdots &amp; \pi(a_M \mid s_1) &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 0 &amp;\pi(a_1 \mid s_2) &amp; \pi(a_2 \mid s_2) &amp; \cdots &amp; \pi(a_M \mid s_2) &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0\\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots\\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; \pi(a_1 \mid s_N) &amp; \pi(a_2 \mid s_N) &amp; \cdots &amp; \pi(a_M \mid s_N)\\
+\end{array}\right)
+\]</span></p>
+<p><span class="math display">\[
+Q = R + \gamma PV
+\]</span></p>
+<p><span class="math display">\[
+V = \Pi Q = \Pi(R + \gamma PV) = \Pi R + \gamma \Pi PV
+\]</span></p>
+<p>若记<span class="math inline">\(R^\pi = \Pi R \in \mathbb{R}^{N \times 1}, P^\pi = \Pi P \in \mathbb{R}^{N \times N}\)</span>，则：</p>
+<p><span class="math display">\[
+V = R^\pi + \gamma P^\pi V
+\]</span></p>
+<p>其中<span class="math inline">\(R^\pi\)</span>是给定策略<span class="math inline">\(\pi\)</span>下的MDP的等效MRP的奖励函数，<span class="math inline">\(P^\pi\)</span>是给定策略<span class="math inline">\(\pi\)</span>下的MDP的等效MRP的状态转移概率矩阵。</p>
+<p>式（2.10）表示了当前状态的价值与未来状态价值之间的关系。</p>
+<p>我们把式（2.8）代入式（2.9），就可以得到：</p>
+<p><span class="math display">\[
+Q_{\pi}(s, a)=R(s, a)+\gamma \sum_{s^{\prime} \in S} p\left(s^{\prime} \mid s, a\right) \sum_{a^{\prime} \in A} \pi\left(a^{\prime} \mid s^{\prime}\right) Q_{\pi}\left(s^{\prime}, a^{\prime}\right) \tag{2.11}
+\]</span></p>
+<p>式（2.11）表示了当前状态的动作价值与未来状态的动作价值之间的关系。</p>
+<p>式(2.10)和式(2.11)是贝尔曼期望方程的另一种形式。</p>
+<h3 id="最优策略与最优价值函数">最优策略与最优价值函数</h3>
+<p>解决一个强化学习问题，就是找出一个策略，使得在该策略下，能够获得较多的长期回报。对于优先MDP，我们可以通过下面的方式来定义最优策略。首先，如果对于所有的状态<span class="math inline">\(s\)</span>，都有<span class="math inline">\(\pi\)</span>的期望奖励大于<span class="math inline">\(\pi^\prime\)</span>的期望奖励，我们则称策略<span class="math inline">\(\pi\)</span>比较策略<span class="math inline">\(\pi^\prime\)</span>好（better than），即：</p>
+<p><span class="math display">\[
+\pi \geq \pi^\prime \Leftrightarrow V_{\pi}(s) \geq V_{\pi^\prime}(s), \forall s \in S
+\]</span></p>
+<p>而实时上，MDP中存在一个策略好比其他策略都要好，我们称这个策略为最优策略（optimal policy）。尽管有可能存在多个最优策略，我们用<span class="math inline">\(\pi_*\)</span>来表示最优策略，它们共享相同的状态价值函数，称作最优状态价值函数（optimal state-value function）<span class="math inline">\(V_*\)</span>，其定义为：</p>
+<p><span class="math display">\[
+V_*(s) = \max_{\pi} V_{\pi}(s), \forall s \in S
+\]</span></p>
+<p>最优策略也共享相同的动作价值函数，称作最优动作价值函数（optimal action-value function）<span class="math inline">\(Q_*\)</span>，其定义为：</p>
+<p><span class="math display">\[
+Q_*(s, a) = \max_{\pi} Q_{\pi}(s, a), \forall s \in S, \forall a \in A
+\]</span></p>
+<p>在动作价值函数中，对于给定的<span class="math inline">\((s,a)\)</span>，Q函数的返回值表示在<span class="math inline">\(s\)</span>状态下采取<span class="math inline">\(a\)</span>行为，并且在后续过程中采用最优策略能够获得的期望回报。因为其可以写成如下等式：</p>
+<p><span class="math display">\[
+Q_*(s, a) = \mathbb{E}\left[{R_{t+1} + \gamma V_*(S_{t+1}) \mid S_t = s, A_t = a}\right]
+\]</span></p>
+<p>因为<span class="math inline">\(V_*\)</span>是某个策略的值函数，它必须满足状态值的自洽条件（贝尔曼方程）。然而，由于它是最优价值函数，<span class="math inline">\(V_*\)</span>的自洽条件可以写成一种特殊形式，而不需要参考任何特定策略。这就是关于<span class="math inline">\(V_*\)</span>的贝尔曼方程，或称 <strong>贝尔曼最优方程</strong> 。直观上，贝尔曼最优方程表达了这样一个事实：在最优策略下，一个状态的价值必须等于从该状态出发采取最佳动作的期望回报：</p>
+<p><span class="math display">\[
+\begin{align*}
+V_*(s) &amp;= \max_{a \in A(s)} Q_{\pi_*}(s,a) \\
+&amp;= \max_{a \in A(s)} \mathbb{E}_{\pi_*}[G_t \mid S_t = s, A_t = a] \\
+&amp;= \max_{a \in A(s)} \mathbb{E}_{\pi_*}\left[R_{t+1} + \gamma G_{t+1} \mid S_t = s, A_t = a\right] \\
+&amp;= \max_{a \in A(s)} \mathbb{E}_{\pi_*}\left[R_{t+1} + \gamma V_*(S_{t+1}) \mid S_t = s, A_t = a\right] \\
+&amp;= \max_{a \in A(s)} \sum_{s&#39;,r} p(s&#39;,r|s,a) \left[ r + \gamma V_*(s&#39;) \right] \tag{3.19}\\
+\end{align*}
+\]</span></p>
+<p>同样，对于动作价值函数<span class="math inline">\(Q_*\)</span>，我们也可以得到它的贝尔曼最优方程：</p>
+<p><span class="math display">\[
+\begin{align*}
+Q_*(s,a) &amp;=  \mathbb{E}\left[{R_{t+1} + \gamma V_*(S_{t+1}) \mid S_t = s, A_t = a}\right] \\
+&amp;= \mathbb{E}\left[R_{t+1} + \gamma \max_{a&#39;} Q_*(S_{t+1},a&#39;) \mid S_t = s, A_t = a\right] \\
+&amp;=\sum_{s&#39;,r} p(s&#39;,r|s,a) \left[ r + \gamma \max_{a&#39;} Q_*(s&#39;,a&#39;) \right] \\
+\end{align*}    
+\]</span></p>
+<p>显式求解贝尔曼最优方程提供了一种寻找最优策略的途径，从而解决强化学习问题。然而，这种解法很少能直接有用。它类似于穷举搜索，需要遍历所有可能性，计算它们发生的概率及其期望回报。</p>
+<p>这种解法依赖于三个在实践中很少成立的假设：</p>
+<ol type="1">
+<li>环境的动态特性被准确知晓；</li>
+<li>计算资源足以完成计算；</li>
+<li>状态具有马尔可夫性质。</li>
+</ol>
+<p>在我们感兴趣的任务中，通常无法精确实现这个解法，因为这些假设中的某些往往会被违背。例如，在西洋双陆棋游戏中，虽然第一和第三条假设没有问题，但第二条假设是主要障碍。因为该游戏约有<span class="math inline">\(10^{20}\)</span>个状态，即使用当今最快的计算机也需要数千年才能求解<span class="math inline">\(v_*\)</span>的贝尔曼方程，寻找<span class="math inline">\(q_*\)</span>也同样如此。因此在强化学习中，通常会求取近似解(后续介绍的策略迭代和价值迭代就是)，而非精确解。</p>
+<h3 id="预测与控制">预测与控制</h3>
+<p>预测（prediction）和控制（control）是马尔可夫决策过程里面的核心问题。</p>
+<p>预测（评估一个给定的策略）的输入是马尔可夫决策过程 <span class="math inline">\(S,A,P,R,\gamma\)</span>和策略<span class="math inline">\(\pi\)</span>，输出是价值函数<span class="math inline">\(V_\pi\)</span>。预测是指给定一个马尔可夫决策过程以及一个策略<span class="math inline">\(\pi\)</span>，计算它的价值函数，也就是计算每个状态的价值。</p>
+<p>控制（搜索最佳策略）的输入是马尔可夫决策过程<span class="math inline">\(S,A,P,R,\gamma\)</span>，输出是最佳价值函数（optimal value function）<span class="math inline">\(V^*\)</span>和最佳策略（optimal policy）<span class="math inline">\(\pi^*\)</span>。控制就是我们去寻找一个最佳的策略，然后同时输出它的最佳价值函数以及最佳策略。</p>
+<p>在马尔可夫决策过程里面，预测和控制都可以通过动态规划解决。要强调的是，这两者的区别就在于，预测问题是给定一个策略，我们要确定它的价值函数是多少。而控制问题是在没有策略的前提下，我们要确定最佳的价值函数以及对应的决策方案。实际上，这两者是递进的关系，在强化学习中，我们通过解决预测问题，进而解决控制问题。</p>
+<p>举一个例子来说明预测与控制的区别。首先是预测问题。在图 2.16a 的方格中，我们规定从<span class="math inline">\(A \rightarrow A^\prime\)</span>可以得到 +10 的奖励，从<span class="math inline">\(B \rightarrow B^\prime\)</span>可以得到 +5 的奖励，其他步骤的奖励为 -1。如图 2.16b 所示，现在，我们给定一个策略：在任何状态中，智能体的动作模式都是随机的，也就是上、下、左、右的概率均为0.25。预测问题要做的就是，求出在这种决策模式下，价值函数是什么。图 2.16c 是对应的价值函数。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/d275b70177c4461f9099045cf69f93cb9c71a4c3336c444abc33d91dd14d2e06.webp" alt="图 2.16 网格世界例子：预测"></p>
+<p>接着是控制问题。在控制问题中，问题背景与预测问题的相同，唯一的区别就是：不再限制策略。也就是动作模式是未知的，我们需要自己确定。 所以我们通过解决控制问题，求得每一个状态的最优的价值函数，如图 2.17b 所示；也得到了最优的策略，如图 2.17c 所示。</p>
+<p>控制问题要做的就是，给定同样的条件，求出在所有可能的策略下最优的价值函数是什么，最优策略是什么。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/404c8738370047d9967659721e685bb88a8deb9694f74570973aac0ea23258ad.webp" alt="图 2.17 网格世界例子：控制"></p>
+<h3 id="马尔可夫决策过程控制">马尔可夫决策过程控制</h3>
+<p><a href="#策略评估">策略评估</a>是指给定马尔可夫决策过程和策略，我们可以估算出价值函数的值。但是如果我们只有马尔可夫决策过程，那么应该如何找到最佳的策略，从而得到最佳价值函数（optimal value function）呢？</p>
+<p>最佳价值函数的定义为：</p>
+<p><span class="math display">\[
+V^{*}(s)=\max_{\pi} V_{\pi}(s)
+\]</span></p>
+<p>最佳价值函数是指，我们搜索一种策略<span class="math inline">\(\pi\)</span>，让每个状态的价值最大。<span class="math inline">\(V^*(s)\)</span>就是到达每一个状态，它的值的最大化情况。</p>
+<p>使得每个状态的价值都最大化的策略称为 <strong>最优策略（optimal policy）</strong>，记为<span class="math inline">\(\pi^*\)</span>，即</p>
+<p><span class="math display">\[
+\pi^{*}(s)=\arg \max_{\pi} V_{\pi}(s)
+\]</span></p>
+<p>最佳策略使得每个状态的价值函数都取得最大值。所以如果我们可以得到一个最佳价值函数，就可以认为某个马尔可夫决策过程的环境可解。在这种情况下，最佳价值函数是一致的，环境中可达到的上限的值是一致的，但这里可能有多个最佳策略，多个最佳策略可以取得相同的最佳价值。</p>
+<p>当取得最佳价值函数后，我们可以通过对Q函数进行最大化来得到最佳策略：</p>
+<p><span class="math display">\[
+\pi^{*}(a\mid s)=
+\begin{cases}
+    1,\ a = \mathop{\arg\max}\limits_{a \in A} Q_{\pi^{*}}(s, a)\\
+    0,\ \text{others}
+\end{cases}
+\]</span></p>
+<p>当Q函数收敛后，因为 Q 函数是关于状态与动作的函数，所以如果在某个状态采取某个动作，可以使得 Q 函数最大化，那么这个动作就是最佳的动作。如果我们能优化出一个 Q 函数<span class="math inline">\(Q^*(s,a)\)</span>，就可以直接在 Q 函数中取一个让 Q 函数值最大化的动作的值，就可以提取出最佳策略。</p>
+<p>Q: 怎样进行策略搜索？</p>
+<p>A: 最简单的策略搜索方法就是穷举。假设状态和动作都是有限的，那么每个状态我们可以采取<span class="math inline">\(A\)</span>种动作的策略，总共就是<span class="math inline">\(|A|^{|S|}\)</span>个可能的策略。我们可以把策略穷举一遍，算出每种策略的价值函数，对比一下就可以得到最佳策略。</p>
+<p>但是穷举非常没有效率，所以我们要采取其他方法。搜索最佳策略有两种常用的方法：策略迭代和价值迭代。</p>
+<p>寻找最佳策略的过程就是马尔可夫决策过程的控制过程。马尔可夫决策过程控制就是去寻找一个最佳策略使我们得到一个最大的价值函数值，即</p>
+<p><span class="math display">\[
+\pi^{*}(s)=\mathop{\arg\max}_{\pi} V_{\pi}(s)
+\]</span></p>
+<p>对于一个事先定好的马尔可夫决策过程，当智能体采取最佳策略的时候，最佳策略一般都是确定的，而且是稳定的（它不会随着时间的变化而变化）。但最佳策略不一定是唯一的，多种动作可能会取得相同的价值。</p>
+<p>我们可以通过<a href="#策略迭代">策略迭代</a>和<a href="#价值迭代">价值迭代</a>来解决马尔可夫决策过程的控制问题。</p>
+<h3 id="备份图">备份图</h3>
+<p>接下来我们介绍 <strong>备份（backup）</strong> 的概念。备份类似于自举之间的迭代关系，对于某一个状态，它的当前价值是与它的未来价值线性相关的。</p>
+<p>我们将与图 2.10 类似的图称为 <strong>备份图（backup diagram）</strong> 或回溯图，因为它们所示的关系构成了更新或备份操作的基础，而这些操作是强化学习方法的核心。这些操作将价值信息从一个状态（或状态-动作对）的后继状态（或状态-动作对）转移回它。</p>
+<p>每一个空心圆圈代表一个状态，每一个实心圆圈代表一个状态-动作对。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/dffc7d453d5e4f4fb135ed24b74c92088ef6d313c4604043bc71a2ca6661d186.webp" alt="图 2.10 V_\pi 备份图"></p>
+<p>如式(2.12)所示，这里有两层加和。第一层加和是对叶子节点进行加和，往上备份一层，我们就可以把未来的价值（<span class="math inline">\(s^\prime\)</span>的价值）备份到黑色的节点。</p>
+<p>第二层加和是对动作进行加和，得到黑色节点的价值后，再往上备份一层，就会得到根节点的价值，即当前状态的价值。</p>
+<p><span class="math display">\[
+V_{\pi}(s)=\sum_{a \in A} \pi(a \mid s)\left(R(s, a)+\gamma \sum_{s^{\prime} \in S} p\left(s^{\prime} \mid s, a\right) V_{\pi}\left(s^{\prime}\right)\right) \tag{2.12}
+\]</span></p>
+<p>图 2.11 所示为状态价值函数的计算分解，图 2.11b 的计算公式为</p>
+<p><span class="math display">\[
+V_{\pi}(s)=\sum_{a \in A} \pi(a \mid s) Q_{\pi}(s, a) \tag{2.13}
+\]</span></p>
+<p>图 2.11b 给出了状态价值函数与 Q 函数之间的关系。图 2.11c 计算 Q 函数为</p>
+<p><span class="math display">\[
+Q_{\pi}(s,a)=R(s, a)+\gamma \sum_{s^{\prime} \in S} p\left(s^{\prime} \mid s, a\right) V_{\pi}\left(s^{\prime}\right) \tag{2.14}
+\]</span></p>
+<p>我们将式(2.14)代入式(2.13)可得</p>
+<p><span class="math display">\[
+V_{\pi}(s)=\sum_{a \in A} \pi(a \mid s)\left(R(s, a)+\gamma \sum_{s^{\prime} \in S} p\left(s^{\prime} \mid s, a\right) V_{\pi}\left(s^{\prime}\right)\right)
+\]</span></p>
+<p>所以备份图定义了未来下一时刻的状态价值函数与上一时刻的状态价值函数之间的关联。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/29757b6c05c4465f98a4b7364e43ee8d60aab5b258684aaeb1d2b68bac0d5968.webp" alt="图 2.11 状态价值函数的计算分解"></p>
+<p>对于 Q 函数，我们也可以进行这样的一个推导。如图 2.12 所示，现在的根节点是 Q 函数的一个节点。Q 函数对应于黑色的节点。下一时刻的 Q 函数对应于叶子节点，有4个黑色的叶子节点。</p>
+<p><span class="math display">\[
+Q_{\pi}(s, a)=R(s, a)+\gamma \sum_{s^{\prime} \in S} p\left(s^{\prime} \mid s, a\right) \sum_{a^{\prime} \in A} \pi\left(a^{\prime} \mid s^{\prime}\right) Q_{\pi}\left(s^{\prime}, a^{\prime}\right) \tag{2.15}
+\]</span></p>
+<p>如式(2.15)所示，这里也有两层加和。第一层加和先把叶子节点从黑色节点推到空心圆圈节点，进入到空心圆圈结点的状态。</p>
+<p>当我们到达某一个状态后，再对空心圆圈节点进行加和，这样就把空心圆圈节点重新推回到当前时刻的 Q 函数。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/894385a7bec54988ba80021f2fed5ad1b125c670d75f41c79df88b0812b1c304.webp" alt="图 2.12 行为价值函数的备份图"></p>
+<p>图 2.13c 中，</p>
+<p><span class="math display">\[
+V_{\pi}\left(s^{\prime}\right)=\sum_{a^{\prime} \in A} \pi\left(a^{\prime} \mid s^{\prime}\right) Q_{\pi}\left(s^{\prime}, a^{\prime}\right) \tag{2.16}
+\]</span></p>
+<p>我们将式(2.16)代入式(2.14)可得未来 Q 函数与当前 Q 函数之间的关联，即</p>
+<p><span class="math display">\[
+Q_{\pi}(s, a)=R(s, a)+\gamma \sum_{s^{\prime} \in S} p\left(s^{\prime} \mid s, a\right) \sum_{a^{\prime} \in A} \pi\left(a^{\prime} \mid s^{\prime}\right) Q_{\pi}\left(s^{\prime}, a^{\prime}\right)
+\]</span></p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/cea128f6f5d845999cf28386ca43beae2c264180be4b4207a533f0806bffbc0a.webp" alt="图 2.13 Q函数的计算分解"></p>
+<h3 id="动态规划">动态规划</h3>
+<p><strong>动态规划（Dynamic Programming，DP）</strong> 是指一类算法的集合，这些算法可以在已知环境完美模型（即马尔可夫决策过程，MDP）的前提下，用于计算最优策略。尽管经典的动态规划算法由于依赖完美模型的假设以及计算开销巨大，在强化学习中的实用性有限，但它们在理论上仍然具有重要意义。动态规划为理解其它RL方法奠定了基础。事实上，这些方法都可以看作是在试图实现与动态规划类似的效果，只是计算量更小，且不依赖于对环境的完美建模。</p>
+<p>在动态规划中，我们通常会假设环境是有限MDP。也就是说，我们假设其状态空间<span class="math inline">\(S\)</span>、动作空间<span class="math inline">\(A\)</span>和奖励<span class="math inline">\(R\)</span>都是有限的，并且环境的动力学性质被一组概率分布<span class="math inline">\(p(s^\prime,r \mid s,a)\)</span>所表示。其中<span class="math inline">\(s \in S, a \in A, r \in R, s ^ \prime \in S ^+\)</span>(<span class="math inline">\(S ^ +\)</span>是 <span class="math inline">\(S\)</span>加上结束状态)</p>
+<p>虽然DP的想法也可以用于连续的状态空间和动作空间，但是只有在特殊的情况下，才有精确的解。而一种通常的做法是将连续的状态空间和动作空间量化成离散的，然后应用有限状态DP的方法来求取近似解。</p>
+<p>DP和RL的的核心思想都是使用价值函数来寻找好的策略，因此这一章中，我们会介绍如何使用DP来计算价值函数。而只要我们找出了最优的价值函数 <span class="math inline">\(V_*\)</span>或者最优的动作价值函数 <span class="math inline">\(Q_*\)</span>，我们就可以很容易得使用贪心的策略获得最优的策略。其中<span class="math inline">\(V_*\)</span>和<span class="math inline">\(Q_*\)</span>满足如下的贝尔曼最优方程：</p>
+<p><span class="math display">\[
+\begin{align*}
+V_*(s) &amp;= \max_{a \in A} Q_*(s,a) \\    
+ &amp;= \max_{a \in A} \mathbb{E} \left[R_{t+1} + \gamma V_*(S_{t+1}) \mid S_t = s, A_t = a\right] \\
+ &amp;= \max_{a \in A} \sum_{s^\prime,r} p(s^\prime,r \mid s,a) \left[ r + \gamma V_*(s^\prime) \right] \\
+\end{align*}
+\]</span></p>
+<p><span class="math display">\[
+\begin{align*}
+Q_*(s,a) &amp;= \mathbb{E} \left[R_{t+1} + \gamma V_*(S_{t+1}) \mid S_t = s, A_t = a\right] \\
+&amp;= \mathbb{E} \left[R_{t+1} + \gamma \max_{a^\prime} Q_*(S_{t+1},a^\prime) \mid S_t = s, A_t = a\right] \\
+ &amp;= \sum_{s^\prime,r} p(s^\prime,r \mid s,a) \left[ r + \gamma \max_{a^\prime} Q_*(s^\prime,a^\prime) \right] \\
+\end{align*}
+\]</span></p>
+<h4 id="策略评估">策略评估</h4>
+<p>已知马尔可夫决策过程以及要采取的策略<span class="math inline">\(\pi\)</span>，计算价值函数<span class="math inline">\(V_\pi(s)\)</span>的过程就是 <strong>策略评估</strong>。策略评估在有些地方也被称为 <strong>（价值）预测[（value）prediction）]</strong>，也就是预测我们当前采取的策略最终会产生多少价值。</p>
+<p>考虑如下一个更通用版的贝尔曼方程（<span class="math inline">\(r\)</span>不仅与<span class="math inline">\(s,a\)</span>相关，而且还与<span class="math inline">\(s^\prime\)</span>相关）：</p>
+<p><span class="math display">\[
+\begin{align*}
+V_{\pi}(s) =&amp; \mathbb{E}_{\pi}\left[G_t \mid S_t = s \right] \\ =&amp; \mathbb{E}_{\pi}\left[R_{t+1} + \gamma G_{t+1} \mid S_t = s \right] \\ =&amp; \mathbb{E}_{\pi}\left[R_{t+1} + \gamma V_{\pi}(S_{t+1}) \mid S_t = s \right] \\ =&amp; \sum_{a \in A} \pi(a|s) \sum_{s^\prime,r} p(s^\prime,r \mid s,a) \left[ r + \gamma V_{\pi}(s^\prime) \right]
+\end{align*}
+\]</span></p>
+<p>虽然在策略已知，奖励函数以及状态转移函数已知的情况下，我们可以通过解析解的方式来求解价值函数，但是在实际中，由于运算量太大，因此采用迭代的方案更加合适。</p>
+<p>假设有一系列的价值函数的近似<span class="math inline">\(V_0,V_1,\ldots\)</span>，其中<span class="math inline">\(V_0\)</span>是初始的近似值函数，可以任意选择（只要terminal state的价值是0就行），然后接下来的近似函数可以通过一下的迭代公式来计算：</p>
+<p><span class="math display">\[
+V_{k+1}(s) = \sum_{a \in A} \pi(a|s) \sum_{s^\prime,r} p(s^\prime,r \mid s,a) \left[ r + \gamma V_k(s^\prime) \right]
+\]</span></p>
+<p>随着迭代的进行，<span class="math inline">\(V_k\)</span>会逐渐收敛到真实的价值函数<span class="math inline">\(V_\pi\)</span>。我们可以通过以下的公式来判断收敛：</p>
+<p><span class="math display">\[
+\max_{s \in S} |V_{k+1}(s) - V_k(s)| &lt; \epsilon
+\]</span></p>
+<p>除此之外，其实迭代的具体实现有多种方式，比如我们可以使用 <strong>全局迭代（global iteration）</strong> 的方式来进行迭代，也就是每次都对所有的状态进行更新。也可以使用 <strong>局部迭代（local iteration）</strong> 的方式来进行迭代(也称之为in-place方式)，也就是每次只对一个状态进行更新，而更新另一个状态的价值函数的时候，会使用到上次的更新后的价值函数。局部迭代的方式会更快一些。局部迭代的伪代码如下所示：</p>
+<div class="admonition admonition-note">
+<p class="admonition-title">**Iterative Policy Evaluation**, for estimating $V \approx v_{\pi}$
+</p>
+<ul>
+<li><strong>Input</strong>: <span class="math inline">\(\pi\)</span>, the policy to be evaluated<br>
+</li>
+<li><strong>Algorithm parameter</strong>: small threshold <span class="math inline">\(\theta &gt; 0\)</span> determining accuracy of estimation<br>
+</li>
+<li><strong>Initialize</strong>: <span class="math inline">\(V(s)\)</span> arbitrarily for <span class="math inline">\(s \in \mathcal{S}\)</span>, and <span class="math inline">\(V(\text{terminal}) \gets 0\)</span></li>
+</ul>
+<p><strong>Loop</strong>:<br>
+    <span class="math inline">\(\Delta \gets 0\)</span><br>
+    <strong>For each</strong> <span class="math inline">\(s \in \mathcal{S}\)</span>:<br>
+        <span class="math inline">\(v \gets V(s)\)</span><br>
+        <span class="math inline">\(V(s) \gets \sum\limits_a \pi(a|s) \sum\limits_{s&#39;, r} p(s&#39;, r \mid s, a)\left[r + \gamma V(s&#39;)\right]\)</span><br>
+        <span class="math inline">\(\Delta \gets \max(\Delta, |v - V(s)|)\)</span><br>
+<strong>Until</strong> <span class="math inline">\(\Delta &lt; \theta\)</span></p>
+</div>
+<p><strong>策略评估示例1</strong></p>
+<p>考虑一个4x4的网格世界，其状态空间<span class="math inline">\(S = \{1,2,\cdots,14\}\)</span>，在每个状态下，都有四种可能的行为<span class="math inline">\(A = \{up, down, right, left\}\)</span>，其奖励满足<span class="math inline">\(R(s^\prime,s,a) = 1 \; s \in S, s^\prime \in S^+, a \in A\)</span>而且状态转移是确定的（deterministical），当采取动作会导致agent移出网格时，agent会停留在原地。例如，<span class="math inline">\(p(6,-1\mid 5, right) = 1\)</span>，<span class="math inline">\(p(7,-1\mid 7,right) = 1\)</span>，<span class="math inline">\(p(10,r \mid 5,right) = 0\)</span>。假设agent采取随机策略，折扣因子<span class="math inline">\(\gamma = 1\)</span>，其状态价值函数的计算过程如下图所示：</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/value_evaluation.webp" alt="价值评估示例"></p>
+<p><strong>策略评估示例2</strong></p>
+<p>另一个例子来源于<a target="_blank" rel="noopener" href="https://cs.stanford.edu/people/karpathy/reinforcejs/gridworld_dp.html">斯坦福大学的一个在线示例</a>，这个网页模拟了DP的价值评估和策略更新的过程。</p>
+<p>如图 2.19a 所示，网格世界里面有很多格子，每个格子都代表一个状态。每个格子里面有一个初始值0（初始的状态价值）。每个格子里还有一个箭头，这个箭头是指智能体在当前状态应该采取什么策略。我们这里采取随机的策略，即朝着各个箭头方向运动的概率都是相同的。比如在某个状态，智能体都有上、下、左、右各 0.25 的概率采取某一个动作，所以它的动作是完全随机的。而奖励函数通过格子里面的R表示（需要注意的是，格子里面的R表示的是在该状态采取的任何行动的奖励都是R，而不是到达该状态所能获得的奖励）。我们可以看到有几个格子里面R的值是-1，只有一个格子的R为+1，那些没有写R的表示R为0。奖励的折扣因子<span class="math inline">\(\gamma = 0.9\)</span></p>
+<p>在这样的环境里面，我们想计算每一个状态的价值。</p>
+<p>如图 2.19b 所示，我们开始策略评估，策略评估是一个不停迭代的过程。当我们初始化的时候，所有的<span class="math inline">\(V(s)\)</span>都是 0。我们现在迭代一次，迭代一次之后，有些状态的值已经产生了变化。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/0f38da364e7947f9b23889d2a6e668924b8a03bb64cb4a94b7e73143593b7e5c.webp" alt="图 2.19 网格世界：动态规划示例"></p>
+<p>如图 2.20a 所示，我们再迭代一次，之前有值的状态的周围状态也开始有值。因为周围状态与之前有值的状态是临近的，所以这就相当于把周围的状态转移过来。如图 2.20b 所示，我们逐步迭代，值是一直在变换的。</p>
+<p><img src="/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/c282f531c5264022b66b1774707948ffdd850e51475b4991a453a71ae00e48d3.webp" alt="图 2.20 网格世界：策略评估过程示例"></p>
+<p>当我们迭代了很多次之后，有些很远的状态的价值函数已经有值了，而且整个过程是一个呈逐渐扩散的过程，这其实也是策略评估的可视化。当我们每一步进行迭代的时候，远的状态就会得到一些值，值从已经有奖励的状态逐渐扩散。当我们执行很多次迭代之后，各个状态的值会逐渐稳定下来，最后值就会确定不变。收敛之后，每个状态的值就是它的状态价值。</p>
+<h4 id="策略提升">策略提升</h4>
+<p>使用策略评估来计算给定策略的价值函数的目的是为了找出更好的策略。假设在一个确定策略（deterministic policy）<span class="math inline">\(\pi\)</span>下，我们已经计算出了状态价值函数<span class="math inline">\(V_{\pi}(s)\)</span>。对于某些状态<span class="math inline">\(s\)</span>，我们想要知道的是，我们是否应该改变我们的策略，去选择action <span class="math inline">\(a \neq \pi(s)\)</span>？首先，我们知道如果我们在状态<span class="math inline">\(s\)</span>的时候，按照策略<span class="math inline">\(\pi\)</span>来执行的话，能获得的好处——<span class="math inline">\(V_{\pi}(s)\)</span>，但是我们并不知道，如果我们使用新的策略<span class="math inline">\(\pi^\prime\)</span>，效果是否会变得更好。</p>
+<p>为了解决这个问题，我们可以假设我们在<span class="math inline">\(s\)</span>的第一步的时候，选择动作<span class="math inline">\(a\)</span>，然后在<span class="math inline">\(s\)</span>的后续步骤中，使用策略<span class="math inline">\(\pi\)</span>。其行为价值函数为：</p>
+<p><span class="math display">\[
+\begin{align*}
+Q_{\pi}(s,a) &amp;=\mathbb{E}\left[R_{t+1} + \gamma V_{\pi}(S_{t+1}) \mid S_t = s, A_t = a\right] \\
+&amp;=\sum_{s^\prime,r} p(s^\prime,r \mid s,a) \left[ r + \gamma V_{\pi}(s^\prime) \right]
+\end{align*}
+\]</span></p>
+<p>假设现在有两个确定策略（deterministic policy）<span class="math inline">\(\pi\)</span>和<span class="math inline">\(\pi^\prime\)</span>，如果有(称之为<strong>策略提升定理</strong>)</p>
+<p><span class="math display">\[
+Q_{\pi}(s,\pi^\prime(s)) \geq V_{\pi}(s) \; for\ all\ s \in S
+\]</span></p>
+<p>那么是可以证明</p>
+<p><span class="math display">\[
+V_{\pi^\prime}(s) \geq V_{\pi}(s)
+\]</span></p>
+<div class="admonition admonition-note">
+<p class="admonition-title">证明
+</p>
+<p><span class="math display">\[
+\begin{align*}
+V_{\pi}(s) &amp;\leq Q_{\pi}(s, \pi&#39;(s)) \\
+&amp;= \mathbb{E} [ R_{t+1} + \gamma V_{\pi}(S_{t+1}) \mid S_t = s, A_t = \pi&#39;(s) ] \\
+&amp;= \mathbb{E}_{\pi&#39;} [ R_{t+1} + \gamma V_{\pi}(S_{t+1}) \mid S_t = s ] \\
+&amp;\leq \mathbb{E}_{\pi&#39;} [ R_{t+1} + \gamma Q_{\pi}(S_{t+1}, \pi&#39;(S_{t+1})) \mid S_t = s ] \\
+&amp;= \mathbb{E}_{\pi&#39;} \left[ R_{t+1} + \gamma \mathbb{E} [ R_{t+2} + \gamma V_{\pi}(S_{t+2}) \mid S_{t+1}, A_{t+1} = \pi&#39;(S_{t+1}) ] \mid S_t = s \right] \\
+&amp;= \mathbb{E}_{\pi&#39;} [ R_{t+1} + \gamma R_{t+2} + \gamma^2 V_{\pi}(S_{t+2}) \mid S_t = s ] \\
+&amp;\leq \mathbb{E}_{\pi&#39;} [ R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \gamma^3 V_{\pi}(S_{t+3}) \mid S_t = s ] \\
+&amp;\quad \vdots \\
+&amp;\leq \mathbb{E&#39;}_{\pi&#39;} [ R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \gamma^3 R_{t+4} + \cdots \mid S_t = s ] \\
+&amp;= V_{\pi&#39;}(s)
+\end{align*}
+\]</span></p>
+</div>
+<p>因此如果我们根据<span class="math inline">\(q_{\pi}(s,a)\)</span>的值，并且使用新的贪婪的策略<span class="math inline">\(\pi^\prime\)</span>，其定义如下：</p>
+<p><span class="math display">\[
+\begin{align*}
+\pi&#39;(s) &amp;\doteq \mathop{\arg\max}_{a} Q_{\pi}(s, a) \\
+       &amp;= \mathop{\arg\max}_{a} \mathbb{E} \left[ R_{t+1} + \gamma V_{\pi}(S_{t+1}) \mid S_t = s, A_t = a \right] \\
+       &amp;= \mathop{\arg\max}_{a} \sum_{s&#39;, r} p(s&#39;, r \mid s, a) \left[ r + \gamma V_{\pi}(s&#39;) \right]
+\end{align*}
+\]</span></p>
+<p>很明显，这个新的贪婪策略<span class="math inline">\(\pi^\prime\)</span>满足上述的策略提升定理的条件，所以这个新的策略所产生的价值函数一定大于或者等于原来的策略所产生的价值函数。这种使用原先策略的动作价值函数，并使用贪婪的方案来选择动作来得到新的策略的方式称为 <strong>策略提升（policy improvement）</strong>。</p>
+<p>如果新的贪婪策略<span class="math inline">\(\pi^\prime\)</span>与原来的策略<span class="math inline">\(\pi\)</span>的价值函数相同，即<span class="math inline">\(V_{\pi} = V_{\pi^\prime}\)</span>，结合上述<span class="math inline">\(V_{\pi^\prime}\)</span>的定义，可以得到如下等式：</p>
+<p><span class="math display">\[
+\begin{align*}
+V_{\pi^\prime}(s) &amp;= \max_{a}\mathbb{E} \left[ R_{t+1} + \gamma V_{\pi^\prime}(S_{t+1}) \mid S_t = s, A_t = a \right] \\
+&amp;= \max_{a}\sum_{s&#39;, r} p(s&#39;, r \mid s, a) \left[ r + \gamma V_{\pi^\prime}(s&#39;) \right] \\
+\end{align*}
+\]</span></p>
+<p>该等是与贝尔曼最优方程是一样的，因此，<span class="math inline">\(V_{\pi^\prime}\)</span>一定就是<span class="math inline">\(V_*\)</span>，而且<span class="math inline">\(\pi\)</span>与<span class="math inline">\(\pi^\prime\)</span>都是最优策略。因此，策略提升一定会我们一个更好的策略，除非原始的策略就是最优策略。</p>
+<p>到目前为止，上述关于策略提升的讨论主要是针对于特殊的情况，即确定策略(deterministic policy)。但是我们也可以将上述的讨论推广到随机策略（stochastic policy）上。上述的结论对于随机策略来说依然成立。</p>
+<p>依据贪婪策略<span class="math inline">\(\pi^\prime\)</span>的定义，我们选择使得<span class="math inline">\(Q_\pi(s,a)\)</span>最大的动作，最为新策略<span class="math inline">\(\pi^\prime\)</span>的动作。但是有可能存在多个动作<span class="math inline">\(a\)</span>，都使得<span class="math inline">\(Q_\pi(s,a)\)</span>最大。在确定策略的情况下，随便选一个就行了，但是对于随机策略，我们不需要只选取一个动作，而是可以为这些最大化<span class="math inline">\(Q_\pi(s,a)\)</span>动作中的每一个分配一定的被选中概率，从而构成新的贪婪策略。只要所有非最大化<span class="math inline">\(Q_\pi(s,a)\)</span>的动作被赋予零概率，任何这种分配方式都是允许的。</p>
+<h4 id="策略迭代">策略迭代</h4>
+<p>一旦一个策略<span class="math inline">\(\pi\)</span>被使用<span class="math inline">\(V_\pi\)</span>改进，生成了一个更优的策略<span class="math inline">\(\pi&#39;\)</span>，我们就可以计算<span class="math inline">\(V_{\pi&#39;}\)</span>，并再次进行改进，得到一个更优的策略<span class="math inline">\(\pi&#39;&#39;\)</span>。如此，我们可以得到一系列单调改进的策略和值函数：</p>
+<p><span class="math display">\[
+\pi_0 \xrightarrow{E} V_{\pi_0} \xrightarrow{I} \pi_1 \xrightarrow{E} V_{\pi_1} \xrightarrow{I} \pi_2 \xrightarrow{E} \cdots \xrightarrow{I} \pi_* \xrightarrow{E} V_*,
+\]</span></p>
+<p>其中：</p>
+<ul>
+<li><span class="math inline">\(\xrightarrow{E}\)</span>表示策略评估（<strong>Evaluation</strong>）；</li>
+<li><span class="math inline">\(\xrightarrow{I}\)</span>表示策略改进（<strong>Improvement</strong>）。</li>
+</ul>
+<p>每一步策略都会是对前一步的严格改进（除非策略已经是最优）。由于有限的马尔可夫决策过程（MDP）只拥有有限个确定性策略，因此这个过程必定在有限步内收敛到一个最优策略<span class="math inline">\(\pi_*\)</span>和最优价值函数<span class="math inline">\(V_*\)</span>。</p>
+<p>这种寻找最优策略的方法被称为 <strong>策略迭代（Policy Iteration）</strong>。完整的算法在下方的框中给出。</p>
+<div class="markdown-alert markdown-alert-note" dir="auto"><p class="markdown-alert-title" dir="auto"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p><p dir="auto">
+注意：每次策略评估本身是一个迭代计算，它从前一个策略对应的值函数作为初始值开始。这样可以极大地加快策略评估的收敛速度（因为值函数在两个策略之间变化通常较小）。</p></div>
+<div class="admonition admonition-note">
+<p class="admonition-title">Policy Iteration（using iterative policy evaluation）for estimating $\pi \approx \pi_*$
+</p>
+<ol type="1">
+<li><p><strong>Initialization</strong><br>
+ <span class="math inline">\(V(s) \in \mathbb{R}\)</span> and <span class="math inline">\(\pi(s) \in \mathcal{A}(s)\)</span> arbitrarily for all <span class="math inline">\(s \in \mathcal{S}\)</span>；<span class="math inline">\(V(\text{terminal}) \doteq 0\)</span></p></li>
+<li><p><strong>Policy Evaluation</strong><br>
+ <strong>Loop</strong>:<br>
+  <span class="math inline">\(\Delta \leftarrow 0\)</span><br>
+  <strong>Loop for each</strong> <span class="math inline">\(s \in \mathcal{S}\)</span>:<br>
+   <span class="math inline">\(v \leftarrow V(s)\)</span><br>
+   <span class="math inline">\(V(s) \leftarrow \sum_{s&#39;, r} p(s&#39;, r \mid s, \pi(s)) \left[ r + \gamma V(s&#39;) \right]\)</span><br>
+   <span class="math inline">\(\Delta \leftarrow \max(\Delta, |v - V(s)|)\)</span><br>
+ <strong>until</strong> <span class="math inline">\(\Delta &lt; \theta\)</span>（其中 <span class="math inline">\(\theta\)</span> 是一个决定估计精度的小正数）</p></li>
+<li><p><strong>Policy Improvement</strong><br>
+ <span class="math inline">\(\textit{policy-stable} \leftarrow \text{true}\)</span><br>
+ <strong>For each</strong> <span class="math inline">\(s \in \mathcal{S}\)</span>:<br>
+  <span class="math inline">\(\textit{old-action} \leftarrow \pi(s)\)</span><br>
+  <span class="math inline">\(\pi(s) \leftarrow \mathop{\arg\max}\limits_a \sum_{s&#39;, r} p(s&#39;, r \mid s, a) \left[ r + \gamma V(s&#39;) \right]\)</span><br>
+  <strong>If</strong> <span class="math inline">\(\textit{old-action} \ne \pi(s)\)</span>，<strong>then</strong> <span class="math inline">\(\textit{policy-stable} \leftarrow \text{false}\)</span><br>
+ <strong>If</strong> <span class="math inline">\(\textit{policy-stable}\)</span>，then：<br>
+  stop and return <span class="math inline">\(V \approx v_*\)</span>，<span class="math inline">\(\pi \approx \pi_*\)</span><br>
+ <strong>else</strong> go to step 2</p></li>
+</ol>
+</div>
+<h4 id="价值迭代">价值迭代</h4>
+<p>策略迭代的一个确定是，在每一次迭代过程中，都需要进行策略评估，而策略评估本身就是一个迭代过程（需要多次扫描整个状态空间，直到价值函数收敛到<span class="math inline">\(V_\pi\)</span>）。</p>
+<p>但是我们是否需要等到策略评估精确收敛之后，再进行策略提升？还是说我们可以在策略评估中只迭代几次就直接退出，然后直接进行策略提升呢？实施证明后者是可行的，即我们可以截断策略评估，其中一个比较特殊的截断方案是，我们在策略评估时，只扫描一次状态空间（每个状态只更新一次），这个算法就是<strong>价值迭代（Value Iteration）</strong>。</p>
+<p>结合策略提升和截断的策略评估，我们可以得到如下的更新方程：</p>
+<p><span class="math display">\[
+\begin{align*}    
+V_{k+1}(s) &amp;= \max_{a} \mathbb{E} \left[ R_{t+1} + \gamma V_k(S_{t+1}) \mid S_t = s, A_t = a \right] \\
+&amp;= \max_{a} \sum_{s&#39;, r} p(s&#39;, r \mid s, a) \left[ r + \gamma V_k(s&#39;) \right]
+\end{align*}
+\]</span></p>
+<p>另一个理解价值迭代的方法是通过贝尔曼最优方程。可以发现，价值迭代只是简单得将贝尔曼最优方程转换成了更新规则。</p>
+<p>最后，让我们考虑价值迭代的终止条件。像策略评估一样，价值迭代通常需要无限次的迭代才能完全收敛到<span class="math inline">\(V_*\)</span>。但是实际上，一旦在迭代过程中，价值函数的变化很小，我们就会停止。下面的框显示了具有这种终止条件的完整算法。</p>
+<div class="admonition admonition-note">
+<p class="admonition-title">Value Iteration. for estimating $\pi \approx \pi_*$ 
+</p>
+<p><strong>Algorithm parameter</strong>: a small threshold <span class="math inline">\(\theta &gt; 0\)</span> determining accuracy of estimation<br>
+Initialize <span class="math inline">\(V(s)\)</span>, for all <span class="math inline">\(s \in \mathcal{S}^+\)</span>, arbitrarily except that <span class="math inline">\(V(\text{terminal}) = 0\)</span></p>
+<p><strong>Loop</strong>:<br>
+ <span class="math inline">\(\Delta \leftarrow 0\)</span><br>
+ <strong>Loop for each</strong> <span class="math inline">\(s \in \mathcal{S}\)</span>:<br>
+  <span class="math inline">\(v \leftarrow V(s)\)</span><br>
+  <span class="math inline">\(V(s) \leftarrow \max_a \sum_{s&#39;, r} p(s&#39;, r \mid s, a) \left[ r + \gamma V(s&#39;) \right]\)</span><br>
+  <span class="math inline">\(\Delta \leftarrow \max(\Delta, |v - V(s)|)\)</span><br>
+<strong>until</strong> <span class="math inline">\(\Delta &lt; \theta\)</span></p>
+<p><strong>Output a deterministic policy</strong>, <span class="math inline">\(\pi \approx \pi_*\)</span>, such that<br>
+<span class="math inline">\(\pi(s) = \mathop{\arg\max}\limits_a \sum_{s&#39;, r} p(s&#39;, r \mid s, a) \left[ r + \gamma V(s&#39;) \right]\)</span></p>
+</div>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.narutozxp.top">narutozxp</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.narutozxp.top/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/">https://www.narutozxp.top/2025/05/08/RL%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.narutozxp.top" target="_blank">narutozxp</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/RL/">RL</a></div><div class="post_share"><div class="social-share" data-image="/img/34.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/05/22/SystemVerilog-For-Design/"><img class="prev-cover" src="/img/32.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">SystemVerilog For Design</div></div></a></div><div class="next-post pull-right"><a href="/2024/09/12/TLS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/"><img class="next-cover" src="/img/12.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">TLS握手流程</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">强化学习基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">强化学习概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B8%8E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.1.1.</span> <span class="toc-text">强化学习与监督学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="toc-number">1.1.2.</span> <span class="toc-text">强化学习的例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%8E%86%E5%8F%B2"><span class="toc-number">1.1.3.</span> <span class="toc-text">强化学习的历史</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%86%B3%E7%AD%96"><span class="toc-number">1.2.</span> <span class="toc-text">序列决策</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E4%B8%8E%E7%8E%AF%E5%A2%83"><span class="toc-number">1.2.1.</span> <span class="toc-text">智能体与环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%96%E5%8A%B1"><span class="toc-number">1.2.2.</span> <span class="toc-text">奖励</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%86%B3%E7%AD%96-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">序列决策</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E4%BD%9C%E7%A9%BA%E9%97%B4"><span class="toc-number">1.3.</span> <span class="toc-text">动作空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#agnet%E7%9A%84%E7%BB%84%E6%88%90%E6%88%90%E5%88%86%E5%92%8C%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.4.</span> <span class="toc-text">Agnet的组成成分和类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5"><span class="toc-number">1.4.1.</span> <span class="toc-text">策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.2.</span> <span class="toc-text">价值函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.4.3.</span> <span class="toc-text">模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.4.4.</span> <span class="toc-text">智能体类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E4%B8%8E%E8%A7%84%E5%88%92"><span class="toc-number">1.5.</span> <span class="toc-text">学习与规划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A2%E7%B4%A2%E5%92%8C%E5%88%A9%E7%94%A8"><span class="toc-number">1.6.</span> <span class="toc-text">探索和利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%AE%9E%E9%AA%8C"><span class="toc-number">1.7.</span> <span class="toc-text">强化学习实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#gymnasium"><span class="toc-number">1.7.1.</span> <span class="toc-text">Gymnasium</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#blackjack-v1%E5%8E%86%E7%A8%8B"><span class="toc-number">1.7.2.</span> <span class="toc-text">Blackjack-v1历程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E5%BB%BAagent"><span class="toc-number">1.7.2.1.</span> <span class="toc-text">构建agent</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83agent"><span class="toc-number">1.7.2.2.</span> <span class="toc-text">训练agent</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA%E4%B8%8E%E5%BB%BA%E6%A8%A1"><span class="toc-number">2.</span> <span class="toc-text">强化学习理论与建模</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B"><span class="toc-number">2.1.</span> <span class="toc-text">马尔可夫过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-number">2.1.1.</span> <span class="toc-text">马尔可夫的性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE"><span class="toc-number">2.1.2.</span> <span class="toc-text">马尔可夫链</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.1.3.</span> <span class="toc-text">隐马尔可夫模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.1.4.</span> <span class="toc-text">马尔可夫过程示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%A5%96%E5%8A%B1%E8%BF%87%E7%A8%8B"><span class="toc-number">2.2.</span> <span class="toc-text">马尔可夫奖励过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E6%8A%A5%E4%B8%8E%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0"><span class="toc-number">2.2.1.</span> <span class="toc-text">回报与价值函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%9D%E5%B0%94%E6%9B%BC%E6%96%B9%E7%A8%8B"><span class="toc-number">2.2.2.</span> <span class="toc-text">贝尔曼方程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E6%9C%9F%E6%9C%9B%E5%85%AC%E5%BC%8F"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">全期望公式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%9D%E5%B0%94%E6%9B%BC%E6%96%B9%E7%A8%8B%E6%8E%A8%E5%AF%BC"><span class="toc-number">2.2.2.2.</span> <span class="toc-text">贝尔曼方程推导</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%A5%96%E5%8A%B1%E8%BF%87%E7%A8%8B%E4%BB%B7%E5%80%BC%E7%9A%84%E8%BF%AD%E4%BB%A3%E7%AE%97%E6%B3%95"><span class="toc-number">2.2.3.</span> <span class="toc-text">计算马尔可夫奖励过程价值的迭代算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%A5%96%E5%8A%B1%E8%BF%87%E7%A8%8B%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="toc-number">2.2.4.</span> <span class="toc-text">马尔可夫奖励过程的例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B"><span class="toc-number">2.3.</span> <span class="toc-text">马尔可夫决策过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B%E7%9A%84%E7%AD%96%E7%95%A5"><span class="toc-number">2.3.1.</span> <span class="toc-text">马尔可夫决策过程的策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B%E4%B8%8E%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%A5%96%E5%8A%B1%E8%BF%87%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.3.2.</span> <span class="toc-text">马尔可夫决策过程与马尔可夫奖励过程的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0"><span class="toc-number">2.3.3.</span> <span class="toc-text">马尔可夫决策过程中的价值函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%9D%E5%B0%94%E6%9B%BC%E6%9C%9F%E6%9C%9B%E6%96%B9%E7%A8%8B"><span class="toc-number">2.3.4.</span> <span class="toc-text">贝尔曼期望方程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E4%BC%98%E7%AD%96%E7%95%A5%E4%B8%8E%E6%9C%80%E4%BC%98%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0"><span class="toc-number">2.3.5.</span> <span class="toc-text">最优策略与最优价值函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E6%B5%8B%E4%B8%8E%E6%8E%A7%E5%88%B6"><span class="toc-number">2.3.6.</span> <span class="toc-text">预测与控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="toc-number">2.3.7.</span> <span class="toc-text">马尔可夫决策过程控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E5%9B%BE"><span class="toc-number">2.3.8.</span> <span class="toc-text">备份图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-number">2.3.9.</span> <span class="toc-text">动态规划</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E8%AF%84%E4%BC%B0"><span class="toc-number">2.3.9.1.</span> <span class="toc-text">策略评估</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%8F%90%E5%8D%87"><span class="toc-number">2.3.9.2.</span> <span class="toc-text">策略提升</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3"><span class="toc-number">2.3.9.3.</span> <span class="toc-text">策略迭代</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%B7%E5%80%BC%E8%BF%AD%E4%BB%A3"><span class="toc-number">2.3.9.4.</span> <span class="toc-text">价值迭代</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script type="text/javascript" id="maid-script" src="https://unpkg.com/mermaid@11.12.1/dist/mermaid.min.js"></script><script>if (window.mermaid) {
+  var options = JSON.parse(document.getElementById('maid-script').getAttribute('mermaidoptioins'));
+  mermaid.initialize(options);
+}</script><script src="/js/twikoo_emotion_biger.js"></script><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo.narutozxp.top',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.narutozxp.top',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo@1/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/narutozxp/live2d-widget@latest/autoload.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

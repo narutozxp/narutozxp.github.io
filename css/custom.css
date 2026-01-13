@@ -1,0 +1,806 @@
+#content-inner.layout h1::before {
+    color: #000000;
+    margin-left: -1.55rem;
+    font-size: 1.3rem;
+    margin-top: -0.23rem;
+}
+
+#content-inner.layout h2::before {
+    color: #000000;
+    margin-left: -1.35rem;
+    font-size: 1.1rem;
+    margin-top: -0.12rem;
+}
+
+#content-inner.layout h3::before {
+    color: #000000;
+    margin-left: -1.22rem;
+    font-size: 0.95rem;
+    margin-top: -0.09rem;
+}
+
+#content-inner.layout h4::before {
+    color: #000000;
+    margin-left: -1.05rem;
+    font-size: 0.8rem;
+    margin-top: -0.09rem;
+}
+
+#content-inner.layout h5::before {
+    color: #000000;
+    margin-left: -0.9rem;
+    font-size: 0.7rem;
+    margin-top: 0.0rem;
+}
+
+#content-inner.layout h6::before {
+    color: #000000;
+    margin-left: -0.9rem;
+    font-size: 0.66rem;
+    margin-top: 0.0rem;
+}
+
+.jg-caption {
+    text-align: center !important;
+}
+
+/*
+#article-container h1:before {
+  content: "H₁、";
+}
+#article-container h2:before {
+  content: "H₂、";
+}
+#article-container h3:before {
+  content: "H₃、";
+}
+#article-container h4:before {
+  content: "H₄、";
+}
+#article-container h5:before {
+  content: "H₅、";
+}
+#article-container h6:before {
+  content: "H₆、";
+}
+*/
+
+
+#footer {
+    background: transparent;
+}
+
+.mermaid {
+    background: transparent !important;
+
+    /*reduce blank for more content
+ padding: 0 !important;
+ margin: 0 !important;
+*/
+    /*pic center*/
+    text-align: center;
+}
+
+
+/*
+github style alert
+*/
+:root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+}
+
+.markdown-alert {
+    padding: 0.5rem 1rem;
+    margin-bottom: 16px;
+    color: inherit;
+    border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+    margin-top: 0 !important
+}
+
+.markdown-alert>:last-child {
+    margin-bottom: 0 !important
+}
+
+.markdown-alert .markdown-alert-title {
+    display: flex;
+    font-weight: 500;
+    align-items: center;
+    line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+    margin-right: 0.5rem;
+    display: inline-block;
+    overflow: visible !important;
+    vertical-align: text-bottom;
+    fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+    border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+    color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+    border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+    color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+    border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+    color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+    border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+    color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+    border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+    color: var(--color-caution);
+}
+
+/* 三线表 */
+.table-wrap>table {
+    /* 三线表第一条线宽度 */
+    border-top: 1.5pt solid !important;
+    /* 三线表底部线宽度 */
+    border-bottom: 1.5pt solid !important;
+}
+
+.table-wrap>table tr {
+    border-top: 0pt solid var(--light-grey);
+}
+
+.table-wrap>table thead {
+    /* 三线表中间的线 */
+    border-bottom: 0.75pt solid !important;
+}
+
+.table-wrap>table tr th {
+    border: 0pt solid var(--light-grey);
+}
+
+.table-wrap>table tr td {
+    border: 0pt solid var(--light-grey);
+}
+/* 相邻颜色不同 */
+table tr:nth-child(2n) {
+    background-color: #fafafa;
+}
+
+/* 居中wavedrom */
+/* [id^="WaveDrom_Display"] {
+    text-align: center;
+} */
+.WaveDrom {
+    /* max-width: 100%; */
+    height: auto;
+    display: block;
+    margin: auto auto;
+}
+svg {
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+/* admonition style */
+/* Material Icons 这个字体用来作图标 */
+/* 新版的 */
+@font-face {
+    font-family: 'Material Symbols Outlined';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/materialsymbolsoutlined/v199/kJEhBvYX7BgnkSrUwT8OhrdQw4oELdPIeeII9v6oFsI.woff2) format('woff2');
+}
+
+/* 老版的 */
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://cdn.bootcdn.net/ajax/libs/material-design-icons/2.0.0/iconfont/MaterialIcons-Regular.woff2) format('woff2');
+}
+
+
+.admonition {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12), 0 3px 1px -2px rgba(0, 0, 0, .2);
+    position: relative;
+    margin: 1.5625em 0;
+    padding: 0 1.2rem;
+    border-left: .4rem solid rgba(68, 138, 255, .8);
+    border-radius: .2rem;
+    background-color: rgba(255, 255, 255, .05);
+    overflow: hidden;
+}
+#article-container .admonition >p {
+    margin-top: .8rem;
+    margin-bottom: 16px;
+}
+.admonition-title {
+    margin: 0 -1.2rem 16px -1.2rem !important;
+    padding: .8rem 1.2rem .8rem 3.6rem;
+    border-bottom: 1px solid rgba(68,138,255,.2);
+    background-color: rgba(68, 138, 255, .1);
+    font-weight: 700;
+    /* font-size: 1rem; */
+}
+
+/* 解决admonition title中有公式的时候，会偏窄 */
+.admonition-title.has-jax {
+    line-height: 2 !important;
+}
+
+.admonition-title::before {
+    /* font-family: Material Icons; */
+    font-family: 'Material Symbols Outlined';
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 2rem;
+    text-transform: none;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    position: absolute;
+    left:1.2rem;
+    font-size: 1.5rem;
+    color: rgba(68,138,255,.8);
+    content: "\E3C9";
+}
+
+.admonition.admonition-note {
+    border-left-color: rgba(68, 138, 255, .8);
+}
+.admonition-note>.admonition-title::before {
+    color: rgba(68,138,255,.8);
+    content: "\E3C9";
+}
+.admonition-note>.admonition-title {
+    background-color: rgba(68, 138, 255, .1);
+    border-bottom-color: rgba(68,138,255,.2);
+}
+
+.admonition.admonition-summary, .admonition.admonition-abstract {
+    border-left-color: rgba(0,176,255,.8);
+}
+.admonition-summary>.admonition-title::before, .admonition-abstract>.admonition-title::before {
+    color: #00b0ff;
+    content: "\E8D2";
+}
+.admonition-summary>.admonition-title, .admonition-abstract>.admonition-title{
+    background-color: rgba(0,176,255,.1);
+    border-bottom-color: rgba(0,176,255,.2);
+}
+
+.admonition.admonition-info {
+    border-left-color: rgba(0,184,212,.8);
+}
+.admonition-info>.admonition-title::before {
+    color: #00b8d4;
+    content: "\E88E";
+}
+.admonition-info>.admonition-title{
+    background-color: rgba(0,184,212,.1);
+    border-bottom-color: rgba(0,184,212,.2);
+}
+
+.admonition.admonition-tip {
+    border-left-color: rgba(0,191,165,.8);
+}
+.admonition-tip>.admonition-title::before {
+    color: #00bfa5;
+    content: "\EA24";
+}
+.admonition-tip>.admonition-title{
+    background-color: rgba(0,191,165,.1);
+    border-bottom-color: rgba(0,191,165,.2);
+}
+
+.admonition.admonition-success {
+    border-left-color: rgba(0,200,83,.8);
+}
+.admonition-success>.admonition-title::before {
+    color: #00c853;
+    content: "\E876";
+}
+.admonition-success>.admonition-title{
+    background-color: rgba(0,200,83,.1);
+    border-bottom-color: rgba(0,200,83,.2);
+}
+
+.admonition.admonition-question {
+    border-left-color: rgba(100,221,23,.8);
+}
+.admonition-question>.admonition-title::before {
+    color: #64dd17;
+    content: "\E887";
+}
+.admonition-question>.admonition-title{
+    background-color: rgba(100,221,23,.1);
+    border-bottom-color: rgba(100,221,23,.2);
+}
+
+.admonition.admonition-warning, .admonition.admonition-caution{
+    border-left-color: rgba(255,145,0,.8);
+}
+.admonition-warning>.admonition-title::before, .admonition-caution>.admonition-title::before{
+    color: #ff9100;
+    content: "\E002";
+}
+.admonition-warning>.admonition-title, .admonition-caution>.admonition-title{
+    background-color: rgba(255,145,0,.1);
+    border-bottom-color: rgba(255,145,0,.2);
+}
+
+.admonition.admonition-failure, .admonition.admonition-error{
+    border-left-color: rgba(255,82,82,.8);
+}
+.admonition-failure>.admonition-title::before, .admonition-error>.admonition-title::before {
+    color: #ff5252;
+    content: "\E14C";
+}
+.admonition-failure>.admonition-title,.admonition-error>.admonition-title{
+    background-color: rgba(255,82,82,.1);
+    border-bottom-color: rgba(255,82,82,.2);
+}
+
+.admonition.admonition-danger {
+    border-left-color: rgba(255,23,68,.8);
+}
+.admonition-danger>.admonition-title::before {
+    color: #ff1744;
+    content: "\E3e7";
+}
+.admonition-danger>.admonition-title{
+    background-color: rgba(255,23,68,.1);
+    border-bottom-color: rgba(255,23,68,.2);
+}
+
+.admonition.admonition-bug {
+    border-left-color: rgba(255,23,68,.8);
+}
+.admonition-bug>.admonition-title::before {
+    color: #ff1744;
+    content: "\E868";
+}
+.admonition-bug>.admonition-title{
+    background-color: rgba(255,23,68,.1);
+    border-bottom-color: rgba(255,23,68,.2);
+}
+
+.admonition.admonition-example{
+    border-left-color: rgba(0,184,212,.8);
+}
+.admonition-example>.admonition-title::before {
+    color: #00b8d4;
+    content: "\E242";
+}
+.admonition-example>.admonition-title{
+    background-color: rgba(0,184,212,.1);
+    border-bottom-color: rgba(0,184,212,.2);
+}
+
+.admonition.admonition-quote{
+    border-left-color: rgba(158,158,158,.8);
+}
+.admonition-quote>.admonition-title::before {
+    font-family: 'Material Icons';
+    color: #9e9e9e;
+    content: "\E244";
+}
+.admonition-quote>.admonition-title{
+    background-color: rgba(158,158,158,.1);
+    border-bottom-color: rgba(158,158,158,.2);
+}
+
+.admonition.admonition-attention{
+    border-left-color: rgba(255,145,0,.8);
+}
+.admonition-attention>.admonition-title::before {
+    color: #ff9100;
+    content: "\E417";
+}
+.admonition-attention>.admonition-title{
+    background-color: rgba(255,145,0,.1);
+    border-bottom-color: rgba(255,145,0,.2);
+}
+
+.admonition.admonition-todo {
+    border-left-color: rgba(68, 138, 255, .8);
+}
+.admonition-todo>.admonition-title::before {
+    color: rgba(68,138,255,.8);
+    content: "\E6B1";
+}
+.admonition-todo>.admonition-title {
+    background-color: rgba(68, 138, 255, .1);
+    border-bottom-color: rgba(68,138,255,.2);
+}
+
+.admonition.admonition-missing {
+    border-left-color: rgba(68, 138, 255, .8);
+}
+.admonition-missing>.admonition-title::before {
+    color: rgba(68,138,255,.8);
+    content: "\E510";
+}
+.admonition-missing>.admonition-title {
+    background-color: rgba(68, 138, 255, .1);
+    border-bottom-color: rgba(68,138,255,.2);
+}
+
+/* .admonition>:last-child {
+    margin-bottom: 0 !important;
+} */
+
+.MathJax {
+    font-size: 113% !important;
+}
+
+#article-container pre,#article-container code {
+    tab-size: 4;
+}
+
+/*aplayer日间模式调整*/
+/*背景色*/
+.aplayer{
+	background: rgba(255, 255, 255, 0.60)!important;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07),0 1px 5px 0 rgba(0,0,0,.1);
+	position: relative;
+}
+.aplayer.aplayer-fixed .aplayer-lrc:after,.aplayer.aplayer-fixed .aplayer-lrc:before {
+	display: none
+}
+.aplayer.aplayer.aplayer-fixed .aplayer-body{
+	background:rgba(255, 255, 255, 0.60)!important;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.07),0 1px 5px 0 rgba(0,0,0,.1);
+	position: fixed;
+}
+/*毛玻璃效果*/
+.aplayer-list{
+	backdrop-filter: blur(3px);
+}
+.aplayer-info{
+	backdrop-filter: blur(3px);
+}
+/*滚动条*/
+.aplayer .aplayer-list ol::-webkit-scrollbar {
+	width: 5px
+}
+.aplayer .aplayer-list ol::-webkit-scrollbar-thumb {
+	border-radius: 3px;
+	background-color: #b0e1ff
+}
+.aplayer .aplayer-list ol::-webkit-scrollbar-thumb:hover {
+	background-color: #b0e1ff
+}
+/*圆角*/
+.aplayer.aplayer-fixed .aplayer-list{
+    border-radius: 6px 6px 0 0!important;
+}
+.aplayer.aplayer-fixed .aplayer-miniswitcher{
+    border-radius: 0 6px 6px 0!important;
+}
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body{
+    transition: 0.28s!important;
+    border-radius: 6px!important;
+}	
+/*选中与播放中歌曲激活颜色*/
+.aplayer .aplayer-list ol li:hover{
+    background: #b0e1ff!important;
+}
+.aplayer .aplayer-list ol li.aplayer-list-light{
+    background: #ffdffa!important;
+}
+
+/*aplayer黑暗模式*/
+[data-theme=dark]
+.aplayer{
+    background: rgba(22, 22, 22, 0.60)!important;
+    color: rgb(255, 255, 255);
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.07),0 1px 5px 0 rgba(0,0,0,.1);
+}
+[data-theme=dark]
+.aplayer.aplayer-fixed .aplayer-body{
+    background: rgba(22, 22, 22, 0.60)!important;
+    color: rgb(255, 255, 255);
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.07),0 1px 5px 0 rgba(0,0,0,.1);
+}
+[data-theme=dark]
+.aplayer .aplayer-info .aplayer-controller .aplayer-time .aplayer-icon path{
+	fill: #d4d4d4;
+}
+[data-theme=dark]	
+.aplayer .aplayer-list ol li:hover{
+    background: #407290!important;
+}
+[data-theme=dark]
+.aplayer .aplayer-list ol li.aplayer-list-light{
+    background: #9c8098!important;
+}
+[data-theme=dark]
+.aplayer .aplayer-info .aplayer-controller .aplayer-time{
+    color: #d4d4d4;
+}
+[data-theme=dark]
+.aplayer .aplayer-list ol li .aplayer-list-index{
+    color: #d4d4d4;
+}
+[data-theme=dark]
+.aplayer .aplayer-list ol li .aplayer-list-author{
+    color: #d4d4d4;
+}
+
+/* twikoo评论美化 */
+/* 自定义twikoo评论输入框高度 */
+#twikoo .el-textarea textarea {
+    min-height: 190px !important;
+    background-size: 90px;
+}
+
+  
+/* 自定义表情优化 */
+#twikoo .OwO-body {
+    max-width: 100% !important;
+}
+/* 选择某个框 #twikoo .OwO .OwO-body .OwO-items:nth-child(1) */
+#twikoo .OwO .OwO-body .OwO-items {
+    max-height: 250px !important;
+}
+  
+.OwO .OwO-body .OwO-items-image .OwO-item {
+    max-width: calc(9% - 10px);
+    box-sizing: content-box;
+}
+.OwO .OwO-body .OwO-items-image .OwO-item[title|="Heybox"],
+.OwO .OwO-body .OwO-items-image .OwO-item[title|="Tieba"],
+.OwO .OwO-body .OwO-items-show .OwO-item[title*="bilibili"] {
+    max-width: calc(7% - 10px) !important;
+    box-sizing: content-box;
+}
+
+#twikoo .OwO-items li img {
+    width: 100% !important;
+}
+
+
+.tk-preview-container .vemoji[alt|="Menhera"],
+.tk-preview-container .tk-owo-emotion[alt*="Menhera"],
+.tk-preview-container .vemoji[alt|="Snow"],
+.tk-preview-container .tk-owo-emotion[alt*="Snow"],
+.tk-preview-container .vemoji[alt|="Sweetie"],
+.tk-preview-container .tk-owo-emotion[alt*="Sweetie"],
+.tk-preview-container .vemoji[alt|="Tsuri"],
+.tk-preview-container .tk-owo-emotion[alt*="Tsuri"],
+.tk-preview-container .vemoji[alt|="Yurui"],
+.tk-preview-container .tk-owo-emotion[alt*="Yurui"]
+.tk-comment .vemoji[alt|="Menhera"],
+.tk-comment .tk-owo-emotion[alt*="Menhera"],
+.tk-comment .vemoji[alt|="Snow"],
+.tk-comment .tk-owo-emotion[alt*="Snow"],
+.tk-comment .vemoji[alt|="Sweetie"],
+.tk-comment .tk-owo-emotion[alt*="Sweetie"],
+.tk-comment .vemoji[alt|="Tsuri"],
+.tk-comment .tk-owo-emotion[alt*="Tsuri"],
+.tk-comment .vemoji[alt|="Yurui"],
+.tk-comment .tk-owo-emotion[alt*="Yurui"] {
+    max-width: 120px !important;
+    max-height: 120px !important;
+    width: 120px;
+    margin: 8px 1px;
+    display: block !important;
+}
+
+/* 图片与问题底部对齐 */
+.tk-content img,
+.tk-preview-container img{
+    vertical-align: bottom !important;
+}
+
+.tk-preview-container img{
+    max-width: 300px;
+    max-height: 300px;
+}
+
+/* 鼠标悬浮，表情包变大 */
+#owo-big {
+    position: fixed;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    border: 1px #aaa solid;
+    border-radius: 10px;
+    z-index: 9999;
+    display: none;
+    transform: translate(0, -105%);
+    overflow: hidden;
+    animation: owoIn 0.3s cubic-bezier(0.42, 0, 0.3, 1.11);
+}
+
+[data-theme=dark] #owo-big {
+    background-color: #4a4a4a
+}
+
+#owo-big img {
+    width: 100%;
+}
+
+/* 动画效果代码由 Heo：https://blog.zhheo.com/ 提供 */
+@keyframes owoIn {
+    0% {
+        transform: translate(0, -95%);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(0, -105%);
+        opacity: 1;
+    }
+}
+  
+/* 手机端适配 */
+@media screen and (max-width: 768px) {
+    .tk-comment .vemoji[alt|="Menhera"],
+    .tk-comment .tk-owo-emotion[alt*="Menhera"],
+    .tk-comment .vemoji[alt|="Snow"],
+    .tk-comment .tk-owo-emotion[alt*="Snow"],
+    .tk-comment .vemoji[alt|="Sweetie"],
+    .tk-comment .tk-owo-emotion[alt*="Sweetie"],
+    .tk-comment .vemoji[alt|="Tsuri"],
+    .tk-comment .tk-owo-emotion[alt*="Tsuri"],
+    .tk-comment .vemoji[alt|="Yurui"],
+    .tk-comment .tk-owo-emotion[alt*="Yurui"] {
+        max-width: calc(100% - 30px) !important;
+        max-height: calc(100% - 30px) !important;
+    }
+    .OwO .OwO-body .OwO-items-image .OwO-item[title*="Menhera"],
+    .OwO .OwO-body .OwO-items-image .OwO-item[title*="Snow"],
+    .OwO .OwO-body .OwO-items-image .OwO-item[title*="Sweetie"],
+    .OwO .OwO-body .OwO-items-image .OwO-item[title*="Tsuri"],
+    .OwO .OwO-body .OwO-items-image .OwO-item[title*="Yurui"] {
+        max-width: calc(33% - 10px);
+        box-sizing: border-box;
+    }
+    .OwO .OwO-body .OwO-items-image .OwO-item[title*="Heybox"],
+    .OwO .OwO-body .OwO-items-image .OwO-item[title*="bilibili"],
+    .OwO .OwO-body .OwO-items-image .OwO-item[title*="Tieba"],
+    .OwO .OwO-body .OwO-items-image .OwO-item[title*="QQ"] {
+        max-width: calc(18% - 10px) !important;
+        box-sizing: content-box;
+    }
+}
+  
+  /* 右下角闭眼 */
+.tk-input .el-textarea__inner {
+    background-image: url(/img/open.webp) !important;
+}
+.tk-input .el-textarea__inner:focus {
+    background-image: url(/img/close.webp) !important;
+}
+
+/* abcjs style */
+.abcjs-highlight {
+    fill: #0a9ecc;
+}
+.abcjs-cursor {
+    stroke: red;
+}
+
+.abcjs-buttons {
+    font-size: 15px;
+    padding: 5px 10px;
+    margin: 5px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background: none;
+    color: #000;
+    cursor: pointer;
+    transition: color 0.3s, border-color 0.3s;
+    display: inline-block;
+}
+.abcjs-inline-audio {
+    background-color: transparent !important;
+}
+.abcjs-inline-audio .abcjs-btn {
+    background: none !important;
+}
+
+.abcjs-inline-audio .abcjs-midi-progress-background {
+    background-color: #cccccc !important;
+    border: 2px solid #cccccc !important;
+}
+
+.abcjs-inline-audio .abcjs-midi-progress-indicator {
+    background-color: #666666 !important;
+}
+
+.abcjs-inline-audio .abcjs-midi-clock {
+    color: #666666 !important;
+}
+.abcjs-inline-audio .abcjs-tempo-wrapper {
+    color: #666666 !important;
+}
+.abcjs-btn g {
+    fill: #666666 !important;
+    stroke: #666666 !important;
+}
+.abcjs-inline-audio .abcjs-btn:hover g {
+    fill: #666666 !important;
+    stroke: #666666 !important;
+}
+
+
+/* poem样式配置 */
+.poem-reel {
+     width: 22px;
+
+    border-image-slice: 36 42 36 42 fill;
+    border-image-width: 12px 14px 12px 14px;
+    border-image-outset: 12px 0px 12px 0px;
+    border-image-repeat: stretch stretch;
+    border-image-source: url(/img/poem_reel.webp);
+
+    box-shadow: 5px 0 10px 5px rgba(0, 0, 0, 0.3),
+        10px 0 20px 10px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+
+    position: absolute; 
+    left: 0;
+    top: 12px;
+    bottom: 12px; 
+}
+.poem {
+    inline-size: max-content;
+    justify-content: center;
+    overflow-x: auto;
+
+    padding-top: 38px; 
+    padding-right: 34px; 
+    padding-bottom: 38px; 
+    padding-left: 34px;
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+}
+.poem-wrap{
+    position: relative;
+    inline-size: max-content;
+    max-inline-size: 100%;
+    margin: 0 auto;
+    background-color: #f5ebd4;
+    background-image: url(/img/poem_background.webp);
+    background-size: 100% calc(100% - 24px);
+    background-position: center 12px;
+    background-repeat: no-repeat;  
+    
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+.poem::-webkit-scrollbar-thumb {
+  background-image: url(/img/poem_background.webp);
+  background-size: cover;
+  border-radius: 6px;
+}
